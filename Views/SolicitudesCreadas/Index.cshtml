@@ -1,0 +1,30 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/Estilos/cssSeleccion.css" asp-append-version="true" />
+}
+
+<div class="container-fluid col-12 col-md-8 col-lg-7 col-xl-6 text-center">
+    <br /><br /><br />
+    <div class="d-flex gap-3 justify-content-center align-items-center" style="height: 3rem;">
+        <a class="btn btn-outline-secondary d-flex p-2" asp-controller="Inicio" asp-action="Index">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h3 class="m-0">Solicitudes Creadas</h3>
+    </div>
+    <br /><br /><br />
+    <div class="d-flex justify-content-center align-items-center g-4 mt-5 gap-3 gap-md-4 gap-lg-5">
+        <div class="item-solicitud text-white rounded-3 p-3 d-flex flex-column shadow" style="width: 17rem; height: 15rem;">
+            <h2 class="card-title fw-bold mt-5">SPRFM</h2>
+            <div class="card-subtitle mt-3" style="font-size: .94rem;">
+                Solicitud de permisos al Subsistema de Planeación, Recursos Financieros y Materiales
+            </div>
+            <a asp-controller="Sprfm" asp-action="Index" class="stretched-link"></a>
+        </div>
+        <div class="item-solicitud text-white rounded-3 p-3 d-flex flex-column shadow" style="width: 17rem; height: 15rem;">
+            <h2 class="card-title fw-bold mt-5">SIISU</h2>
+            <div class="card-subtitle mt-3" style="font-size: .94rem;">
+                Solicitud de Permisos al Subsistema de Recursos Humanos
+            </div>
+            <a asp-controller="Siisu" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,14 @@
+﻿.form-control, .form-check-input {
+    border: 1px solid #b3b3b3 !important;
+}
+
+.custom-tab {
+    border: 1px solid #dee2e6;
+    color: #053a89 !important;
+    background-color: #dfecff !important;
+}
+
+    .custom-tab.active, .custom-tab:hover {
+        color: #ffff !important;
+        background-color: #0d6efd !important;
+    }

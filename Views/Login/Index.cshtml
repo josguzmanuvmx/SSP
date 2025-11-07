@@ -1,11 +1,14 @@
 ﻿@using SSP.ViewModels
 @model VmIniciarSesion
 
+@{
+    Layout = "_LayoutLogin";
+}
 @section Styles {
-    <link rel="stylesheet" href="~/css/Estilos/cssLogin.css" />
+    <link rel="stylesheet" href="~/css/Estilos/cssLogin.css" asp-append-version="true" />
 }
 @section Scripts {
-    <script src="~/js/Scripts/jsLogin.js"></script>
+    <script src="~/js/Scripts/jsLogin.js" asp-append-version="true"></script>
 }
 
 <img class="login-image d-none d-md-flex col-md-6 z-0 h-100" style="object-fit: cover;" src="@Url.Content("~/images/Logueo_Egresados.jpg")" alt="Imagen login SiSProI" />
@@ -14,9 +17,10 @@
         <div class="d-flex justify-content-end mb-5">
             <a class="pleca fs-6 p-4 pt-1 pb-1" style="color: #ffff; background-color: #0D47A1; " href="https://www.uv.mx">Universidad Veracruzana</a>
         </div>
+        <br />
         <div class="text-center">
             <div class="container-fluid">
-                <div class="display-5 mb-3" style="color: #036; font-weight: 400;">
+                <div class="display-5 mb-5 pb-2" style="color: #036; font-weight: 400;">
                     Sistema de Solicitud<br />
                     de Permisos (SSP)<br />
                 </div>
@@ -26,7 +30,7 @@
             </div>
 
             <!-- Formulario de inicio de sesión -->
-            <form class="d-flex justify-content-center" method="post" asp-action="IniciarSesion">
+            <form id="form-login" class="d-flex justify-content-center" method="post" asp-action="IniciarSesion">
                 <div class="d-flex flex-column mt-3 gap-4 col-11 col-xs-11 col-sm-10 col-md-10 col-lg-10 col-xl-10 col-xxl-7">
                     <div class="d-flex">
                         <div class="col-1"></div>
@@ -35,7 +39,7 @@
                     </div>
                     <div class="d-flex">
                         <div class="col-1"></div>
-                        <input asp-for="SContra" class="form-control" type="password" maxlength="20" placeholder="Contraseña" autocomplete="current-password" required />
+                        <input id="txtContra" asp-for="SContra" class="form-control" type="password" maxlength="20" placeholder="Contraseña" autocomplete="current-password" required />
                         <div class="align-content-center col-1">
                             <button class="btn btn-sm p-0 ms-1 d-flex justify-content-center align-items-center text-muted" style="width: 2rem;" type="button" onclick="alternarContrasena()">
                                 <i id="contrasenaIcono" class="fa-solid fa-eye-slash fs-5 pt-1"></i>
@@ -44,12 +48,11 @@
                     </div>
                     <div class="d-flex">
                         <div class="col-1"></div>
-                        <button id="" class="btn btn-primary btn-lg w-100" type="submit">Iniciar sesión</button>
+                        <button id="btn-login" class="btn btn-primary btn-lg w-100" type="submit">Iniciar sesión</button>
                         <div class="col-1"></div>
                     </div>
                 </div>
             </form>
-            <a class="btn btn-primary m-3" asp-action="IniciarSesion">Inicio rápido</a>
         </div>
     </div>
 </div>

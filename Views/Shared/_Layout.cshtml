@@ -13,12 +13,50 @@
 </head>
 <body>
     <div class="d-flex flex-column w-100 h-100">
+        <header>
+            <div class="header" bis_skin_checked="1" style="text-align:right">
+                <div class="header-right-1" style="background-color: #0d47a1;" bis_skin_checked="1">
+                    <span class="spanUV" style="margin-right:12px; color:white"><b>Universidad Veracruzana</b></span>
+                </div>
+            </div>
+            <nav class="navbar navbar-expand-lg text-white" style="background-color: #303f9f;">
+                <a class="navbar-brand btn btn-link" style="box-shadow: none; text-decoration: none;" asp-action="Index">
+                    <span class="text-white">
+                        Sistema de Solicitud de Permisos
+                    </span>
+                </a>
+
+                <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" id="listadesplegable" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <span class="fs-6">JOSÉ ÁNGEL GUZMÁN ZAVALETA</span>
+                                <i class="fa-solid fa-circle-user fa-2x ms-2 text-white" style="color: rgba(204, 197, 197, 0.95);"></i>
+                            </a>
+                            <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="listadesplegable">
+                                <li>
+                                    @* <form asp-action="Index" asp-controller="Login" method="get"> *@
+                                    <form asp-action="Index" asp-controller="Login">
+                                        <button class="dropdown-item" style="color: #000;">
+                                            <i class="fa fa-sign-out"></i>
+                                            <span>Cerrar Sesión</span>
+                                        </button>
+                                    </form>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+        </header>
         <main role="main" class="d-flex w-100 h-100 overflow-auto">
             @RenderBody()
         </main>
         <footer class="d-flex justify-content-center align-items-center py-1" style="background-color: #0d47a1;">
             <div class="text-center">
-                <span class="mb-3 mb-md-0 text-white" style="font-size: 12.8px;">© 2024 Universidad Veracruzana</span>
+                <span class="mb-3 mb-md-0 text-white" style="font-size: 12.8px;">
+                    © @DateTime.Now.Year Universidad Veracruzana
+                </span>
             </div>
         </footer>
     </div>

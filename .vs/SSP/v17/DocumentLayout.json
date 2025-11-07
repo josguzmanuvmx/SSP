@@ -3,68 +3,64 @@
   "WorkspaceRootPath": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\viewmodels\\vmsolisiisu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:viewmodels\\vmsolisiisu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\viewmodels\\vminiciarsesion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:viewmodels\\vminiciarsesion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\viewmodels\\vmsolisprfm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:viewmodels\\vmsolisprfm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\sprfm\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\sprfm\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\models\\mousuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:models\\mousuario.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\siisu\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\siisu\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\ssp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:ssp.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\data\\dalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:data\\dalogin.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\seleccion\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\seleccion\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\home\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\inicio\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\inicio\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\siisucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\siisucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jsinicio.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jsinicio.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\css\\estilos\\cssinicio.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\css\\estilos\\cssinicio.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\css\\estilos\\csslogin.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\css\\estilos\\csslogin.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\sprfmcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\sprfmcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jslogin.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jslogin.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\shared\\_layout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\css\\site.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jssprfm.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jssprfm.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\css\\estilos\\csssprfm.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\css\\estilos\\csssprfm.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\css\\estilos\\csssiisu.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\css\\estilos\\csssiisu.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jssiisu.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jssiisu.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -74,214 +70,193 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 2,
+          "SelectedChildIndex": 11,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "MoUsuario.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Models\\MoUsuario.cs",
-              "RelativeDocumentMoniker": "Models\\MoUsuario.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Models\\MoUsuario.cs",
-              "RelativeToolTip": "Models\\MoUsuario.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T00:54:24.436Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "appsettings.json",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\appsettings.json",
-              "RelativeDocumentMoniker": "appsettings.json",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\appsettings.json",
-              "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAzAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2025-10-25T00:37:56.508Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 0,
-              "Title": "ApplicationDbContext.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\ApplicationDbContext.cs",
-              "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\ApplicationDbContext.cs",
-              "RelativeToolTip": "Data\\ApplicationDbContext.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T00:32:35.454Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "DaLogin.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\DaLogin.cs",
-              "RelativeDocumentMoniker": "Data\\DaLogin.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\DaLogin.cs",
-              "RelativeToolTip": "Data\\DaLogin.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABkAAAAFAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-25T00:31:54.048Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "SSP",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\SSP.csproj",
-              "RelativeDocumentMoniker": "SSP.csproj",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\SSP.csproj",
-              "RelativeToolTip": "SSP.csproj",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
-              "WhenOpened": "2025-10-25T00:31:25.014Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "cssLogin.css",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssLogin.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\Estilos\\cssLogin.css",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssLogin.css",
-              "RelativeToolTip": "wwwroot\\css\\Estilos\\cssLogin.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-25T00:26:16.929Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "VmIniciarSesion.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmIniciarSesion.cs",
-              "RelativeDocumentMoniker": "ViewModels\\VmIniciarSesion.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmIniciarSesion.cs",
-              "RelativeToolTip": "ViewModels\\VmIniciarSesion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T23:49:35.353Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "jsLogin.js",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsLogin.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsLogin.js",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsLogin.js",
-              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsLogin.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA8AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-10-24T23:36:12.751Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "cssInicio.css",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssInicio.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\Estilos\\cssInicio.css",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssInicio.css",
-              "RelativeToolTip": "wwwroot\\css\\Estilos\\cssInicio.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAMAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-24T23:21:06.863Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "jsInicio.js",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsInicio.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsInicio.js",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsInicio.js",
-              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsInicio.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAIABAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-10-24T23:17:13.546Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Home\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Home\\Index.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Home\\Index.cshtml",
-              "RelativeToolTip": "Views\\Home\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAgAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Seleccion\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Seleccion\\Index.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Seleccion\\Index.cshtml",
+              "RelativeToolTip": "Views\\Seleccion\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-24T22:31:26.048Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "site.css",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\site.css",
-              "RelativeDocumentMoniker": "wwwroot\\css\\site.css",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\site.css",
-              "RelativeToolTip": "wwwroot\\css\\site.css",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
-              "WhenOpened": "2025-10-24T21:26:05.361Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "_Layout.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Shared\\_Layout.cshtml",
-              "RelativeDocumentMoniker": "Views\\Shared\\_Layout.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Shared\\_Layout.cshtml",
-              "RelativeToolTip": "Views\\Shared\\_Layout.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABwAAAA5AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-24T00:26:32.647Z",
+              "WhenOpened": "2025-11-07T01:46:39.715Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 6,
               "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Login\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Login\\Index.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Login\\Index.cshtml",
-              "RelativeToolTip": "Views\\Login\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAApAAAAAAAAAA==",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Inicio\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Inicio\\Index.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Inicio\\Index.cshtml",
+              "RelativeToolTip": "Views\\Inicio\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAABbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-10-24T00:20:36.336Z",
+              "WhenOpened": "2025-11-07T01:46:28.953Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 9,
+              "Title": "jsLogin.js",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsLogin.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsLogin.js",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsLogin.js",
+              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsLogin.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAA3AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-11-07T01:31:04.493Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "LoginController.cs",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\LoginController.cs",
               "RelativeDocumentMoniker": "Controllers\\LoginController.cs",
               "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\LoginController.cs",
               "RelativeToolTip": "Controllers\\LoginController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAwAAAAJAAAAAAAAAA==",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwB0AAABYAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T00:20:06.263Z",
+              "WhenOpened": "2025-11-07T01:29:13.376Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Login\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Login\\Index.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Login\\Index.cshtml",
+              "RelativeToolTip": "Views\\Login\\Index.cshtml",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAAAB8AAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-07T01:28:33.907Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "Program.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Program.cs",
-              "RelativeDocumentMoniker": "Program.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Program.cs",
-              "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABgAAAA4AAAAAAAAAA==",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\SPRFM\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\SPRFM\\Index.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\SPRFM\\Index.cshtml",
+              "RelativeToolTip": "Views\\SPRFM\\Index.cshtml",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAABIAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-10-30T21:37:06.718Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "SprfmController.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SprfmController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SprfmController.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SprfmController.cs",
+              "RelativeToolTip": "Controllers\\SprfmController.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAQwE4AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-10-24T00:17:06.157Z",
+              "WhenOpened": "2025-10-30T23:10:19.58Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "jsSiisu.js",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSiisu.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsSiisu.js",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSiisu.js",
+              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsSiisu.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-11-06T23:37:33.968Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "cssSiisu.css",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssSiisu.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\Estilos\\cssSiisu.css",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssSiisu.css",
+              "RelativeToolTip": "wwwroot\\css\\Estilos\\cssSiisu.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-06T00:33:55.568Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "jsSprfm.js",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSprfm.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsSprfm.js",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSprfm.js",
+              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsSprfm.js",
+              "ViewState": "AgIAAAsAAAAAAAAAAAAAACEAAAAFAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-11-04T01:58:35.33Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "cssSprfm.css",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssSprfm.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\Estilos\\cssSprfm.css",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssSprfm.css",
+              "RelativeToolTip": "wwwroot\\css\\Estilos\\cssSprfm.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-04T20:47:09.641Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "VmSoliSiisu.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSiisu.cs",
+              "RelativeDocumentMoniker": "ViewModels\\VmSoliSiisu.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSiisu.cs",
+              "RelativeToolTip": "ViewModels\\VmSoliSiisu.cs",
+              "ViewState": "AgIAABgAAAAAAAAAAAAowCYAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T01:01:47.519Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VmSoliSprfm.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSprfm.cs",
+              "RelativeDocumentMoniker": "ViewModels\\VmSoliSprfm.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSprfm.cs",
+              "RelativeToolTip": "ViewModels\\VmSoliSprfm.cs",
+              "ViewState": "AgIAAC4AAAAAAAAAAAAYwEsAAAAwAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-10-30T23:21:07.603Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "SiisuController.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SiisuController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SiisuController.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SiisuController.cs",
+              "RelativeToolTip": "Controllers\\SiisuController.cs",
+              "ViewState": "AgIAABoAAAAAAAAAAAAwwEgAAAA6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-06T23:52:26.264Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\SIISU\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\SIISU\\Index.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\SIISU\\Index.cshtml",
+              "RelativeToolTip": "Views\\SIISU\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-06T00:27:59.646Z",
               "EditorCaption": ""
             }
           ]

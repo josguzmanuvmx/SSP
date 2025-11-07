@@ -17,3 +17,16 @@ html, body {
   height: 100%;
   min-height: 100%;
 }
+
+.item-solicitud {
+    transform: scale(1.0);
+    transition: transform .2s ease-in-out, background .2s ease-in-out;
+    color: #ffff !important;
+    background: linear-gradient(to bottom right, #4185eb, #1a6ae0);
+}
+
+    .item-solicitud:hover {
+        transform: scale(1.02);
+        color: #ffff !important;
+        background: linear-gradient(to bottom right, #3c83ee, #3f85f5);
+    }

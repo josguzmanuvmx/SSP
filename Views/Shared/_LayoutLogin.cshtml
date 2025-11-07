@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - Solicitud</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/lib/font-awesome/css/all.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/SSP.styles.css" asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+    <div class="d-flex flex-column w-100 h-100">
+        <main role="main" class="d-flex w-100 h-100 overflow-auto">
+            @RenderBody()
+        </main>
+        <footer class="d-flex justify-content-center align-items-center py-1" style="background-color: #0d47a1;">
+            <div class="text-center">
+                <span class="mb-3 mb-md-0 text-white" style="font-size: 12.8px;">
+                    © @DateTime.Now.Year Universidad Veracruzana
+                </span>
+            </div>
+        </footer>
+    </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
