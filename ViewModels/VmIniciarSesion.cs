@@ -19,4 +19,7 @@ public class VmIniciarSesion
     [JsonPropertyName("sContrasena")]
     [Column("sContrasena")]
     public string? SContra { get; set; }
+    [Column("sNombre")]
+    public string? SNombre { get; set; }
+    
 }

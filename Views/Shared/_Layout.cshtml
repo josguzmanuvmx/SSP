@@ -30,13 +30,13 @@
                     <ul class="navbar-nav">
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle d-flex align-items-center text-white" href="#" id="listadesplegable" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <span class="fs-6">JOSÉ ÁNGEL GUZMÁN ZAVALETA</span>
+                                <span class="fs-6">@User.Identity.Name</span>
                                 <i class="fa-solid fa-circle-user fa-2x ms-2 text-white" style="color: rgba(204, 197, 197, 0.95);"></i>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end mt-2" aria-labelledby="listadesplegable">
                                 <li>
                                     @* <form asp-action="Index" asp-controller="Login" method="get"> *@
-                                    <form asp-action="Index" asp-controller="Login">
+                                    <form method="post" asp-action="Logout" asp-controller="Login">
                                         <button class="dropdown-item" style="color: #000;">
                                             <i class="fa fa-sign-out"></i>
                                             <span>Cerrar Sesión</span>

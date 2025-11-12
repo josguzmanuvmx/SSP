@@ -1,6 +1,7 @@
-﻿namespace SSP.Controllers
+﻿namespace SSP.Controllers;
+using Microsoft.AspNetCore.Authorization;
+
+[Authorize]
+public class SolicitudesCreadas
 {
-    public class SolicitudesCreadas
-    {
-    }
 }

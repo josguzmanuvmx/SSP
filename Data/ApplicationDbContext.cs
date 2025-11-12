@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore;
-using SSP.ViewModels;
+﻿using Microsoft.EntityFrameworkCore;
 
 namespace SSP.Data
 {
@@ -12,5 +10,16 @@ namespace SSP.Data
         }
 
         public DbSet<MoUsuario> Usuarios { get; set; }
+        public DbSet<MoRol> Roles { get; set; }
+        public DbSet<MoUsuarioRol> UsuarioRoles { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+
+            // Define la llave compuesta (nUsrId, nRolId) para la tabla UsuarioRoles
+            modelBuilder.Entity<MoUsuarioRol>()
+                .HasKey(ur => new { ur.NUsrId, ur.NRolId });
+        }
     }
 }

@@ -4,7 +4,9 @@ using Microsoft.AspNetCore.Mvc;
 using SSP.Data;
 using SSP.ViewModels;
 using Xceed.Words.NET;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 public class SprfmController : Controller
 {
     private readonly IWebHostEnvironment _hostingEnvironment;

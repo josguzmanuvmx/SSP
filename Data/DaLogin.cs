@@ -1,10 +1,12 @@
 ﻿using Microsoft.AspNetCore.Identity;
+using System.Linq;
 
 namespace SSP.Data
 {
     public interface DaLogin
     {
-        bool ValidarCredenciales(string usuario, string contrasena);
+        bool ValidarCredenciales(string sUsuario, string sContrasena);
+        List<string> ObtenerRoles(string sUsuario);
     }
 
     public class UserService : DaLogin
@@ -23,20 +25,29 @@ namespace SSP.Data
             var usuarioEncontrado = _context.Usuarios
                 .FirstOrDefault(u => u.SUsuario == usuario);
 
-            if (usuarioEncontrado == null)
+            if (usuarioEncontrado == null || string.IsNullOrEmpty(usuarioEncontrado.SContra))
             {
                 return false;
             }
 
-            // 3. Usa el hasher inyectado con los argumentos correctos
             var resultado = _passwordHasher.VerifyHashedPassword(
-                usuarioEncontrado,          // El objeto de usuario
-                usuarioEncontrado.SContra,  // El hash de la base de datos
-                contrasena                  // La contraseña que escribió el usuario
+                usuarioEncontrado,
+                usuarioEncontrado.SContra!,
+                contrasena
             );
 
-            // 4. Compara el resultado
             return resultado == PasswordVerificationResult.Success;
+        }
+
+        public List<string> ObtenerRoles(string sUsuario)
+        {
+            var roles = from u in _context.Usuarios
+                        join ur in _context.UsuarioRoles on u.NId equals ur.NUsrId
+                        join r in _context.Roles on ur.NRolId equals r.NId
+                        where u.SUsuario == "josguzman"
+                        select r.SRol;
+
+            return roles.ToList();
         }
     }
 }

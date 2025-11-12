@@ -6,7 +6,9 @@ using SSP.Data;
 using SSP.ViewModels;
 using System.Reflection;
 using Xceed.Words.NET;
+using Microsoft.AspNetCore.Authorization;
 
+[Authorize]
 public class SiisuController : Controller
 {
     private readonly IWebHostEnvironment _hostingEnvironment;

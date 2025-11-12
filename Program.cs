@@ -1,6 +1,7 @@
-using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using SSP.Data;
+using Microsoft.AspNetCore.Identity;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -8,6 +9,21 @@ var builder = WebApplication.CreateBuilder(args);
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
     options.UseSqlServer(connectionString));
+
+builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        // Esta es la ruta a tu página de login. El sistema redirigirá aquí.
+        options.LoginPath = "/Login/Index";
+
+        // (Opcional) Ruta para cerrar sesión
+        options.LogoutPath = "/Login/Index";
+
+        // (Opcional) Ruta si un usuario está logueado pero no tiene permiso
+        options.AccessDeniedPath = "/Login/Index";
+
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Duración de la cookie
+    });
 
 builder.Services.AddControllersWithViews();
 

@@ -1,32 +1,32 @@
+namespace Solicitud.Controllers;
 using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Solicitud.Models;
+using Microsoft.AspNetCore.Authorization;
 
-namespace Solicitud.Controllers
+[Authorize(Roles = "admin")]
+public class InicioController : Controller
 {
-    public class InicioController : Controller
+    private readonly ILogger<InicioController> _logger;
+
+    public InicioController(ILogger<InicioController> logger)
     {
-        private readonly ILogger<InicioController> _logger;
+        _logger = logger;
+    }
 
-        public InicioController(ILogger<InicioController> logger)
-        {
-            _logger = logger;
-        }
+    public IActionResult Index()
+    {
+        return View();
+    }
 
-        public IActionResult Index()
-        {
-            return View();
-        }
+    public IActionResult Privacy()
+    {
+        return View();
+    }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
+    [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+    public IActionResult Error()
+    {
+        return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
     }
 }

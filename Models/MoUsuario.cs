@@ -1,8 +1,8 @@
-﻿using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
+﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text.Json.Serialization;
 
+[Table("Usuarios")]
 public class MoUsuario
 {
     [Key]
@@ -15,8 +15,9 @@ public class MoUsuario
     public string? SUsuario { get; set; }
 
     [Required(ErrorMessage = "La contraseña es obligatoria.")]
-    [MaxLength(20, ErrorMessage = "La contraseña no puede tener más de 20 caracteres.")]
     [JsonPropertyName("sContrasena")]
     [Column("sContrasena")]
     public string? SContra { get; set; }
+    [Column("sNombre")]
+    public string? SNombre { get; set; }
 }
