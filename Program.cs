@@ -1,7 +1,9 @@
-using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Authentication.Cookies;
-using SSP.Data;
 using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using SiSProI.Data;
+using SSP.Data;
+using System.Threading.Tasks;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -14,16 +16,41 @@ builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationSc
     .AddCookie(options =>
     {
         // Esta es la ruta a tu página de login. El sistema redirigirá aquí.
-        options.LoginPath = "/Login/Index";
+        options.LoginPath = "/Login";
 
         // (Opcional) Ruta para cerrar sesión
-        options.LogoutPath = "/Login/Index";
+        options.LogoutPath = "/Login";
 
         // (Opcional) Ruta si un usuario está logueado pero no tiene permiso
-        options.AccessDeniedPath = "/Login/Index";
+        options.AccessDeniedPath = "/Login";
 
         options.ExpireTimeSpan = TimeSpan.FromMinutes(30); // Duración de la cookie
+
+        options.Events.OnRedirectToAccessDenied = context =>
+        {
+            context.Response.Redirect(options.AccessDeniedPath);
+            return Task.CompletedTask;
+        };
     });
+
+builder.Services.AddAuthorization(options =>
+{
+    // Política para "Admin": Requiere el claim ("permiso", "admin")
+    options.AddPolicy("AdminPolicy", policy =>
+        policy.RequireClaim("permiso", "admin"));
+
+    // Política para "Sprfm": Requiere el claim ("permiso", "sprfm")
+    options.AddPolicy("SprfmPolicy", policy =>
+        policy.RequireClaim("permiso", "sprfm"));
+
+    // Política para "Siisu": Requiere el claim ("permiso", "siisu")
+    options.AddPolicy("SiisuPolicy", policy =>
+        policy.RequireClaim("permiso", "siisu"));
+
+    // Política "O": Requiere "sprfm" O "siisu"
+    options.AddPolicy("ModulosPolicy", policy =>
+        policy.RequireClaim("permiso", "sprfm", "siisu"));
+});
 
 builder.Services.AddControllersWithViews();
 
@@ -31,6 +58,7 @@ builder.Services.AddSingleton<IPasswordHasher<MoUsuario>, PasswordHasher<MoUsuar
 
 // En Program.cs, junto con tus otros servicios
 builder.Services.AddScoped<DaLogin, UserService>();
+builder.Services.AddScoped<DaEmpleado, DaEmpleado>();
 
 var app = builder.Build();
 

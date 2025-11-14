@@ -6,7 +6,7 @@ using SSP.ViewModels;
 using Xceed.Words.NET;
 using Microsoft.AspNetCore.Authorization;
 
-[Authorize]
+[Authorize(Policy = "SprfmPolicy")]
 public class SprfmController : Controller
 {
     private readonly IWebHostEnvironment _hostingEnvironment;

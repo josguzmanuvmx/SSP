@@ -4,7 +4,6 @@ using Microsoft.AspNetCore.Mvc;
 using Solicitud.Models;
 using Microsoft.AspNetCore.Authorization;
 
-[Authorize(Roles = "admin")]
 public class InicioController : Controller
 {
     private readonly ILogger<InicioController> _logger;

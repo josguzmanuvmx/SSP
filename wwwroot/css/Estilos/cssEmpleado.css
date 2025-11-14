@@ -1,0 +1,15 @@
+﻿﻿#tblEmpleados_wrapper .dataTables_paginate {
+    margin-top: .6rem;
+}
+
+#tblEmpleados_wrapper .dataTables_info {
+    margin-top: -.2rem;
+}
+
+#tblEmpleados_filter, #tblEmpleados_wrapper > div:nth-child(1) {
+    display: none;
+}
+
+#tblEmpleados_info {
+    color: #026ad5;
+}

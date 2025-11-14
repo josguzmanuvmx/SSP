@@ -1,0 +1,23 @@
+﻿﻿namespace SSP.ViewModels;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+public class VmEmpleado
+{
+    [Key]
+    [Column("nId")]
+    public int NId { get; set; }
+    [Column("nNoPer")]
+    public int NNoPersonal { get; set; }
+    [Column("sUsuario")]
+    public string? SUsuario { get; set; }
+    [Column("bAdmin")]
+    public bool BAdmin { get; set; }
+    [Column("bSiisu")]
+    public bool BSiisu { get; set; }
+    [Column("bSprfm")]
+    public bool BSprfm { get; set; }
+    [Column("bActivo")]
+    public bool BActivo { get; set; }
+}

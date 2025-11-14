@@ -8,6 +8,8 @@ public class MoUsuario
     [Key]
     [Column("nId")]
     public int NId { get; set; }
+    [Column("nNoPersonal")]
+    public int NNoPersonal { get; set; }
     [Required(ErrorMessage = "El usuario es obligatorio.")]
     [MaxLength(50, ErrorMessage = "El usuario no puede tener más de 50 caracteres.")]
     [JsonPropertyName("sUsuario")]

@@ -3,8 +3,8 @@ using SSP.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Authorization;
 
-[Authorize(Policy = "ModulosPolicy")]
-public class SeleccionController : Controller
+[Authorize(Policy = "AdminPolicy")]
+public class AdminController : Controller
 {
     public IActionResult Index()
     {

@@ -1,0 +1,102 @@
+﻿@using SSP.Models;
+@model IEnumerable<MoEmpleado>
+@section Styles {
+    <link rel="stylesheet" href="~/css/Estilos/cssEmpleado.css" asp-append-version="true" />
+}
+@section Scripts {
+    <script src="~/js/Scripts/jsEmpleado.js" asp-append-version="true"></script>
+}
+
+<div class="container-fluid col-12 col-md-10 col-lg-8 col-xxl-6 text-start">
+    <br /><br />
+    <div class="d-flex gap-3 align-items-center" style="min-height: 3rem;">
+        <a class="btn btn-secondary d-flex p-2" asp-controller="Admin" asp-action="Index">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h4 class="text-start m-0">Empleados</h4>
+    </div>
+    <br />
+    <div class="row mt-2 mb-2">
+        <div class="col-5 col-md-3 order-2 order-md-1 me-auto">
+            <div class="input-group">
+                <label class="input-group-text" for="rowsSelector">Ver:</label>
+                <select id="ddlEmpleados" class="form-select">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+        <div class="col-12 col-md-6 order-1 order-md-2 mb-2 mb-md-0">
+            <div class="col-12 col-md-11 m-auto">
+                <div class="input-group">
+                    <input id="txtBuscar" type="text" class="form-control" placeholder="Escriba el nombre de un empleado" aria-label="Buscar Empleado" />
+                    @* <button id="btnBuscar" class="btn btn-outline-secondary" type="button" data-bs-toggle="tooltip" data-bs-container="button" data-bs-placement="top" data-bs-title="Buscar">Buscar</button> *@
+                </div>
+            </div>
+        </div>
+        <div class="col-5 col-md-3 order-3 order-md-3 text-end">
+            <a asp-action="Agregar" id="btnAgregar" class="btn btn-primary btn-md me-1" data-bs-toggle="tooltip" title="Agregar">
+                @* <span class="me-2">Nuevo</span> *@
+                <i class="fa-solid fa-circle-plus"></i>
+            </a>
+            <button id="btnDescargar" class="btn btn-success btn-md" onclick="fnExportarExcel(this)" data-bs-toggle="tooltip" title="Descargar">
+                @* <span class="me-2">Descargar</span> *@
+                <i class="fa-solid fa-download"></i>
+            </button>
+        </div>
+    </div>
+    <div class="table-responsive">
+        <table id="tblEmpleados" name="tblEmpleados" class="table table-striped table-bordered w-100">
+            <thead>
+                <tr>
+                    <th class="text-center">No. Personal</th>
+                    <th class="text-center">Usuario</th>
+                    <th class="text-center">Permisos</th>
+                    <th class="text-center">Activo</th>
+                    <th class="text-center">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var empleado in Model)
+                {
+                    <tr>
+                        <td class="text-center align-middle">@empleado.NNoPersonal</td>
+                        <td class="text-center align-middle">@empleado.SUsuario</td>
+                        <td class="text-center align-middle">
+                            @if (empleado.BAdmin)
+                            {
+                                <span class="badge bg-danger">Admin</span>
+                            }
+                            @if (empleado.BSprfm)
+                            {
+                                <span class="badge bg-primary">SPRFM</span>
+                            }
+                            @if (empleado.BSiisu)
+                            {
+                                <span class="badge bg-success">SIISU</span>
+                            }
+                        </td>
+
+                        <td class="text-center align-middle">
+                            <div class="form-check form-switch d-flex justify-content-center">
+                                <input class="form-check-input toggle-activo" type="checkbox" style="cursor: pointer;"
+                                       data-id="@empleado.NId" @(empleado.BActivo ? "checked" : "")>
+                            </div>
+                        </td>
+                        <td class="text-center align-middle">
+                            <a asp-action="Editar" asp-route-id="@empleado.NId" class="btn btn-sm btn-outline-secondary fs-6 px-1 py-0 border-0 rounded-2">
+                                <i class="fa-solid fa-pen"></i>
+                            </a>
+                            <a asp-action="Eliminar" asp-route-id="@empleado.NId" class="btn btn-sm btn-outline-danger fs-6 px-1 py-0 border-0 rounded-2">
+                                <i class="fa-solid fa-trash-can"></i>
+                            </a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>

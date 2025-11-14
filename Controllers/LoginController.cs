@@ -5,15 +5,18 @@ using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using System.Threading.Tasks;
+using SiSProI.Data;
 
 public class LoginController : Controller
 {
-    private readonly DaLogin _svLogin; // 1. Cambia DbContext por tu interfaz
+    private readonly DaLogin _daLogin;
+    private readonly DaEmpleado _daEmpleado;
 
     // 2. Inyecta la interfaz en el constructor
-    public LoginController(DaLogin userService)
+    public LoginController(DaLogin daLogin, DaEmpleado daEmpleado)
     {
-        _svLogin = userService;
+        _daLogin = daLogin;
+        _daEmpleado = daEmpleado;
     }
 
     public IActionResult Index()
@@ -21,55 +24,57 @@ public class LoginController : Controller
         return View();
     }
 
-    //[HttpPost]
-    //public IActionResult IniciarSesion(VmIniciarSesion model)
-    //{
-    //    if (model.SUsuario == null || model.SContra == null)
-    //    {
-    //        ModelState.AddModelError(string.Empty, "El usuario y la contraseña son obligatorios.");
-    //        return View("Index", model);
-    //    }
-    //    if (ModelState.IsValid)
-    //    {
-    //        Console.WriteLine("Validando credenciales para usuario: " + model.SUsuario);
-
-    //        // 3. Usa tu servicio para validar las credenciales
-    //        if (_svLogin.ValidarCredenciales(model.SUsuario, model.SContra))
-    //        {
-    //            // Aquí iría la lógica para crear la sesión (cookie)
-    //            return RedirectToAction("Index", "Inicio");
-    //        }
-    //        else
-    //        {
-    //            ModelState.AddModelError(string.Empty, "Usuario o contraseña incorrectos.");
-    //        }
-    //    }
-    //    return View("Index", model);
-    //}
-
     [HttpPost]
-    // ¡Debe ser async Task para usar 'await' al iniciar sesión!
     public async Task<IActionResult> IniciarSesion(VmIniciarSesion model)
     {
         if (ModelState.IsValid)
         {
-            if (_svLogin.ValidarCredenciales(model.SUsuario ?? "", model.SContra ?? ""))
+            // 3. Autenticación: Validar contra la tabla 'Usuarios'
+            var usuario = _daLogin.ValidarCredenciales(model.SUsuario ?? "", model.SContra ?? "");
+
+            if (usuario != null)
             {
-                if (model.SUsuario == null || model.SContra == null) { return View("Index", model); }
-                // Obtener roles
-                List<string> rolesDelUsuario = _svLogin.ObtenerRoles(model.SUsuario);
+                // 4. Autorización: Obtener permisos de la tabla 'Empleados'
+                var empleado = _daEmpleado.ObtenerPorUsuario(usuario.SUsuario!);
+
+                if (empleado == null)
+                {
+                    // El usuario existe en 'Usuarios' pero no en 'Empleados'
+                    ModelState.AddModelError(string.Empty, "Usuario autenticado, pero no se encontró un perfil de empleado.");
+                    return View("Index", model);
+                }
+
+                // 5. Crear la lista de "Claims"
                 var claims = new List<Claim>
                 {
-                    new Claim(ClaimTypes.Name, model.SNombre ?? "Sin usuario"),
+                    // Claim para el nombre (de la tabla Usuarios)
+                    new Claim(ClaimTypes.Name, usuario.SNombre ?? usuario.SUsuario ?? "Sin usuario"),
+                    
+                    // Claim para el ID de Empleado (muy útil más adelante)
+                    new Claim("EmpleadoId", empleado.NId.ToString())
                 };
-                foreach (var rol in rolesDelUsuario)
-                {
-                    claims.Add(new Claim(ClaimTypes.Role, rol));
-                }
+
+                // 6. Convertir los permisos booleanos en Claims
+                //    ¡NOTA! Usamos el tipo "permiso", no "Role"
+                if (empleado.BAdmin)
+                    claims.Add(new Claim("permiso", "admin"));
+                if (empleado.BSprfm)
+                    claims.Add(new Claim("permiso", "sprfm"));
+                if (empleado.BSiisu)
+                    claims.Add(new Claim("permiso", "siisu"));
+
+
+                // 7. Crear la cookie de sesión
                 var claimsIdentity = new ClaimsIdentity(claims, CookieAuthenticationDefaults.AuthenticationScheme);
                 await HttpContext.SignInAsync(
                     CookieAuthenticationDefaults.AuthenticationScheme,
                     new ClaimsPrincipal(claimsIdentity));
+
+                // 8. Redirigir basado en el permiso del 'empleado'
+                if (empleado.BAdmin)
+                {
+                    return RedirectToAction("Index", "Admin");
+                }
                 return RedirectToAction("Index", "Inicio");
             }
             else

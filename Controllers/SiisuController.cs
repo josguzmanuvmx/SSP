@@ -8,7 +8,7 @@ using System.Reflection;
 using Xceed.Words.NET;
 using Microsoft.AspNetCore.Authorization;
 
-[Authorize]
+[Authorize(Policy = "SiisuPolicy")]
 public class SiisuController : Controller
 {
     private readonly IWebHostEnvironment _hostingEnvironment;

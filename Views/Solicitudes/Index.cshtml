@@ -1,0 +1,21 @@
+﻿@using SSP.ViewModels;
+@model VmSoliSprfm;
+@section Styles {
+    <link rel="stylesheet" href="~/css/Estilos/cssSprfm.css" asp-append-version="true" />
+}
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+    <script src="~/js/Scripts/jsSprfm.js" asp-append-version="true"></script>
+}
+
+<div class="container-fluid col-12 col-md-8 col-lg-7 col-xl-5 text-start">
+    <br /><br />
+    <div class="d-flex gap-3 align-items-center" style="min-height: 3rem;">
+        <a class="btn btn-secondary d-flex p-2" asp-controller="Admin" asp-action="Index">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h4 class="text-start m-0">Solicitudes</h4>
+    </div>
+    <br />
+    
+</div>
