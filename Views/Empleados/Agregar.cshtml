@@ -16,62 +16,53 @@
         <h4 class="text-start m-0">Agregar Empleado</h4>
     </div>
     <br />
-    
+
     <div class="mb-3 position-relative">
         <label for="buscador-usuarios" class="form-label fw-semibold">Buscar Usuario Existente</label>
-        <input type="text" id="buscador-usuarios" class="form-control" placeholder="Escribe un nombre o usuario..." autocomplete="off" />
+        <input type="text" id="buscador-usuarios" class="form-control" placeholder="Escribe el no. personal, usuario o nombre..." autocomplete="off" />
         <div id="resultados-busqueda" class="dropdown-menu w-100 bg-white border shadow"></div>
     </div>
-
-    <form method="post" asp-action="Agregar" class="needs-validation" novalidate>
-        
+    <div id="divErrorExiste" class="alert alert-danger d-none mt-2 p-2" role="alert"></div>
+    <form id="formAgregar" method="post" asp-action="Agregar" class="needs-validation text-muted bg-light border p-3 rounded-3" novalidate>
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-
-        <div class="card shadow border-0 rounded-3">
-            <div class="card-body p-4">
-
-                <div class="mb-3">
-                    <label asp-for="NNoPersonal" class="form-label">Número de Personal</label>
-                    <input asp-for="NNoPersonal" type="number" class="form-control" placeholder="12345" required disabled />
-                    <span asp-validation-for="NNoPersonal" class="text-danger"></span>
-                </div>
-
-                <div class="mb-3">
-                    <label asp-for="SUsuario" class="form-label">Nombre de Usuario (Login)</label>
-                    <input asp-for="SUsuario" class="form-control" placeholder="ej. jguzman" required disabled />
-                    <span asp-validation-for="SUsuario" class="text-danger"></span>
-                </div>
-
-                <hr class="my-4" />
-
-                <h5 class="fw-semibold">Permisos y Estado</h5>
-
-                <div class="form-check form-switch mb-2">
-                    <input asp-for="BAdmin" type="checkbox" class="form-check-input cursor-pointer" />
-                    <label asp-for="BAdmin" class="form-check-label cursor-pointer">Administrador</label>
-                </div>
-                
-                <div class="form-check form-switch mb-2">
-                    <input asp-for="BSprfm" type="checkbox" class="form-check-input cursor-pointer" />
-                    <label asp-for="BSprfm" class="form-check-label cursor-pointer">Permiso SPRFM</label>
-                </div>
-
-                <div class="form-check form-switch mb-2">
-                    <input asp-for="BSiisu" type="checkbox" class="form-check-input cursor-pointer" />
-                    <label asp-for="BSiisu" class="form-check-label cursor-pointer">Permiso SIISU</label>
-                </div>
-
-                <div class="form-check form-switch mb-2">
-                    <input asp-for="BActivo" type="checkbox" class="form-check-input cursor-pointer" />
-                    <label asp-for="BActivo" class="form-check-label cursor-pointer">Activo</label>
-                </div>
-
-                <div class="text-end mt-4">
-                    <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
-                    <button type="submit" class="btn btn-primary">Guardar Empleado</button>
-                </div>
-
+        <div class="row g-3">
+            <div class="col-6">
+                <label asp-for="NNoPersonal" class="form-label"></label>
+                <input asp-for="NNoPersonal" type="number" class="form-control" placeholder="ej. 61399" required readonly />
+                <span asp-validation-for="NNoPersonal" class="text-danger"></span>
             </div>
+            <div class="col-6">
+                <label asp-for="SUsuario" class="form-label"></label>
+                <input asp-for="SUsuario" class="form-control" placeholder="ej. josguzman" required readonly />
+                <span asp-validation-for="SUsuario" class="text-danger"></span>
+            </div>
+        </div>
+
+        <h6 id="hPermisos" class="fw-semibold mt-3 opacity-50">Permisos</h6>
+        <div class="form-check col-6">
+            <input asp-for="BAdmin" class="form-check-input" type="checkbox" disabled>
+            <label asp-for="BAdmin" class="form-check-label"></label>
+        </div>
+
+        <div class="form-check col-6">
+            <input asp-for="BSprfm" class="form-check-input" type="checkbox" disabled>
+            <label asp-for="BSprfm" class="form-check-label"></label>
+        </div>
+
+        <div class="form-check col-6">
+            <input asp-for="BSiisu" class="form-check-input" type="checkbox" disabled>
+            <label asp-for="BSiisu" class="form-check-label"></label>
+        </div>
+
+        <h6 id="hEstado" class="fw-semibold mt-3 opacity-50">Estado</h6>
+        <div class="form-check col-6">
+            <input asp-for="BActivo" class="form-check-input" type="checkbox" disabled>
+            <label asp-for="BActivo" class="form-check-label"></label>
+        </div>
+
+        <div class="text-end mt-4">
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <button id="btnAgregar" type="submit" class="btn btn-primary" disabled>Agregar Empleado</button>
         </div>
     </form>
 </div>

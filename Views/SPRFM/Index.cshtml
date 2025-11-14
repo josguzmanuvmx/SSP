@@ -74,7 +74,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="d-flex">
+                            @* <div class="d-flex">
                                 <label asp-for="NRegionClave" class="col-4 col-form-label">Región</label>
                                 <div class="col-8">
                                     <div class="row g-1">
@@ -87,6 +87,17 @@
                                             <span asp-validation-for="SRegionNombre" class="text-danger"></span>
                                         </div>
                                     </div>
+                                </div>
+                            </div> *@
+                            <div class="d-flex">
+                                <label asp-for="SRegion" class="col-4 col-form-label">Región</label>
+                                <div class="col-8">
+                                    <select asp-for="SRegion"
+                                            class="form-control bg-transparent"
+                                            asp-items="Html.GetEnumSelectList<SprfmRegion>()"
+                                            required>
+                                    </select>
+                                    <span asp-validation-for="SRegion" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="d-flex">

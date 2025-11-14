@@ -1,0 +1,75 @@
+﻿@using SSP.ViewModels;
+@model VmEmpleado
+@section Styles {
+    <link rel="stylesheet" href="~/css/Estilos/cssEmpleado.css" asp-append-version="true" />
+}
+@section Scripts {
+    <script src="~/js/Scripts/jsAgregarEditarEmpleado.js" asp-append-version="true"></script>
+}
+
+<div class="container-fluid col-12 col-md-10 col-lg-8 col-xxl-6 text-start">
+    <br /><br />
+    <div class="d-flex gap-3 align-items-center" style="min-height: 3rem;">
+        <a class="btn btn-secondary d-flex p-2" asp-controller="Empleados" asp-action="Index">
+            <i class="fa-solid fa-arrow-left"></i>
+        </a>
+        <h4 class="text-start m-0">@(Model.SId == null ? "Agregar Empleado" : "Editar Empleado")</h4>
+    </div>
+    <br />
+
+    @if (Model.SId == null) {
+        <div class="mb-3 position-relative">
+            <label for="buscador-usuarios" class="form-label fw-semibold">Buscar Usuario Existente</label>
+            <input type="text" id="buscador-usuarios" class="form-control" placeholder="Escribe el no. personal, usuario o nombre..." autocomplete="off" />
+            <div id="resultados-busqueda" class="dropdown-menu w-100 bg-white border shadow"></div>
+        </div>
+
+        <div id="divErrorExiste" class="alert alert-danger d-none mt-2 p-2" role="alert"></div>
+    }
+
+    <form id="formAgregar" method="post" asp-action="Guardar" class="needs-validation border p-3 rounded-3 @(Model.SId == null ? "bg-light text-muted" : "")" novalidate>
+        <input type="hidden" asp-for="SId" />
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <div class="row g-3">
+            <div class="col-6">
+                <label asp-for="NNoPersonal" class="form-label"></label>
+                <input asp-for="NNoPersonal" type="number" class="form-control" style="background-color: #d8dcdf;" placeholder="ej. 61399" required readonly />
+                <span asp-validation-for="NNoPersonal" class="text-danger"></span>
+            </div>
+            <div class="col-6">
+                <label asp-for="SUsuario" class="form-label"></label>
+                <input asp-for="SUsuario" class="form-control" style="background-color: #d8dcdf;" placeholder="ej. josguzman" required readonly />
+                <span asp-validation-for="SUsuario" class="text-danger"></span>
+            </div>
+        </div>
+
+        <h6 id="hPermisos" class="fw-semibold mt-3 @(Model.SId == null ? "opacity-50" : "")">Permisos</h6>
+        <div class="form-check col-6">
+            <input asp-for="BAdmin" class="form-check-input" type="checkbox" disabled="@(Model.SId == null ? true : false)">
+            <label asp-for="BAdmin" class="form-check-label"></label>
+        </div>
+
+        <div class="form-check col-6">
+            <input asp-for="BSprfm" class="form-check-input" type="checkbox" disabled="@(Model.SId == null ? true : false)">
+            <label asp-for="BSprfm" class="form-check-label"></label>
+        </div>
+
+        <div class="form-check col-6">
+            <input asp-for="BSiisu" class="form-check-input" type="checkbox" disabled="@(Model.SId == null ? true : false)">
+            <label asp-for="BSiisu" class="form-check-label"></label>
+        </div>
+
+        <h6 id="hEstado" class="fw-semibold mt-3 @(Model.SId == null ? "opacity-50" : "")">Estado</h6>
+        <div class="form-check col-6">
+            <input asp-for="BActivo" class="form-check-input" type="checkbox" disabled="@(Model.SId == null ? true : false)">
+            <label asp-for="BActivo" class="form-check-label"></label>
+        </div>
+
+        <div class="text-end mt-4">
+            <a asp-action="Index" class="btn btn-secondary">Cancelar</a>
+            <button id="btnAgregar" type="submit" class="btn btn-primary" disabled="@(Model.SId == null ? true : false)">
+                @(Model.SId == null ? "Guardar Empleado" : "Actualizar Empleado")
+            </button>
+        </div>
+    </form>
+</div>

@@ -72,7 +72,7 @@ public class SiisuController : Controller
             { "{programa}", model.NClavePrograma.ToString() ?? string.Empty },
             { "{permiso}", GetDisplayShort(model.STipoPermiso) },
             { "{movimiento}", model.STipoMovimiento ?? string.Empty },
-            { "{region}", model.SRegion ?? string.Empty },
+            { "{region}", GetDisplayName(model.SRegion) },
         };
 
         ReemplazarPlaceholdersExcel(temp, reemplazos);

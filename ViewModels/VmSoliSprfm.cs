@@ -1,10 +1,48 @@
 ﻿namespace SSP.ViewModels;
 using System.ComponentModel.DataAnnotations;
+
 public enum SprfmAccion
 {
     SAlta,
     SModificacion,
     SBaja
+}
+
+public enum SprfmRegion
+{
+    [Display(Name = "Xalapa")]
+    [ClsClaveRegion("X")]
+    SXalapaX,
+    [Display(Name = "Xalapa - Martínez de la Torre")]
+    [ClsClaveRegion("E")]
+    SXalapaE,
+    [Display(Name = "E - Xalapa - Totonacapan (Espinal)")]
+    [ClsClaveRegion("E")]
+    SXalapaF,
+    [Display(Name = "E - Xalapa - Grandes Montañas (Tequila)")]
+    [ClsClaveRegion("E")]
+    SXalapaG,
+    [Display(Name = "E - Xalapa - Huasteca (Ixhuatlan de Madero)")]
+    [ClsClaveRegion("E")]
+    SXalapaH,
+    [Display(Name = "E - Xalapa - Selvas (Huazuntlan)")]
+    [ClsClaveRegion("E")]
+    SXalapaS,
+    [Display(Name = "V - Veracruz")]
+    [ClsClaveRegion("E")]
+    SVeracruzV,
+    [Display(Name = "S - Veracruz - Boca del Río")]
+    [ClsClaveRegion("E")]
+    SVeracruzB,
+    [Display(Name = "Orizaba - Córdoba")]
+    [ClsClaveRegion("E")]
+    SOrizabaCordoba,
+    [Display(Name = "Poza Rica - Tuxpan")]
+    [ClsClaveRegion("E")]
+    SPozaRicaTuxpan,
+    [Display(Name = "Coatzacoalcos - Minatitlan")]
+    [ClsClaveRegion("E")]
+    SCoatzacoalcosMinatitlan
 }
 
 public class VmSoliSprfm
@@ -38,6 +76,7 @@ public class VmSoliSprfm
     [Required(ErrorMessage = "El nombre de la Región es obligatorio.")]
     [Display(Name = "Nombre de Región")]
     public string? SRegionNombre { get; set; }
+    public SprfmRegion SRegion { get; set; }
 
     [Required(ErrorMessage = "El puesto del empleado es obligatorio.")]
     [Display(Name = "Puesto del empleado")]

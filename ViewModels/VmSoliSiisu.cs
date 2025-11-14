@@ -19,6 +19,20 @@ public enum SiisuPerfil
     SOperadorProceso
 }
 
+public enum SiisuRegion
+{
+    [Display(Name = "Xalapa")]
+    SXalapa,
+    [Display(Name = "Veracruz")]
+    SVeracruz,
+    [Display(Name = "Orizaba - Córdoba")]
+    SOrizabaCordoba,
+    [Display(Name = "Poza Rica - Tuxpan")]
+    SPozaRicaTuxpan,
+    [Display(Name = "Coatzacoalcos - Minatitlan")]
+    SCoatzacoalcosMinatitlan
+}
+
 public enum SiisuPermiso
 {
     [Display(Name = "Consulta")]
@@ -75,5 +89,5 @@ public class VmSoliSiisu
 
     [Required(ErrorMessage = "La clave de la Región es obligatoria.")]
     [Display(Name = "Clave de Región")]
-    public string? SRegion { get; set; }
+    public SiisuRegion SRegion { get; set; }
 }

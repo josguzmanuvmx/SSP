@@ -1,5 +1,5 @@
-﻿@using SSP.Models;
-@model IEnumerable<MoEmpleado>
+﻿@using SSP.ViewModels;
+@model IEnumerable<VmEmpleado>
 @section Styles {
     <link rel="stylesheet" href="~/css/Estilos/cssEmpleado.css" asp-append-version="true" />
 }
@@ -83,14 +83,14 @@
                         <td class="text-center align-middle">
                             <div class="form-check form-switch d-flex justify-content-center">
                                 <input class="form-check-input toggle-activo" type="checkbox" style="cursor: pointer;"
-                                       data-id="@empleado.NId" @(empleado.BActivo ? "checked" : "")>
+                                       data-id="@empleado.SId" @(empleado.BActivo ? "checked" : "")>
                             </div>
                         </td>
                         <td class="text-center align-middle">
-                            <a asp-action="Editar" asp-route-id="@empleado.NId" class="btn btn-sm btn-outline-secondary fs-6 px-1 py-0 border-0 rounded-2">
+                            <a asp-action="Editar" asp-route-sId="@empleado.SId" class="btn btn-sm btn-outline-secondary fs-6 px-1 py-0 border-0 rounded-2">
                                 <i class="fa-solid fa-pen"></i>
                             </a>
-                            <a asp-action="Eliminar" asp-route-id="@empleado.NId" class="btn btn-sm btn-outline-danger fs-6 px-1 py-0 border-0 rounded-2">
+                            <a asp-action="Eliminar" asp-route-sId="@empleado.SId" class="btn btn-sm btn-outline-danger fs-6 px-1 py-0 border-0 rounded-2">
                                 <i class="fa-solid fa-trash-can"></i>
                             </a>
                         </td>
