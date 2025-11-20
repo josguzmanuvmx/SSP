@@ -8,6 +8,19 @@ public class SeleccionController : Controller
 {
     public IActionResult Index()
     {
-        return View();
+        var moPermiso = new MoPermiso() {};
+        return View("Index", moPermiso);
+    }
+
+    public IActionResult Sprfm()
+    {
+        var moPermiso = new MoPermiso() { STipo = "Sprfm" };
+        return View("Index", moPermiso);
+    }
+
+    public IActionResult Siisu()
+    {
+        var moPermiso = new MoPermiso() { STipo = "Siisu" };
+        return View("Index", moPermiso);
     }
 }

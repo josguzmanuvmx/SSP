@@ -10,3 +10,76 @@
         color: #ffff !important;
         background-color: #0d6efd !important;
     }
+
+/* 1. Padre (.tooltip): Solo opacidad */
+.tooltip {
+    opacity: 0;
+    transition: opacity 0.3s ease-out !important;
+}
+
+    .tooltip.show {
+        opacity: 0.9 !important;
+    }
+
+    /* 2. El Cuerpo (.tooltip-inner): Escala */
+    .tooltip .tooltip-inner {
+        max-width: 46rem !important;
+        text-align: left;
+        transform: scale(0.4);
+        white-space: pre-wrap;
+        padding: .8rem .8rem;
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* 3. LA CORRECCIÓN: La Flecha Visible (::before) */
+    /* Aplicamos la escala al ::before, NO al .tooltip-arrow */
+    .tooltip .tooltip-arrow::before {
+        transform: scale(0.4);
+        transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    /* Estado Visible (.show) */
+    .tooltip.show .tooltip-inner,
+    .tooltip.show .tooltip-arrow::before {
+        transform: scale(1);
+    }
+
+/* --- 4. PUNTOS DE ORIGEN SINCRONIZADOS --- */
+/* Definimos desde dónde crece el cuerpo Y la flecha */
+
+/* Tooltip ARRIBA */
+.bs-tooltip-top .tooltip-inner {
+    transform-origin: bottom center;
+}
+
+.bs-tooltip-top .tooltip-arrow::before {
+    transform-origin: bottom center;
+}
+/* Crece desde la punta */
+
+/* Tooltip ABAJO */
+.bs-tooltip-bottom .tooltip-inner {
+    transform-origin: top center;
+}
+
+.bs-tooltip-bottom .tooltip-arrow::before {
+    transform-origin: top center;
+}
+
+/* Tooltip DERECHA (End) */
+.bs-tooltip-end .tooltip-inner {
+    transform-origin: center left;
+}
+
+.bs-tooltip-end .tooltip-arrow::before {
+    transform-origin: center left;
+}
+
+/* Tooltip IZQUIERDA (Start) */
+.bs-tooltip-start .tooltip-inner {
+    transform-origin: center right;
+}
+
+.bs-tooltip-start .tooltip-arrow::before {
+    transform-origin: center right;
+}

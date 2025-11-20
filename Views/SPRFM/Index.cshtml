@@ -1,264 +1,31 @@
-﻿@using SSP.ViewModels;
-@model VmSoliSprfm;
-@section Styles {
-    <link rel="stylesheet" href="~/css/Estilos/cssSprfm.css" asp-append-version="true" />
-}
-@section Scripts {
-    <partial name="_ValidationScriptsPartial" />
-    <script src="~/js/Scripts/jsSprfm.js" asp-append-version="true"></script>
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/Estilos/cssSeleccion.css" asp-append-version="true" />
 }
 
-<div class="container-fluid col-12 col-md-8 col-lg-7 col-xl-5 text-start">
+<div class="container-fluid text-center">
     <br /><br />
-    <div class="d-flex gap-3 align-items-center" style="min-height: 3rem;">
-        <a class="btn btn-secondary d-flex p-2" asp-controller="Seleccion" asp-action="Index">
+    <div class="d-flex gap-3 justify-content-start align-items-center col-12 col-md-8 col-lg-7 col-xl-5 m-auto" style="min-height: 3rem;">
+        <a class="btn btn-secondary d-flex p-2" asp-controller="Inicio" asp-action="Index">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <h4 class="text-start m-0">Solicitud de permisos al Subsistema de Planeación, Recursos Financieros y Materiales (SPRFM)</h4>
+        <h3 class="m-0 mx-auto">Selecciona una acción a realizar</h3>
     </div>
-    <br />
-    <form id="form-solicitud" class="d-flex flex-column gap-3 needs-validation" method="post" asp-action="DescargarSolicitud" novalidate>
-        @Html.AntiForgeryToken()
-        <ul class="nav nav-pills nav-fill gap-1" id="pills-tab" role="tablist">
-            <li class="nav-item" role="presentation">
-                <button class="custom-tab nav-link shadow-sm active" id="pills-usuario-tab" data-bs-toggle="pill" data-bs-target="#pills-usuario" type="button" role="tab" aria-controls="pills-usuario" aria-selected="true">Datos del usuario</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="custom-tab nav-link shadow-sm" id="pills-permisos-tab" data-bs-toggle="pill" data-bs-target="#pills-permisos" type="button" role="tab" aria-controls="pills-permisos" aria-selected="false">Permisos</button>
-            </li>
-            <li class="nav-item" role="presentation">
-                <button class="custom-tab nav-link shadow-sm" id="pills-espe-tab" data-bs-toggle="pill" data-bs-target="#pills-espe" type="button" role="tab" aria-controls="pills-espe" aria-selected="false">Especificaciones</button>
-            </li>
-        </ul>
-        <div class="tab-content" id="pills-tabContent">
-            <!-- Datos del usuario -->
-            <div class="tab-pane fade show active" id="pills-usuario" role="tabpanel" aria-labelledby="pills-usuario-tab" tabindex="0">
-                <div class="card bg-white border shadow rounded-4">
-                    <div class="card-body p-4">
-                        <h6 class="fw-semibold">Datos del usuario</h6>
-                        <div id="info-basica" class="d-flex flex-column gap-1 mt-3">
-                            <div class="d-flex">
-                                <label asp-for="SNombreEmpleado" class="col-4 col-form-label">Nombre del empleado</label>
-                                <div class="col-8 position-relative">
-                                    <input asp-for="SNombreEmpleado" type="text" class="form-control bg-transparent" placeholder="Angel Hernandez Sánchez" autocomplete="off" required>
-                                    <span asp-validation-for="SNombreEmpleado" class="text-danger"></span>
-                                    <div id="coincidencias-lista" class="dropdown-menu w-100 bg-white border shadow"></div>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <label asp-for="NNumeroPersonal" class="col-4 col-form-label">Número de personal</label>
-                                <div class="col-8">
-                                    <input asp-for="NNumeroPersonal" type="number" class="form-control bg-transparent" placeholder="123456789" required>
-                                    <span asp-validation-for="NNumeroPersonal" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <label asp-for="SCorreoInstitucional" class="col-4 col-form-label">Correo electrónico institucional</label>
-                                <div class="col-8">
-                                    <input asp-for="SCorreoInstitucional" type="email" class="form-control bg-transparent" placeholder="angel@uv.mx" required>
-                                    <span asp-validation-for="SCorreoInstitucional" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <label asp-for="NUnidadResponsableClave" class="col-4 col-form-label">Unidad Responsable</label>
-                                <div class="col-8">
-                                    <div class="row g-1">
-                                        <div class="col-3">
-                                            <input asp-for="NUnidadResponsableClave" type="number" class="form-control bg-transparent" placeholder="Clave" required>
-                                            <span asp-validation-for="NUnidadResponsableClave" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-9">
-                                            <input asp-for="SUnidadResponsableNombre" type="text" class="form-control bg-transparent" placeholder="Nombre" required>
-                                            <span asp-validation-for="SUnidadResponsableNombre" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            @* <div class="d-flex">
-                                <label asp-for="NRegionClave" class="col-4 col-form-label">Región</label>
-                                <div class="col-8">
-                                    <div class="row g-1">
-                                        <div class="col-3">
-                                            <input asp-for="NRegionClave" type="number" class="form-control bg-transparent" placeholder="Clave" required>
-                                            <span asp-validation-for="NRegionClave" class="text-danger"></span>
-                                        </div>
-                                        <div class="col-9">
-                                            <input asp-for="SRegionNombre" type="text" class="form-control bg-transparent" placeholder="Nombre" required>
-                                            <span asp-validation-for="SRegionNombre" class="text-danger"></span>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div> *@
-                            <div class="d-flex">
-                                <label asp-for="SRegion" class="col-4 col-form-label">Región</label>
-                                <div class="col-8">
-                                    <select asp-for="SRegion"
-                                            class="form-control bg-transparent"
-                                            asp-items="Html.GetEnumSelectList<SprfmRegion>()"
-                                            required>
-                                    </select>
-                                    <span asp-validation-for="SRegion" class="text-danger"></span>
-                                </div>
-                            </div>
-                            <div class="d-flex">
-                                <label asp-for="SPuestoEmpleado" class="col-4 col-form-label">Puesto del empleado</label>
-                                <div class="col-8">
-                                    <input asp-for="SPuestoEmpleado" type="text" class="form-control bg-transparent" placeholder="Jefe de la Unidad" required>
-                                    <span asp-validation-for="SPuestoEmpleado" class="text-danger"></span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="pills-permisos" role="tabpanel" aria-labelledby="pills-permisos-tab" tabindex="0">
-                <!-- Seleccion Permisos -->
-                <div class="card bg-white border shadow rounded-4">
-                    <div class="card-body p-4">
-                        <h6 class="fw-semibold">Tipo de Permiso</h6>
-                        <div class="d-flex flex-fill gap-3 mt-3 justify-content-around">
-                            <div class="form-check">
-                                <input asp-for="SAccionPermiso" id="alta" class="form-check-input" type="radio" value="alta" checked>
-                                <label for="alta" class="form-check-label">Alta</label>
-                            </div>
-                            <div class="form-check">
-                                <input asp-for="SAccionPermiso" id="modificacion" class="form-check-input" type="radio" value="modificacion">
-                                <label for="modificacion" class="form-check-label">Modificación</label>
-                            </div>
-                            <div class="form-check">
-                                <input asp-for="SAccionPermiso" id="baja" class="form-check-input" type="radio" value="baja">
-                                <label for="baja" class="form-check-label">Baja</label>
-                            </div>
-                        </div>
-
-                        <hr class="my-3">
-
-                        <h6 class="fw-semibold mb-1">Grupo o Permiso Solicitado</h6>
-                        <div class="text-muted" style="font-size: 0.9rem;">
-                            Puede seleccionar más de uno:
-                        </div>
-                        <div class="row g-1 mt-2">
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BDirector" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BDirector" class="form-check-label">
-                                    DIRECTOR (Director de UR)
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BDirectorGeneral" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BDirectorGeneral" class="form-check-label">
-                                    DIRECTOR GENERAL (Director de URC)
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BAdministrador" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BAdministrador" class="form-check-label">
-                                    ADMINISTRADOR
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BAuxiliarAdministrativo" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BAuxiliarAdministrativo" class="form-check-label">
-                                    AUXILIAR ADMINISTRATIVO
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BResponsableProyecto" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BResponsableProyecto" class="form-check-label">
-                                    RESPONSABLE DE PROYECTO
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BResponsableControlBienes" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BResponsableControlBienes" class="form-check-label">
-                                    RESPONSABLE DE CONTROL DE BIENES
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BEstudiantes" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BEstudiantes" class="form-check-label">
-                                    ESTUDIANTES (Generación de Formatos de Pago)
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BEventosIngreso" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BEventosIngreso" class="form-check-label">
-                                    EVENTOS INGRESO
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BSupervisor" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BSupervisor" class="form-check-label">
-                                    SUPERVISOR
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BCajeros" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BCajeros" class="form-check-label">
-                                    CAJEROS
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BRevisor" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BRevisor" class="form-check-label">
-                                    REVISOR (Indicar qué tipo de revisión requiere)
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BOtroGrupo" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BOtroGrupo" class="form-check-label">
-                                    OTRO GRUPO
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BUrAdicional" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BUrAdicional" class="form-check-label">
-                                    UR adicional
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BPermisoEspecifico" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BPermisoEspecifico" class="form-check-label">
-                                    Permiso específico
-                                </label>
-                            </div>
-                            <div class="form-check col-6">
-                                <input asp-for="SPermisos.BPermisoSimilar" class="form-check-input" type="checkbox">
-                                <label asp-for="SPermisos.BPermisoSimilar" class="form-check-label">
-                                    Asignar permisos similares a otro usuario
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="tab-pane fade" id="pills-espe" role="tabpanel" aria-labelledby="pills-espe-tab" tabindex="0">
-                <!-- Seleccion Permisos -->
-                <div class="card bg-white border shadow rounded-4">
-                    <div class="card-body p-4">
-                        <!-- Especificaciones -->
-                        <h6 class="fw-semibold">Especificaciones</h6>
-                        <textarea asp-for="SEspecificaciones" id="especificaciones" class="form-control bg-transparent mt-3" rows="5" placeholder="Escribe tu especificación..." maxlength="500"></textarea>
-                        <div id="contador" class="text-end" style="font-size: .9rem;">
-                            500/500
-                        </div>
-                    </div>
-                </div>
-            </div>
+    <br /><br /><br />
+    <div class="d-flex flex-wrap justify-content-center align-items-center g-4 mt-5 gap-3 gap-md-4 gap-lg-4 col-12 col-md-8 col-lg-7 col-xl-6 m-auto">
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 17rem; height: 15rem;">
+            <img class="img-fluid" style="width: 8rem; height: 8rem;" src="@Url.Content("~/images/documento.png")" alt="Imagen Crear Solicitud" />
+            <h4 class="card-title mt-3">Crear Solicitud</h4>
+            <a asp-controller="Sprfm" asp-action="Crear" class="stretched-link"></a>
         </div>
-
-        <div class="card bg-white border shadow rounded-4 mb-4">
-            <div class="card-body d-flex gap-2 justify-content-end p-4">
-                <button id="btn-descargar-solicitud" type="submit" class="btn btn-primary w-auto" disabled>
-                    <i class="fa-solid fa-file-word"></i> Descargar Word
-                </button>
-                @* <button type="submit" name="tipoDescarga" value="pdf" class="btn btn-danger w-auto">
-                    <i class="fas fa-file-pdf"></i> Descargar PDF
-                </button>
-                <button type="submit" name="tipoDescarga" value="excel" class="btn btn-success w-auto">
-                    <i class="fa-solid fa-file-excel"></i> Descargar Excel
-                </button> *@
-            </div>
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 17rem; height: 15rem;">
+            <img class="img-fluid" style="width: 8rem; height: 8rem;" src="@Url.Content("~/images/documento.png")" alt="Imagen Solicitudes Creadas" />
+            <h4 class="card-title mt-3">Subir Solicitud</h4>
+            <a asp-controller="Sprfm" asp-action="Subir" class="stretched-link"></a>
         </div>
-    </form>
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 17rem; height: 15rem;">
+            <img class="img-fluid" style="width: 8rem; height: 8rem;" src="@Url.Content("~/images/documento.png")" alt="Imagen Gestionar Solicitudes" />
+            <h4 class="card-title mt-3">Gestionar Solicitudes</h4>
+            <a asp-controller="Sprfm" asp-action="Gestionar" class="stretched-link"></a>
+        </div>
+    </div>
 </div>

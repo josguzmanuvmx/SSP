@@ -20,8 +20,13 @@ public class SiisuController : Controller
 
     public IActionResult Index()
     {
+        return View();
+    }
+
+    public IActionResult Crear()
+    {
         var model = new VmSoliSiisu();
-        return View(model);
+        return View("Crear", model);
     }
 
     public static string GetDisplayShort(Enum enumValue)

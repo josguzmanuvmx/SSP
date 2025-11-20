@@ -8,16 +8,11 @@
         <h3 class="m-0">¡Bienvenido, selecciona una acción!</h3>
     </div>
     <br /><br /><br />
-    <div class="d-flex justify-content-center align-items-center g-4 mt-5 gap-3 gap-md-4 gap-lg-5">
+    <div class="d-flex flex-wrap justify-content-center align-items-center g-4 mt-5 gap-3 gap-md-4 gap-lg-5">
         <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 17rem; height: 15rem;">
             <img class="img-fluid" style="width: 8rem; height: 8rem;" src="@Url.Content("~/images/documento.png")" alt="Imagen Crear Solicitud" />
             <h4 class="card-title mt-3">Gestionar Empleados</h4>
             <a asp-controller="Empleados" asp-action="Index" class="stretched-link"></a>
-        </div>
-        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 17rem; height: 15rem;">
-            <img class="img-fluid" style="width: 8rem; height: 8rem;" src="@Url.Content("~/images/documento.png")" alt="Imagen Solicitudes Creadas" />
-            <h4 class="card-title mt-3">Solicitudes Creadas</h4>
-            <a asp-controller="Solicitudes" asp-action="Index" class="stretched-link"></a>
         </div>
     </div>
 </div>

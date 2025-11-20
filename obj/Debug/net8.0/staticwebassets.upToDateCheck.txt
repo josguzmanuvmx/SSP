@@ -1,5 +1,6 @@
 wwwroot\css\Estilos\cssAdmin.css
 wwwroot\css\Estilos\cssCrearSolicitud.css
+wwwroot\css\Estilos\cssEmpleado.css
 wwwroot\css\Estilos\cssInicio.css
 wwwroot\css\Estilos\cssLogin.css
 wwwroot\css\Estilos\cssSeleccion.css
@@ -9,7 +10,10 @@ wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\documento.png
 wwwroot\images\Logueo_Egresados.jpg
+wwwroot\js\Scripts\jsAgregarEditarEmpleado.js
 wwwroot\js\Scripts\jsCrearSolicitud.js
+wwwroot\js\Scripts\jsEditarEmpleado.js
+wwwroot\js\Scripts\jsEmpleado.js
 wwwroot\js\Scripts\jsInicio.js
 wwwroot\js\Scripts\jsLogin.js
 wwwroot\js\Scripts\jsSeleccion.js
@@ -208,7 +212,3 @@ wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\templates\siisu.xlsx
 wwwroot\templates\sprfm.docx
-wwwroot\css\Estilos\cssEmpleado.css
-wwwroot\js\Scripts\jsEmpleado.js
-wwwroot\js\Scripts\jsAgregarEditarEmpleado.js
-wwwroot\js\Scripts\jsEditarEmpleado.js

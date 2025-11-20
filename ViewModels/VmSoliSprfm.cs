@@ -10,39 +10,81 @@ public enum SprfmAccion
 
 public enum SprfmRegion
 {
-    [Display(Name = "Xalapa")]
-    [ClsClaveRegion("X")]
-    SXalapaX,
-    [Display(Name = "Xalapa - Martínez de la Torre")]
-    [ClsClaveRegion("E")]
-    SXalapaE,
-    [Display(Name = "E - Xalapa - Totonacapan (Espinal)")]
-    [ClsClaveRegion("E")]
-    SXalapaF,
-    [Display(Name = "E - Xalapa - Grandes Montañas (Tequila)")]
-    [ClsClaveRegion("E")]
-    SXalapaG,
-    [Display(Name = "E - Xalapa - Huasteca (Ixhuatlan de Madero)")]
-    [ClsClaveRegion("E")]
-    SXalapaH,
-    [Display(Name = "E - Xalapa - Selvas (Huazuntlan)")]
-    [ClsClaveRegion("E")]
-    SXalapaS,
-    [Display(Name = "V - Veracruz")]
-    [ClsClaveRegion("E")]
-    SVeracruzV,
-    [Display(Name = "S - Veracruz - Boca del Río")]
-    [ClsClaveRegion("E")]
-    SVeracruzB,
-    [Display(Name = "Orizaba - Córdoba")]
-    [ClsClaveRegion("E")]
+    [Display(Name = "1. Xalapa")]
+    [ClsClaveRegion("1")]
+    SXalapa,
+    [Display(Name = "2. Veracruz")]
+    [ClsClaveRegion("2")]
+    SVeracruz,
+    [Display(Name = "3. Orizaba - Córdoba")]
+    [ClsClaveRegion("3")]
     SOrizabaCordoba,
-    [Display(Name = "Poza Rica - Tuxpan")]
-    [ClsClaveRegion("E")]
+    [Display(Name = "4. Poza Rica - Tuxpan")]
+    [ClsClaveRegion("4")]
     SPozaRicaTuxpan,
-    [Display(Name = "Coatzacoalcos - Minatitlan")]
-    [ClsClaveRegion("E")]
-    SCoatzacoalcosMinatitlan
+    [Display(Name = "5. Coatzacoalcos - Minatitlan")]
+    [ClsClaveRegion("5")]
+    SCoatzacoalcosMinatitlan,
+    //[Display(Name = "1. Xalapa")]
+    //[ClsClaveRegion("X")]
+    //SXalapaX,
+    //[Display(Name = "1. Xalapa - Martínez de la Torre")]
+    //[ClsClaveRegion("E")]
+    //SXalapaE,
+    //[Display(Name = "1. Xalapa - Totonacapan (Espinal)")]
+    //[ClsClaveRegion("F")]
+    //SXalapaF,
+    //[Display(Name = "1. Xalapa - Grandes Montañas (Tequila)")]
+    //[ClsClaveRegion("G")]
+    //SXalapaG,
+    //[Display(Name = "1. Xalapa - Huasteca (Ixhuatlan de Madero)")]
+    //[ClsClaveRegion("H")]
+    //SXalapaH,
+    //[Display(Name = "1. Xalapa - Selvas (Huazuntlan)")]
+    //[ClsClaveRegion("S")]
+    //SXalapaS,
+    //[Display(Name = "2. Veracruz")]
+    //[ClsClaveRegion("V")]
+    //SVeracruzV,
+    //[Display(Name = "2. Veracruz - Boca del Río")]
+    //[ClsClaveRegion("B")]
+    //SVeracruzB,
+    //[Display(Name = "3. Orizaba-Córdoba - Ciudad Mendoza")]
+    //[ClsClaveRegion("M")]
+    //SOrizabaCordobaM,
+    //[Display(Name = "3. Orizaba-Córdoba - Nogales")]
+    //[ClsClaveRegion("N")]
+    //SOrizabaCordobaN,
+    //[Display(Name = "3. Orizaba-Córdoba - Orizaba")]
+    //[ClsClaveRegion("O")]
+    //SOrizabaCordobaO,
+    //[Display(Name = "3. Orizaba-Córdoba - Córdoba")]
+    //[ClsClaveRegion("C")]
+    //SOrizabaCordobaC,
+    //[Display(Name = "3. Orizaba-Córdoba - Río Blanco")]
+    //[ClsClaveRegion("L")]
+    //SOrizabaCordobaL,
+    //[Display(Name = "3. Orizaba-Córdoba - Peñuela Amatlan de los Reyes")]
+    //[ClsClaveRegion("P")]
+    //SOrizabaCordobaP,
+    //[Display(Name = "4. Poza Rica-Tuxpan - Poza Rica")]
+    //[ClsClaveRegion("R")]
+    //SPozaRicaTuxpanR,
+    //[Display(Name = "4. Poza Rica-Tuxpan - Tuxpan")]
+    //[ClsClaveRegion("T")]
+    //SPozaRicaTuxpanT,
+    //[Display(Name = "5. Coatzacoalcos-Minatitlan - Acayucan")]
+    //[ClsClaveRegion("A")]
+    //SCoatzacoalcosMinatitlanA,
+    //[Display(Name = "5. Coatzacoalcos-Minatitlan - Coatzacoalcos")]
+    //[ClsClaveRegion("Z")]
+    //SCoatzacoalcosMinatitlanZ,
+    //[Display(Name = "5. Coatzacoalcos-Minatitlan - Minatitlan")]
+    //[ClsClaveRegion("I")]
+    //SCoatzacoalcosMinatitlanI,
+    //[Display(Name = "5. Coatzacoalcos-Minatitlan - Catemaco")]
+    //[ClsClaveRegion("D")]
+    //SCoatzacoalcosMinatitlanD,
 }
 
 public class VmSoliSprfm
@@ -88,30 +130,10 @@ public class VmSoliSprfm
     public SprfmAccion SAccionPermiso { get; set; }
 
     // Un objeto anidado para agrupar todos los checkboxes de permisos
-    public SprfmPermisosViewModel SPermisos { get; set; } = new SprfmPermisosViewModel();
+    public VmSprfmPermisos SPermisos { get; set; } = new VmSprfmPermisos();
 
 
     // --- Pestaña 3: Especificaciones ---
     [MaxLength(500, ErrorMessage = "Las especificaciones no pueden exceder los 500 caracteres.")]
     public string? SEspecificaciones { get; set; }
-}
-
-// Clase anidada para organizar los checkboxes
-public class SprfmPermisosViewModel
-{
-    public bool BDirector { get; set; }
-    public bool BDirectorGeneral { get; set; }
-    public bool BAdministrador { get; set; }
-    public bool BAuxiliarAdministrativo { get; set; }
-    public bool BResponsableProyecto { get; set; }
-    public bool BResponsableControlBienes { get; set; }
-    public bool BEstudiantes { get; set; }
-    public bool BEventosIngreso { get; set; }
-    public bool BSupervisor { get; set; }
-    public bool BCajeros { get; set; }
-    public bool BRevisor { get; set; }
-    public bool BOtroGrupo { get; set; }
-    public bool BUrAdicional { get; set; }
-    public bool BPermisoEspecifico { get; set; }
-    public bool BPermisoSimilar { get; set; }
 }

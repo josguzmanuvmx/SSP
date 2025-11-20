@@ -72,8 +72,12 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/SIISU/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU0lJU1VcSW5kZXguY3NodG1s
+[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Siisu/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lpc3VcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Siisu/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lpc3VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/SolicitudesCreadas/Index.cshtml]
@@ -84,8 +88,20 @@ build_metadata.AdditionalFiles.CssScope =
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdHVkZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/SPRFM/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU1BSRk1cSW5kZXguY3NodG1s
+[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Sprfm/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ByZm1cQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Sprfm/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ByZm1cSW5kZXguY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/SubirSolicitud/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViaXJTb2xpY2l0dWRcQ3JlYXIuY3NodG1s
+build_metadata.AdditionalFiles.CssScope = 
+
+[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/SubirSolicitud/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViaXJTb2xpY2l0dWRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
 [C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/_ViewImports.cshtml]

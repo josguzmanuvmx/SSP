@@ -3,84 +3,60 @@
   "WorkspaceRootPath": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\functions\\clssprfmactividades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:functions\\clssprfmactividades.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\viewmodels\\vmsprfmpermisos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:viewmodels\\vmsprfmpermisos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jssprfm.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jssprfm.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\viewmodels\\vmsolisprfm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:viewmodels\\vmsolisprfm.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\functions\\clsclaveregion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:functions\\clsclaveregion.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\functions\\clsencrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:functions\\clsencrypt.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\viewmodels\\vmsolisiisu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:viewmodels\\vmsolisiisu.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\sprfmcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\sprfmcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\sprfm\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\sprfm\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\siisu\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\siisu\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\sprfm\\crear.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\sprfm\\crear.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\css\\estilos\\csssprfm.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\css\\estilos\\csssprfm.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\empleados\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\empleados\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jssiisu.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jssiisu.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\extensions\\htmlextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:extensions\\htmlextension.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\siisucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\siisucontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\login\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\admincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\iniciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\iniciocontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\solicitudescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\solicitudescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\empleados\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\empleados\\editar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\admin\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\empleados\\agregareditar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\empleados\\agregareditar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jsagregareditarempleado.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jsagregareditarempleado.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\viewmodels\\vmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:viewmodels\\vmempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\empleados\\agregar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\empleados\\agregar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\models\\moempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:models\\moempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\data\\daempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:data\\daempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jslogin.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jslogin.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     }
   ],
   "DocumentGroupContainers": [
@@ -90,265 +66,194 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
-              "Title": "ClsClaveRegion.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Functions\\ClsClaveRegion.cs",
-              "RelativeDocumentMoniker": "Functions\\ClsClaveRegion.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Functions\\ClsClaveRegion.cs",
-              "RelativeToolTip": "Functions\\ClsClaveRegion.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T23:07:52.308Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
               "DocumentIndex": 0,
-              "Title": "VmSoliSprfm.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSprfm.cs",
-              "RelativeDocumentMoniker": "ViewModels\\VmSoliSprfm.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSprfm.cs",
-              "RelativeToolTip": "ViewModels\\VmSoliSprfm.cs",
-              "ViewState": "AgIAAA4AAAAAAAAAAAAgwCAAAAAPAAAAAAAAAA==",
+              "Title": "ClsSprfmActividades.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Functions\\ClsSprfmActividades.cs",
+              "RelativeDocumentMoniker": "Functions\\ClsSprfmActividades.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Functions\\ClsSprfmActividades.cs",
+              "RelativeToolTip": "Functions\\ClsSprfmActividades.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAmwJUAAAAeAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T22:54:59.152Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "SiisuController.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SiisuController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SiisuController.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SiisuController.cs",
-              "RelativeToolTip": "Controllers\\SiisuController.cs",
-              "ViewState": "AgIAADcAAAAAAAAAAAAcwEoAAAA6AAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T22:46:36.027Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 6,
-              "Title": "jsSiisu.js",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSiisu.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsSiisu.js",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSiisu.js",
-              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsSiisu.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAAdAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-11-14T22:46:29.352Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "VmSoliSiisu.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSiisu.cs",
-              "RelativeDocumentMoniker": "ViewModels\\VmSoliSiisu.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSiisu.cs",
-              "RelativeToolTip": "ViewModels\\VmSoliSiisu.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABcAAAAVAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T22:25:16.442Z",
+              "WhenOpened": "2025-11-20T20:25:12.445Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 4,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\SIISU\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\SIISU\\Index.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\SIISU\\Index.cshtml",
-              "RelativeToolTip": "Views\\SIISU\\Index.cshtml",
-              "ViewState": "AgIAACcAAAAAAAAAAAAAAD0AAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-14T22:32:20.706Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "SolicitudesController.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SolicitudesController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SolicitudesController.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SolicitudesController.cs",
-              "RelativeToolTip": "Controllers\\SolicitudesController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAaAAAAAAAAAA==",
+              "Title": "ClsEncrypt.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Functions\\ClsEncrypt.cs",
+              "RelativeDocumentMoniker": "Functions\\ClsEncrypt.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Functions\\ClsEncrypt.cs",
+              "RelativeToolTip": "Functions\\ClsEncrypt.cs",
+              "ViewState": "AgIAAGkAAAAAAAAAAAAkwH4AAABaAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T22:23:36.782Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "InicioController.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\InicioController.cs",
-              "RelativeDocumentMoniker": "Controllers\\InicioController.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\InicioController.cs",
-              "RelativeToolTip": "Controllers\\InicioController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T22:21:36.297Z",
+              "WhenOpened": "2025-11-20T20:24:35.037Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 9,
-              "Title": "AdminController.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\AdminController.cs",
-              "RelativeDocumentMoniker": "Controllers\\AdminController.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\AdminController.cs",
-              "RelativeToolTip": "Controllers\\AdminController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T22:19:50.331Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 13,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Admin\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Admin\\Index.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Admin\\Index.cshtml",
-              "RelativeToolTip": "Views\\Admin\\Index.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-14T22:19:44.181Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 16,
-              "Title": "VmEmpleado.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmEmpleado.cs",
-              "RelativeDocumentMoniker": "ViewModels\\VmEmpleado.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmEmpleado.cs",
-              "RelativeToolTip": "ViewModels\\VmEmpleado.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAcAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T20:53:16.35Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 14,
-              "Title": "AgregarEditar.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\AgregarEditar.cshtml",
-              "RelativeDocumentMoniker": "Views\\Empleados\\AgregarEditar.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\AgregarEditar.cshtml",
-              "RelativeToolTip": "Views\\Empleados\\AgregarEditar.cshtml",
-              "ViewState": "AgIAAA8AAAAAAAAAAAAAAB4AAAAtAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-14T20:33:12.926Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\SPRFM\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\SPRFM\\Index.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\SPRFM\\Index.cshtml",
-              "RelativeToolTip": "Views\\SPRFM\\Index.cshtml",
-              "ViewState": "AgIAAFEAAAAAAAAAAAASwFoAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-14T18:48:23.082Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 15,
-              "Title": "jsAgregarEditarEmpleado.js",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsAgregarEditarEmpleado.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsAgregarEditarEmpleado.js",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsAgregarEditarEmpleado.js",
-              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsAgregarEditarEmpleado.js",
-              "ViewState": "AgIAACAAAAAAAAAAAAAQwBkAAAAlAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-11-14T00:39:10.046Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 19,
-              "Title": "DaEmpleado.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\DaEmpleado.cs",
-              "RelativeDocumentMoniker": "Data\\DaEmpleado.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\DaEmpleado.cs",
-              "RelativeToolTip": "Data\\DaEmpleado.cs",
-              "ViewState": "AgIAABsAAAAAAAAAAAAowDIAAAAfAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T00:30:15.436Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 18,
-              "Title": "MoEmpleado.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Models\\MoEmpleado.cs",
-              "RelativeDocumentMoniker": "Models\\MoEmpleado.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Models\\MoEmpleado.cs",
-              "RelativeToolTip": "Models\\MoEmpleado.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAgAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-14T00:24:01.514Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 17,
-              "Title": "Agregar.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\Agregar.cshtml",
-              "RelativeDocumentMoniker": "Views\\Empleados\\Agregar.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\Agregar.cshtml",
-              "RelativeToolTip": "Views\\Empleados\\Agregar.cshtml",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAABAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-14T00:14:06.195Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 12,
-              "Title": "Editar.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\Editar.cshtml",
-              "RelativeDocumentMoniker": "Views\\Empleados\\Editar.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\Editar.cshtml",
-              "RelativeToolTip": "Views\\Empleados\\Editar.cshtml",
-              "ViewState": "AgIAAB4AAAAAAAAAAAAAADwAAAALAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-14T00:10:08.408Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
               "Title": "Index.cshtml",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\Index.cshtml",
               "RelativeDocumentMoniker": "Views\\Empleados\\Index.cshtml",
               "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\Index.cshtml",
               "RelativeToolTip": "Views\\Empleados\\Index.cshtml",
-              "ViewState": "AgIAAEIAAAAAAAAAAAAAAFkAAABnAAAAAAAAAA==",
+              "ViewState": "AgIAAEIAAAAAAAAAAAAAAF8AAAAdAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-13T23:22:17.131Z",
+              "WhenOpened": "2025-11-20T20:03:28.878Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "jsLogin.js",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsLogin.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsLogin.js",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsLogin.js",
+              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsLogin.js",
+              "ViewState": "AgIAAA4AAAAAAAAAAAAlwCMAAAB6AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-11-20T18:22:17.703Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Login\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Login\\Index.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Login\\Index.cshtml",
+              "RelativeToolTip": "Views\\Login\\Index.cshtml",
+              "ViewState": "AgIAABgAAAAAAAAAAAAAADIAAACsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-20T18:21:41.808Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAApAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-20T18:19:38.319Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "HtmlExtension.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Extensions\\HtmlExtension.cs",
+              "RelativeDocumentMoniker": "Extensions\\HtmlExtension.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Extensions\\HtmlExtension.cs",
+              "RelativeToolTip": "Extensions\\HtmlExtension.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABIAAAAvAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T18:19:10.756Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
               "DocumentIndex": 8,
-              "Title": "EmpleadosController.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\EmpleadosController.cs",
-              "RelativeDocumentMoniker": "Controllers\\EmpleadosController.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\EmpleadosController.cs",
-              "RelativeToolTip": "Controllers\\EmpleadosController.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAFAAAAAAAAAA==",
+              "Title": "cssSprfm.css",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssSprfm.css",
+              "RelativeDocumentMoniker": "wwwroot\\css\\Estilos\\cssSprfm.css",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssSprfm.css",
+              "RelativeToolTip": "wwwroot\\css\\Estilos\\cssSprfm.css",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAwwB4AAABLAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2025-11-20T01:48:30.036Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "SprfmController.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SprfmController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SprfmController.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SprfmController.cs",
+              "RelativeToolTip": "Controllers\\SprfmController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABsAAAAmAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-13T23:05:01.365Z",
+              "WhenOpened": "2025-11-20T00:28:35.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "jsSprfm.js",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSprfm.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsSprfm.js",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSprfm.js",
+              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsSprfm.js",
+              "ViewState": "AgIAAA8AAAAAAAAAAAAAAEQAAAAcAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-11-20T00:06:05.694Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "VmSoliSprfm.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSprfm.cs",
+              "RelativeDocumentMoniker": "ViewModels\\VmSoliSprfm.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSoliSprfm.cs",
+              "RelativeToolTip": "ViewModels\\VmSoliSprfm.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T00:01:44.455Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "Crear.cshtml",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Sprfm\\Crear.cshtml",
+              "RelativeDocumentMoniker": "Views\\Sprfm\\Crear.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Sprfm\\Crear.cshtml",
+              "RelativeToolTip": "Views\\Sprfm\\Crear.cshtml",
+              "ViewState": "AgIAAHsAAAAAAAAAAAAAAAEAAAATAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-19T23:53:58.64Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Sprfm\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Sprfm\\Index.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Sprfm\\Index.cshtml",
+              "RelativeToolTip": "Views\\Sprfm\\Index.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAA8AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-19T23:53:49.192Z",
+              "EditorCaption": ""
+            }
+          ]
+        },
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "VmSprfmPermisos.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSprfmPermisos.cs",
+              "RelativeDocumentMoniker": "ViewModels\\VmSprfmPermisos.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSprfmPermisos.cs",
+              "RelativeToolTip": "ViewModels\\VmSprfmPermisos.cs",
+              "ViewState": "AgIAAF8AAAAAAAAAAAAIwHQAAABnAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-20T20:16:03.392Z",
               "EditorCaption": ""
             }
           ]

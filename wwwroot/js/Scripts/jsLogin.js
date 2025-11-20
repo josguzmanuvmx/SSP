@@ -33,6 +33,6 @@ document.getElementById("form-login").addEventListener("submit", function () {
     const btn = document.getElementById("btn-login");
     btn.disabled = true;
     btn.innerHTML = `
-        <span class="spinner-border spinner-border-sm"></span> Iniciando sesión
+        <span class="spinner-border spinner-border-sm"></span><span style="padding-bottom: .1rem;">Iniciando sesión</span>
     `;
 });

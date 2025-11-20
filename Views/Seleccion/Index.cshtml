@@ -8,22 +8,24 @@
         <a class="btn btn-secondary d-flex p-2" asp-controller="Inicio" asp-action="Index">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
-        <h3 class="m-0 mx-auto">Selecciona el permiso a crear</h3>
+        <h3 class="m-0 mx-auto">Selecciona una acción a realizar</h3>
     </div>
     <br /><br /><br />
-    <div class="d-flex justify-content-center align-items-center g-4 mt-5 gap-3 gap-md-4 gap-lg-5">
-        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column shadow" style="width: 17rem; height: 15rem;">
-            <h2 class="card-title fw-bold mt-5">SPRFM</h2>
-            <div class="card-subtitle mt-3" style="font-size: .94rem;">
-                Solicitud de permisos al Subsistema de Planeación, Recursos Financieros y Materiales
-            </div>
-            <a asp-controller="Sprfm" asp-action="Index" class="stretched-link"></a>
+    <div class="d-flex justify-content-center align-items-center g-4 mt-5 gap-3 gap-md-4 gap-lg-4">
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 17rem; height: 15rem;">
+            <img class="img-fluid" style="width: 8rem; height: 8rem;" src="@Url.Content("~/images/documento.png")" alt="Imagen Crear Solicitud" />
+            <h4 class="card-title mt-3">Crear Solicitud</h4>
+            <a asp-controller="Seleccion" asp-action="Index" class="stretched-link"></a>
+            }
         </div>
-        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column shadow" style="width: 17rem; height: 15rem;">
-            <h2 class="card-title fw-bold mt-5">SIISU</h2>
-            <div class="card-subtitle mt-3" style="font-size: .94rem;">
-                Solicitud de Permisos al Subsistema de Recursos Humanos
-            </div>
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 17rem; height: 15rem;">
+            <img class="img-fluid" style="width: 8rem; height: 8rem;" src="@Url.Content("~/images/documento.png")" alt="Imagen Solicitudes Creadas" />
+            <h4 class="card-title mt-3">Subir Solicitud</h4>
+            <a asp-controller="SubirSolicitud" asp-action="Index" class="stretched-link"></a>
+        </div>
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 17rem; height: 15rem;">
+            <img class="img-fluid" style="width: 8rem; height: 8rem;" src="@Url.Content("~/images/documento.png")" alt="Imagen Gestionar Solicitudes" />
+            <h4 class="card-title mt-3">Gestionar Solicitudes</h4>
             <a asp-controller="Siisu" asp-action="Index" class="stretched-link"></a>
         </div>
     </div>
