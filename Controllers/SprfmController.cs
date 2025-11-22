@@ -5,6 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 using SSP.Data;
 using SSP.ViewModels;
 using System.Reflection;
+using SSP.Extensions;
 using System.Text;
 using Xceed.Words.NET;
 
@@ -25,8 +26,24 @@ public class SprfmController : Controller
 
     public IActionResult Crear()
     {
-        var model = new VmSoliSprfm();
-        return View("Crear", model);
+        var modelo = new VmSprfmAct
+        {
+            // Inicializamos el formulario vacío
+            vmSprfm = new VmSoliSprfm(),
+
+            // 2. ¡AQUÍ ESTÁ LA MAGIA!
+            // Convertimos el Enum en una lista de objetos para la vista
+            lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
+                            .Cast<ClsSprfmActividades>()
+                            .Select(a => new ItemActividad
+                            {
+                                SNombre = a.GetDisplayName(),
+                                SDescripcion = a.GetDescription() // Aquí recuperamos el HTML de la lista
+                            })
+                            .ToList()
+        };
+
+        return View("Crear", modelo);
     }
 
     public static string GetDisplayName(Enum enumValue)

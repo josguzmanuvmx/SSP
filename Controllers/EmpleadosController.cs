@@ -28,7 +28,7 @@ public class EmpleadosController : Controller
 
         foreach (var moEmpleado in lsEmpleados)
         {
-            string sIdEncrypt = _encrypt.FnsEncripta(moEmpleado.NId.ToString())?.SEncrypt ?? "";
+            string sIdEncrypt = _encrypt.FnsEncripta(moEmpleado.NId.ToString())?.SEncript ?? "";
 
             VmEmpleado vmEmpleado = new()
             {
@@ -132,7 +132,7 @@ public class EmpleadosController : Controller
         {
             return NotFound();
         }
-        string sIdEncrypt = _encrypt.FnsEncripta(moEmpleado.NId.ToString())?.SEncrypt ?? "";
+        string sIdEncrypt = _encrypt.FnsEncripta(moEmpleado.NId.ToString())?.SEncript ?? "";
         VmEmpleado vmEmpleado = new()
         {
             SId = sIdEncrypt,

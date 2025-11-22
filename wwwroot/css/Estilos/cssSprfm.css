@@ -83,3 +83,20 @@
 .bs-tooltip-start .tooltip-arrow::before {
     transform-origin: center right;
 }
+
+/* Actividades */
+﻿#tblActividades_wrapper .dataTables_paginate {
+    margin-top: .6rem;
+}
+
+#tblActividades_wrapper .dataTables_info {
+    margin-top: -.2rem;
+}
+
+#tblActividades_filter, #tblActividades_wrapper > div:nth-child(1) {
+    display: none;
+}
+
+#tblActividades_info {
+    color: #026ad5;
+}

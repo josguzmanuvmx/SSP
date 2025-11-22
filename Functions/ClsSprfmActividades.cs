@@ -148,4 +148,60 @@ public enum ClsSprfmActividades
     // RESPONSABLE DE CONTROL DE BIENES
     [Display(Name = "RESPONSABLE DE CONTROL DE BIENES", Description = "Consulta de información bienes muebles e inmuebles (Catálogo de activo fijo).")]
     RESPONSABLECONTROLBIENES1,
+    [Display(Name = "RESPONSABLE DE CONTROL DE BIENES", Description = "Consulta y generación de resguardo de bienes (Resguardo de activo fijo).")]
+    RESPONSABLECONTROLBIENES2,
+    [Display(Name = "RESPONSABLE DE CONTROL DE BIENES", Description = "Préstamo de Activo Fijo.")]
+    RESPONSABLECONTROLBIENES3,
+    [Display(Name = "RESPONSABLE DE CONTROL DE BIENES", Description = "Transferencia de bienes entre unidades responsables (Modulo de Transferencia de mercancía interna).")]
+    RESPONSABLECONTROLBIENES4,
+    [Display(Name = "RESPONSABLE DE CONTROL DE BIENES", Description = "Generación de reportes para emitir información registrada en los diversos apartados.")]
+    RESPONSABLECONTROLBIENES5,
+
+    // ESTUDIANTES
+    [Display(Name = "ESTUDIANTES", Description = "Acceso al registro de cobros por ventanilla y generación de líneas de captura.")]
+    ESTUDIANTES1,
+
+    // EVENTOS INGRESOS (Generación de Formatos de Pago por un bien o servicio)
+    [Display(Name = "EVENTOS INGRESOS (Generación de Formatos de Pago por un bien o servicio)", Description = "Acceso al módulo de ingresos y cobros.")]
+    EVENTOSINGRESOS1,
+    [Display(Name = "EVENTOS INGRESOS (Generación de Formatos de Pago por un bien o servicio)", Description = "Generar líneas de captura en el registro por ventanilla.")]
+    EVENTOSINGRESOS2,
+    [Display(Name = "EVENTOS INGRESOS (Generación de Formatos de Pago por un bien o servicio)", Description = "Consulta de pagos por líneas de captura.")]
+    EVENTOSINGRESOS3,
+    [Display(Name = "EVENTOS INGRESOS (Generación de Formatos de Pago por un bien o servicio)", Description = "Generación de reportes con la información.")]
+    EVENTOSINGRESOS4,
+    [Display(Name = "EVENTOS INGRESOS (Generación de Formatos de Pago por un bien o servicio)", Description = "Consulta de trazabilidad de las operaciones de ingreso.")]
+    EVENTOSINGRESOS5,
+
+    // SUPERVISOR
+    [Display(Name = "SUPERVISOR", Description = "Acceso a módulos relacionados con punto de venta y cobro (cuentas por cobrar).")]
+    SUPERVISOR1,
+    [Display(Name = "SUPERVISOR", Description = "Generación de reportes para emitir información registrada en dichos apartados.")]
+    SUPERVISOR2,
+
+    // CAJEROS
+    [Display(Name = "CAJEROS", Description = "Acceso a módulos relacionados con ingresos y cobro (cuentas por cobrar).")]
+    CAJEROS1,
+    [Display(Name = "CAJEROS", Description = "Generación de reportes para emitir información registrada en dichos apartados.")]
+    CAJEROS2,
+
+    // REVISOR
+    [Display(Name = "REVISOR", Description = "Tendrá que especificar la operación u operaciones a revisar")]
+    REVISOR,
+
+    // OTRO GRUPO
+    [Display(Name = "OTRO GRUPO", Description = "Indicar las actividades que va a realizar el usuario.")]
+    OTROGRUPO,
+
+    // UR adicional
+    [Display(Name = "UR adicional", Description = "Deberá especificar qué UR se requiere adicionar, por clave de UR y descripción.")]
+    URADICIONAL,
+
+    // Permiso especifico
+    [Display(Name = "Permiso específico", Description = "Deberá especificar y justificar el acceso a solicitar, también, se deberá anexar al formato imágenes con la descripción del permiso requerido.")]
+    PERMISOESPECIFICO,
+
+    // Permisos similares
+    [Display(Name = "Asignar permisos similares a otro usuario", Description = "Deberá especificar el nombre de usuario del que se copiaran los accesos.")]
+    PERMISOSIMILAR,
 }
