@@ -76,8 +76,9 @@ public class SprfmController : Controller
     }
 
     [HttpPost]
-    public IActionResult DescargarSolicitud(VmSoliSprfm model)
+    public IActionResult DescargarSolicitud(VmSprfmAct vmSprfmAct)
     {
+        var vmSoliSprfm = vmSprfmAct.vmSprfm ?? new VmSoliSprfm();
         string plantillaPath = Path.Combine(_hostingEnvironment.WebRootPath, "templates", "sprfm.docx");
 
         using (var doc = DocX.Load(plantillaPath))
@@ -86,14 +87,14 @@ public class SprfmController : Controller
             doc.ReplaceText("{m}", DateTime.Now.ToString("MM"));
             doc.ReplaceText("{a}", DateTime.Now.ToString("yyyy"));
 
-            doc.ReplaceText("{nombreEmpleado}", model.SNombreEmpleado ?? "");
-            doc.ReplaceText("{noPersonal}", model.NNumeroPersonal.ToString());
-            doc.ReplaceText("{correoInst}", model.SCorreoInstitucional ?? "");
-            doc.ReplaceText("{uRC}", model.NUnidadResponsableClave.ToString());
-            doc.ReplaceText("{uRN}", model.SUnidadResponsableNombre ?? "");
-            doc.ReplaceText("{rC}", GetCodigoRegion(model.SRegion));
-            doc.ReplaceText("{rN}", GetNombreSinNumero(model.SRegion));
-            doc.ReplaceText("{puestoEmpleado}", model.SPuestoEmpleado ?? "");
+            doc.ReplaceText("{nombreEmpleado}", vmSoliSprfm.SNombreEmpleado ?? "");
+            doc.ReplaceText("{noPersonal}", vmSoliSprfm.NNumeroPersonal.ToString());
+            doc.ReplaceText("{correoInst}", vmSoliSprfm.SCorreoInstitucional ?? "");
+            doc.ReplaceText("{uRC}", vmSoliSprfm.NUnidadResponsableClave.ToString());
+            doc.ReplaceText("{uRN}", vmSoliSprfm.SUnidadResponsableNombre ?? "");
+            doc.ReplaceText("{rC}", GetCodigoRegion(vmSoliSprfm.SRegion));
+            doc.ReplaceText("{rN}", GetNombreSinNumero(vmSoliSprfm.SRegion));
+            doc.ReplaceText("{puestoEmpleado}", vmSoliSprfm.SPuestoEmpleado ?? "");
 
             var parOld = doc.Paragraphs.FirstOrDefault(p => p.Text.Contains("{especificaciones}"));
             if (parOld != null)
@@ -102,67 +103,67 @@ public class SprfmController : Controller
                 var par = parOld.InsertParagraphAfterSelf("");
 
                 // --- A. REVISOR (Mezclado: Negrita + Normal) ---
-                if (model.SPermisos.BRevisor && !string.IsNullOrWhiteSpace(model.SPermisos.SDetalleRevisor))
+                if (vmSoliSprfm.SPermisos.BRevisor && !string.IsNullOrWhiteSpace(vmSoliSprfm.SPermisos.SDetalleRevisor))
                 {
                     // Pieza 1: La etiqueta en Negrita
                     par.Append("REVISOR: ").Bold();
 
                     // Pieza 2: El valor en Normal (y salto de línea)
-                    par.Append(model.SPermisos.SDetalleRevisor).AppendLine();
+                    par.Append(vmSoliSprfm.SPermisos.SDetalleRevisor).AppendLine();
                 }
 
                 // --- B. OTRO GRUPO (Mezclado: Negrita + Normal) ---
-                if (model.SPermisos.BOtroGrupo && !string.IsNullOrWhiteSpace(model.SPermisos.SDetalleOtroGrupo))
+                if (vmSoliSprfm.SPermisos.BOtroGrupo && !string.IsNullOrWhiteSpace(vmSoliSprfm.SPermisos.SDetalleOtroGrupo))
                 {
                     // Pieza 1: La etiqueta en Negrita
                     par.Append("OTRO GRUPO: ").Bold();
 
                     // Pieza 2: El valor en Normal (y salto de línea)
-                    par.Append(model.SPermisos.SDetalleOtroGrupo).AppendLine();
+                    par.Append(vmSoliSprfm.SPermisos.SDetalleOtroGrupo).AppendLine();
                 }
 
                 // --- C. UR ADICIONAL ---
-                if (model.SPermisos.BUrAdicional && !string.IsNullOrWhiteSpace(model.SPermisos.SDetalleUrAdicional))
+                if (vmSoliSprfm.SPermisos.BUrAdicional && !string.IsNullOrWhiteSpace(vmSoliSprfm.SPermisos.SDetalleUrAdicional))
                 {
                     par.Append("UR adicional: ").Bold();
-                    par.Append(model.SPermisos.SDetalleUrAdicional).AppendLine();
+                    par.Append(vmSoliSprfm.SPermisos.SDetalleUrAdicional).AppendLine();
                 }
 
                 // --- D. PERMISO ESPECÍFICO ---
-                if (model.SPermisos.BPermisoEspecifico && !string.IsNullOrWhiteSpace(model.SPermisos.SDetallePermisoEspecifico))
+                if (vmSoliSprfm.SPermisos.BPermisoEspecifico && !string.IsNullOrWhiteSpace(vmSoliSprfm.SPermisos.SDetallePermisoEspecifico))
                 {
                     par.Append("Permiso específico: ").Bold();
-                    par.Append(model.SPermisos.SDetallePermisoEspecifico).AppendLine();
+                    par.Append(vmSoliSprfm.SPermisos.SDetallePermisoEspecifico).AppendLine();
                 }
 
                 // --- E. PERMISO SIMILAR ---
-                if (model.SPermisos.BPermisoSimilar && !string.IsNullOrWhiteSpace(model.SPermisos.SDetallePermisoSimilar))
+                if (vmSoliSprfm.SPermisos.BPermisoSimilar && !string.IsNullOrWhiteSpace(vmSoliSprfm.SPermisos.SDetallePermisoSimilar))
                 {
                     par.Append("Permisos similares a: ").Bold();
-                    par.Append(model.SPermisos.SDetallePermisoSimilar).AppendLine();
+                    par.Append(vmSoliSprfm.SPermisos.SDetallePermisoSimilar).AppendLine();
                 }
                 parOld.Remove(false);
             }
 
-            doc.ReplaceText("{alta}", model.SAccionPermiso == SprfmAccion.SAlta ? "☒" : "☐");
-            doc.ReplaceText("{modificacion}", model.SAccionPermiso == SprfmAccion.SModificacion ? "☒" : "☐");
-            doc.ReplaceText("{baja}", model.SAccionPermiso == SprfmAccion.SBaja ? "☒" : "☐");
+            doc.ReplaceText("{alta}", vmSoliSprfm.SAccionPermiso == SprfmAccion.SAlta ? "☒" : "☐");
+            doc.ReplaceText("{modificacion}", vmSoliSprfm.SAccionPermiso == SprfmAccion.SModificacion ? "☒" : "☐");
+            doc.ReplaceText("{baja}", vmSoliSprfm.SAccionPermiso == SprfmAccion.SBaja ? "☒" : "☐");
 
-            doc.ReplaceText("{director}", model.SPermisos.BDirector ? "x" : "");
-            doc.ReplaceText("{dirGen}", model.SPermisos.BDirectorGeneral ? "x" : "");
-            doc.ReplaceText("{admin}", model.SPermisos.BAdministrador ? "x" : "");
-            doc.ReplaceText("{auxAdmin}", model.SPermisos.BAuxiliarAdministrativo ? "x" : "");
-            doc.ReplaceText("{resProy}", model.SPermisos.BResponsableProyecto ? "x" : "");
-            doc.ReplaceText("{resCB}", model.SPermisos.BResponsableControlBienes ? "x" : "");
-            doc.ReplaceText("{estudi}", model.SPermisos.BEstudiantes ? "x" : "");
-            doc.ReplaceText("{eveIng}", model.SPermisos.BEventosIngreso ? "x" : "");
-            doc.ReplaceText("{super}", model.SPermisos.BSupervisor ? "x" : "");
-            doc.ReplaceText("{cajeros}", model.SPermisos.BCajeros ? "x" : "");
-            doc.ReplaceText("{revisor}", model.SPermisos.BRevisor ? "x" : "");
-            doc.ReplaceText("{otroGrupo}", model.SPermisos.BOtroGrupo ? "x" : "");
-            doc.ReplaceText("{urAdic}", model.SPermisos.BUrAdicional ? "x" : "");
-            doc.ReplaceText("{permEsp}", model.SPermisos.BPermisoEspecifico ? "x" : "");
-            doc.ReplaceText("{asigPerm}", model.SPermisos.BPermisoSimilar ? "x" : "");
+            doc.ReplaceText("{director}", vmSoliSprfm.SPermisos.BDirector ? "x" : "");
+            doc.ReplaceText("{dirGen}", vmSoliSprfm.SPermisos.BDirectorGeneral ? "x" : "");
+            doc.ReplaceText("{admin}", vmSoliSprfm.SPermisos.BAdministrador ? "x" : "");
+            doc.ReplaceText("{auxAdmin}", vmSoliSprfm.SPermisos.BAuxiliarAdministrativo ? "x" : "");
+            doc.ReplaceText("{resProy}", vmSoliSprfm.SPermisos.BResponsableProyecto ? "x" : "");
+            doc.ReplaceText("{resCB}", vmSoliSprfm.SPermisos.BResponsableControlBienes ? "x" : "");
+            doc.ReplaceText("{estudi}", vmSoliSprfm.SPermisos.BEstudiantes ? "x" : "");
+            doc.ReplaceText("{eveIng}", vmSoliSprfm.SPermisos.BEventosIngreso ? "x" : "");
+            doc.ReplaceText("{super}", vmSoliSprfm.SPermisos.BSupervisor ? "x" : "");
+            doc.ReplaceText("{cajeros}", vmSoliSprfm.SPermisos.BCajeros ? "x" : "");
+            doc.ReplaceText("{revisor}", vmSoliSprfm.SPermisos.BRevisor ? "x" : "");
+            doc.ReplaceText("{otroGrupo}", vmSoliSprfm.SPermisos.BOtroGrupo ? "x" : "");
+            doc.ReplaceText("{urAdic}", vmSoliSprfm.SPermisos.BUrAdicional ? "x" : "");
+            doc.ReplaceText("{permEsp}", vmSoliSprfm.SPermisos.BPermisoEspecifico ? "x" : "");
+            doc.ReplaceText("{asigPerm}", vmSoliSprfm.SPermisos.BPermisoSimilar ? "x" : "");
 
             var stream = new MemoryStream();
             doc.SaveAs(stream);
