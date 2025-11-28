@@ -25,8 +25,8 @@ public class SiisuController : Controller
 
     public IActionResult Crear()
     {
-        var model = new VmSoliSiisu();
-        return View("Crear", model);
+        var vmSoliSiisu = new VmSoliSiisu();
+        return View("Crear", vmSoliSiisu);
     }
 
     public static string GetDisplayShort(Enum enumValue)

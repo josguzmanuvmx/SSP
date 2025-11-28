@@ -5,6 +5,7 @@ wwwroot\css\Estilos\cssInicio.css
 wwwroot\css\Estilos\cssLogin.css
 wwwroot\css\Estilos\cssSeleccion.css
 wwwroot\css\Estilos\cssSiisu.css
+wwwroot\css\Estilos\cssSolicitud.css
 wwwroot\css\Estilos\cssSprfm.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
@@ -18,6 +19,7 @@ wwwroot\js\Scripts\jsInicio.js
 wwwroot\js\Scripts\jsLogin.js
 wwwroot\js\Scripts\jsSeleccion.js
 wwwroot\js\Scripts\jsSiisu.js
+wwwroot\js\Scripts\jsSolicitud.js
 wwwroot\js\Scripts\jsSprfm.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\css\bootstrap-grid.css

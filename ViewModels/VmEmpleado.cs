@@ -27,4 +27,19 @@ public class VmEmpleado
     [Column("bActivo")]
     [Display(Name = "Activo")]
     public bool BActivo { get; set; }
+
+    [Display(Name = "Nombre")]
+    public string? SNombre { get; set; }
+    [Display(Name = "Correo institucional")]
+    public string? SEmail { get; set; }
+    [Display(Name = "Clave Unidad Responsable")]
+    public int? NUniRes { get; set; }
+    [Display(Name = "Unidad Responsable")]
+    public string? SUniRes { get; set; }
+    [Display(Name = "Clave Región")]
+    public int? NRegion { get; set; }
+    [Display(Name = "Región")]
+    public string? SRegion { get; set; }
+    [Display(Name = "Puesto")]
+    public string? SPuesto { get; set; }
 }
