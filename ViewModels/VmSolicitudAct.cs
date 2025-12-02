@@ -9,5 +9,5 @@ public class ClslActividades
 public class VmSolicitudAct
 {
     public List<ClslActividades> lsActividades { get; set; } = new List<ClslActividades>();
-    public VmSoliSprfm? vmSprfm { get; set; }
+    public VmSolicitud? vmSolicitud { get; set; }
 }

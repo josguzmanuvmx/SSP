@@ -102,3 +102,11 @@
 #tblActividades_info {
     color: #026ad5;
 }
+
+
+.accordion-button {
+    border-radius: 1rem 1rem 0 0 !important;
+}
+    .accordion-button.collapsed, .accordion, .accordion-header, .accordion-item {
+        border-radius: 1rem !important;
+    }

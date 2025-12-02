@@ -45,13 +45,15 @@ public class SolicitudController : Controller
         var modelo = new VmSolicitudAct
         {
             // Inicializamos el formulario vacío
-            vmSprfm = new VmSoliSprfm() {
+            vmSolicitud = new VmSolicitud() {
+                SId = "test id",
                 SNombreEmpleado = "José Ángel Guzmán Zavaleta",
                 NNumeroPersonal = 61399,
-                SCorreoInstitucional = "josguzman@uv.mx",
-                NUnidadResponsableClave = 1,
-                SUnidadResponsableNombre = "Unidad",
-                SRegion = SprfmRegion.SVeracruz,
+                NUsuarioClave = 1234,
+                SCorreoInst = "josguzman@uv.mx",
+                NUnidadResClave = 1,
+                SUnidadResNombre = "Unidad",
+                SRegion = Region.SVeracruz,
                 SPuestoEmpleado = "Jefe",
             },
 

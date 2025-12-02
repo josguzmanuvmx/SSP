@@ -90,4 +90,6 @@ public class VmSoliSiisu
     [Required(ErrorMessage = "La clave de la Región es obligatoria.")]
     [Display(Name = "Clave de Región")]
     public SiisuRegion SRegion { get; set; }
+
+    public SiisuMovimiento SAccionPermiso { get; set; }
 }

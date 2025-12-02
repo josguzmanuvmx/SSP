@@ -1,60 +1,11 @@
-﻿namespace SSP.Models;
+﻿namespace SSP.ViewModels;
+using SSP.Models;
 using System.ComponentModel.DataAnnotations;
-using SSP.ViewModels;
 
-public enum Movimiento
-{
-    [Display(Name = "Alta")]
-    SAlta,
-    [Display(Name = "Modificación")]
-    SModificacion,
-    [Display(Name = "Baja")]
-    SBaja
-}
 
-public enum Perfil
+public class VmSolicitud
 {
-    [Display(Name = "Titular")]
-    STitular,
-    [Display(Name = "Administrador")]
-    SAdministrador,
-    [Display(Name = "Auxiliar de Administrador")]
-    SAuxiliarAdministrador,
-    [Display(Name = "Operador de proceso")]
-    SOperadorProceso
-}
-
-public enum Region
-{
-    [Display(Name = "1. Xalapa")]
-    [ClsClaveRegion("1")]
-    SXalapa,
-    [Display(Name = "2. Veracruz")]
-    [ClsClaveRegion("2")]
-    SVeracruz,
-    [Display(Name = "3. Orizaba - Córdoba")]
-    [ClsClaveRegion("3")]
-    SOrizabaCordoba,
-    [Display(Name = "4. Poza Rica - Tuxpan")]
-    [ClsClaveRegion("4")]
-    SPozaRicaTuxpan,
-    [Display(Name = "5. Coatzacoalcos - Minatitlan")]
-    [ClsClaveRegion("5")]
-    SCoatzacoalcosMinatitlan,
-}
-
-public enum Permiso
-{
-    [Display(Name = "Consulta")]
-    CConsulta,
-    [Display(Name = "Mantenimiento")]
-    CMantenimiento,
-}
-
-public class MoSolicitud
-{
-    [Key]
-    public int NId { get; set; }
+    public required string SId { get; set; }
 
     // --- Pestaña 1: Datos del Usuario ---
 
@@ -85,7 +36,7 @@ public class MoSolicitud
     
     [Required(ErrorMessage = "El puesto del empleado es obligatorio.")]
     [Display(Name = "Puesto del empleado")]
-    public Region SPuestoEmpleado { get; set; }
+    public string? SPuestoEmpleado { get; set; }
     public int? NUsuarioClave { get; set; }
 
     // --- Datos SPRFM ---
@@ -113,4 +64,6 @@ public class MoSolicitud
     public string? SClavePrograma { get; set; }
     public string? STipoPermiso { get; set; }
     public Movimiento? STipoMovimiento { get; set; }
+
+    public string? SAccionPermiso { get; set; }
 }
