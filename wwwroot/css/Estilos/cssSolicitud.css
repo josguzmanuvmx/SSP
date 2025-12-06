@@ -110,3 +110,21 @@
     .accordion-button.collapsed, .accordion, .accordion-header, .accordion-item {
         border-radius: 1rem !important;
     }
+
+/*.form-control, .form-select {
+    height: 2.4rem;
+}
+.form-select {
+    padding: .28rem 2.25rem .28rem .75rem;
+}
+.col-form-label {
+    padding-top: .2rem;
+    padding-bottom: .2rem;
+}*/
+
+.step {
+    clip-path: polygon(0% 0%, 93% 0%, 100% 50%, 93% 100%, 0% 100%, 7% 50%);
+}
+.step-first {
+    clip-path: polygon(0% 0%, 93% 0%, 100% 50%, 93% 100%, 0% 100%);
+}

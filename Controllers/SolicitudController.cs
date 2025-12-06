@@ -22,39 +22,19 @@ public class SolicitudController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        var lsEmpleados = _daEmpleados.Obtener();
-        var lsVmEmpleados = new List<VmEmpleado>();
-
-        foreach (var moEmpleado in lsEmpleados)
-        {
-            string sIdEncrypt = _encrypt.FnsEncripta(moEmpleado.NId.ToString())?.SEncript ?? "";
-
-            VmEmpleado vmEmpleado = new()
-            {
-                SId = sIdEncrypt,
-                NNoPersonal = moEmpleado.NNoPersonal,
-                SUsuario = moEmpleado.SUsuario,
-                BAdmin = moEmpleado.BAdmin,
-                BSiisu = moEmpleado.BSiisu,
-                BSprfm = moEmpleado.BSprfm,
-                BActivo = moEmpleado.BActivo
-            };
-            lsVmEmpleados.Add(vmEmpleado);
-        }
-
         var modelo = new VmSolicitudAct
         {
             // Inicializamos el formulario vacío
             vmSolicitud = new VmSolicitud() {
                 SId = "test id",
-                SNombreEmpleado = "José Ángel Guzmán Zavaleta",
-                NNumeroPersonal = 61399,
-                NUsuarioClave = 1234,
-                SCorreoInst = "josguzman@uv.mx",
-                NUnidadResClave = 1,
-                SUnidadResNombre = "Unidad",
-                SRegion = Region.SVeracruz,
-                SPuestoEmpleado = "Jefe",
+                SNomEmpl = "José Ángel Guzmán Zavaleta",
+                NNoPer = 61399,
+                NUsrClv = 1234,
+                SCorreo = "josguzman@uv.mx",
+                NUResClv = 1,
+                SUResNom = "Unidad",
+                SRegion = Region.SVer,
+                SPueEmpl = "Jefe",
             },
 
             // 2. ¡AQUÍ ESTÁ LA MAGIA!

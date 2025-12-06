@@ -9,96 +9,336 @@
 }
 
 <div class="container-fluid text-start">
-    <br /><br />
+    <br />
     <div class="d-flex gap-3 align-items-center col-12 col-md-8 col-lg-7 col-xl-5 m-auto" style="min-height: 3rem;">
         <a id="btnRegresar" class="btn btn-secondary d-flex p-2" asp-controller="Inicio" asp-action="Index">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <h4 class="text-start m-0">Solicitud</h4>
     </div>
-    <br />
     <form id="form-solicitud" class="d-flex flex-column gap-2 needs-validation col-12 col-md-8 col-lg-7 col-xl-5 m-auto" method="post" asp-action="DescargarSolicitud" novalidate>
         @Html.AntiForgeryToken()
-        <div class="card bg-white border shadow rounded-4">
-            <div class="card-body p-4">
-                <div class="d-flex align-items-center">
-                    <h6 class="fw-semibold fs-6 mb-0">Datos del Usuario</h6>
-                    <div class="ms-auto d-flex gap-2 p-1 rounded-pill">
-                        <button type="button" id="btn-yo" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">
-                            Yo lo solicitaré
-                        </button>
-                        <button type="button" id="btn-otro" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold">
-                            Para otro usuario
-                        </button>
-                    </div>
-                </div>
-                <div id="seccion-buscar-usuario" class="d-none mt-2 px-3 py-2 bg-light rounded border">
-                    <label class="form-label text-secondary fs-6 mb-1">Buscar usuario</label>
-                    <div class="input-group">
-                        <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
-                        <input type="text" id="buscador-usuarios" class="form-control border-start-0" placeholder="Escribe nombre o número de personal...">
-                    </div>
-                    <div id="resultados-busqueda" class="dropdown-menu w-100 shadow border-0 mt-1" style="max-height: 200px; overflow-y: auto;"></div>
-                </div>
-                <div id="info-basica" class="d-flex flex-column gap-1 mt-3">
-                    <div class="row align-items-center">
-                        <label asp-for="vmSolicitud.SNombreEmpleado" class="col-md-4 col-form-label">Nombre del empleado</label>
-                        <div class="col-md-8">
-                            <input asp-for="vmSolicitud.SNombreEmpleado" class="form-control bg-light" readonly />
-                            <span asp-validation-for="vmSolicitud.SNombreEmpleado" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <label asp-for="vmSolicitud.NNumeroPersonal" class="col-md-4 col-form-label">Número de personal</label>
-                        <div class="col-md-8">
-                            <input asp-for="vmSolicitud.NNumeroPersonal" class="form-control bg-light" readonly />
-                            <span asp-validation-for="vmSolicitud.NNumeroPersonal" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <label asp-for="vmSolicitud.NUsuarioClave" class="col-md-4 col-form-label">Clave del usuario</label>
-                        <div class="col-md-8">
-                            <input asp-for="vmSolicitud.NUsuarioClave" class="form-control bg-light" readonly />
-                            <span asp-validation-for="vmSolicitud.NUsuarioClave" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <label asp-for="vmSolicitud.SCorreoInst" class="col-md-4 col-form-label">Correo institucional</label>
-                        <div class="col-md-8">
-                            <input asp-for="vmSolicitud.SCorreoInst" class="form-control bg-light" readonly />
-                            <span asp-validation-for="vmSolicitud.SCorreoInst" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <label asp-for="vmSolicitud.NUnidadResClave" class="col-md-4 col-form-label">Unidad Responsable</label>
-                        <div class="col-md-8">
-                            <div class="input-group">
-                                <input asp-for="vmSolicitud.NUnidadResClave" class="form-control bg-light" style="max-width: 100px;" placeholder="Clave" readonly />
-                                <input asp-for="vmSolicitud.SUnidadResNombre" class="form-control bg-light" placeholder="Nombre de la UR" readonly />
+
+        <ul class="nav nav-pills nav-fill mt-3" id="pills-tab" role="tablist">
+            <li class="nav-item" role="presentation" style="margin-right: -0.6rem;">
+                <button id="pills-usuario-tab" data-bs-target="#pills-usuario" aria-controls="pills-usuario" class="custom-tab nav-link shadow-sm step step-first active" data-bs-toggle="pill" type="button" role="tab" aria-selected="true">
+                    <i class="fa-solid fa-user"></i> Usuario
+                </button>
+            </li>
+            <li class="nav-item" role="presentation" style="margin-right: -0.6rem;">
+                <button id="pills-permisos-tab" data-bs-target="#pills-permisos" aria-controls="pills-permisos" class="custom-tab nav-link shadow-sm step" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
+                    <i class="fa-solid fa-file-circle-check"></i> Permisos
+                </button>
+            </li>
+            <li class="nav-item" role="presentation">
+                <button id="pills-descarga-tab" data-bs-target="#pills-descarga" aria-controls="pills-descarga" class="custom-tab nav-link shadow-sm step" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
+                    <i class="fa-solid fa-print"></i> Descarga
+                </button>
+            </li>
+        </ul>
+
+        <div class="tab-content mt-2" id="pills-tabContent">
+            <!-- Datos del usuario -->
+            <div id="pills-usuario" aria-labelledby="pills-usuario-tab" class="tab-pane fade show active" role="tabpanel" tabindex="0">
+                <div class="card bg-white border shadow rounded-4">
+                    <div class="card-body p-4">
+                        @* <div class="d-flex align-items-center">
+                            <h6 class="fw-semibold fs-6 mb-0">Datos del Usuario</h6>
+                            <h6 class="fw-semibold fs-6 mb-0">Aqui se ingresan los datos en general del usuario a modificar.</h6>
+                            <div class="ms-auto d-flex gap-2 p-1 rounded-pill">
+                                <button type="button" id="btn-yo" class="btn btn-sm btn-primary rounded-pill px-3 fw-semibold">
+                                    Yo lo solicitaré
+                                </button>
+                                <button type="button" id="btn-otro" class="btn btn-sm btn-outline-secondary rounded-pill px-3 fw-semibold">
+                                    Para otro usuario
+                                </button>
                             </div>
-                            <span asp-validation-for="vmSolicitud.NUnidadResClave" class="text-danger"></span>
+                        </div> *@
+                        <h5 class="fw-semibold">Datos del Usuario</h5>
+                        <h6 class="text-muted">Aqui se ingresan los datos en general del usuario a modificar.</h6>
+                        <div id="seccion-buscar-usuario" class="d-flex flex-column mt-3 px-3 py-2 bg-light rounded border">
+                            <div class="d-flex align-items-center mb-2">
+                                <label class="form-label text-secondary fs-6 m-0">Busca un empleado rapidamente.</label>
+                                <button class="btn btn-link border-0 ms-auto p-0">Ingresar los datos manualmente.</button>
+                            </div>
+                            <div class="input-group">
+                                <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
+                                <input type="text" id="buscador-usuarios" class="form-control border-start-0" placeholder="Escribe nombre o número de personal...">
+                            </div>
+                            <div id="resultados-busqueda" class="dropdown-menu w-100 shadow border-0 mt-1" style="max-height: 200px; overflow-y: auto;"></div>
+                        </div>
+                        <div id="info-basica" class="d-flex flex-column gap-1 mt-3">
+                            <div class="row align-items-center">
+                                <label asp-for="vmSolicitud.SNomEmpl" class="col-md-4 col-form-label">Nombre del empleado</label>
+                                <div class="col-md-8">
+                                    <input asp-for="vmSolicitud.SNomEmpl" class="form-control bg-light" readonly />
+                                    <span asp-validation-for="vmSolicitud.SNomEmpl" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <label asp-for="vmSolicitud.NNoPer" class="col-md-4 col-form-label">Número de personal</label>
+                                <div class="col-md-8">
+                                    <input asp-for="vmSolicitud.NNoPer" class="form-control bg-light" readonly />
+                                    <span asp-validation-for="vmSolicitud.NNoPer" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <label asp-for="vmSolicitud.NUsrClv" class="col-md-4 col-form-label">Clave del usuario</label>
+                                <div class="col-md-8">
+                                    <input asp-for="vmSolicitud.NUsrClv" class="form-control bg-light" readonly />
+                                    <span asp-validation-for="vmSolicitud.NUsrClv" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <label asp-for="vmSolicitud.SCorreo" class="col-md-4 col-form-label">Correo institucional</label>
+                                <div class="col-md-8">
+                                    <input asp-for="vmSolicitud.SCorreo" class="form-control bg-light" readonly />
+                                    <span asp-validation-for="vmSolicitud.SCorreo" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <label asp-for="vmSolicitud.NUResClv" class="col-md-4 col-form-label">Unidad Responsable</label>
+                                <div class="col-md-8">
+                                    <div class="input-group">
+                                        <input asp-for="vmSolicitud.NUResClv" class="form-control bg-light" style="max-width: 100px;" placeholder="Clave" readonly />
+                                        <input asp-for="vmSolicitud.SUResNom" class="form-control bg-light" placeholder="Nombre de la UR" readonly />
+                                    </div>
+                                    <span asp-validation-for="vmSolicitud.NUResClv" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <label asp-for="vmSolicitud.SRegion" class="col-md-4 col-form-label">Región</label>
+                                <div class="col-md-8">
+                                    <select asp-for="vmSolicitud.SRegion" class="form-select bg-light" asp-items="Html.GetEnumSelectList<SprfmRegion>()" disabled></select>
+                                    <span asp-validation-for="vmSolicitud.SRegion" class="text-danger"></span>
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <label asp-for="vmSolicitud.SPueEmpl" class="col-md-4 col-form-label">Puesto</label>
+                                <div class="col-md-8">
+                                    <input asp-for="vmSolicitud.SPueEmpl" class="form-control bg-light" readonly />
+                                    <span asp-validation-for="vmSolicitud.SPueEmpl" class="text-danger"></span>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="row align-items-center">
-                        <label asp-for="vmSolicitud.SRegion" class="col-md-4 col-form-label">Región</label>
-                        <div class="col-md-8">
-                            <select asp-for="vmSolicitud.SRegion" class="form-select bg-light" asp-items="Html.GetEnumSelectList<SprfmRegion>()" disabled></select>
-                            <span asp-validation-for="vmSolicitud.SRegion" class="text-danger"></span>
-                        </div>
-                    </div>
-                    <div class="row align-items-center">
-                        <label asp-for="vmSolicitud.SPuestoEmpleado" class="col-md-4 col-form-label">Puesto</label>
-                        <div class="col-md-8">
-                            <input asp-for="vmSolicitud.SPuestoEmpleado" class="form-control bg-light" readonly />
-                            <span asp-validation-for="vmSolicitud.SPuestoEmpleado" class="text-danger"></span>
+                </div>
+            </div>
+            <div id="pills-permisos" aria-labelledby="pills-permisos-tab" class="tab-pane fade" role="tabpanel" tabindex="0">
+                <div class="card bg-white border shadow rounded-4">
+                    <div class="card-body p-4">
+                        <h5 class="fw-semibold">Area de Permisos</h5>
+                        <h6 class="text-muted">Aqui habilita solo las areas a modificar sus permisos.</h6>
+
+                        <ul class="nav nav-pills nav-fill gap-1 mt-3" id="pills-tab" role="tablist">
+                            <li class="nav-item" role="presentation">
+                                <button id="pills-estudiantes-tab" data-bs-target="#pills-estudiantes" aria-controls="pills-estudiantes" class="custom-tab nav-link shadow-sm active" data-bs-toggle="pill" type="button" role="tab" aria-selected="true">Estudiantes</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button id="pills-finanzas-tab" data-bs-target="#pills-finanzas" aria-controls="pills-finanzas" class="custom-tab nav-link shadow-sm" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">Finanzas</button>
+                            </li>
+                            <li class="nav-item" role="presentation">
+                                <button id="pills-humanos-tab" data-bs-target="#pills-humanos" aria-controls="pills-humanos" class="custom-tab nav-link shadow-sm" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">Humanos</button>
+                            </li>
+                        </ul>
+
+                        <div class="tab-content" id="pills-tabContent">
+                            <!-- Datos del usuario -->
+                            <div id="pills-estudiantes" aria-labelledby="pills-estudiantes-tab" class="tab-pane fade show active" role="tabpanel" tabindex="0">
+                                <h5 class="fw-semibold mt-3">Estudiantes</h5>
+                                <h6 class="text-muted">En espera de informacion...</h6>
+                            </div>
+                            <div id="pills-finanzas" aria-labelledby="pills-finanzas-tab" class="tab-pane fade" role="tabpanel" tabindex="0">
+                                <h6 class="fw-semibold">Tipo de Permiso</h6>
+                                <div class="d-flex flex-fill gap-3 mt-3 justify-content-around">
+                                    <div class="form-check">
+                                        <input asp-for="vmSolicitud.SFinaMov" id="alta" class="form-check-input" type="radio" value="alta" checked>
+                                        <label for="alta" class="form-check-label">Alta</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="vmSolicitud.SFinaMov" id="modificacion" class="form-check-input" type="radio" value="modificacion">
+                                        <label for="modificacion" class="form-check-label">Modificación</label>
+                                    </div>
+                                    <div class="form-check">
+                                        <input asp-for="vmSolicitud.SFinaMov" id="baja" class="form-check-input" type="radio" value="baja">
+                                        <label for="baja" class="form-check-label">Baja</label>
+                                    </div>
+                                </div>
+
+                                <hr class="my-3">
+
+                                <h6 class="fw-semibold mb-1">Grupo o Permiso Solicitado</h6>
+                                <div class="text-muted" style="font-size: 0.9rem;">
+                                    Puede seleccionar más de uno:
+                                </div>
+
+                                <div class="row g-2 mt-2">
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BDirector" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BDirector" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BDirector)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BDirector)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BDirectorGeneral" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BDirectorGeneral" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BDirectorGeneral)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BDirectorGeneral)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BAdministrador" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BAdministrador" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BAdministrador)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BAdministrador)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BAuxiliarAdministrativo" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BAuxiliarAdministrativo" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BAuxiliarAdministrativo)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BAuxiliarAdministrativo)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BResponsableProyecto" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BResponsableProyecto" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BResponsableProyecto)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BResponsableProyecto)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BResponsableControlBienes" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BResponsableControlBienes" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BResponsableControlBienes)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BResponsableControlBienes)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BEstudiantes" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BEstudiantes" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BEstudiantes)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BEstudiantes)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BEventosIngreso" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BEventosIngreso" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BEventosIngreso)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BEventosIngreso)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BSupervisor" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BSupervisor" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BSupervisor)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BSupervisor)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BCajeros" class="form-check-input" type="checkbox">
+                                        <label asp-for="vmSolicitud.LsPermisos.BCajeros" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BCajeros)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BCajeros)"></i>
+                                        </label>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BRevisor" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-revisor">
+                                        <label asp-for="vmSolicitud.LsPermisos.BRevisor" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BRevisor)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BRevisor)"></i>
+                                        </label>
+                                        <div id="detalle-revisor" class="mt-2 d-none">
+                                            <textarea asp-for="vmSolicitud.LsPermisos.SDetalleRevisor" class="form-control form-control-sm" rows="2" placeholder="Especifique el revisor..."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BOtroGrupo" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-otro-grupo">
+                                        <label asp-for="vmSolicitud.LsPermisos.BOtroGrupo" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BOtroGrupo)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BOtroGrupo)"></i>
+                                        </label>
+                                        <div id="detalle-otro-grupo" class="mt-2 d-none">
+                                            <textarea asp-for="vmSolicitud.LsPermisos.SDetalleOtroGrupo" class="form-control form-control-sm" rows="2" placeholder="Especifique el grupo..."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BUrAdicional" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-ur-adicional">
+                                        <label asp-for="vmSolicitud.LsPermisos.BUrAdicional" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BUrAdicional)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BUrAdicional)"></i>
+                                        </label>
+                                        <div id="detalle-ur-adicional" class="mt-2 d-none">
+                                            <textarea asp-for="vmSolicitud.LsPermisos.SDetalleUrAdicional" class="form-control form-control-sm" rows="2" placeholder="Especifique la UR..."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BPermisoEspecifico" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-permiso-especifico">
+                                        <label asp-for="vmSolicitud.LsPermisos.BPermisoEspecifico" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BPermisoEspecifico)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BPermisoEspecifico)"></i>
+                                        </label>
+                                        <div id="detalle-permiso-especifico" class="mt-2 d-none">
+                                            <textarea asp-for="vmSolicitud.LsPermisos.SDetallePermisoEspecifico" class="form-control form-control-sm" rows="2" placeholder="Describa el permiso..."></textarea>
+                                        </div>
+                                    </div>
+
+                                    <div class="form-check col-12 col-md-6">
+                                        <input asp-for="vmSolicitud.LsPermisos.BPermisoSimilar" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-permiso-similar">
+                                        <label asp-for="vmSolicitud.LsPermisos.BPermisoSimilar" class="form-check-label d-flex align-items-center gap-2">
+                                            @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BPermisoSimilar)
+                                            <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
+                                                title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BPermisoSimilar)"></i>
+                                        </label>
+                                        <div id="detalle-permiso-similar" class="mt-2 d-none">
+                                            <textarea asp-for="vmSolicitud.LsPermisos.SDetallePermisoSimilar" class="form-control form-control-sm" rows="2" placeholder="Usuario o No. Personal de referencia..."></textarea>
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                            <div id="pills-humanos" aria-labelledby="pills-humanos-tab" class="tab-pane fade" role="tabpanel" tabindex="0">
+                                <!-- Seleccion Permisos -->
+                                <div class="card bg-white border shadow rounded-4">
+                                    <div class="card-body p-4">
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="bg-success text-white">
-        </div>
+        <hr />
 
         <div class="accordion shadow" id="accordionEstudiantes">
             <div class="accordion-item">
@@ -109,181 +349,7 @@
                 </h2>
                 <div id="collapseEstudiantes" class="accordion-collapse collapse show" data-bs-parent="#accordionEstudiantes">
                     <div class="accordion-body p-4">
-                        <h6 class="fw-semibold">Tipo de Permiso</h6>
-                        <div class="d-flex flex-fill gap-3 mt-3 justify-content-around">
-                            <div class="form-check">
-                                <input asp-for="vmSolicitud.SAccionPermiso" id="alta" class="form-check-input" type="radio" value="alta" checked>
-                                <label for="alta" class="form-check-label">Alta</label>
-                            </div>
-                            <div class="form-check">
-                                <input asp-for="vmSolicitud.SAccionPermiso" id="modificacion" class="form-check-input" type="radio" value="modificacion">
-                                <label for="modificacion" class="form-check-label">Modificación</label>
-                            </div>
-                            <div class="form-check">
-                                <input asp-for="vmSolicitud.SAccionPermiso" id="baja" class="form-check-input" type="radio" value="baja">
-                                <label for="baja" class="form-check-label">Baja</label>
-                            </div>
-                        </div>
-
-                        <hr class="my-3">
-
-                        <h6 class="fw-semibold mb-1">Grupo o Permiso Solicitado</h6>
-                        <div class="text-muted" style="font-size: 0.9rem;">
-                            Puede seleccionar más de uno:
-                        </div>
-
-                        <div class="row g-2 mt-2">
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BDirector" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BDirector" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BDirector)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BDirector)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BDirectorGeneral" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BDirectorGeneral" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BDirectorGeneral)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BDirectorGeneral)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BAdministrador" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BAdministrador" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BAdministrador)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BAdministrador)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BAuxiliarAdministrativo" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BAuxiliarAdministrativo" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BAuxiliarAdministrativo)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BAuxiliarAdministrativo)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BResponsableProyecto" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BResponsableProyecto" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BResponsableProyecto)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BResponsableProyecto)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BResponsableControlBienes" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BResponsableControlBienes" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BResponsableControlBienes)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BResponsableControlBienes)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BEstudiantes" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BEstudiantes" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BEstudiantes)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BEstudiantes)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BEventosIngreso" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BEventosIngreso" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BEventosIngreso)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BEventosIngreso)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BSupervisor" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BSupervisor" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BSupervisor)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BSupervisor)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BCajeros" class="form-check-input" type="checkbox">
-                                <label asp-for="vmSolicitud.LsPermisos.BCajeros" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BCajeros)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BCajeros)"></i>
-                                </label>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BRevisor" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-revisor">
-                                <label asp-for="vmSolicitud.LsPermisos.BRevisor" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BRevisor)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BRevisor)"></i>
-                                </label>
-                                <div id="detalle-revisor" class="mt-2 d-none">
-                                    <textarea asp-for="vmSolicitud.LsPermisos.SDetalleRevisor" class="form-control form-control-sm" rows="2" placeholder="Especifique el revisor..."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BOtroGrupo" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-otro-grupo">
-                                <label asp-for="vmSolicitud.LsPermisos.BOtroGrupo" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BOtroGrupo)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BOtroGrupo)"></i>
-                                </label>
-                                <div id="detalle-otro-grupo" class="mt-2 d-none">
-                                    <textarea asp-for="vmSolicitud.LsPermisos.SDetalleOtroGrupo" class="form-control form-control-sm" rows="2" placeholder="Especifique el grupo..."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BUrAdicional" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-ur-adicional">
-                                <label asp-for="vmSolicitud.LsPermisos.BUrAdicional" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BUrAdicional)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BUrAdicional)"></i>
-                                </label>
-                                <div id="detalle-ur-adicional" class="mt-2 d-none">
-                                    <textarea asp-for="vmSolicitud.LsPermisos.SDetalleUrAdicional" class="form-control form-control-sm" rows="2" placeholder="Especifique la UR..."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BPermisoEspecifico" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-permiso-especifico">
-                                <label asp-for="vmSolicitud.LsPermisos.BPermisoEspecifico" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BPermisoEspecifico)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BPermisoEspecifico)"></i>
-                                </label>
-                                <div id="detalle-permiso-especifico" class="mt-2 d-none">
-                                    <textarea asp-for="vmSolicitud.LsPermisos.SDetallePermisoEspecifico" class="form-control form-control-sm" rows="2" placeholder="Describa el permiso..."></textarea>
-                                </div>
-                            </div>
-
-                            <div class="form-check col-12 col-md-6">
-                                <input asp-for="vmSolicitud.LsPermisos.BPermisoSimilar" class="form-check-input toggle-detalle" type="checkbox" data-target="#detalle-permiso-similar">
-                                <label asp-for="vmSolicitud.LsPermisos.BPermisoSimilar" class="form-check-label d-flex align-items-center gap-2">
-                                    @Html.DisplayNameFor(m => m.vmSolicitud.LsPermisos.BPermisoSimilar)
-                                    <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
-                                       title="@Html.DescriptionFor(m => m.vmSolicitud.LsPermisos.BPermisoSimilar)"></i>
-                                </label>
-                                <div id="detalle-permiso-similar" class="mt-2 d-none">
-                                    <textarea asp-for="vmSolicitud.LsPermisos.SDetallePermisoSimilar" class="form-control form-control-sm" rows="2" placeholder="Usuario o No. Personal de referencia..."></textarea>
-                                </div>
-                            </div>
-
-                        </div>
+                        
                     </div>
                 </div>
             </div>
@@ -301,15 +367,15 @@
                         <h6 class="fw-semibold">Tipo de Permiso</h6>
                         <div class="d-flex flex-fill gap-3 mt-3 justify-content-around">
                             <div class="form-check">
-                                <input asp-for="vmSolicitud.SAccionPermiso" id="alta" class="form-check-input" type="radio" value="alta" checked>
+                                <input asp-for="vmSolicitud.SFinaMov" id="alta" class="form-check-input" type="radio" value="alta" checked>
                                 <label for="alta" class="form-check-label">Alta</label>
                             </div>
                             <div class="form-check">
-                                <input asp-for="vmSolicitud.SAccionPermiso" id="modificacion" class="form-check-input" type="radio" value="modificacion">
+                                <input asp-for="vmSolicitud.SFinaMov" id="modificacion" class="form-check-input" type="radio" value="modificacion">
                                 <label for="modificacion" class="form-check-label">Modificación</label>
                             </div>
                             <div class="form-check">
-                                <input asp-for="vmSolicitud.SAccionPermiso" id="baja" class="form-check-input" type="radio" value="baja">
+                                <input asp-for="vmSolicitud.SFinaMov" id="baja" class="form-check-input" type="radio" value="baja">
                                 <label for="baja" class="form-check-label">Baja</label>
                             </div>
                         </div>
@@ -490,17 +556,17 @@
                         <h6 class="fw-semibold">Persona que autoriza</h6>
                         <div class="d-flex flex-fill gap-3 mt-3 justify-content-around">
                             <div class="d-flex">
-                                <label asp-for="vmSolicitud.NEntidadClave" class="col-4 col-form-label">Clave</label>
+                                <label asp-for="vmSolicitud.NEntClv" class="col-4 col-form-label">Clave</label>
                                 <div class="col-8">
-                                    <input asp-for="vmSolicitud.NEntidadClave" type="number" class="form-control bg-transparent" placeholder="123456789" required>
-                                    <span asp-validation-for="vmSolicitud.NEntidadClave" class="text-danger"></span>
+                                    <input asp-for="vmSolicitud.NEntClv" type="number" class="form-control bg-transparent" placeholder="123456789" required>
+                                    <span asp-validation-for="vmSolicitud.NEntClv" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="d-flex">
-                                <label asp-for="vmSolicitud.SEntidadNombre" class="col-4 col-form-label">Nombre</label>
+                                <label asp-for="vmSolicitud.SEntNomb" class="col-4 col-form-label">Nombre</label>
                                 <div class="col-8 position-relative">
-                                    <input asp-for="vmSolicitud.SEntidadNombre" type="text" class="form-control bg-transparent" placeholder="Dependencia" autocomplete="off" required>
-                                    <span asp-validation-for="vmSolicitud.SEntidadNombre" class="text-danger"></span>
+                                    <input asp-for="vmSolicitud.SEntNomb" type="text" class="form-control bg-transparent" placeholder="Dependencia" autocomplete="off" required>
+                                    <span asp-validation-for="vmSolicitud.SEntNomb" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -510,15 +576,15 @@
                         <h6 class="fw-semibold">Tipo de Movimiento</h6>
                         <div class="d-flex flex-fill gap-3 mt-3 justify-content-around">
                             <div class="form-check">
-                                <input asp-for="vmSolicitud.STipoMovimiento" id="alta" class="form-check-input" type="radio" value="A" checked>
+                                <input asp-for="vmSolicitud.SHumaMov" id="alta" class="form-check-input" type="radio" value="A" checked>
                                 <label for="alta" class="form-check-label">Alta</label>
                             </div>
                             <div class="form-check">
-                                <input asp-for="vmSolicitud.STipoMovimiento" id="modificacion" class="form-check-input" type="radio" value="M">
+                                <input asp-for="vmSolicitud.SHumaMov" id="modificacion" class="form-check-input" type="radio" value="M">
                                 <label for="modificacion" class="form-check-label">Modificación</label>
                             </div>
                             <div class="form-check">
-                                <input asp-for="vmSolicitud.STipoMovimiento" id="baja" class="form-check-input" type="radio" value="B">
+                                <input asp-for="vmSolicitud.SHumaMov" id="baja" class="form-check-input" type="radio" value="B">
                                 <label for="baja" class="form-check-label">Baja</label>
                             </div>
                         </div>
@@ -527,28 +593,28 @@
 
                         <div id="info-basica" class="d-flex flex-column gap-1">
                             <div class="d-flex">
-                                <label asp-for="vmSolicitud.NClaveDependencia" class="col-4 col-form-label">Clave Dependencia</label>
+                                <label asp-for="vmSolicitud.NClvDep" class="col-4 col-form-label">Clave Dependencia</label>
                                 <div class="col-8">
-                                    <input asp-for="vmSolicitud.NClaveDependencia" type="number" class="form-control bg-transparent" placeholder="Dependencia" required>
-                                    <span asp-validation-for="vmSolicitud.NClaveDependencia" class="text-danger"></span>
+                                    <input asp-for="vmSolicitud.NClvDep" type="number" class="form-control bg-transparent" placeholder="Dependencia" required>
+                                    <span asp-validation-for="vmSolicitud.NClvDep" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="d-flex">
-                                <label asp-for="vmSolicitud.SClavePrograma" class="col-4 col-form-label">Clave de Programa</label>
+                                <label asp-for="vmSolicitud.SClvProg" class="col-4 col-form-label">Clave de Programa</label>
                                 <div class="col-8">
-                                    <input asp-for="vmSolicitud.SClavePrograma" type="number" class="form-control bg-transparent" placeholder="Programa" required>
-                                    <span asp-validation-for="vmSolicitud.SClavePrograma" class="text-danger"></span>
+                                    <input asp-for="vmSolicitud.SClvProg" type="number" class="form-control bg-transparent" placeholder="Programa" required>
+                                    <span asp-validation-for="vmSolicitud.SClvProg" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="d-flex">
-                                <label asp-for="vmSolicitud.STipoPermiso" class="col-4 col-form-label">Tipo de permiso</label>
+                                <label asp-for="vmSolicitud.STipPerm" class="col-4 col-form-label">Tipo de permiso</label>
                                 <div class="col-8">
-                                    <select asp-for="vmSolicitud.STipoPermiso"
+                                    <select asp-for="vmSolicitud.STipPerm"
                                             class="form-control bg-transparent"
                                             asp-items="Html.GetEnumSelectList<SiisuPermiso>()"
                                             required>
                                     </select>
-                                    <span asp-validation-for="vmSolicitud.STipoPermiso" class="text-danger"></span>
+                                    <span asp-validation-for="vmSolicitud.STipPerm" class="text-danger"></span>
                                 </div>
                             </div>
                         </div>
@@ -562,7 +628,7 @@
             <div class="card-body p-4">
                 <!-- Especificaciones -->
                 <h6 class="fw-semibold">Especificaciones</h6>
-                <textarea asp-for="vmSolicitud.SEspecificaciones" id="especificaciones" class="form-control bg-transparent mt-3" rows="5" placeholder="Escribe tu especificación..." maxlength="500"></textarea>
+                <textarea asp-for="vmSolicitud.SEspeci" id="especificaciones" class="form-control bg-transparent mt-3" rows="5" placeholder="Escribe tu especificación..." maxlength="500"></textarea>
                 <div id="contador" class="text-end" style="font-size: .9rem;">
                     500/500
                 </div>
