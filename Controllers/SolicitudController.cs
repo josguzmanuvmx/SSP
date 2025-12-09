@@ -10,12 +10,14 @@ using SSP.ViewModels;
 [Authorize(Policy = "ModulosPolicy")]
 public class SolicitudController : Controller
 {
-    private readonly DaEmpleado _daEmpleados;
+    private readonly DaEmpleado _daEmpleado;
+    private readonly DaSolicitud _daSolicitud;
     private readonly ClsEncrypt _encrypt;
 
-    public SolicitudController(DaEmpleado daEmpleados, IConfiguration config)
+    public SolicitudController(DaEmpleado daEmpleado, DaSolicitud daSolicitud, IConfiguration config)
     {
-        _daEmpleados = daEmpleados;
+        _daEmpleado = daEmpleado;
+        _daSolicitud = daSolicitud;
         _encrypt = new ClsEncrypt(config);
     }
 
@@ -25,17 +27,7 @@ public class SolicitudController : Controller
         var modelo = new VmSolicitudAct
         {
             // Inicializamos el formulario vacío
-            vmSolicitud = new VmSolicitud() {
-                SId = "test id",
-                SNomEmpl = "José Ángel Guzmán Zavaleta",
-                NNoPer = 61399,
-                NUsrClv = 1234,
-                SCorreo = "josguzman@uv.mx",
-                NUResClv = 1,
-                SUResNom = "Unidad",
-                SRegion = Region.SVer,
-                SPueEmpl = "Jefe",
-            },
+            vmSolicitud = new VmSolicitud(),
 
             // 2. ¡AQUÍ ESTÁ LA MAGIA!
             // Convertimos el Enum en una lista de objetos para la vista
@@ -50,6 +42,62 @@ public class SolicitudController : Controller
         };
         return View(modelo);
     }
+
+    [HttpGet]
+    public IActionResult Agregar()
+    {
+        var vmSolicitudAct = new VmSolicitudAct
+        {
+            vmSolicitud = new VmSolicitud(),
+            lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
+                            .Cast<ClsSprfmActividades>()
+                            .Select(a => new ClslActividades
+                            {
+                                SNombre = a.GetDisplayName(),
+                                SDescripcion = a.GetDescription()
+                            })
+                            .ToList()
+        };
+        return View("Index", vmSolicitudAct);
+    }
+
+    [HttpGet]
+    public IActionResult Editar(string sId)
+    {
+        int nId = string.IsNullOrEmpty(sId)
+                ? 0
+                : int.Parse(_encrypt.FnsDesEncripta(sId!));
+        var vmSolicitud = _daSolicitud.ObtenerPorId(nId);
+        if (vmSolicitud == null)
+        {
+            return NotFound();
+        }
+        string sIdEncrypt = _encrypt.FnsEncripta(vmSolicitud.NId.ToString())?.SEncript ?? "";
+        VmSolicitud vmEmpleado = new()
+        {
+            SId = sIdEncrypt,
+            NNoPersonal = vmSolicitud.NNoPersonal,
+            SUsuario = vmSolicitud.SUsuario,
+            BAdmin = vmSolicitud.BAdmin,
+            BSiisu = vmSolicitud.BSiisu,
+            BSprfm = vmSolicitud.BSprfm,
+            BActivo = vmSolicitud.BActivo
+        };
+        var vmSolicitudAct = new VmSolicitudAct
+        {
+            vmSolicitud = new VmSolicitud(),
+            lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
+                            .Cast<ClsSprfmActividades>()
+                            .Select(a => new ClslActividades
+                            {
+                                SNombre = a.GetDisplayName(),
+                                SDescripcion = a.GetDescription()
+                            })
+                            .ToList()
+        };
+        return View("Index", vmSolicitudAct);
+    }
+
 
     [HttpPost]
     public async Task<IActionResult> GuardarBorrador(VmSprfmAct modeloRecibido)
@@ -106,4 +154,50 @@ public class SolicitudController : Controller
 
     //    return View(modelo);
     //}
+
+    [HttpGet]
+    public IActionResult BuscarEmpleado(string termino)
+    {
+        if (string.IsNullOrEmpty(termino) || termino.Length < 3)
+        {
+            return Json(new List<object>());
+        }
+
+        // Simulando datos de BD. 
+        // NOTA: Cuando hagas la consulta real con Entity Framework, úsalo así:
+        // _context.Empleados.Where(...).Select(e => new { ... }).ToList();
+
+        var listaSimulada = new List<object>
+    {
+        new { 
+            // LADO IZQUIERDO: Nombre exacto para el JSON
+            // LADO DERECHO: Dato real
+            sNomEmpl = "Angel Hernandez Sánchez",
+            nNoPer = 12345,
+            nUsrClv = 99,
+            sCorreo = "angel@uv.mx",
+            nUResClv = 500,
+            sUResNom = "Facultad de Ingeniería",
+            sRegion = 1, // El valor entero del Enum (1 = Xalapa, por ejemplo)
+            sPueEmpl = "Jefe de la Unidad"
+        },
+        new {
+            sNomEmpl = "Maria Lopez",
+            nNoPer = 67890,
+            nUsrClv = 101,
+            sCorreo = "maria@uv.mx",
+            nUResClv = 600,
+            sUResNom = "Recursos Humanos",
+            sRegion = 2,
+            sPueEmpl = "Administrativo"
+        }
+    };
+
+        // Filtramos
+        var resultados = listaSimulada
+            .Where(x => x.GetType().GetProperty("sNomEmpl").GetValue(x, null).ToString().ToLower().Contains(termino.ToLower()))
+            .ToList();
+
+        return Json(resultados);
+    }
 }

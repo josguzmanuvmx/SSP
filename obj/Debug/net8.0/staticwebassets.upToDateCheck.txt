@@ -19,7 +19,6 @@ wwwroot\js\Scripts\jsInicio.js
 wwwroot\js\Scripts\jsLogin.js
 wwwroot\js\Scripts\jsSeleccion.js
 wwwroot\js\Scripts\jsSiisu.js
-wwwroot\js\Scripts\jsSolicitud.js
 wwwroot\js\Scripts\jsSprfm.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\css\bootstrap-grid.css
@@ -214,3 +213,4 @@ wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\templates\siisu.xlsx
 wwwroot\templates\sprfm.docx
+wwwroot\js\Scripts\jsSolicitud.js

@@ -58,7 +58,7 @@ builder.Services.AddSingleton<IPasswordHasher<MoUsuario>, PasswordHasher<MoUsuar
 
 // En Program.cs, junto con tus otros servicios
 builder.Services.AddScoped<DaLogin, UserService>();
-builder.Services.AddScoped<DaEmpleado, DaEmpleado>();
+builder.Services.AddScoped<DaEmpleado, DaEmpleado, DaSolicitud>();
 
 var app = builder.Build();
 

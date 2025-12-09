@@ -12,5 +12,6 @@ namespace SSP.Data
 
         public DbSet<MoUsuario> Usuarios { get; set; }
         public DbSet<MoEmpleado> Empleados { get; set; }
+        public DbSet<MoSolicitud> Solicitudes { get; set; }
     }
 }
