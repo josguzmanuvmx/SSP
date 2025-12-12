@@ -3,16 +3,24 @@
   "WorkspaceRootPath": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\data\\dasolicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:data\\dasolicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jssolicitud.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jssolicitud.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\solicitudcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\solicitudcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\solicitud\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\solicitud\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\data\\daempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:data\\daempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\models\\mosolicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:models\\mosolicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\empleadoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -23,28 +31,28 @@
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:viewmodels\\vmsolicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jssolicitud.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jssolicitud.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\controllers\\solicitudcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:controllers\\solicitudcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\solicitud\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
-      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\solicitud\\index.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\js\\scripts\\jsagregareditarempleado.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:wwwroot\\js\\scripts\\jsagregareditarempleado.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\views\\empleados\\agregareditar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
       "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:views\\empleados\\agregareditar.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\models\\moempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:models\\moempleado.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\data\\dasolicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:data\\dasolicitud.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|solutionrelative:data\\applicationdbcontext.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{625036DD-76F3-4C53-919A-F7ECD355CE81}|SSP.csproj|c:\\users\\uv\\desktop\\uv\\solicitud-uv\\ssp\\wwwroot\\css\\estilos\\csssolicitud.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
@@ -58,11 +66,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 6,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 3,
+              "Title": "DaEmpleado.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\DaEmpleado.cs",
+              "RelativeDocumentMoniker": "Data\\DaEmpleado.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\DaEmpleado.cs",
+              "RelativeToolTip": "Data\\DaEmpleado.cs",
+              "ViewState": "AgIAAHIAAAAAAAAAAAAYwIIAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-11T22:47:32.587Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
               "Title": "ApplicationDbContext.cs",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\ApplicationDbContext.cs",
               "RelativeDocumentMoniker": "Data\\ApplicationDbContext.cs",
@@ -70,25 +91,24 @@
               "RelativeToolTip": "Data\\ApplicationDbContext.cs",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAA4AAAAhAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-12-09T21:39:51.999Z",
-              "EditorCaption": ""
+              "WhenOpened": "2025-12-09T21:39:51.999Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 11,
               "Title": "DaSolicitud.cs",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\DaSolicitud.cs",
               "RelativeDocumentMoniker": "Data\\DaSolicitud.cs",
               "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Data\\DaSolicitud.cs",
               "RelativeToolTip": "Data\\DaSolicitud.cs",
-              "ViewState": "AgIAAFAAAAAAAAAAAAAuwGUAAAAFAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-09T21:38:36.708Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 11,
+              "DocumentIndex": 13,
               "Title": "cssSolicitud.css",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\css\\Estilos\\cssSolicitud.css",
               "RelativeDocumentMoniker": "wwwroot\\css\\Estilos\\cssSolicitud.css",
@@ -101,45 +121,6 @@
             {
               "$type": "Document",
               "DocumentIndex": 6,
-              "Title": "SolicitudController.cs",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SolicitudController.cs",
-              "RelativeDocumentMoniker": "Controllers\\SolicitudController.cs",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SolicitudController.cs",
-              "RelativeToolTip": "Controllers\\SolicitudController.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwBAAAABCAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2025-11-27T22:30:05.939Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
-              "Title": "Index.cshtml",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Solicitud\\Index.cshtml",
-              "RelativeDocumentMoniker": "Views\\Solicitud\\Index.cshtml",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Solicitud\\Index.cshtml",
-              "RelativeToolTip": "Views\\Solicitud\\Index.cshtml",
-              "ViewState": "AgIAAM4BAAAAAAAAAAAWwOIBAAAOAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-11-27T22:24:44.954Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 5,
-              "Title": "jsSolicitud.js",
-              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSolicitud.js",
-              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsSolicitud.js",
-              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSolicitud.js",
-              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsSolicitud.js",
-              "ViewState": "AgIAAO8AAAAAAAAAAAAAwAABAAAAAAAAAAAAAA==",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
-              "WhenOpened": "2025-12-02T22:46:28.335Z",
-              "EditorCaption": ""
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "VmSolicitud.cs",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\ViewModels\\VmSolicitud.cs",
               "RelativeDocumentMoniker": "ViewModels\\VmSolicitud.cs",
@@ -152,70 +133,123 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 4,
               "Title": "MoSolicitud.cs",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Models\\MoSolicitud.cs",
               "RelativeDocumentMoniker": "Models\\MoSolicitud.cs",
               "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Models\\MoSolicitud.cs",
               "RelativeToolTip": "Models\\MoSolicitud.cs",
-              "ViewState": "AgIAACoAAAAAAAAAAAAowDEAAAANAAAAAAAAAA==",
+              "ViewState": "AgIAAEcAAAAAAAAAAAAAwFIAAAAtAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-02T01:39:59.024Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "jsSolicitud.js",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSolicitud.js",
+              "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsSolicitud.js",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsSolicitud.js",
+              "RelativeToolTip": "wwwroot\\js\\Scripts\\jsSolicitud.js",
+              "ViewState": "AgIAADoBAAAAAAAAAAAawEoBAAANAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2025-12-02T22:46:28.335Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Index.cshtml",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Solicitud\\Index.cshtml",
+              "RelativeDocumentMoniker": "Views\\Solicitud\\Index.cshtml",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Solicitud\\Index.cshtml",
+              "RelativeToolTip": "Views\\Solicitud\\Index.cshtml",
+              "ViewState": "AgIAAF0AAAAAAAAAAAAAAGoAAAA2AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-11-27T22:24:44.954Z",
               "EditorCaption": ""
             }
           ]
         },
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 0,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 9,
+              "Title": "MoEmpleado.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Models\\MoEmpleado.cs",
+              "RelativeDocumentMoniker": "Models\\MoEmpleado.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Models\\MoEmpleado.cs",
+              "RelativeToolTip": "Models\\MoEmpleado.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAAbAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-12-10T21:35:56.651Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",
               "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Program.cs",
               "RelativeToolTip": "Program.cs",
-              "ViewState": "AgIAACQAAAAAAAAAAAAAADsAAAAzAAAAAAAAAA==",
+              "ViewState": "AgIAAC0AAAAAAAAAAAAAADsAAAAzAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-09T21:42:28.165Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 1,
+              "Title": "SolicitudController.cs",
+              "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SolicitudController.cs",
+              "RelativeDocumentMoniker": "Controllers\\SolicitudController.cs",
+              "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\SolicitudController.cs",
+              "RelativeToolTip": "Controllers\\SolicitudController.cs",
+              "ViewState": "AgIAAI0AAAAAAAAAAAAYwJ8AAAAiAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-11-27T22:30:05.939Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "EmpleadosController.cs",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\EmpleadosController.cs",
               "RelativeDocumentMoniker": "Controllers\\EmpleadosController.cs",
               "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Controllers\\EmpleadosController.cs",
               "RelativeToolTip": "Controllers\\EmpleadosController.cs",
-              "ViewState": "AgIAAE4AAAAAAAAAAAAowGoAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAFMAAAAAAAAAAAAwwGcAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2025-12-09T01:50:05.898Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 10,
+              "DocumentIndex": 8,
               "Title": "AgregarEditar.cshtml",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\AgregarEditar.cshtml",
               "RelativeDocumentMoniker": "Views\\Empleados\\AgregarEditar.cshtml",
               "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\Views\\Empleados\\AgregarEditar.cshtml",
               "RelativeToolTip": "Views\\Empleados\\AgregarEditar.cshtml",
-              "ViewState": "AgIAAAkAAAAAAAAAAAAAABYAAACEAAAAAAAAAA==",
+              "ViewState": "AgIAAAkAAAAAAAAAAAAAACQAAABPAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
-              "WhenOpened": "2025-12-09T01:46:26.031Z"
+              "WhenOpened": "2025-12-09T01:46:26.031Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 7,
               "Title": "jsAgregarEditarEmpleado.js",
               "DocumentMoniker": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsAgregarEditarEmpleado.js",
               "RelativeDocumentMoniker": "wwwroot\\js\\Scripts\\jsAgregarEditarEmpleado.js",
               "ToolTip": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\wwwroot\\js\\Scripts\\jsAgregarEditarEmpleado.js",
               "RelativeToolTip": "wwwroot\\js\\Scripts\\jsAgregarEditarEmpleado.js",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAADUAAAAAAAAAAAAQwEwAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
               "WhenOpened": "2025-12-09T01:46:14.65Z",
               "EditorCaption": ""

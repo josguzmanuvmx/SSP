@@ -11,31 +11,31 @@
     // ----------
 
     // Checkboxes Especiales
-    const checkboxesEspeciales = document.querySelectorAll('.toggle-detalle');
-    checkboxesEspeciales.forEach(checkbox => {
-        const toggleState = (isChecked) => {
-            const targetId = checkbox.getAttribute('data-target');
-            const targetDiv = document.querySelector(targetId);
-            const textarea = targetDiv.querySelector('textarea');
+    //const checkboxesEspeciales = document.querySelectorAll('.toggle-detalle');
+    //checkboxesEspeciales.forEach(checkbox => {
+    //    const toggleState = (isChecked) => {
+    //        const targetId = checkbox.getAttribute('data-target');
+    //        const targetDiv = document.querySelector(targetId);
+    //        const textarea = targetDiv.querySelector('textarea');
 
-            if (isChecked) {
-                targetDiv.classList.remove('d-none');
-                textarea.setAttribute('required', 'required');
-                setTimeout(() => textarea.focus(), 100);
-            } else {
-                targetDiv.classList.add('d-none');
-                textarea.removeAttribute('required');
-                textarea.value = '';
-            }
-            if (form) form.dispatchEvent(new Event('input'));
-        };
-        checkbox.addEventListener('change', function () {
-            toggleState(this.checked);
-        });
-        if (checkbox.checked) {
-            toggleState(true);
-        }
-    });
+    //        if (isChecked) {
+    //            targetDiv.classList.remove('d-none');
+    //            textarea.setAttribute('required', 'required');
+    //            setTimeout(() => textarea.focus(), 100);
+    //        } else {
+    //            targetDiv.classList.add('d-none');
+    //            textarea.removeAttribute('required');
+    //            textarea.value = '';
+    //        }
+    //        if (form) form.dispatchEvent(new Event('input'));
+    //    };
+    //    checkbox.addEventListener('change', function () {
+    //        toggleState(this.checked);
+    //    });
+    //    if (checkbox.checked) {
+    //        toggleState(true);
+    //    }
+    //});
     // ----------
 
     // Especificaciones Contador
@@ -59,25 +59,25 @@
     // ----------
 
     // Form Solicitud
-    const formSolicitud = document.getElementById('form-solicitud');
-    if (!formSolicitud) return;
-    const lstxtInputsParaValidar = formSolicitud.querySelectorAll('input[required], textarea[required], input[type="email"]');
-    const btnDescargar = document.getElementById('btn-descargar-solicitud');
-    function fnbVerificarForm() {
-        for (const txtInput of lstxtInputsParaValidar) {
-            if (!txtInput.checkValidity()) {
-                return false;
-            }
-        }
-        return true;
-    }
-    function alternarBtnDescargar(bHabilitar) {
-        btnDescargar.disabled = !bHabilitar;
-    }
-    formSolicitud.addEventListener('input', () => {
-        const bEsValido = fnbVerificarForm();
-        alternarBtnDescargar(bEsValido);
-    });
+    //const formSolicitud = document.getElementById('form-solicitud');
+    //if (!formSolicitud) return;
+    //const lstxtInputsParaValidar = formSolicitud.querySelectorAll('input[required], textarea[required], input[type="email"]');
+    //const btnDescargar = document.getElementById('btn-descargar-solicitud');
+    //function fnbVerificarForm() {
+    //    for (const txtInput of lstxtInputsParaValidar) {
+    //        if (!txtInput.checkValidity()) {
+    //            return false;
+    //        }
+    //    }
+    //    return true;
+    //}
+    //function alternarBtnDescargar(bHabilitar) {
+    //    btnDescargar.disabled = !bHabilitar;
+    //}
+    //formSolicitud.addEventListener('input', () => {
+    //    const bEsValido = fnbVerificarForm();
+    //    alternarBtnDescargar(bEsValido);
+    //});
     // ----------
 
     // Tabla Actividades
@@ -129,7 +129,7 @@
     $('#txtBuscar').on('keyup', function () {
         tblActividades.search($(this).val()).draw();
     });
-    // ----------
+    // ---------- Tabla Actividades
 
 
     // Acciones quien hara la solicitud (prueba temporal)
@@ -235,64 +235,59 @@
     //});
     // ----------
 
-
-    // Busqueda de usuario
-
-    // --- ELEMENTOS DOM ---
-    const inputBuscador = document.getElementById('txtBuscar');
-    const divResultados = document.getElementById('divResultadosBusqueda');
     const btnManual = document.getElementById('btnManual');
 
+    // Busqueda de usuario
+    const txtBuscarUsuario = document.getElementById('txtBuscarUsuario');
+    const divResultados = document.getElementById('divResultadosBusqueda');
+
     // Referencias a los inputs del formulario (Usamos los IDs generados por asp-for)
-    const inputs = {
-        nombre: document.getElementById('vmSolicitud_SNomEmpl'),
-        noPersonal: document.getElementById('vmSolicitud_NNoPer'),
-        claveUsuario: document.getElementById('vmSolicitud_NUsrClv'),
-        correo: document.getElementById('vmSolicitud_SCorreo'),
-        urClave: document.getElementById('vmSolicitud_NUResClv'),
-        urNombre: document.getElementById('vmSolicitud_SUResNom'),
-        region: document.getElementById('vmSolicitud_SRegion'),
-        puesto: document.getElementById('vmSolicitud_SPueEmpl')
+    const lsInputs = {
+        sNomEmpl: document.getElementById('vmSolicitud_SNomEmpl'),
+        nNoPer: document.getElementById('vmSolicitud_NNoPer'),
+        nUsrClv: document.getElementById('vmSolicitud_NUsrClv'),
+        sCorreo: document.getElementById('vmSolicitud_SCorreo'),
+        nUResClv: document.getElementById('vmSolicitud_NUResClv'),
+        sUResNom: document.getElementById('vmSolicitud_SUResNom'),
+        sRegion: document.getElementById('vmSolicitud_SRegion'),
+        sPueEmpl: document.getElementById('vmSolicitud_SPueEmpl')
     };
 
     // Todos los inputs del divUsuario para bloquear/desbloquear en lote
     const todosInputsDiv = document.querySelectorAll('#divUsuario input, #divUsuario select');
 
     // --- 1. FUNCIÓN: BUSCAR EMPLEADO ---
-    inputBuscador.addEventListener('input', function () {
-        const termino = this.value;
+    txtBuscarUsuario.addEventListener('input', async function () {
+        const sBusqueda = this.value;
+        console.log(sBusqueda)
 
-        if (termino.length < 3) {
+        if (sBusqueda.length < 3) {
             divResultados.innerHTML = '';
             divResultados.classList.remove('show');
             return;
         }
 
-        // Llamada AJAX al controlador
-        fetch(`@Url.Action("BuscarEmpleado", "Solicitud")?termino=${termino}`)
+        const urlBusqueda = this.getAttribute('data-url');
+        fetch(`${urlBusqueda}?sUsuario=${sBusqueda}`)
             .then(response => response.json())
             .then(data => {
                 divResultados.innerHTML = '';
 
                 if (data.length > 0) {
-                    divResultados.classList.add('show'); // Mostrar dropdown
-
+                    divResultados.classList.add('show');
                     data.forEach(emp => {
                         // Crear elemento de lista
                         const item = document.createElement('a');
-                        item.classList.add('dropdown-item', 'cursor-pointer', 'border-bottom', 'py-2');
+                        item.classList.add('dropdown-item', 'cursor-pointer');
                         item.href = "#";
-                        item.innerHTML = `
-                                    <div class="fw-bold">${emp.nombre}</div>
-                                    <div class="small text-muted">No: ${emp.noPersonal} - ${emp.puesto}</div>
-                                `;
+                        item.textContent = emp.label;
 
                         // Evento Click en un resultado
-                        item.addEventListener('click', (e) => {
+                        item.addEventListener('click', async function (e) {
                             e.preventDefault();
                             rellenarDatos(emp);
                             divResultados.classList.remove('show');
-                            inputBuscador.value = ''; // Limpiar buscador
+                            txtBuscarUsuario.value = '';
                         });
 
                         divResultados.appendChild(item);
@@ -306,14 +301,14 @@
     // --- 2. FUNCIÓN: RELLENAR DATOS (Autocompletado) ---
     function rellenarDatos(emp) {
         // Asignar valores
-        inputs.nombre.value = emp.nombre;
-        inputs.noPersonal.value = emp.noPersonal;
-        inputs.claveUsuario.value = emp.claveUsuario;
-        inputs.correo.value = emp.correo;
-        inputs.urClave.value = emp.urClave;
-        inputs.urNombre.value = emp.urNombre;
-        inputs.region.value = emp.region;
-        inputs.puesto.value = emp.puesto;
+        lsInputs.sNomEmpl.value = emp.sNomEmpl;
+        lsInputs.nNoPer.value = emp.nNoPer;
+        lsInputs.nUsrClv.value = emp.nUsrClv;
+        lsInputs.sCorreo.value = emp.sCorreo;
+        lsInputs.nUResClv.value = emp.nUResClv;
+        lsInputs.sUResNom.value = emp.sUResNom;
+        lsInputs.sRegion.value = emp.sRegion;
+        lsInputs.sPueEmpl.value = emp.sPueEmpl;
 
         // Asegurar que sigan bloqueados (Solo lectura) para evitar errores manuales
         bloquearCampos(true);
@@ -329,12 +324,12 @@
         bloquearCampos(false); // Desbloquear todo
 
         // Dar foco al primer campo
-        inputs.nombre.focus();
+        lsInputs.sNomEmpl.focus();
     });
 
     // --- AUXILIAR: BLOQUEAR / DESBLOQUEAR ---
     function bloquearCampos(bloquear) {
-        todosInputsDiv.forEach(el => {
+        Object.values(lsInputs).forEach(el => {
             if (bloquear) {
                 // MODO BLOQUEADO
                 el.setAttribute('readonly', true);
@@ -353,4 +348,94 @@
         });
     }
     // ----------
+
+    // Habilitar Estudiantes
+    const txtEstuAct = document.getElementById('txtEstuAct');
+    const btnHabilitarEstudiantes = document.getElementById('btnHabilitarEstudiantes');
+    const btnDeshabilitarEstudiantes = document.getElementById('btnDeshabilitarEstudiantes');
+    const divOverlayEstudiantes = document.getElementById('divOverlayEstudiantes');
+    const divContenidoEstudiantes = document.getElementById('divContenidoEstudiantes');
+    const lsTxtEstudiantes = divContenidoEstudiantes.querySelectorAll('input, select, textarea');
+    function fnAlternarEstudiantes(bModo) {
+        txtEstuAct.checked = bModo;
+        if (bModo) {
+            divOverlayEstudiantes.classList.add('d-none');
+            divOverlayEstudiantes.classList.remove('d-flex');
+            divContenidoEstudiantes.style.opacity = '1';
+            divContenidoEstudiantes.style.pointerEvents = 'auto';
+            btnDeshabilitarEstudiantes.classList.remove('d-none');
+            lsTxtEstudiantes.forEach(input => input.removeAttribute('disabled'));
+        } else {
+            divOverlayEstudiantes.classList.remove('d-none');
+            divOverlayEstudiantes.classList.add('d-flex');
+            divContenidoEstudiantes.style.opacity = '0.3';
+            divContenidoEstudiantes.style.pointerEvents = 'none';
+            btnDeshabilitarEstudiantes.classList.add('d-none');
+            lsTxtEstudiantes.forEach(input => input.setAttribute('disabled', 'disabled'));
+        }
+    }
+    btnHabilitarEstudiantes.addEventListener('click', () => fnAlternarEstudiantes(true));
+    btnDeshabilitarEstudiantes.addEventListener('click', () => fnAlternarEstudiantes(false));
+    fnAlternarEstudiantes(txtEstuAct.checked);
+    // ---
+
+    // Habilitar Finanzas
+    const txtFinaAct = document.getElementById('txtFinaAct');
+    const btnHabilitarFinanzas = document.getElementById('btnHabilitarFinanzas');
+    const btnDeshabilitarFinanzas = document.getElementById('btnDeshabilitarFinanzas');
+    const divOverlayFinanzas = document.getElementById('divOverlayFinanzas');
+    const divContenidoFinanzas = document.getElementById('divContenidoFinanzas');
+    const lsTxtFinanzas = divContenidoFinanzas.querySelectorAll('input, select, textarea');
+    function fnAlternarFinanzas(bModo) {
+        txtFinaAct.checked = bModo;
+        if (bModo) {
+            divOverlayFinanzas.classList.add('d-none');
+            divOverlayFinanzas.classList.remove('d-flex');
+            divContenidoFinanzas.style.opacity = '1';
+            divContenidoFinanzas.style.pointerEvents = 'auto';
+            btnDeshabilitarFinanzas.classList.remove('d-none');
+            lsTxtFinanzas.forEach(input => input.removeAttribute('disabled'));
+        } else {
+            divOverlayFinanzas.classList.remove('d-none');
+            divOverlayFinanzas.classList.add('d-flex');
+            divContenidoFinanzas.style.opacity = '0.3';
+            divContenidoFinanzas.style.pointerEvents = 'none';
+            btnDeshabilitarFinanzas.classList.add('d-none');
+            lsTxtFinanzas.forEach(input => input.setAttribute('disabled', 'disabled'));
+        }
+    }
+    btnHabilitarFinanzas.addEventListener('click', () => fnAlternarFinanzas(true));
+    btnDeshabilitarFinanzas.addEventListener('click', () => fnAlternarFinanzas(false));
+    fnAlternarFinanzas(txtFinaAct.checked);
+    // ---
+
+    // Habilitar Humanos
+    const txtHumaAct = document.getElementById('txtHumaAct');
+    const btnHabilitarHumanos = document.getElementById('btnHabilitarHumanos');
+    const btnDeshabilitarHumanos = document.getElementById('btnDeshabilitarHumanos');
+    const divOverlayHumanos = document.getElementById('divOverlayHumanos');
+    const divContenidoHumanos = document.getElementById('divContenidoHumanos');
+    const lsTxtHumanos = divContenidoHumanos.querySelectorAll('input, select, textarea');
+    function fnAlternarHumanos(bModo) {
+        txtHumaAct.checked = bModo;
+        if (bModo) {
+            divOverlayHumanos.classList.add('d-none');
+            divOverlayHumanos.classList.remove('d-flex');
+            divContenidoHumanos.style.opacity = '1';
+            divContenidoHumanos.style.pointerEvents = 'auto';
+            btnDeshabilitarHumanos.classList.remove('d-none');
+            lsTxtHumanos.forEach(input => input.removeAttribute('disabled'));
+        } else {
+            divOverlayHumanos.classList.remove('d-none');
+            divOverlayHumanos.classList.add('d-flex');
+            divContenidoHumanos.style.opacity = '0.3';
+            divContenidoHumanos.style.pointerEvents = 'none';
+            btnDeshabilitarHumanos.classList.add('d-none');
+            lsTxtHumanos.forEach(input => input.setAttribute('disabled', 'disabled'));
+        }
+    }
+    btnHabilitarHumanos.addEventListener('click', () => fnAlternarHumanos(true));
+    btnDeshabilitarHumanos.addEventListener('click', () => fnAlternarHumanos(false));
+    fnAlternarHumanos(txtHumaAct.checked);
+    // ---
 });

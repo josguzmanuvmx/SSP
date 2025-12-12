@@ -11,19 +11,19 @@ using System.ComponentModel.DataAnnotations.Schema;
 [Authorize(Policy = "AdminPolicy")]
 public class EmpleadosController : Controller
 {
-    private readonly DaEmpleado _daEmpleados;
+    private readonly DaEmpleado _daEmpleado;
     private readonly ClsEncrypt _encrypt;
 
-    public EmpleadosController(DaEmpleado daEmpleados, IConfiguration config)
+    public EmpleadosController(DaEmpleado daEmpleado, IConfiguration config)
     {
-        _daEmpleados = daEmpleados;
+        _daEmpleado = daEmpleado;
         _encrypt = new ClsEncrypt(config);
     }
 
     [HttpGet]
     public IActionResult Index()
     {
-        var lsEmpleados = _daEmpleados.Obtener();
+        var lsEmpleados = _daEmpleado.Obtener();
         var lsVmEmpleados = new List<VmEmpleado>();
 
         foreach (var moEmpleado in lsEmpleados)
@@ -89,7 +89,7 @@ public class EmpleadosController : Controller
     public IActionResult BuscarUsuarios(string sUsuario)
     {
         // Llama al nuevo método en tu servicio
-        var lsUsuarios = _daEmpleados.BuscarUsuarios(sUsuario);
+        var lsUsuarios = _daEmpleado.BuscarUsuarios(sUsuario);
 
         // Formatea los datos para que el autocompletado los entienda
         var resultados = lsUsuarios.Select(u => new
@@ -115,7 +115,7 @@ public class EmpleadosController : Controller
         }
 
         // Llama al nuevo método en tu servicio
-        bool bExiste = _daEmpleados.EmpleadoExiste(sUsuario);
+        bool bExiste = _daEmpleado.EmpleadoExiste(sUsuario);
 
         // Devuelve el resultado como JSON (ej. { "existe": true })
         return Json(new { existe = bExiste });
@@ -127,7 +127,7 @@ public class EmpleadosController : Controller
         int nId = string.IsNullOrEmpty(sId)
                 ? 0
                 : int.Parse(_encrypt.FnsDesEncripta(sId!));
-        var moEmpleado = _daEmpleados.ObtenerPorId(nId);
+        var moEmpleado = _daEmpleado.ObtenerPorId(nId);
         if (moEmpleado == null)
         {
             return NotFound();
@@ -179,12 +179,12 @@ public class EmpleadosController : Controller
             if (nId == 0)
             {
                 // Si el ID es 0, es un empleado NUEVO
-                _daEmpleados.Agregar(moEmpleado);
+                _daEmpleado.Agregar(moEmpleado);
             }
             else
             {
                 // Si el ID es diferente de 0, es un empleado EXISTENTE
-                _daEmpleados.Actualizar(moEmpleado);
+                _daEmpleado.Actualizar(moEmpleado);
             }
 
             // 3. Si todo salió bien, redirige a la lista

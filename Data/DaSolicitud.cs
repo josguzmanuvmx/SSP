@@ -54,15 +54,15 @@ public class DaSolicitud
     /// <summary>
     /// Actualiza un empleado existente en la base de datos.
     /// </summary>
-    public void Actualizar(MoEmpleado moEmpleado)
+    public void Actualizar(MoSolicitud moSolicitud)
     {
-        if (moEmpleado == null)
+        if (moSolicitud == null)
         {
-            throw new ArgumentNullException(nameof(moEmpleado));
+            throw new ArgumentNullException(nameof(moSolicitud));
         }
 
         // El método 'Update' le dice a EF Core que la entidad ha sido modificada
-        _context.Solicitudes.Update(moEmpleado);
+        _context.Solicitudes.Update(moSolicitud);
         _context.SaveChanges();
     }
 
@@ -85,14 +85,14 @@ public class DaSolicitud
     /// <summary>
     /// Verifica si ya existe un empleado con un 'sUsuario' específico.
     /// </summary>
-    public bool SolicitudExiste(string sId)
-    {
-        if (string.IsNullOrEmpty(sId))
-        {
-            return false;
-            Solicitudes
-        return _context.Solicitudes.Any(e => e.SUsuario == sUsuario);
-    }
+    //public bool SolicitudExiste(string sId)
+    //{
+    //    if (string.IsNullOrEmpty(sId))
+    //    {
+    //        return false;
+    //        Solicitudes
+    //    return _context.Solicitudes.Any(e => e.SUsuario == sUsuario);
+    //}
 
     /// <summary>
     /// Busca en la tabla 'Usuarios' por Nombre, Usuario o No. de Personal

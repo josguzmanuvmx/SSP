@@ -127,7 +127,16 @@ public class DaEmpleado
                        {
                            SNombre = u.SNombre,
                            SUsuario = u.SUsuario,
-                           NNoPersonal = u.NNoPersonal
+                           NNoPersonal = u.NNoPersonal,
+                           //NNomEmpl = u.SNomEmpl,
+                           //NNoPer = u.NNoPer,
+                           //NUsrClv = u.NUsrClv,
+                           //SCorreo = u.SCorreo,
+                           //NUResClv = u.NUResClv,
+                           //SUResNom = u.SUResNom,
+                           //NRegClv = u.NRegClv,
+                           //SRegNom = u.SRegNom,
+                           //SPueEmpl = u.SPueEmpl
                        };
 
         return consulta.Take(10).ToList();

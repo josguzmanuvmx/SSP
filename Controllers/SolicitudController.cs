@@ -64,25 +64,6 @@ public class SolicitudController : Controller
     [HttpGet]
     public IActionResult Editar(string sId)
     {
-        int nId = string.IsNullOrEmpty(sId)
-                ? 0
-                : int.Parse(_encrypt.FnsDesEncripta(sId!));
-        var vmSolicitud = _daSolicitud.ObtenerPorId(nId);
-        if (vmSolicitud == null)
-        {
-            return NotFound();
-        }
-        string sIdEncrypt = _encrypt.FnsEncripta(vmSolicitud.NId.ToString())?.SEncript ?? "";
-        VmSolicitud vmEmpleado = new()
-        {
-            SId = sIdEncrypt,
-            NNoPersonal = vmSolicitud.NNoPersonal,
-            SUsuario = vmSolicitud.SUsuario,
-            BAdmin = vmSolicitud.BAdmin,
-            BSiisu = vmSolicitud.BSiisu,
-            BSprfm = vmSolicitud.BSprfm,
-            BActivo = vmSolicitud.BActivo
-        };
         var vmSolicitudAct = new VmSolicitudAct
         {
             vmSolicitud = new VmSolicitud(),
@@ -156,47 +137,41 @@ public class SolicitudController : Controller
     //}
 
     [HttpGet]
-    public IActionResult BuscarEmpleado(string termino)
+    public IActionResult BuscarUsuarios(string sUsuario)
     {
-        if (string.IsNullOrEmpty(termino) || termino.Length < 3)
+        // Llama al nuevo método en tu servicio
+        var lsUsuarios = _daEmpleado.BuscarUsuarios(sUsuario);
+
+        // Formatea los datos para que el autocompletado los entienda
+        var resultados = lsUsuarios.Select(u => new
         {
-            return Json(new List<object>());
-        }
+            // El texto a mostrar, ej: "Ángel Guzmán (angel) - 12345"
+            label = $"{u.NNoPersonal} - {u.SNombre}",
 
-        // Simulando datos de BD. 
-        // NOTA: Cuando hagas la consulta real con Entity Framework, úsalo así:
-        // _context.Empleados.Where(...).Select(e => new { ... }).ToList();
+            // Los datos que usaremos para rellenar el formulario
+            sNomEmpl = "u.SNomEmpl",
+            nNoPer = 124,
+            nUsrClv = 156,
+            sCorreo = "u.SCorreo",
+            nUResClv = 178,
+            sUResNom = "u.SUResNom",
+            nRegClv = 1,
+            sRegNom = "u.SRegNom",
+            sRegion = Region.SXal,
+            sPueEmpl = "u.SPueEmpl"
 
-        var listaSimulada = new List<object>
-    {
-        new { 
-            // LADO IZQUIERDO: Nombre exacto para el JSON
-            // LADO DERECHO: Dato real
-            sNomEmpl = "Angel Hernandez Sánchez",
-            nNoPer = 12345,
-            nUsrClv = 99,
-            sCorreo = "angel@uv.mx",
-            nUResClv = 500,
-            sUResNom = "Facultad de Ingeniería",
-            sRegion = 1, // El valor entero del Enum (1 = Xalapa, por ejemplo)
-            sPueEmpl = "Jefe de la Unidad"
-        },
-        new {
-            sNomEmpl = "Maria Lopez",
-            nNoPer = 67890,
-            nUsrClv = 101,
-            sCorreo = "maria@uv.mx",
-            nUResClv = 600,
-            sUResNom = "Recursos Humanos",
-            sRegion = 2,
-            sPueEmpl = "Administrativo"
-        }
-    };
-
-        // Filtramos
-        var resultados = listaSimulada
-            .Where(x => x.GetType().GetProperty("sNomEmpl").GetValue(x, null).ToString().ToLower().Contains(termino.ToLower()))
-            .ToList();
+            //sNomEmpl = u.sNomEmpl,
+            //nNoPer = u.nNoPer,
+            //sNomEmpl = u.SNomEmpl,
+            //nNoPer = u.NNoPer,
+            //nUsrClv = u.NUsrClv,
+            //sCorreo = u.SCorreo,
+            //nUResClv = u.NUResClv,
+            //sUResNom = u.SUResNom,
+            //nRegClv = u.NRegClv,
+            //sRegNom = u.SRegNom,
+            //sPueEmpl = u.SPueEmpl
+        });
 
         return Json(resultados);
     }
