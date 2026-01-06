@@ -13,6 +13,12 @@
         background-color: #0d6efd !important;
     }
 
+    .custom-tab:disabled {
+        border: 1px solid #d2d7df;
+        color: #67707d !important;
+        background-color: #d2d7df !important;
+    }
+
 /* 1. Padre (.tooltip): Solo opacidad */
 .tooltip {
     opacity: 0;
@@ -127,4 +133,70 @@
 }
 .step-first {
     clip-path: polygon(0% 0%, 93% 0%, 100% 50%, 93% 100%, 0% 100%);
+}
+
+#iframeViewer {
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* --- ESTILOS RESPONSIVOS PARA EL STEPPER --- */
+
+.stepper-container {
+    gap: .4rem; /* Espacio por defecto en móvil */
+    row-gap: .2rem;
+}
+
+/* Solo aplicar el efecto de flecha superpuesta en pantallas medianas y grandes (PC/Tablet) */
+@media (min-width: 768px) {
+    .stepper-container {
+        gap: 0; /* Quitamos el gap para usar margin negativo */
+    }
+
+        .stepper-container .nav-item {
+            margin-right: -15px !important; /* El equivalente a tu -0.6rem pero ajustado */
+        }
+
+            /* El último elemento no necesita margen negativo */
+            .stepper-container .nav-item:last-child {
+                margin-right: 0 !important;
+            }
+
+            /* --- CONTROL DE Z-INDEX --- */
+            /* Esto asegura que la flecha 1 tape el inicio de la flecha 2, y así sucesivamente */
+            .stepper-container .nav-item:nth-child(1) {
+                z-index: 5;
+            }
+
+            .stepper-container .nav-item:nth-child(2) {
+                z-index: 4;
+            }
+
+            .stepper-container .nav-item:nth-child(3) {
+                z-index: 3;
+            }
+
+            .stepper-container .nav-item:nth-child(4) {
+                z-index: 2;
+            }
+
+            .stepper-container .nav-item:nth-child(5) {
+                z-index: 1;
+            }
+}
+
+/* Ajustes visuales para que el botón llene el espacio */
+.step {
+    width: 100%;
+    border-radius: 0; /* Opcional: si usas flechas, el radius a veces estorba */
+    white-space: nowrap; /* Evita que el texto se parta en dos líneas */
+}
+
+/* Opcional: En móvil quitamos el clip-path si se ve mal apilado */
+@media (max-width: 767px) {
+    .step {
+        clip-path: none !important;
+        border-radius: 5px !important;
+        margin-bottom: 5px;
+    }
 }

@@ -1,7 +1,5 @@
-﻿namespace SiSProI.Data;
-using Microsoft.Data.SqlClient;
+﻿namespace SSP.Data;
 using Microsoft.EntityFrameworkCore;
-using SSP.Data;
 using System.Data;
 using SSP.Models;
 

@@ -56,37 +56,37 @@ public class MoSolicitud
 {
     [Key]
     [Column("nId")]
-    public required int NId { get; set; }
+    public int NId { get; set; }
 
     // --- Pestaña 1: Datos del Usuario ---
 
     [Column("sNomEmpl")]
-    public required string SNomEmpl { get; set; }
+    public string SNomEmpl { get; set; } = "";
 
     [Column("nNoPer")]
-    public required int NNoPer { get; set; }
+    public int NNoPer { get; set; } = 0;
 
     [Display(Name = "Clave del usuario")]
     [Column("nUsrClv")]
-    public required int NUsrClv { get; set; }
+    public int NUsrClv { get; set; } = 0;
 
     [Column("sCorreo")]
-    public required string SCorreo { get; set; }
+    public string SCorreo { get; set; } = "";
 
     [Column("nUResClv")]
-    public required int NUResClv { get; set; }
+    public int NUResClv { get; set; } = 0;
 
     [Column("sUResNom")]
-    public required string SUResNom { get; set; }
+    public string SUResNom { get; set; } = "";
 
     [Column("nRegClv")]
-    public required int NRegClv { get; set; }
+    public int NRegClv { get; set; } = 1;
 
     [Column("sRegNom")]
-    public required string SRegNom { get; set; }
+    public string SRegNom { get; set; } = "Xalapa";
 
     [Column("sPueEmpl")]
-    public required string SPueEmpl { get; set; }
+    public string SPueEmpl { get; set; } = "";
 
     // --- Humanos ---
     // :c
@@ -95,122 +95,122 @@ public class MoSolicitud
     // --- Finanzas ---
 
     [Column("sFinaMov")]
-    public Movimiento? SFinaMov { get; set; }
+    public Movimiento SFinaMov { get; set; } = Movimiento.SAlta;
 
     [Column("bDirec")]
-    public bool BDirec { get; set; }
+    public bool BDirec { get; set; } = false;
 
     [Column("bDirGen")]
-    public bool BDirGen { get; set; }
+    public bool BDirGen { get; set; } = false;
 
     [Column("bAdmin")]
-    public bool BAdmin { get; set; }
+    public bool BAdmin { get; set; } = false;
 
     [Column("bAuxAdm")]
-    public bool BAuxAdm { get; set; }
+    public bool BAuxAdm { get; set; } = false;
 
     [Column("bResProy")]
-    public bool BResProy { get; set; }
+    public bool BResProy { get; set; } = false;
 
     [Column("bResCB")]
-    public bool BResCB { get; set; }
+    public bool BResCB { get; set; } = false;
 
     [Column("bEstudi")]
-    public bool BEstudi { get; set; }
+    public bool BEstudi { get; set; } = false;
 
     [Column("bEvenIng")]
-    public bool BEvenIng { get; set; }
+    public bool BEvenIng { get; set; } = false;
 
     [Column("bSuper")]
-    public bool BSuper { get; set; }
+    public bool BSuper { get; set; } = false;
 
     [Column("bCajeros")]
-    public bool BCajeros { get; set; }
+    public bool BCajeros { get; set; } = false;
 
     [Column("bRevisor")]
-    public bool BRevisor { get; set; }
+    public bool BRevisor { get; set; } = false;
 
     [Column("bOtroGru")]
-    public bool BOtroGru { get; set; }
+    public bool BOtroGru { get; set; } = false;
 
     [Column("bUrAdici")]
-    public bool BUrAdici { get; set; }
+    public bool BUrAdici { get; set; } = false;
 
     [Column("bPermEsp")]
-    public bool BPermEsp { get; set; }
+    public bool BPermEsp { get; set; } = false;
 
     [Column("bPermSim")]
-    public bool BPermSim { get; set; }
+    public bool BPermSim { get; set; } = false;
 
     // Campos de texto detallado
-    
+
     [Column("sDetaRev")]
-    public string? SDetaRev { get; set; }
+    public string SDetaRev { get; set; } = "";
 
     [Column("sDetaGru")]
-    public string? SDetaGru { get; set; }
+    public string SDetaGru { get; set; } = "";
 
     [Column("sDetaUrA")]
-    public string? SDetUrA { get; set; }
+    public string SDetUrA { get; set; } = "";
 
     [Column("sDetaEsp")]
-    public string? SDetaEsp { get; set; }
+    public string SDetaEsp { get; set; } = "";
 
     [Column("sDetaSim")]
-    public string? SDetaSim { get; set; }
+    public string SDetaSim { get; set; } = "";
 
     [Column("sEspeci")]
-    public string? SEspeci { get; set; }
+    public string SEspeci { get; set; } = "";
 
     // ---
 
     // --- Humanos ---
 
     [Column("nEntClv")]
-    public int? NEntClv { get; set; }
+    public int NEntClv { get; set; } = 0;
 
     [Column("sEntNomb")]
-    public string? SEntNomb { get; set; }
+    public string SEntNomb { get; set; } = "";
 
     [Column("sPerfil")]
-    public Perfil? SPerfil { get; set; }
+    public Perfil SPerfil { get; set; } = Perfil.SAdmin;
 
     [Column("nClvDep")]
-    public int? NClvDep { get; set; }
+    public int NClvDep { get; set; } = 0;
 
     [Column("sClvProg")]
-    public string? SClvProg { get; set; }
+    public string SClvProg { get; set; } = "";
 
     [Column("sTipPerm")]
-    public string? STipPerm { get; set; }
+    public string STipPerm { get; set; } = "";
 
     [Column("sHumaMov")]
-    public Movimiento? SHumaMov { get; set; }
+    public Movimiento SHumaMov { get; set; } = Movimiento.SAlta;
 
     // ---
 
     // --- Datos Utilidad ---
 
     [Column("sEstatus")]
-    public string? SEstatus { get; set; }
+    public string SEstatus { get; set; } = "";
 
     [Column("dtFecCre")]
-    public DateTime? DtFecCre { get; set; }
+    public DateTime DtFecCre { get; set; } = DateTime.Now;
 
     [Column("dtUltAct")]
-    public DateTime? DtUltAct { get; set; }
+    public DateTime DtUltAct { get; set; } = DateTime.Now;
 
     [Column("bEstuAct")]
-    public bool BEstuAct { get; set; }
+    public bool BEstuAct { get; set; } = false;
 
     [Column("bFinaAct")]
-    public bool BFinaAct { get; set; }
+    public bool BFinaAct { get; set; } = false;
 
     [Column("bHumaAct")]
-    public bool BHumaAct { get; set; }
+    public bool BHumaAct { get; set; } = false;
 
     [Column("sAutor")]
-    public string? SAutor { get; set; }
+    public string SAutor { get; set; } = "";
 
     // ---
 }

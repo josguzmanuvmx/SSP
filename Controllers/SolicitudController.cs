@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SiSProI.Data;
-using SiSProI.Functions;
 using SSP.Data; // Asegúrate de tener el using de tu servicio
 using SSP.Extensions;
+using SSP.Functions;
 using SSP.Models;
 using SSP.ViewModels;
+using System.IO.Compression;
 
 [Authorize(Policy = "ModulosPolicy")]
 public class SolicitudController : Controller
@@ -13,12 +13,14 @@ public class SolicitudController : Controller
     private readonly DaEmpleado _daEmpleado;
     private readonly DaSolicitud _daSolicitud;
     private readonly ClsEncrypt _encrypt;
+    private readonly ClsGenerarSolicitud _generador;
 
-    public SolicitudController(DaEmpleado daEmpleado, DaSolicitud daSolicitud, IConfiguration config)
+    public SolicitudController(DaEmpleado daEmpleado, DaSolicitud daSolicitud, IConfiguration config, ClsGenerarSolicitud generador)
     {
         _daEmpleado = daEmpleado;
         _daSolicitud = daSolicitud;
         _encrypt = new ClsEncrypt(config);
+        _generador = generador;
     }
 
     [HttpGet]
@@ -146,19 +148,19 @@ public class SolicitudController : Controller
         var resultados = lsUsuarios.Select(u => new
         {
             // El texto a mostrar, ej: "Ángel Guzmán (angel) - 12345"
-            label = $"{u.NNoPersonal} - {u.SNombre}",
+            label = $"[{u.NNoPersonal}] {u.SUsuario} - {u.SNombre}",
 
             // Los datos que usaremos para rellenar el formulario
-            sNomEmpl = "u.SNomEmpl",
-            nNoPer = 124,
-            nUsrClv = 156,
-            sCorreo = "u.SCorreo",
-            nUResClv = 178,
-            sUResNom = "u.SUResNom",
+            sNomEmpl = "José Ángel Guzmán Zavaleta",
+            nNoPer = 61399,
+            nUsrClv = 65478,
+            sCorreo = "josguzman@uv.mx",
+            nUResClv = 1,
+            sUResNom = "USII",
             nRegClv = 1,
-            sRegNom = "u.SRegNom",
+            sRegNom = "Xalapa",
             sRegion = Region.SXal,
-            sPueEmpl = "u.SPueEmpl"
+            sPueEmpl = "Becario"
 
             //sNomEmpl = u.sNomEmpl,
             //nNoPer = u.nNoPer,
@@ -175,4 +177,85 @@ public class SolicitudController : Controller
 
         return Json(resultados);
     }
+
+    [HttpPost]
+    public IActionResult PrevisualizarBorrador([FromForm] VmSolicitudAct vmSolicitudAct, [FromForm] string sTipo)
+    {
+        Console.WriteLine(sTipo);
+        Console.WriteLine(vmSolicitudAct.vmSolicitud!.SNomEmpl);
+        try
+        {
+            var vmSolicitud = vmSolicitudAct.vmSolicitud ?? new VmSolicitud();
+            byte[] pdfBytes = null;
+            if (sTipo == "FINANZAS")
+            {
+                pdfBytes = _generador.GenerarPDF_FINANZAS(vmSolicitud);
+            }
+            else if (sTipo == "HUMANOS")
+            {
+                pdfBytes = _generador.GenerarPDF_HUMANOS(vmSolicitud);
+            }
+            string nombreDescarga = $"Borrador_{sTipo}.pdf";
+            // AGREGA EL TERCER PARÁMETRO (Nombre del archivo)
+            return File(pdfBytes!, "application/pdf", nombreDescarga);
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("Error al generar vista previa: " + ex.Message);
+        }
+    }
+
+    [HttpPost]
+    public IActionResult DescargarZipBorrador([FromForm] VmSolicitudAct vmSolicitudAct)
+    {
+        try
+        {
+            // 1. Obtener datos (Manejo de nulos)
+            var vmSolicitud = vmSolicitudAct.vmSolicitud! ?? new VmSolicitud();
+            string nombreZip = $"Paquete_Solicitudes_{DateTime.Now:yyyyMMdd_HHmmss}.zip";
+
+            using (var ms = new MemoryStream())
+            {
+                // Creamos el archivo ZIP en memoria
+                using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
+                {
+                    // --- A. FINANZAS (Si está activo) ---
+                    if (vmSolicitud.BFinaAct)
+                    {
+                        try
+                        {
+                            var bytesFina = _generador.GenerarPDF_FINANZAS(vmSolicitud);
+                            var entry = archive.CreateEntry($"Finanzas.pdf");
+                            using (var stream = entry.Open()) stream.Write(bytesFina, 0, bytesFina.Length);
+                        }
+                        catch (Exception ex)
+                        {
+                            // Opcional: Escribir un .txt con el error dentro del zip
+                        }
+                    }
+
+                    // --- B. HUMANOS (Si está activo) ---
+                    if (vmSolicitud.BHumaAct)
+                    {
+                        try
+                        {
+                            var bytesHuma = _generador.GenerarPDF_HUMANOS(vmSolicitud);
+                            var entry = archive.CreateEntry($"Humanos.pdf");
+                            using (var stream = entry.Open()) stream.Write(bytesHuma, 0, bytesHuma.Length);
+                        }
+                        catch (Exception ex) { }
+                    }
+                } // Cierre del ZipArchive
+
+                // 2. Devolver el ZIP
+                ms.Position = 0;
+                return File(ms.ToArray(), "application/zip", nombreZip);
+            }
+        }
+        catch (Exception ex)
+        {
+            return BadRequest("Error generando el paquete ZIP: " + ex.Message);
+        }
+    }
+
 }

@@ -1,5 +1,4 @@
-﻿namespace SiSProI.Functions;
-using SSP.Models;
+﻿namespace SSP.Functions;
 using System.Security.Cryptography;
 using System.Text;
 

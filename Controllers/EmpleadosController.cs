@@ -1,12 +1,9 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SiSProI.Data;
-using SiSProI.Functions;
 using SSP.Data;
 using SSP.Models;
 using SSP.ViewModels;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations.Schema;
+using SSP.Functions;
 
 [Authorize(Policy = "AdminPolicy")]
 public class EmpleadosController : Controller

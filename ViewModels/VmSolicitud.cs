@@ -3,6 +3,18 @@ using SSP.Models;
 using System.ComponentModel.DataAnnotations;
 
 
+public class VmUsuarioAdicional
+{
+    public int? NNoPer { get; set; }
+    public string? SNomEmpl { get; set; }
+    public int? NUsrClv { get; set; }
+    public Perfil SPerfil { get; set; } = Perfil.SAdmin;
+    public int? NClvDep { get; set; }
+    public string? SClvProg { get; set; }
+    public Permiso STipPerm { get; set; } = Permiso.SConsult;
+    public Movimiento SHumaMov { get; set; } = Movimiento.SAlta;
+}
+
 public class VmSolicitud
 {
     public string? SId { get; set; }
@@ -41,7 +53,7 @@ public class VmSolicitud
     [Display(Name = "Nombre de la Región")]
     public string? SRegNom { get; set; }
 
-    public Region SRegion { get; set; }
+    public Region SRegion { get; set; } = Region.SXal;
 
     [Required(ErrorMessage = "El puesto del empleado es obligatorio.")]
     [Display(Name = "Puesto del empleado")]
@@ -55,7 +67,7 @@ public class VmSolicitud
 
     [Required(ErrorMessage = "El tipo de permiso es obligatorio.")]
     [Display(Name = "Tipo de Permiso")]
-    public Movimiento? SFinaMov { get; set; }
+    public Movimiento SFinaMov { get; set; } = Movimiento.SAlta;
 
     [Display(
         Name = "DIRECTOR (Director de UR)",
@@ -80,7 +92,7 @@ public class VmSolicitud
                       "<li>Generación de reportes para emitir información registrada en los diversos apartados.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BDirec { get; set; }
+    public bool BDirec { get; set; } = false;
 
     [Display(
         Name = "DIRECTOR GENERAL (Director de URC)",
@@ -105,7 +117,7 @@ public class VmSolicitud
                       "<li>Generación de reportes para emitir información registrada en los diversos apartados.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BDirGen { get; set; }
+    public bool BDirGen { get; set; } = false;
 
     [Display(
         Name = "ADMINISTRADOR",
@@ -128,7 +140,7 @@ public class VmSolicitud
                       "<li>Generación de reportes para emitir información registrada en los diversos apartados.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BAdmin { get; set; }
+    public bool BAdmin { get; set; } = false;
 
     [Display(
         Name = "AUXILIAR ADMINISTRATIVO",
@@ -147,7 +159,7 @@ public class VmSolicitud
                       "<li>Generación de reportes para emitir información registrada en los diversos apartados.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BAuxAdm { get; set; }
+    public bool BAuxAdm { get; set; } = false;
 
     [Display(
         Name = "RESPONSABLE DE PROYECTO",
@@ -166,7 +178,7 @@ public class VmSolicitud
                       "<li>Generación de reportes para emitir información registrada en los diversos apartados.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BResProy { get; set; }
+    public bool BResProy { get; set; } = false;
 
     [Display(
         Name = "RESPONSABLE DE CONTROL DE BIENES",
@@ -180,7 +192,7 @@ public class VmSolicitud
                       "<li>Generación de reportes para emitir información registrada en los diversos apartados.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BResCB { get; set; }
+    public bool BResCB { get; set; } = false;
 
     [Display(
         Name = "ESTUDIANTES",
@@ -190,7 +202,7 @@ public class VmSolicitud
                       "<li>Acceso al registro de cobros por ventanilla y generación de líneas de captura.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BEstudi { get; set; }
+    public bool BEstudi { get; set; } = false;
 
     [Display(
         Name = "EVENTOS INGRESOS",
@@ -204,7 +216,7 @@ public class VmSolicitud
                       "<li>Consulta de trazabilidad de las operaciones de ingreso.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BEvenIng { get; set; }
+    public bool BEvenIng { get; set; } = false;
 
     [Display(
         Name = "SUPERVISOR",
@@ -215,7 +227,7 @@ public class VmSolicitud
                       "<li>Generación de reportes para emitir información registrada en dichos apartados.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BSuper { get; set; }
+    public bool BSuper { get; set; } = false;
 
     [Display(
         Name = "CAJEROS",
@@ -226,42 +238,42 @@ public class VmSolicitud
                       "<li>Generación de reportes para emitir información registrada en dichos apartados.</li>" +
                       "</ul>" +
                       "</div>")]
-    public bool BCajeros { get; set; }
+    public bool BCajeros { get; set; } = false;
 
     [Display(
         Name = "REVISOR",
         Description = "<div class='text-start'>" +
                       "<span class='fw-bold'>REVISOR.</span> Usuario encargado de revisar mediante el cambio de estado, ya sea anteproyectos, PbR requerimientos presupuestales, trámites de egresos, requisiciones y trámites de servicios generales. Dependiendo la actividad a realizar se le asignará el permiso correspondiente, por lo que tendrá que especificar la operación u operaciones a revisar." +
                       "</div>")]
-    public bool BRevisor { get; set; }
+    public bool BRevisor { get; set; } = false;
 
     [Display(
         Name = "OTRO GRUPO",
         Description = "<div class='text-start'>" +
                       "<span class='fw-bold'>OTRO GRUPO:</span> esta casilla se marcará en caso de que en el listado de grupos no se encuentre el grupo a solicitar y deberá capturar en las especificaciones el grupo al que desea el acceso. Si se desconoce qué grupo solicitar deberá indicar las actividades que va a realizar el usuario, tal es el caso de los Secretario de Administración y finanzas regional, auditores internos y externos entre otros." +
                       "</div>")]
-    public bool BOtroGru { get; set; }
+    public bool BOtroGru { get; set; } = false;
 
     [Display(
         Name = "UR adicional",
         Description = "<div class='text-start'>" +
                       "<span class='fw-bold'>UR adicional:</span> marcará esta casilla cuando el permiso a solicitar asignar UR adicionales al usuario y deberá especificar qué UR se requiere adicionar, por clave de UR y descripción." +
                       "</div>")]
-    public bool BUrAdici { get; set; }
+    public bool BUrAdici { get; set; } = false;
 
     [Display(
         Name = "Permiso específico",
         Description = "<div class='text-start'>" +
                       "<span class='fw-bold'>Permiso específico:</span> esta casilla se marcará en caso de que se requiera asignar un permiso en específico a nivel usuario o grupo, por lo que deberá especificar y justificar el acceso a solicitar, también, se deberá anexar al formato imágenes con la descripción del permiso requerido." +
                       "</div>")]
-    public bool BPermEsp { get; set; }
+    public bool BPermEsp { get; set; } = false;
 
     [Display(
         Name = "Asignar permisos similares a otro usuario",
         Description = "<div class='text-start'>" +
                       "<span class='fw-bold'>Asignar permisos similares a otro usuario:</span> seleccionará esta casilla si el permiso a solicitar será similar al de otro usuario y deberá especificar el nombre de usuario del que se copiaran los accesos." +
                       "</div>")]
-    public bool BPermSim { get; set; }
+    public bool BPermSim { get; set; } = false;
 
     // Campos de texto detallado
 
@@ -281,23 +293,25 @@ public class VmSolicitud
 
     // --- Humanos ---
 
-    [Required(ErrorMessage = "La clave de la Dependencia es obligatoria.")]
+    [Required(ErrorMessage = "La clave de la Entidad Académica o Dependencia es obligatoria.")]
     [Display(Name = "Clave de la Dependencia")]
     public int? NEntClv { get; set; }
 
-    [Required(ErrorMessage = "El nombre de Dependencia es obligatorio.")]
+    [Required(ErrorMessage = "El nombre de la Entidad Académica o Dependencia es obligatorio.")]
     [Display(Name = "Nombre de la Dependencia")]
     public string? SEntNomb { get; set; }
 
-    public Perfil? SPerfil { get; set; }
+    public Perfil SPerfil { get; set; } = Perfil.SAdmin;
 
     public int? NClvDep { get; set; }
 
     public string? SClvProg { get; set; }
 
-    public string? STipPerm { get; set; }
+    public Permiso STipPerm { get; set; } = Permiso.SConsult;
 
-    public Movimiento? SHumaMov { get; set; }
+    public Movimiento SHumaMov { get; set; } = Movimiento.SAlta;
+
+    public List<VmUsuarioAdicional> LsUsuariosAdicionales { get; set; } = new List<VmUsuarioAdicional>();
 
     // ---
 
@@ -305,15 +319,15 @@ public class VmSolicitud
 
     public string? SEstatus { get; set; }
 
-    public DateTime? DtFecCre { get; set; }
+    public DateTime DtFecCre { get; set; } = DateTime.Now;
 
-    public DateTime? DtUltAct { get; set; }
+    public DateTime DtUltAct { get; set; } = DateTime.Now;
 
-    public bool BEstuAct { get; set; }
+    public bool BEstuAct { get; set; } = false;
 
-    public bool BFinaAct { get; set; }
+    public bool BFinaAct { get; set; } = false;
 
-    public bool BHumaAct { get; set; }
+    public bool BHumaAct { get; set; } = false;
 
     public string? SAutor { get; set; }
 

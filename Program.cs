@@ -1,11 +1,15 @@
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
-using SiSProI.Data;
 using SSP.Data;
-using System.Threading.Tasks;
+using SSP.Functions;
 
 var builder = WebApplication.CreateBuilder(args);
+
+// Syncfusion
+string syncfusionKey = "Ngo9BigBOggjHTQxAR8/V1JGaF5cXGpCf1FpRmJGdld5fUVHYVZUTXxaS00DNHVRdkdlWX5edXRcRWFdVERxXktWYEs=";
+// string syncfusionKey = "Ngo9BigBOggjHTQxAR8/V1JGaF5cXGpCf1FpR2BGfV5ycUVDallTTnVZUj0eQnxTdEBiW35YcXNQRGNaWEdzV0leYQ==";
+Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense(syncfusionKey);
 
 // 1. Add DbContext
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
@@ -60,6 +64,7 @@ builder.Services.AddSingleton<IPasswordHasher<MoUsuario>, PasswordHasher<MoUsuar
 builder.Services.AddScoped<DaLogin, UserService>();
 builder.Services.AddScoped<DaEmpleado>();
 builder.Services.AddScoped<DaSolicitud>();
+builder.Services.AddScoped<ClsGenerarSolicitud>();
 //builder.Services.AddScoped<DaEmpleado, DaSolicitud>();
 
 var app = builder.Build();

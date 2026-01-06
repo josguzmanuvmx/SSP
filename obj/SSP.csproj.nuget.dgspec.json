@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\SSP.csproj": {}
+    "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\Github\\SSP\\SSP.csproj": {}
   },
   "projects": {
-    "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\SSP.csproj": {
+    "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\Github\\SSP\\SSP.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\SSP.csproj",
+        "projectUniqueName": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\Github\\SSP\\SSP.csproj",
         "projectName": "SSP",
-        "projectPath": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\SSP.csproj",
+        "projectPath": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\Github\\SSP\\SSP.csproj",
         "packagesPath": "C:\\Users\\UV\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\SSP\\obj\\",
+        "outputPath": "C:\\Users\\UV\\Desktop\\UV\\Solicitud-UV\\Github\\SSP\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -85,6 +85,14 @@
             "OpenXmlPowerTools": {
               "target": "Package",
               "version": "[4.5.3.2, )"
+            },
+            "Syncfusion.DocIORenderer.Net.Core": {
+              "target": "Package",
+              "version": "[32.1.19, )"
+            },
+            "Syncfusion.XlsIORenderer.Net.Core": {
+              "target": "Package",
+              "version": "[32.1.19, )"
             }
           },
           "imports": [

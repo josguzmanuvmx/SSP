@@ -17,109 +17,109 @@ build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = SSP
 build_property.RootNamespace = SSP
-build_property.ProjectDir = C:\Users\UV\Desktop\UV\Solicitud-UV\SSP\
+build_property.ProjectDir = C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\
 build_property.EnableComHosting = 
 build_property.EnableGeneratedComInterfaceComImportInterop = 
 build_property.RazorLangVersion = 8.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = C:\Users\UV\Desktop\UV\Solicitud-UV\SSP
+build_property.MSBuildProjectDirectory = C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP
 build_property._RazorSourceGeneratorDebug = 
 build_property.EffectiveAnalysisLevelStyle = 8.0
 build_property.EnableCodeStyleSeverity = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Admin/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Admin/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQWRtaW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/CrearSolicitud/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/CrearSolicitud/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcQ3JlYXJTb2xpY2l0dWRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Empleados/Agregar.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Empleados/Agregar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEFncmVnYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Empleados/AgregarEditar.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Empleados/AgregarEditar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEFncmVnYXJFZGl0YXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Empleados/Editar.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Empleados/Editar.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEVkaXRhci5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Empleados/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Empleados/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcRW1wbGVhZG9zXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Inicio/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Inicio/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcSW5pY2lvXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Login/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Login/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcTG9naW5cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Seleccion/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Seleccion/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2VsZWNjaW9uXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Shared/Error.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Shared/Error.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXEVycm9yLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Shared/_ValidationScriptsPartial.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Shared/_ValidationScriptsPartial.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9WYWxpZGF0aW9uU2NyaXB0c1BhcnRpYWwuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Siisu/Crear.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lpc3VcQ3JlYXIuY3NodG1s
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/SIISU/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU0lJU1VcQ3JlYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Siisu/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2lpc3VcSW5kZXguY3NodG1s
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/SIISU/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU0lJU1VcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/SolicitudesCreadas/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/SolicitudesCreadas/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdHVkZXNDcmVhZGFzXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Solicitudes/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Solicitudes/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdHVkZXNcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Solicitud/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Solicitud/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU29saWNpdHVkXEluZGV4LmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Sprfm/Crear.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ByZm1cQ3JlYXIuY3NodG1s
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/SPRFM/Crear.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU1BSRk1cQ3JlYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Sprfm/Index.cshtml]
-build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ByZm1cSW5kZXguY3NodG1s
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/SPRFM/Index.cshtml]
+build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU1BSRk1cSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/SubirSolicitud/Crear.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/SubirSolicitud/Crear.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViaXJTb2xpY2l0dWRcQ3JlYXIuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/SubirSolicitud/Index.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/SubirSolicitud/Index.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU3ViaXJTb2xpY2l0dWRcSW5kZXguY3NodG1s
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/_ViewImports.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/_ViewImports.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdJbXBvcnRzLmNzaHRtbA==
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/_ViewStart.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/_ViewStart.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcX1ZpZXdTdGFydC5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = 
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Shared/_Layout.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Shared/_Layout.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXQuY3NodG1s
 build_metadata.AdditionalFiles.CssScope = b-t54kn5ed1s
 
-[C:/Users/UV/Desktop/UV/Solicitud-UV/SSP/Views/Shared/_LayoutLogin.cshtml]
+[C:/Users/UV/Desktop/UV/Solicitud-UV/Github/SSP/Views/Shared/_LayoutLogin.cshtml]
 build_metadata.AdditionalFiles.TargetPath = Vmlld3NcU2hhcmVkXF9MYXlvdXRMb2dpbi5jc2h0bWw=
 build_metadata.AdditionalFiles.CssScope = b-l5iewtvhrv

@@ -25,6 +25,8 @@
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
     <PackageReference Include="OpenXmlPowerTools" Version="4.5.3.2" />
+    <PackageReference Include="Syncfusion.DocIORenderer.Net.Core" Version="32.1.19" />
+    <PackageReference Include="Syncfusion.XlsIORenderer.Net.Core" Version="32.1.19" />
   </ItemGroup>
 
 </Project>
