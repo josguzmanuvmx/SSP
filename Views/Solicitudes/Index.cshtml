@@ -1,21 +1,103 @@
 ﻿@using SSP.ViewModels;
-@model VmSoliSprfm;
+@* CAMBIO IMPORTANTE: Ahora el modelo es una LISTA de solicitudes *@
+@model IEnumerable<VmSolicitud>
+
 @section Styles {
     <link rel="stylesheet" href="~/css/Estilos/cssSprfm.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.13.4/css/dataTables.bootstrap5.min.css" />
 }
+
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="~/js/Scripts/jsSprfm.js" asp-append-version="true"></script>
 }
 
-<div class="container-fluid col-12 col-md-8 col-lg-7 col-xl-5 text-start">
+<div class="container-fluid col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 text-start">
     <br /><br />
-    <div class="d-flex gap-3 align-items-center" style="min-height: 3rem;">
-        <a class="btn btn-secondary d-flex p-2" asp-controller="Admin" asp-action="Index">
-            <i class="fa-solid fa-arrow-left"></i>
+
+    @* ENCABEZADO Y BOTÓN CREAR *@
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="d-flex gap-3 align-items-center">
+            <a class="btn btn-secondary d-flex p-2" asp-controller="Inicio" asp-action="Index">
+                <i class="fa-solid fa-arrow-left"></i>
+            </a>
+            <h4 class="text-start m-0">Listado de Solicitudes</h4>
+        </div>
+
+        <a asp-controller="Solicitud" asp-action="Index" class="btn btn-primary fw-semibold">
+            <i class="fa-solid fa-plus me-2"></i> Nueva Solicitud
         </a>
-        <h4 class="text-start m-0">Solicitudes</h4>
+    </div>
+
+    @* TABLA DE DATOS *@
+    <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+        <div class="card-body p-0">
+            <div class="table-responsive">
+                <table class="table table-hover align-middle mb-0 text-nowrap">
+                    <thead class="bg-light border-bottom">
+                        <tr>
+                            <th class="ps-4 py-3 text-secondary text-uppercase small fw-bold">Folio / ID</th>
+                            <th class="py-3 text-secondary text-uppercase small fw-bold">Empleado</th>
+                            <th class="py-3 text-secondary text-uppercase small fw-bold">Dependencia</th>
+                            <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Estatus</th>
+                            <th class="py-3 text-secondary text-uppercase small fw-bold text-end pe-4">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @if (Model != null && Model.Any())
+                        {
+                            @foreach (var item in Model)
+                            {
+                                <tr>
+                                    <td class="ps-4 fw-bold text-primary">#@item.SId</td>
+                                    <td>
+                                        <div class="d-flex flex-column">
+                                            <span class="fw-semibold">@item.SNomEmpl</span>
+                                            <small class="text-muted">NP: @item.NNoPer</small>
+                                        </div>
+                                    </td>
+                                    <td>@item.SEntNomb</td>
+                                    <td class="text-center">
+                                        @* Ejemplo de Badge condicional *@
+                                        @if (item.BFinaAct)
+                                        {
+                                            <span class="badge bg-success bg-opacity-10 text-success rounded-pill px-3">Activa</span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-secondary bg-opacity-10 text-secondary rounded-pill px-3">Borrador</span>
+                                        }
+                                    </td>
+                                    <td class="text-end pe-4">
+                                        <div class="d-flex justify-content-end gap-2">
+                                            @* BOTÓN EDITAR *@
+                                            <a asp-action="Editar" asp-route-id="@item.SId" class="btn btn-sm btn-outline-primary border-0 bg-primary bg-opacity-10 text-primary hover-scale" title="Editar">
+                                                <i class="fa-solid fa-pen-to-square"></i>
+                                            </a>
+
+                                            @* BOTÓN ELIMINAR (Con JS) *@
+                                            <button type="button" onclick="fnEliminarSolicitud(@item.SId)" class="btn btn-sm btn-outline-danger border-0 bg-danger bg-opacity-10 text-danger hover-scale" title="Eliminar">
+                                                <i class="fa-solid fa-trash"></i>
+                                            </button>
+                                        </div>
+                                    </td>
+                                </tr>
+                            }
+                        }
+                        else
+                        {
+                            <tr>
+                                <td colspan="5" class="text-center py-5 text-muted">
+                                    <i class="fa-solid fa-folder-open fa-2x mb-3 d-block opacity-50"></i>
+                                    No hay solicitudes registradas aún.
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+        </div>
     </div>
     <br />
-    
 </div>

@@ -250,6 +250,7 @@
         nUResClv: document.getElementById('vmSolicitud_NUResClv'),
         sUResNom: document.getElementById('vmSolicitud_SUResNom'),
         sRegion: document.getElementById('vmSolicitud_SRegion'),
+        sPerfil: document.getElementById('vmSolicitud_SPerfil'),
         sPueEmpl: document.getElementById('vmSolicitud_SPueEmpl')
     };
 
@@ -304,6 +305,7 @@
         lsInputs.nUResClv.value = emp.nUResClv;
         lsInputs.sUResNom.value = emp.sUResNom;
         lsInputs.sRegion.value = emp.sRegion;
+        lsInputs.sPerfil.value = emp.sPerfil;
         lsInputs.sPueEmpl.value = emp.sPueEmpl;
 
         // Asegurar que sigan bloqueados (Solo lectura) para evitar errores manuales

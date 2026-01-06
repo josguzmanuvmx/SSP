@@ -181,8 +181,6 @@ public class SolicitudController : Controller
     [HttpPost]
     public IActionResult PrevisualizarBorrador([FromForm] VmSolicitudAct vmSolicitudAct, [FromForm] string sTipo)
     {
-        Console.WriteLine(sTipo);
-        Console.WriteLine(vmSolicitudAct.vmSolicitud!.SNomEmpl);
         try
         {
             var vmSolicitud = vmSolicitudAct.vmSolicitud ?? new VmSolicitud();
