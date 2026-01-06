@@ -295,6 +295,12 @@
             });
     });
 
+    document.addEventListener('click', function (e) {
+        if (!txtBuscarUsuario.contains(e.target) && !divResultados.contains(e.target)) {
+            divResultados.classList.remove('show');
+        }
+    });
+
     // --- 2. FUNCIÓN: RELLENAR DATOS (Autocompletado) ---
     function rellenarDatos(emp) {
         // Asignar valores
@@ -745,7 +751,7 @@
                                 //        <i class="fa-solid fa-building"></i> ${user.sUResNom}
                                 //    </div>
                                 //`;
-
+                                item.href = "#";
                                 item.innerHTML = user.label;
 
                                 item.addEventListener('click', function (e) {
