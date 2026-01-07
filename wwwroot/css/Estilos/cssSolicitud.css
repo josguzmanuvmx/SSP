@@ -154,7 +154,7 @@
     }
 
         .stepper-container .nav-item {
-            margin-right: -15px !important; /* El equivalente a tu -0.6rem pero ajustado */
+            margin-right: -18px !important; /* El equivalente a tu -0.6rem pero ajustado */
         }
 
             /* El último elemento no necesita margen negativo */

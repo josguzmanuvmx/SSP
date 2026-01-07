@@ -508,7 +508,12 @@
                 if (divVerDocumento) divVerDocumento.classList.remove('d-none');
                 if (btnDescarga) {
                     btnDescarga.href = urlBlob;
-                    btnDescarga.download = `Solicitud_${tipoDocumento}_${new Date().toISOString().slice(0, 10)}.pdf`;
+                    btnDescarga.download = `Solicitud_${tipoDocumento}_${
+                        new Date().toISOString()
+                            .replace('T', '_')
+                            .replace('Z', '')
+                            .replace(/[:.]/g, '-')
+                        }.pdf`;
                     btnDescarga.classList.remove('disabled');
                 }
             } else {
@@ -575,11 +580,11 @@
         let bDocumentos = false;
         // if (txtFinaAct.checked) actualizarPrevisualizacion('SPRFM', 'iframeMiniHumanos');
         if (txtFinaAct && txtFinaAct.checked) {
-            actualizarPrevisualizacion('FINANZAS', 'iframeMiniFinanzas', 'btnDescargaFinanzas', 'divCargandoFinanzas', 'divVerFinanzas');
+            actualizarPrevisualizacion('Finanzas', 'iframeMiniFinanzas', 'btnDescargaFinanzas', 'divCargandoFinanzas', 'divVerFinanzas');
             bDocumentos = true;
         }
         if (txtHumaAct && txtHumaAct.checked) {
-            actualizarPrevisualizacion('HUMANOS', 'iframeMiniHumanos', 'btnDescargaHumanos', 'divCargandoHumanos', 'divVerHumanos');
+            actualizarPrevisualizacion('Humanos', 'iframeMiniHumanos', 'btnDescargaHumanos', 'divCargandoHumanos', 'divVerHumanos');
             bDocumentos = true;
         }
         if (divDescargarTodo) {

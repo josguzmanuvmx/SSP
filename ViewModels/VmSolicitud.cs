@@ -1,19 +1,7 @@
 ﻿namespace SSP.ViewModels;
 using SSP.Models;
 using System.ComponentModel.DataAnnotations;
-
-
-public class VmUsuarioAdicional
-{
-    public int? NNoPer { get; set; }
-    public string? SNomEmpl { get; set; }
-    public int? NUsrClv { get; set; }
-    public Perfil SPerfil { get; set; } = Perfil.SAdmin;
-    public int? NClvDep { get; set; }
-    public string? SClvProg { get; set; }
-    public Permiso STipPerm { get; set; } = Permiso.SConsult;
-    public Movimiento SHumaMov { get; set; } = Movimiento.SAlta;
-}
+using System.ComponentModel.DataAnnotations.Schema;
 
 public class VmSolicitud
 {
@@ -53,22 +41,31 @@ public class VmSolicitud
     [Display(Name = "Nombre de la Región")]
     public string? SRegNom { get; set; }
 
-    public Region SRegion { get; set; } = Region.SXal;
+    public Region Region =>
+        NRegClv.HasValue && Enum.IsDefined(typeof(Region), NRegClv.Value)
+            ? (Region) NRegClv.Value
+            : Region.SXal;
 
     [Required(ErrorMessage = "El puesto del empleado es obligatorio.")]
     [Display(Name = "Puesto del empleado")]
     public string? SPueEmpl { get; set; }
 
-    // --- Humanos ---
-    // :c
-    // ---
+    // --- Datos Diccionarios ---
+    public MoEstudiantes MoEstudiantes { get; set; } = new();
+    public MoFinanzas MoFinanzas { get; set; } = new();
+    public MoHumanos MoHumanos { get; set; } = new();
+
+    // --- Datos Utilidad ---
+    public int? NEstatus { get; set; }
+    public Estatus Estatus =>
+        NEstatus.HasValue && Enum.IsDefined(typeof(Estatus), NEstatus.Value)
+            ? (Estatus) NEstatus.Value
+            : Estatus.SFinal;
+    public DateTime DtFecCre { get; set; } = DateTime.Now;
+    public DateTime DtUltAct { get; set; } = DateTime.Now;
+    public string? SAutor { get; set; }
 
     // --- Finanzas ---
-
-    [Required(ErrorMessage = "El tipo de permiso es obligatorio.")]
-    [Display(Name = "Tipo de Permiso")]
-    public Movimiento SFinaMov { get; set; } = Movimiento.SAlta;
-
     [Display(
         Name = "DIRECTOR (Director de UR)",
         Description = "<div class='text-start'>" +
@@ -274,62 +271,4 @@ public class VmSolicitud
                       "<span class='fw-bold'>Asignar permisos similares a otro usuario:</span> seleccionará esta casilla si el permiso a solicitar será similar al de otro usuario y deberá especificar el nombre de usuario del que se copiaran los accesos." +
                       "</div>")]
     public bool BPermSim { get; set; } = false;
-
-    // Campos de texto detallado
-
-    public string? SDetaRev { get; set; }
-
-    public string? SDetaGru { get; set; }
-
-    public string? SDetUrA { get; set; }
-
-    public string? SDetaEsp { get; set; }
-
-    public string? SDetaSim { get; set; }
-
-    public string? SEspeci { get; set; }
-
-    // ---
-
-    // --- Humanos ---
-
-    [Required(ErrorMessage = "La clave de la Entidad Académica o Dependencia es obligatoria.")]
-    [Display(Name = "Clave de la Dependencia")]
-    public int? NEntClv { get; set; }
-
-    [Required(ErrorMessage = "El nombre de la Entidad Académica o Dependencia es obligatorio.")]
-    [Display(Name = "Nombre de la Dependencia")]
-    public string? SEntNomb { get; set; }
-
-    public Perfil SPerfil { get; set; } = Perfil.SAdmin;
-
-    public int? NClvDep { get; set; }
-
-    public string? SClvProg { get; set; }
-
-    public Permiso STipPerm { get; set; } = Permiso.SConsult;
-
-    public Movimiento SHumaMov { get; set; } = Movimiento.SAlta;
-
-    public List<VmUsuarioAdicional> LsUsuariosAdicionales { get; set; } = new List<VmUsuarioAdicional>();
-
-    // ---
-
-    // --- Datos Utilidad ---
-
-    public string? SEstatus { get; set; }
-
-    public DateTime DtFecCre { get; set; } = DateTime.Now;
-
-    public DateTime DtUltAct { get; set; } = DateTime.Now;
-
-    public bool BEstuAct { get; set; } = false;
-
-    public bool BFinaAct { get; set; } = false;
-
-    public bool BHumaAct { get; set; } = false;
-
-    public string? SAutor { get; set; }
-
-    // ---
 }

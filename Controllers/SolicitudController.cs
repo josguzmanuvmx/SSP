@@ -26,23 +26,8 @@ public class SolicitudController : Controller
     [HttpGet]
     public IActionResult Index()
     {
-        var modelo = new VmSolicitudAct
-        {
-            // Inicializamos el formulario vacío
-            vmSolicitud = new VmSolicitud(),
-
-            // 2. ¡AQUÍ ESTÁ LA MAGIA!
-            // Convertimos el Enum en una lista de objetos para la vista
-            lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
-                            .Cast<ClsSprfmActividades>()
-                            .Select(a => new ClslActividades
-                            {
-                                SNombre = a.GetDisplayName(),
-                                SDescripcion = a.GetDescription() // Aquí recuperamos el HTML de la lista
-                            })
-                            .ToList()
-        };
-        return View(modelo);
+        var vmSolicitud = new VmSolicitud();
+        return View(vmSolicitud);
     }
 
     [HttpGet]
@@ -158,6 +143,7 @@ public class SolicitudController : Controller
             nUResClv = 1,
             sUResNom = "USII",
             nRegClv = 1,
+            sPerfil = Perfil.SAdmin,
             sRegNom = "Xalapa",
             sRegion = Region.SXal,
             sPueEmpl = "Becario"
@@ -185,14 +171,19 @@ public class SolicitudController : Controller
         {
             var vmSolicitud = vmSolicitudAct.vmSolicitud ?? new VmSolicitud();
             byte[] pdfBytes = null;
-            if (sTipo == "FINANZAS")
+            if (sTipo == "Finanzas")
             {
                 pdfBytes = _generador.GenerarPDF_FINANZAS(vmSolicitud);
             }
-            else if (sTipo == "HUMANOS")
+            else if (sTipo == "Humanos")
             {
                 pdfBytes = _generador.GenerarPDF_HUMANOS(vmSolicitud);
             }
+            //else if (sTipo == "Estudiantes")
+            //{
+            //    pdfBytes = _generador.GenerarPDF_ESTUDIANTES(vmSolicitud);
+            //}
+            
             string nombreDescarga = $"Borrador_{sTipo}.pdf";
             // AGREGA EL TERCER PARÁMETRO (Nombre del archivo)
             return File(pdfBytes!, "application/pdf", nombreDescarga);
@@ -210,7 +201,7 @@ public class SolicitudController : Controller
         {
             // 1. Obtener datos (Manejo de nulos)
             var vmSolicitud = vmSolicitudAct.vmSolicitud! ?? new VmSolicitud();
-            string nombreZip = $"Paquete_Solicitudes_{DateTime.Now:yyyyMMdd_HHmmss}.zip";
+            string nombreZip = $"Paquete_Solicitudes_{DateTime.UtcNow:yyyy-MM-dd_HH-mm-ss-fff}.zip";
 
             using (var ms = new MemoryStream())
             {

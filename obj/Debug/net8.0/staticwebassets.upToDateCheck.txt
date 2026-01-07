@@ -214,3 +214,6 @@ wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\templates\siisu.xlsx
 wwwroot\templates\sprfm.docx
+wwwroot\images\Logueo2.jpg
+wwwroot\images\Logueo.jpg
+wwwroot\images\LogueoHD.jpg
