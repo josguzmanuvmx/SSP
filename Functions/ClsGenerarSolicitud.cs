@@ -73,8 +73,8 @@ public class ClsGenerarSolicitud
                 doc.Replace("{correoInst}", vmSolicitud.SCorreo ?? "", true, true);
                 doc.Replace("{uRC}", vmSolicitud.NUResClv.ToString() ?? "", true, true);
                 doc.Replace("{uRN}", vmSolicitud.SUResNom ?? "", true, true);
-                doc.Replace("{rC}", GetCodigoRegion(vmSolicitud.SRegion), true, true);
-                doc.Replace("{rN}", GetNombreSinNumero(vmSolicitud.SRegion), true, true);
+                //doc.Replace("{rC}", GetCodigoRegion(vmSolicitud.Region), true, true);
+                //doc.Replace("{rN}", GetNombreSinNumero(vmSolicitud.Region), true, true);
                 doc.Replace("{puestoEmpleado}", vmSolicitud.SPueEmpl ?? "", true, true);
 
                 TextSelection selection = doc.Find("{especificaciones}", false, false);
@@ -95,33 +95,33 @@ public class ClsGenerarSolicitud
                     }
 
                     // --- A. REVISOR (Mezclado: Negrita + Normal) ---
-                    if (vmSolicitud.BRevisor && !string.IsNullOrWhiteSpace(vmSolicitud.SDetaRev))
+                    if (vmSolicitud.BRevisor && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaRev))
                     {
-                        AgregarLineaConEstilo("REVISOR: ", vmSolicitud.SDetaRev);
+                        AgregarLineaConEstilo("REVISOR: ", vmSolicitud.MoFinanzas.SDetaRev);
                     }
 
                     // --- B. OTRO GRUPO ---
-                    if (vmSolicitud.BOtroGru && !string.IsNullOrWhiteSpace(vmSolicitud.SDetaGru))
+                    if (vmSolicitud.BOtroGru && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaGru))
                     {
-                        AgregarLineaConEstilo("OTRO GRUPO: ", vmSolicitud.SDetaGru);
+                        AgregarLineaConEstilo("OTRO GRUPO: ", vmSolicitud.MoFinanzas.SDetaGru);
                     }
 
                     // --- C. UR ADICIONAL ---
-                    if (vmSolicitud.BUrAdici && !string.IsNullOrWhiteSpace(vmSolicitud.SDetUrA))
+                    if (vmSolicitud.BUrAdici && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaUrA))
                     {
-                        AgregarLineaConEstilo("UR adicional: ", vmSolicitud.SDetUrA);
+                        AgregarLineaConEstilo("UR adicional: ", vmSolicitud.MoFinanzas.SDetaUrA);
                     }
 
                     // --- D. PERMISO ESPECÍFICO ---
-                    if (vmSolicitud.BPermEsp && !string.IsNullOrWhiteSpace(vmSolicitud.SDetaEsp))
+                    if (vmSolicitud.BPermEsp && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaEsp))
                     {
-                        AgregarLineaConEstilo("Permiso específico: ", vmSolicitud.SDetaEsp);
+                        AgregarLineaConEstilo("Permiso específico: ", vmSolicitud.MoFinanzas.SDetaEsp);
                     }
 
                     // --- E. PERMISO SIMILAR ---
-                    if (vmSolicitud.BPermSim && !string.IsNullOrWhiteSpace(vmSolicitud.SDetaSim))
+                    if (vmSolicitud.BPermSim && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaSim))
                     {
-                        AgregarLineaConEstilo("Permisos similares a: ", vmSolicitud.SDetaSim);
+                        AgregarLineaConEstilo("Permisos similares a: ", vmSolicitud.MoFinanzas.SDetaSim);
                     }
                 }
                 else
@@ -141,9 +141,9 @@ public class ClsGenerarSolicitud
                     }
                 }
 
-                ReemplazarCheck("{alta}", vmSolicitud.SFinaMov == Movimiento.SAlta);
-                ReemplazarCheck("{modificacion}", vmSolicitud.SFinaMov == Movimiento.SModifi);
-                ReemplazarCheck("{baja}", vmSolicitud.SFinaMov == Movimiento.SBaja);
+                ReemplazarCheck("{alta}", vmSolicitud.MoFinanzas.SFinaMov == Movimiento.SAlta);
+                ReemplazarCheck("{modificacion}", vmSolicitud.MoFinanzas.SFinaMov == Movimiento.SModifi);
+                ReemplazarCheck("{baja}", vmSolicitud.MoFinanzas.SFinaMov == Movimiento.SBaja);
 
                 doc.Replace("{director}", vmSolicitud.BDirec ? "x" : "", true, true);
                 doc.Replace("{dirGen}", vmSolicitud.BDirGen ? "x" : "", true, true);
@@ -196,28 +196,28 @@ public class ClsGenerarSolicitud
                 // =========================================================================
                 // 1. UNIFICAR USUARIOS (Principal + Adicionales) EN UNA SOLA LISTA
                 // =========================================================================
-                var listaTotal = new List<VmUsuarioAdicional>();
+                var listaTotal = new List<MoHumanosAdicional>();
 
                 // 1.1 Convertir Usuario Principal a la estructura genérica
                 // Nota: Aquí convertimos tus Enums del principal a Strings para igualar a los adicionales
                 
 
-                listaTotal.Add(new VmUsuarioAdicional
+                listaTotal.Add(new MoHumanosAdicional
                 {
                     NNoPer = solicitud.NNoPer,
                     SNomEmpl = solicitud.SNomEmpl,
                     NUsrClv = solicitud.NUsrClv,
-                    SPerfil = solicitud.SPerfil,
-                    NClvDep = solicitud.NClvDep,
-                    SClvProg = solicitud.SClvProg,
-                    STipPerm = solicitud.STipPerm,
-                    SHumaMov = solicitud.SHumaMov
+                    Perfil = solicitud.MoHumanos.Perfil,
+                    NDepClv = solicitud.MoHumanos.NDepClv,
+                    NProgClv = solicitud.MoHumanos.NProgClv,
+                    TipPerm = solicitud.MoHumanos.TipPerm,
+                    HumaMov = solicitud.MoHumanos.HumaMov
                 });
 
                 // 1.2 Agregar Adicionales (Si existen)
-                if (solicitud.LsUsuariosAdicionales != null && solicitud.LsUsuariosAdicionales.Count > 0)
+                if (solicitud.MoHumanos.LsHumaAdi != null && solicitud.MoHumanos.LsHumaAdi.Count > 0)
                 {
-                    listaTotal.AddRange(solicitud.LsUsuariosAdicionales);
+                    listaTotal.AddRange(solicitud.MoHumanos.LsHumaAdi);
                 }
 
                 // 1.3 APLICAR REGLA: MÁXIMO 10 USUARIOS
@@ -273,7 +273,7 @@ public class ClsGenerarSolicitud
                         int filaActual = filaInicio + i;
 
                         string sPermiso;
-                        switch (usuario.STipPerm)
+                        switch (usuario.TipPerm)
                         {
                             case Permiso.SConsult:
                                 sPermiso = "C";
@@ -287,7 +287,7 @@ public class ClsGenerarSolicitud
                         }
 
                         string sMovimiento;
-                        switch (usuario.SHumaMov)
+                        switch (usuario.HumaMov)
                         {
                             case Movimiento.SAlta:
                                 sMovimiento = "A";
@@ -316,9 +316,9 @@ public class ClsGenerarSolicitud
                         ReemplazarEnFila("{nombre}", usuario.SNomEmpl);
                         ReemplazarEnFila("{usuario}", usuario.NUsrClv.ToString());
                         // Si el perfil necesita conversión, hazlo aquí:
-                        ReemplazarEnFila("{perfil}", GetDisplayName(usuario.SPerfil) ?? "");
-                        ReemplazarEnFila("{dependencia}", usuario.NClvDep?.ToString());
-                        ReemplazarEnFila("{programa}", usuario.SClvProg);
+                        ReemplazarEnFila("{perfil}", GetDisplayName(usuario.Perfil) ?? "");
+                        ReemplazarEnFila("{dependencia}", usuario.NDepClv?.ToString());
+                        ReemplazarEnFila("{programa}", usuario.NProgClv.ToString());
                         ReemplazarEnFila("{permiso}", sPermiso);
                         ReemplazarEnFila("{movimiento}", sMovimiento);
                     }
@@ -332,11 +332,11 @@ public class ClsGenerarSolicitud
                 sheet.Replace("{m}", DateTime.Now.ToString("MM"), ExcelFindOptions.None);
                 sheet.Replace("{a}", DateTime.Now.ToString("yyyy"), ExcelFindOptions.None);
 
-                sheet.Replace("{entClv}", solicitud.NEntClv.ToString() ?? "", ExcelFindOptions.None);
-                sheet.Replace("{entNombre}", solicitud.SEntNomb ?? "", ExcelFindOptions.None);
+                sheet.Replace("{entClv}", solicitud.MoHumanos.NEntClv.ToString() ?? "", ExcelFindOptions.None);
+                sheet.Replace("{entNombre}", solicitud.MoHumanos.SEntNomb ?? "", ExcelFindOptions.None);
                 // Asumiendo que tienes GetNombreSinNumero disponible
                 // sheet.Replace("{region}", GetNombreSinNumero(solicitud.SRegion), ExcelFindOptions.None);
-                sheet.Replace("{region}", GetNombreSinNumero(solicitud.SRegion)); // Temporal si no tienes el helper
+                //sheet.Replace("{region}", GetNombreSinNumero(solicitud.Region)); // Temporal si no tienes el helper
 
                 // =========================================================================
                 // 5. CONFIGURACIÓN DE PÁGINA Y PDF
@@ -352,103 +352,6 @@ public class ClsGenerarSolicitud
                 XlsIORendererSettings settings = new XlsIORendererSettings();
 
                 // Ajustar columnas a una página es vital para tablas dinámicas
-                settings.LayoutOptions = LayoutOptions.FitAllColumnsOnOnePage;
-
-                using (PdfDocument pdfDocument = renderer.ConvertToPDF(workbook, settings))
-                {
-                    using (MemoryStream ms = new MemoryStream())
-                    {
-                        pdfDocument.Save(ms);
-                        return ms.ToArray();
-                    }
-                }
-            }
-        }
-    }
-
-    public byte[] GenerarPDF_HUMANOS2(VmSolicitud solicitud)
-    {
-        string plantillaPath = Path.Combine(_env.WebRootPath, "templates", "siisu.xlsx");
-
-        using (ExcelEngine excelEngine = new ExcelEngine())
-        {
-            IApplication application = excelEngine.Excel;
-            application.DefaultVersion = ExcelVersion.Excel2016;
-
-            string sPermiso;
-            switch (solicitud.STipPerm)
-            {
-                case Permiso.SConsult:
-                    sPermiso = "C";
-                    break;
-                case Permiso.SManteni:
-                    sPermiso = "M";
-                    break;
-                default:
-                    sPermiso = "";
-                    break;
-            }
-
-            string sMovimiento;
-            switch (solicitud.SFinaMov)
-            {
-                case Movimiento.SAlta:
-                    sMovimiento = "A";
-                    break;
-                case Movimiento.SModifi:
-                    sMovimiento = "M";
-                    break;
-                case Movimiento.SBaja:
-                    sMovimiento = "B";
-                    break;
-                default:
-                    sMovimiento = "";
-                    break;
-            }
-
-
-            // Abrimos el archivo
-            using (FileStream fileStream = new FileStream(plantillaPath, FileMode.Open, FileAccess.Read))
-            {
-                IWorkbook workbook = application.Workbooks.Open(fileStream);
-                IWorksheet sheet = workbook.Worksheets[0];
-
-                void Reemplazar(string marcador, string valor)
-                {
-                    sheet.Replace(marcador, valor ?? "", ExcelFindOptions.None);
-                }
-
-                Reemplazar("{d}", DateTime.Now.ToString("dd"));
-                Reemplazar("{m}", DateTime.Now.ToString("MM"));
-                Reemplazar("{a}", DateTime.Now.ToString("yyyy"));
-
-                Reemplazar("{entClv}", solicitud.NEntClv.ToString() ?? "");
-                Reemplazar("{entNombre}", solicitud.SEntNomb ?? "");
-
-
-                Reemplazar("{noPer}", solicitud.NNoPer.ToString() ?? "");
-                Reemplazar("{nombre}", solicitud.SNomEmpl ?? "");
-                Reemplazar("{usuario}", solicitud.NUsrClv.ToString() ?? "");
-                Reemplazar("{perfil}", GetDisplayName(solicitud.SPerfil) ?? "");
-                Reemplazar("{dependencia}", solicitud.NClvDep.ToString() ?? "");
-                Reemplazar("{programa}", solicitud.SClvProg ?? "");
-                Reemplazar("{permiso}", sPermiso);
-                Reemplazar("{movimiento}", sMovimiento);
-                Reemplazar("{region}", GetNombreSinNumero(solicitud.SRegion));
-
-                sheet.PageSetup.TopMargin = 0.5;     // Superior
-                sheet.PageSetup.BottomMargin = 0.5;  // Inferior
-                sheet.PageSetup.LeftMargin = 0.6;    // Izquierdo (Estrecho para que quepa más)
-                sheet.PageSetup.RightMargin = 0.6;   // Derecho
-
-                // Opcional: Centrar contenido horizontalmente en la página
-                sheet.PageSetup.CenterHorizontally = true;
-
-                XlsIORenderer renderer = new XlsIORenderer();
-                XlsIORendererSettings settings = new XlsIORendererSettings();
-
-                // TRUCO PRO: Ajustar todas las columnas en una sola página
-                // Esto evita que el Excel se parta a la mitad si es muy ancho
                 settings.LayoutOptions = LayoutOptions.FitAllColumnsOnOnePage;
 
                 using (PdfDocument pdfDocument = renderer.ConvertToPDF(workbook, settings))

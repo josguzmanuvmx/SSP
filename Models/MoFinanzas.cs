@@ -5,6 +5,9 @@ using SSP.ViewModels;
 
 public class MoFinanzas
 {
+    [Key]
+    [Column("nId")]
+    public int NId { get; set; }
     [Column("sFinaMov")]
     public Movimiento SFinaMov { get; set; } = Movimiento.SAlta;
 

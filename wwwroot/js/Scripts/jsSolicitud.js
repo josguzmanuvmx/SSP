@@ -235,7 +235,7 @@
     //});
     // ----------
 
-    const btnManual = document.getElementById('btnManual');
+    //const btnManual = document.getElementById('btnManual');
 
     // Busqueda de usuario
     const txtBuscarUsuario = document.getElementById('txtBuscarUsuario');
@@ -243,15 +243,14 @@
 
     // Referencias a los inputs del formulario (Usamos los IDs generados por asp-for)
     const lsInputs = {
-        sNomEmpl: document.getElementById('vmSolicitud_SNomEmpl'),
-        nNoPer: document.getElementById('vmSolicitud_NNoPer'),
-        nUsrClv: document.getElementById('vmSolicitud_NUsrClv'),
-        sCorreo: document.getElementById('vmSolicitud_SCorreo'),
-        nUResClv: document.getElementById('vmSolicitud_NUResClv'),
-        sUResNom: document.getElementById('vmSolicitud_SUResNom'),
-        sRegion: document.getElementById('vmSolicitud_SRegion'),
-        sPerfil: document.getElementById('vmSolicitud_SPerfil'),
-        sPueEmpl: document.getElementById('vmSolicitud_SPueEmpl')
+        sNomEmpl: document.getElementById('SNomEmpl'),
+        nNoPer: document.getElementById('NNoPer'),
+        nUsrClv: document.getElementById('NUsrClv'),
+        sCorreo: document.getElementById('SCorreo'),
+        nUResClv: document.getElementById('NUResClv'),
+        sUResNom: document.getElementById('SUResNom'),
+        Region: document.getElementById('Region'),
+        sPueEmpl: document.getElementById('SPueEmpl')
     };
 
     // --- 1. FUNCIÓN: BUSCAR EMPLEADO ---
@@ -282,7 +281,7 @@
                         // Evento Click en un resultado
                         item.addEventListener('click', async function (e) {
                             e.preventDefault();
-                            rellenarDatos(emp);
+                            fnRellenarDatos(emp);
                             divResultados.classList.remove('show');
                             txtBuscarUsuario.value = '';
                         });
@@ -302,55 +301,63 @@
     });
 
     // --- 2. FUNCIÓN: RELLENAR DATOS (Autocompletado) ---
-    function rellenarDatos(emp) {
-        // Asignar valores
-        lsInputs.sNomEmpl.value = emp.sNomEmpl;
-        lsInputs.nNoPer.value = emp.nNoPer;
-        lsInputs.nUsrClv.value = emp.nUsrClv;
-        lsInputs.sCorreo.value = emp.sCorreo;
-        lsInputs.nUResClv.value = emp.nUResClv;
-        lsInputs.sUResNom.value = emp.sUResNom;
-        lsInputs.sRegion.value = emp.sRegion;
-        lsInputs.sPerfil.value = emp.sPerfil;
-        lsInputs.sPueEmpl.value = emp.sPueEmpl;
+    function fnRellenarDatos(emp) {
+        if (!emp) return;
+
+        // Validamos con 'if' por seguridad
+        if (lsInputs.sNomEmpl) lsInputs.sNomEmpl.value = emp.sNomEmpl || '';
+        if (lsInputs.nNoPer) lsInputs.nNoPer.value = emp.nNoPer || '';
+        if (lsInputs.nUsrClv) lsInputs.nUsrClv.value = emp.nUsrClv || '';
+        if (lsInputs.sCorreo) lsInputs.sCorreo.value = emp.sCorreo || '';
+        if (lsInputs.nUResClv) lsInputs.nUResClv.value = emp.nUResClv || '';
+        if (lsInputs.sUResNom) lsInputs.sUResNom.value = emp.sUResNom || '';
+
+        // Region es un select, asignamos valor si coincide
+        if (lsInputs.Region) lsInputs.Region.value = emp.Region;
+
+        // Mapeamos el Puesto (que viene del backend como sPueEmpl o sPerfil)
+        if (lsInputs.sPueEmpl) lsInputs.sPueEmpl.value = emp.sPueEmpl || '';
 
         // Asegurar que sigan bloqueados (Solo lectura) para evitar errores manuales
-        bloquearCampos(true);
+        // (Asegúrate de tener la función bloquearCampos definida o descomentada)
+        //if (typeof bloquearCampos === "function") {
+        //    bloquearCampos(true);
+        //}
     }
 
     // --- 3. FUNCIÓN: MODO MANUAL (Desbloquear) ---
-    btnManual.addEventListener('click', function (e) {
-        e.preventDefault(); // Evitar que el botón haga submit si está dentro de un form
+    //btnManual.addEventListener('click', function (e) {
+    //    e.preventDefault(); // Evitar que el botón haga submit si está dentro de un form
 
-        // Limpiar campos (opcional, si quieres que escriban desde cero)
-        // O puedes dejarlos con los datos actuales para editar sobre ellos.
+    //    // Limpiar campos (opcional, si quieres que escriban desde cero)
+    //    // O puedes dejarlos con los datos actuales para editar sobre ellos.
 
-        bloquearCampos(false); // Desbloquear todo
+    //    //bloquearCampos(false); // Desbloquear todo
 
-        // Dar foco al primer campo
-        lsInputs.sNomEmpl.focus();
-    });
+    //    // Dar foco al primer campo
+    //    lsInputs.sNomEmpl.focus();
+    //});
 
     // --- AUXILIAR: BLOQUEAR / DESBLOQUEAR ---
-    function bloquearCampos(bloquear) {
-        Object.values(lsInputs).forEach(el => {
-            if (bloquear) {
-                // MODO BLOQUEADO
-                el.setAttribute('readonly', true);
-                if (el.tagName === 'SELECT') el.setAttribute('disabled', true);
+    //function bloquearCampos(bloquear) {
+    //    Object.values(lsInputs).forEach(el => {
+    //        if (bloquear) {
+    //            // MODO BLOQUEADO
+    //            el.setAttribute('readonly', true);
+    //            if (el.tagName === 'SELECT') el.setAttribute('disabled', true);
 
-                el.classList.add('bg-light');
-                el.classList.remove('bg-white');
-            } else {
-                // MODO EDITABLE
-                el.removeAttribute('readonly');
-                if (el.tagName === 'SELECT') el.removeAttribute('disabled');
+    //            el.classList.add('bg-light');
+    //            el.classList.remove('bg-white');
+    //        } else {
+    //            // MODO EDITABLE
+    //            el.removeAttribute('readonly');
+    //            if (el.tagName === 'SELECT') el.removeAttribute('disabled');
 
-                el.classList.remove('bg-light');
-                el.classList.add('bg-white');
-            }
-        });
-    }
+    //            el.classList.remove('bg-light');
+    //            el.classList.add('bg-white');
+    //        }
+    //    });
+    //}
     // ----------
 
     // Verificacion Solicitudes
@@ -721,7 +728,6 @@
         const inpNoPer = container.querySelector('.field-noper');
         const inpNombre = container.querySelector('.field-nombre');
         const inpUsuario = container.querySelector('.field-usuario');
-        const inpPerfil = container.querySelector('.field-perfil');
         const inpDep = container.querySelector('.field-dep');
 
         let debounceTimer;
@@ -766,7 +772,6 @@
                                     if (inpNoPer) inpNoPer.value = user.nNoPer;       // De tu C#: nNoPer
                                     if (inpNombre) inpNombre.value = user.sNomEmpl;   // De tu C#: sNomEmpl
                                     if (inpUsuario) inpUsuario.value = user.nUsrClv;  // De tu C#: nUsrClv
-                                    if (inpPerfil) inpPerfil.value = user.sPueEmpl;   // De tu C#: sPueEmpl
                                     if (inpDep) inpDep.value = user.nUResClv;         // De tu C#: nUResClv (Asumo que es la dependencia)
 
                                     // Limpieza visual
@@ -855,41 +860,52 @@
             msgMax.classList.add('d-none');
         }
 
-        // RE-INDEXAR PARA ASP.NET
-        // El array en C# LsUsuariosAdicionales debe ser [0], [1], [2]...
+        // RE-INDEXAR PARA ASP.NET (Es crucial para que el Model Binding funcione)
+        // El array en C# MoHumanos.LsHumaAdi debe ser [0], [1], [2]... sin saltos
         extraContents.forEach((pane, index) => {
-            // Actualizar Título Visual (#2, #3...)
+
+            // 1. Actualizar Título Visual (#2, #3...)
             // El usuario principal es el #1, así que el primer extra es index + 2
             const visualNum = index + 2;
-            pane.querySelector('.lbl-numero').textContent = visualNum;
+            const lblNum = pane.querySelector('.lbl-numero');
+            if (lblNum) lblNum.textContent = visualNum;
 
-            // Actualizar etiqueta en la pestaña correspondiente
-            // Asumimos que están en el mismo orden en el DOM
+            // 2. Actualizar etiqueta en la pestaña correspondiente
             if (extraTabs[index]) {
-                extraTabs[index].querySelector('.lbl-nombre').textContent = `${visualNum}`;
+                const lblNombre = extraTabs[index].querySelector('.lbl-nombre');
+                if (lblNombre) lblNombre.textContent = `Usuario #${visualNum}`; // O "Usuario Nuevo" si prefieres mantenerlo así
             }
 
-            // Actualizar 'name' de los inputs
+            // 3. Actualizar 'name' e 'id' de los inputs
             const inputs = pane.querySelectorAll('input, select');
+
             inputs.forEach(input => {
-                // 1. Reemplazar names
+                // A) ACTUALIZAR NAME (CORRECCIÓN CRÍTICA)
                 if (input.name) {
-                    // Primero reemplazamos el marcador del template
-                    input.name = input.name.replace('INDEX_LISTA', index);
-                    // Luego aseguramos el reordenamiento si se borraron items
-                    input.name = input.name.replace(/LsUsuariosAdicionales\[.*?\]/, `LsUsuariosAdicionales[${index}]`);
+                    // Esta expresión regular busca cualquier variación del nombre de la lista:
+                    // 1. LsUsuariosAdicionales[INDEX_LISTA] (Del template original)
+                    // 2. LsUsuariosAdicionales[0] (Si ya se había guardado antes)
+                    // 3. MoHumanos.LsHumaAdi[0] (La estructura nueva)
+
+                    // Reemplazamos CUALQUIERA de esos patrones por: MoHumanos.LsHumaAdi[INDICE_ACTUAL]
+                    input.name = input.name.replace(
+                        /(LsUsuariosAdicionales|MoHumanos\.LsHumaAdi)\[.*?\]|LsUsuariosAdicionales\[INDEX_LISTA\]/,
+                        `MoHumanos.LsHumaAdi[${index}]`
+                    );
                 }
 
-                // 2. Reemplazar IDs de Radios (CORRECCIÓN IMPORTANTE)
-                if (input.type === 'radio') {
-                    // Reemplazamos el marcador RADIO_ID por el índice actual
-                    // Ejemplo: MovA_RADIO_ID -> MovA_0_EXTRA
-                    const baseId = input.id.split('_')[0]; // Toma 'MovA'
+                // B) ACTUALIZAR IDs DE RADIO BUTTONS (Para que el click en label funcione)
+                if (input.type === 'radio' && input.id) {
+                    // Obtenemos la base del ID (ej: "MovA") quitando sufijos previos
+                    // Asumimos que el ID base no tiene guiones bajos, o tomamos la primera parte
+                    const baseId = input.id.split('_')[0];
+
+                    // Generamos ID único: MovA_0_EXTRA
                     const newId = `${baseId}_${index}_EXTRA`;
 
                     input.id = newId;
 
-                    // Actualizamos el 'for' del label para que al dar click al texto funcione
+                    // Buscar el label asociado (generalmente es el siguiente hermano) y actualizar su 'for'
                     const label = input.nextElementSibling;
                     if (label && label.tagName === 'LABEL') {
                         label.setAttribute('for', newId);

@@ -10,6 +10,9 @@ wwwroot\css\Estilos\cssSprfm.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
 wwwroot\images\documento.png
+wwwroot\images\Logueo.jpg
+wwwroot\images\Logueo2.jpg
+wwwroot\images\LogueoHD.jpg
 wwwroot\images\Logueo_Egresados.jpg
 wwwroot\js\Scripts\jsAgregarEditarEmpleado.js
 wwwroot\js\Scripts\jsCrearSolicitud.js
@@ -19,7 +22,6 @@ wwwroot\js\Scripts\jsInicio.js
 wwwroot\js\Scripts\jsLogin.js
 wwwroot\js\Scripts\jsSeleccion.js
 wwwroot\js\Scripts\jsSiisu.js
-wwwroot\js\Scripts\jsSolicitud.js
 wwwroot\js\Scripts\jsSprfm.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\css\bootstrap-grid.css
@@ -214,6 +216,4 @@ wwwroot\lib\jquery\dist\jquery.min.map
 wwwroot\lib\jquery\LICENSE.txt
 wwwroot\templates\siisu.xlsx
 wwwroot\templates\sprfm.docx
-wwwroot\images\Logueo2.jpg
-wwwroot\images\Logueo.jpg
-wwwroot\images\LogueoHD.jpg
+wwwroot\js\Scripts\jsSolicitud.js

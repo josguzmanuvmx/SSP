@@ -27,48 +27,48 @@ public class SolicitudController : Controller
     public IActionResult Index()
     {
         var vmSolicitud = new VmSolicitud();
-        return View(vmSolicitud);
+        return View(new VmSolicitud());
     }
 
     [HttpGet]
     public IActionResult Agregar()
     {
-        var vmSolicitudAct = new VmSolicitudAct
-        {
-            vmSolicitud = new VmSolicitud(),
-            lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
-                            .Cast<ClsSprfmActividades>()
-                            .Select(a => new ClslActividades
-                            {
-                                SNombre = a.GetDisplayName(),
-                                SDescripcion = a.GetDescription()
-                            })
-                            .ToList()
-        };
-        return View("Index", vmSolicitudAct);
+        //var vmSolicitudAct = new VmSolicitudAct
+        //{
+        //    vmSolicitud = new VmSolicitud(),
+        //    lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
+        //                    .Cast<ClsSprfmActividades>()
+        //                    .Select(a => new ClslActividades
+        //                    {
+        //                        SNombre = a.GetDisplayName(),
+        //                        SDescripcion = a.GetDescription()
+        //                    })
+        //                    .ToList()
+        //};
+        return View("Index", new VmSolicitud());
     }
 
     [HttpGet]
     public IActionResult Editar(string sId)
     {
-        var vmSolicitudAct = new VmSolicitudAct
-        {
-            vmSolicitud = new VmSolicitud(),
-            lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
-                            .Cast<ClsSprfmActividades>()
-                            .Select(a => new ClslActividades
-                            {
-                                SNombre = a.GetDisplayName(),
-                                SDescripcion = a.GetDescription()
-                            })
-                            .ToList()
-        };
-        return View("Index", vmSolicitudAct);
+        //var vmSolicitudAct = new VmSolicitudAct
+        //{
+        //    vmSolicitud = new VmSolicitud(),
+        //    lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
+        //                    .Cast<ClsSprfmActividades>()
+        //                    .Select(a => new ClslActividades
+        //                    {
+        //                        SNombre = a.GetDisplayName(),
+        //                        SDescripcion = a.GetDescription()
+        //                    })
+        //                    .ToList()
+        //};
+        return View("Index", new VmSolicitud());
     }
 
 
     [HttpPost]
-    public async Task<IActionResult> GuardarBorrador(VmSprfmAct modeloRecibido)
+    public async Task<IActionResult> GuardarBorrador(VmSolicitud modeloRecibido)
     {
         //try
         //{
@@ -143,9 +143,7 @@ public class SolicitudController : Controller
             nUResClv = 1,
             sUResNom = "USII",
             nRegClv = 1,
-            sPerfil = Perfil.SAdmin,
-            sRegNom = "Xalapa",
-            sRegion = Region.SXal,
+            Region = (int)Region.SXal,
             sPueEmpl = "Becario"
 
             //sNomEmpl = u.sNomEmpl,
@@ -165,11 +163,10 @@ public class SolicitudController : Controller
     }
 
     [HttpPost]
-    public IActionResult PrevisualizarBorrador([FromForm] VmSolicitudAct vmSolicitudAct, [FromForm] string sTipo)
+    public IActionResult PrevisualizarBorrador([FromForm] VmSolicitud vmSolicitud, [FromForm] string sTipo)
     {
         try
         {
-            var vmSolicitud = vmSolicitudAct.vmSolicitud ?? new VmSolicitud();
             byte[] pdfBytes = null;
             if (sTipo == "Finanzas")
             {
@@ -195,12 +192,11 @@ public class SolicitudController : Controller
     }
 
     [HttpPost]
-    public IActionResult DescargarZipBorrador([FromForm] VmSolicitudAct vmSolicitudAct)
+    public IActionResult DescargarZipBorrador([FromForm] VmSolicitud vmSolicitud)
     {
         try
         {
             // 1. Obtener datos (Manejo de nulos)
-            var vmSolicitud = vmSolicitudAct.vmSolicitud! ?? new VmSolicitud();
             string nombreZip = $"Paquete_Solicitudes_{DateTime.UtcNow:yyyy-MM-dd_HH-mm-ss-fff}.zip";
 
             using (var ms = new MemoryStream())
@@ -209,7 +205,7 @@ public class SolicitudController : Controller
                 using (var archive = new ZipArchive(ms, ZipArchiveMode.Create, true))
                 {
                     // --- A. FINANZAS (Si está activo) ---
-                    if (vmSolicitud.BFinaAct)
+                    if (vmSolicitud.MoFinanzas.BActivo)
                     {
                         try
                         {
@@ -224,7 +220,7 @@ public class SolicitudController : Controller
                     }
 
                     // --- B. HUMANOS (Si está activo) ---
-                    if (vmSolicitud.BHumaAct)
+                    if (vmSolicitud.MoHumanos.BActivo)
                     {
                         try
                         {

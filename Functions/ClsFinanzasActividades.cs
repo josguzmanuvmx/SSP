@@ -1,7 +1,7 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-public enum ClsSprfmActividades
+public enum ClsFinanzasActividades
 {
     // DIRECTOR
     [Display(Name = "DIRECTOR (Director de UR)", Description = "Registro y consulta de anteproyectos y proyectos de PBR.")]

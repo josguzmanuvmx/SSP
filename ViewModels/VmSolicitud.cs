@@ -1,7 +1,20 @@
 ﻿namespace SSP.ViewModels;
 using SSP.Models;
+using SSP.Extensions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+
+public class ClslActividades
+{
+    public string? SNombre { get; set; }
+    public string? SDescripcion { get; set; }
+}
+
+public class ItemActividad
+{
+    public string? SNombre { get; set; }
+    public string? SDescripcion { get; set; }
+}
 
 public class VmSolicitud
 {
@@ -41,10 +54,22 @@ public class VmSolicitud
     [Display(Name = "Nombre de la Región")]
     public string? SRegNom { get; set; }
 
-    public Region Region =>
-        NRegClv.HasValue && Enum.IsDefined(typeof(Region), NRegClv.Value)
-            ? (Region) NRegClv.Value
-            : Region.SXal;
+    public Region Region
+    {
+        get
+        {
+            // Lógica de lectura segura (la que ya tenías)
+            return NRegClv.HasValue && Enum.IsDefined(typeof(Region), NRegClv.Value)
+                ? (Region)NRegClv.Value
+                : Region.SXal;
+        }
+        set
+        {
+            // Lógica de escritura: Cuando el usuario selecciona en el dropdown,
+            // guardamos el número entero en la propiedad real de la BD.
+            NRegClv = (int)value;
+        }
+    }
 
     [Required(ErrorMessage = "El puesto del empleado es obligatorio.")]
     [Display(Name = "Puesto del empleado")]
@@ -271,4 +296,14 @@ public class VmSolicitud
                       "<span class='fw-bold'>Asignar permisos similares a otro usuario:</span> seleccionará esta casilla si el permiso a solicitar será similar al de otro usuario y deberá especificar el nombre de usuario del que se copiaran los accesos." +
                       "</div>")]
     public bool BPermSim { get; set; } = false;
+    public List<ItemActividad> LsActividades { get; set; } =
+        Enum.GetValues(typeof(ClsFinanzasActividades))
+            .Cast<ClsFinanzasActividades>()
+            .Select(a => new ItemActividad
+            {
+                SNombre = a.GetDisplayName(),
+                SDescripcion = a.GetDescription()
+            })
+            .ToList();
+
 }

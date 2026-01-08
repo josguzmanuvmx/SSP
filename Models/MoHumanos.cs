@@ -5,26 +5,32 @@ using SSP.ViewModels;
 
 public class MoHumanos
 {
+    [Key]
+    [Column("nId")]
+    public int NId { get; set; }
     [Column("nEntClv")]
-    public int NEntClv { get; set; } = 0;
+    public int? NEntClv { get; set; }
 
     [Column("sEntNomb")]
-    public string SEntNomb { get; set; } = "";
+    public string? SEntNomb { get; set; }
 
     [Column("sPerfil")]
-    public Perfil SPerfil { get; set; } = Perfil.SAdmin;
+    public string? SPerfil { get; set; }
+    public Perfil Perfil { get; set; } = Perfil.SAdmin;
 
-    [Column("nClvDep")]
-    public int NClvDep { get; set; } = 0;
+    [Column("nDepClv")]
+    public int? NDepClv { get; set; }
 
-    [Column("sClvProg")]
-    public string SClvProg { get; set; } = "";
+    [Column("nProgClv")]
+    public int? NProgClv { get; set; }
 
     [Column("sTipPerm")]
-    public string STipPerm { get; set; } = "";
+    public string? STipPerm { get; set; }
+    public Permiso TipPerm { get; set; } = Permiso.SConsult;
 
     [Column("sHumaMov")]
-    public Movimiento SHumaMov { get; set; } = Movimiento.SAlta;
+    public string? SHumaMov { get; set; }
+    public Movimiento HumaMov { get; set; } = Movimiento.SAlta;
     [Column("lsHumaAdi")]
     public List<MoHumanosAdicional> LsHumaAdi { get; set; } = new();
     [Column("bActivo")]

@@ -89,9 +89,6 @@ public class MoSolicitud
     [Column("nRegClv")]
     public int? NRegClv { get; set; }
 
-    [Column("sRegNom")]
-    public string? SRegNom { get; set; }
-
     [Column("sPueEmpl")]
     public string? SPueEmpl { get; set; }
 
