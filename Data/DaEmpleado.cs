@@ -128,7 +128,7 @@ public class DaEmpleado
                            NNoPersonal = u.NNoPersonal,
                            //NNomEmpl = u.SNomEmpl,
                            //NNoPer = u.NNoPer,
-                           //NUsrClv = u.NUsrClv,
+                           //SUsuario = u.SUsuario,
                            //SCorreo = u.SCorreo,
                            //NUResClv = u.NUResClv,
                            //SUResNom = u.SUResNom,

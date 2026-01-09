@@ -12,8 +12,8 @@ public class MoHumanosAdicional
     public int? NNoPer { get; set; }
     [Column("sNomEmpl")]
     public string? SNomEmpl { get; set; }
-    [Column("nUsrClv")]
-    public int? NUsrClv { get; set; }
+    [Column("sUsuario")]
+    public string? SUsuario { get; set; }
     [Column("sPerfil")]
     public string? SPerfil { get; set; }
     public Perfil Perfil { get; set; } = Perfil.SAdmin;

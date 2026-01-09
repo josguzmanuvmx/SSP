@@ -138,19 +138,19 @@ public class SolicitudController : Controller
             // Los datos que usaremos para rellenar el formulario
             sNomEmpl = "José Ángel Guzmán Zavaleta",
             nNoPer = 61399,
-            nUsrClv = 65478,
+            sUsuario = "josguzman",
             sCorreo = "josguzman@uv.mx",
             nUResClv = 1,
             sUResNom = "USII",
             nRegClv = 1,
-            Region = (int)Region.SXal,
+            Region = 1,
             sPueEmpl = "Becario"
 
             //sNomEmpl = u.sNomEmpl,
             //nNoPer = u.nNoPer,
             //sNomEmpl = u.SNomEmpl,
             //nNoPer = u.NNoPer,
-            //nUsrClv = u.NUsrClv,
+            //sUsuario = u.SUsuario,
             //sCorreo = u.SCorreo,
             //nUResClv = u.NUResClv,
             //sUResNom = u.SUResNom,

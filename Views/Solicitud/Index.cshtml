@@ -21,7 +21,7 @@
         <h4 class="text-start m-0">Solicitud</h4>
     </div>
     <form id="formSolicitud"
-          class="col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 m-auto d-flex flex-column gap-2 needs-validation"
+          class="col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 m-auto d-flex flex-column gap-2 needs-validation mb-3"
           method="post" asp-action="Guardar" data-url-preview="@Url.Action("PrevisualizarBorrador", "Solicitud")"
           data-url-zip="@Url.Action("DescargarZipBorrador", "Solicitud")" novalidate>
         @Html.AntiForgeryToken()
@@ -61,7 +61,7 @@
             </li>
         </ul>
 
-        <div class="tab-content mt-2 mb-5" id="pills-tabContent">
+        <div class="tab-content mt-2" id="pills-tabContent">
 
             <!-- Usuario -->
             <div id="pills-usuario" aria-labelledby="pills-usuario-tab" class="tab-pane fade show active" role="tabpanel" tabindex="0">
@@ -69,15 +69,15 @@
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Datos del Usuario</h5>
                         <h6 class="text-muted">Aqui se ingresan los datos en general del usuario a modificar.</h6>
-                        <div id="divBusquedaUsuario" class="d-flex flex-column mt-3 px-3 py-2 bg-light rounded border">
+                        <div id="divBusquedaUsuario" class="d-flex flex-column mt-3 px-2 py-2 bg-light rounded border">
                             <div class="d-flex align-items-center mb-2">
-                                <label class="form-label fs-6 m-0">Busca un empleado rapidamente.</label>
+                                <label class="form-label text-sm m-0">Busca un empleado rapidamente.</label>
                                 @* <button id="btnManual" class="btn btn-link border-0 ms-auto p-0">Ingresar los datos manualmente.</button> *@
                             </div>
                             <div class="position-relative">
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
-                                    <input type="text" id="txtBuscarUsuario" class="form-control border-start-0" placeholder="Escribe el no. personal, usuario o nombre..." autocomplete="off" data-url="@Url.Action("BuscarUsuarios", "Solicitud")">
+                                    <input type="text" id="txtBuscarUsuario" class="form-control border-start-0" placeholder="Escribe el no. personal, usuario o nombre..." autocomplete="off" data-url="@Url.Action("BuscarUsuarios", "Solicitud")" />
                                 </div>
                                 <div id="divResultadosBusqueda" class="dropdown-menu w-100 shadow-sm border" style="max-height: 200px; overflow-y: auto; width: max-content;"></div>
                             </div>
@@ -86,28 +86,28 @@
                             <div class="row align-items-center">
                                 <label asp-for="SNomEmpl" class="col-md-4 col-form-label">Nombre del empleado</label>
                                 <div class="col-md-8">
-                                    <input asp-for="SNomEmpl" class="form-control bg-transparent" placeholder="ej. Samuel Miral Ramirez" />
+                                    <input asp-for="SNomEmpl" class="form-control bg-light" placeholder="ej. Samuel Miral Ramirez" readonly />
                                     <span asp-validation-for="SNomEmpl" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row align-items-center">
                                 <label asp-for="NNoPer" class="col-md-4 col-form-label">Número de personal</label>
                                 <div class="col-md-8">
-                                    <input asp-for="NNoPer" class="form-control bg-transparent" placeholder="ej. 61399" />
+                                    <input asp-for="NNoPer" class="form-control bg-light" placeholder="ej. 61399" readonly />
                                     <span asp-validation-for="NNoPer" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row align-items-center">
-                                <label asp-for="NUsrClv" class="col-md-4 col-form-label">Clave del usuario</label>
+                                <label asp-for="SUsuario" class="col-md-4 col-form-label">Usuario</label>
                                 <div class="col-md-8">
-                                    <input asp-for="NUsrClv" class="form-control bg-transparent" placeholder="ej. 12345" />
-                                    <span asp-validation-for="NUsrClv" class="text-danger"></span>
+                                    <input asp-for="SUsuario" class="form-control bg-light" placeholder="ej. josguzman" readonly />
+                                    <span asp-validation-for="SUsuario" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row align-items-center">
                                 <label asp-for="SCorreo" class="col-md-4 col-form-label">Correo institucional</label>
                                 <div class="col-md-8">
-                                    <input asp-for="SCorreo" class="form-control bg-transparent" placeholder="ej. usuario@uv.mx" />
+                                    <input asp-for="SCorreo" class="form-control bg-light" placeholder="ej. usuario@uv.mx" readonly />
                                     <span asp-validation-for="SCorreo" class="text-danger"></span>
                                 </div>
                             </div>
@@ -115,8 +115,8 @@
                                 <label asp-for="NUResClv" class="col-md-4 col-form-label">Unidad Responsable</label>
                                 <div class="col-md-8">
                                     <div class="input-group">
-                                        <input asp-for="NUResClv" class="form-control bg-transparent" style="max-width: 100px;" placeholder="Clave" />
-                                        <input asp-for="SUResNom" class="form-control bg-transparent" placeholder="Nombre" />
+                                        <input asp-for="NUResClv" class="form-control bg-light" style="max-width: 100px;" placeholder="Clave" readonly />
+                                        <input asp-for="SUResNom" class="form-control bg-light" placeholder="Nombre" readonly />
                                     </div>
                                     <span asp-validation-for="NUResClv" class="text-danger"></span>
                                 </div>
@@ -124,14 +124,16 @@
                             <div class="row align-items-center">
                                 <label asp-for="Region" class="col-md-4 col-form-label">Región</label>
                                 <div class="col-md-8">
-                                    <select asp-for="Region" class="form-select bg-transparent" asp-items="Html.GetEnumSelectList<Region>()"></select>
+                                    <select asp-for="Region" class="form-select bg-light" asp-items="Html.GetEnumSelectList<Region>()" disabled></select>
                                     <span asp-validation-for="Region" class="text-danger"></span>
+                                    <input type="hidden" asp-for="Region" />
+
                                 </div>
                             </div>
                             <div class="row align-items-center">
                                 <label asp-for="SPueEmpl" class="col-md-4 col-form-label">Puesto</label>
                                 <div class="col-md-8">
-                                    <input asp-for="SPueEmpl" class="form-control bg-transparent" placeholder="Puesto del empleado ej. Becario" />
+                                    <input asp-for="SPueEmpl" class="form-control bg-light" placeholder="Puesto del empleado ej. Becario" readonly />
                                     <span asp-validation-for="SPueEmpl" class="text-danger"></span>
                                 </div>
                             </div>
@@ -184,8 +186,8 @@
 
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h6 class="fw-semibold m-0">Estudiantes</h6>
-                                            <button type="button" id="btnDeshabilitarEstudiantes" class="btn btn-sm btn-outline-danger border-0 d-none" title="Deshabilitar sección">
-                                                <i class="fa-solid fa-ban me-1"></i> Deshabilitar
+                                            <button type="button" id="btnDeshabilitarEstudiantes" class="btn btn-sm btn-outline-danger border-0 d-none" title="Deshabilitar Estudiantes">
+                                                <i class="fa-solid fa-ban"></i> Deshabilitar Estudiantes
                                             </button>
                                         </div>
 
@@ -214,8 +216,8 @@
 
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h6 class="fw-semibold m-0">Tipo de Permiso</h6>
-                                            <button type="button" id="btnDeshabilitarFinanzas" class="btn btn-sm btn-outline-danger border-0 d-none" title="Deshabilitar sección">
-                                                <i class="fa-solid fa-ban me-1"></i> Deshabilitar
+                                            <button type="button" id="btnDeshabilitarFinanzas" class="btn btn-sm btn-outline-danger border-0 d-none" title="Deshabilitar Finanzas">
+                                                <i class="fa-solid fa-ban"></i> Deshabilitar Finanzas
                                             </button>
                                         </div>
 
@@ -345,7 +347,7 @@
                                                        title="@Html.DescriptionFor(m => m.BRevisor)"></i>
                                                 </label>
                                                 <div id="detalle-revisor" class="mt-2 d-none">
-                                                    <textarea asp-for="MoFinanzas.SDetaRev" class="form-control form-control-sm" rows="2" placeholder="Especifique el revisor..."></textarea>
+                                                    <textarea asp-for="MoFinanzas.SDetaRev" class="form-control form-control-sm" rows="2" placeholder="Especifique las operaciones a revisar. "></textarea>
                                                 </div>
                                             </div>
 
@@ -419,8 +421,8 @@
 
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h6 class="fw-semibold m-0">Datos adicionales</h6>
-                                            <button type="button" id="btnDeshabilitarHumanos" class="btn btn-sm btn-outline-danger border-0 d-none" title="Deshabilitar sección">
-                                                <i class="fa-solid fa-ban me-1"></i> Deshabilitar
+                                            <button type="button" id="btnDeshabilitarHumanos" class="btn btn-sm btn-outline-danger border-0 d-none" title="Deshabilitar Humanos">
+                                                <i class="fa-solid fa-ban"></i> Deshabilitar Humanos
                                             </button>
                                         </div>
 
@@ -604,6 +606,7 @@
                             <div id="divSinDocumentos" class="col-12 text-center py-5 text-muted @(bDocActivo ? "d-none" : "")">
                                 <i class="fa-regular fa-folder-open fa-3x mb-3"></i>
                                 <h5>No hay documentos generados para esta solicitud.</h5>
+                                <h5>Habilita los permisos a modificar.</h5>
                             </div>
 
                         </div>
@@ -637,6 +640,10 @@
             500/500
         </div> *@
 
+        <div class="w-100 d-flex justify-between mt-2 mb-5">
+            <button id="btnAnterior" type="button" class="btn btn-secondary shadow-sm px-4 py-2" disabled><i class="fa-solid fa-arrow-left me-2"></i> Anterior</button>
+            <button id="btnSiguiente" type="button" class="btn btn-primary shadow-sm px-4 py-2 ms-auto">Siguiente <i class="fa-solid fa-arrow-right ms-2"></i></button>
+        </div>
     </form>
 </div>
 
@@ -828,10 +835,10 @@
                 </div>
             </div>
             <div class="d-flex">
-                <label class="col-md-4 col-form-label">Clave del usuario</label>
+                <label class="col-md-4 col-form-label">Usuario</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NUsrClv" type="number" class="form-control bg-transparent field-usuario" placeholder="ej. 12345" />
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NUsrClv" class="text-danger"></span>
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="form-control bg-transparent field-usuario" placeholder="ej. josguzman" />
+                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">

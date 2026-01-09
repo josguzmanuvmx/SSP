@@ -54,10 +54,10 @@ public enum Permiso
 
 public enum Estatus
 {
-    [Display(Name = "Finalizado")]
-    SFinal = 1,
     [Display(Name = "Pendiente")]
-    SPend = 2,
+    SPend = 1,
+    [Display(Name = "Finalizado")]
+    SFinal = 2,
 }
 
 public class MoSolicitud
@@ -74,8 +74,8 @@ public class MoSolicitud
     [Column("nNoPer")]
     public int? NNoPer { get; set; }
 
-    [Column("nUsrClv")]
-    public int? NUsrClv { get; set; }
+    [Column("sUsuario")]
+    public string? SUsuario { get; set; }
 
     [Column("sCorreo")]
     public string? SCorreo { get; set; }
@@ -94,14 +94,15 @@ public class MoSolicitud
 
     // --- Datos Diccionarios ---
 
-    [Column("dcPermFina")]
+    [Column("dcEstu")]
+    public MoEstudiantes MoEstudiantes { get; set; } = new();
+    
+    [Column("dcFina")]
     public MoFinanzas MoFinanzas { get; set; } = new();
 
-    [Column("dcPermHuma")]
+    [Column("dcHuma")]
     public MoHumanos MoHumanos { get; set; } = new();
 
-    [Column("dcPermEstu")]
-    public MoEstudiantes MoEstudiantes { get; set; } = new();
 
     // --- Datos Utilidad ---
 
@@ -116,6 +117,7 @@ public class MoSolicitud
 
     [Column("sAutor")]
     public string? SAutor { get; set; }
+    public bool BActivo { get; set; } = true;
 
     // ---
 }

@@ -73,8 +73,8 @@ public class ClsGenerarSolicitud
                 doc.Replace("{correoInst}", vmSolicitud.SCorreo ?? "", true, true);
                 doc.Replace("{uRC}", vmSolicitud.NUResClv.ToString() ?? "", true, true);
                 doc.Replace("{uRN}", vmSolicitud.SUResNom ?? "", true, true);
-                //doc.Replace("{rC}", GetCodigoRegion(vmSolicitud.Region), true, true);
-                //doc.Replace("{rN}", GetNombreSinNumero(vmSolicitud.Region), true, true);
+                doc.Replace("{rC}", GetCodigoRegion(vmSolicitud.Region), true, true);
+                doc.Replace("{rN}", GetNombreSinNumero(vmSolicitud.Region), true, true);
                 doc.Replace("{puestoEmpleado}", vmSolicitud.SPueEmpl ?? "", true, true);
 
                 TextSelection selection = doc.Find("{especificaciones}", false, false);
@@ -206,7 +206,7 @@ public class ClsGenerarSolicitud
                 {
                     NNoPer = solicitud.NNoPer,
                     SNomEmpl = solicitud.SNomEmpl,
-                    NUsrClv = solicitud.NUsrClv,
+                    SUsuario = solicitud.SUsuario,
                     Perfil = solicitud.MoHumanos.Perfil,
                     NDepClv = solicitud.MoHumanos.NDepClv,
                     NProgClv = solicitud.MoHumanos.NProgClv,
@@ -314,7 +314,7 @@ public class ClsGenerarSolicitud
                         // Ejecutar reemplazos para este usuario específico
                         ReemplazarEnFila("{noPer}", usuario.NNoPer?.ToString());
                         ReemplazarEnFila("{nombre}", usuario.SNomEmpl);
-                        ReemplazarEnFila("{usuario}", usuario.NUsrClv.ToString());
+                        ReemplazarEnFila("{usuario}", usuario.SUsuario.ToString());
                         // Si el perfil necesita conversión, hazlo aquí:
                         ReemplazarEnFila("{perfil}", GetDisplayName(usuario.Perfil) ?? "");
                         ReemplazarEnFila("{dependencia}", usuario.NDepClv?.ToString());
@@ -335,8 +335,8 @@ public class ClsGenerarSolicitud
                 sheet.Replace("{entClv}", solicitud.MoHumanos.NEntClv.ToString() ?? "", ExcelFindOptions.None);
                 sheet.Replace("{entNombre}", solicitud.MoHumanos.SEntNomb ?? "", ExcelFindOptions.None);
                 // Asumiendo que tienes GetNombreSinNumero disponible
-                // sheet.Replace("{region}", GetNombreSinNumero(solicitud.SRegion), ExcelFindOptions.None);
-                //sheet.Replace("{region}", GetNombreSinNumero(solicitud.Region)); // Temporal si no tienes el helper
+                sheet.Replace("{region}", GetNombreSinNumero(solicitud.Region), ExcelFindOptions.None);
+                // sheet.Replace("{region}", GetNombreSinNumero(solicitud.Region)); // Temporal si no tienes el helper
 
                 // =========================================================================
                 // 5. CONFIGURACIÓN DE PÁGINA Y PDF

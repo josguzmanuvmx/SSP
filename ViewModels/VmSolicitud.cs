@@ -30,8 +30,8 @@ public class VmSolicitud
     [Display(Name = "Número de personal")]
     public int? NNoPer { get; set; }
 
-    [Display(Name = "Clave del usuario")]
-    public int? NUsrClv { get; set; }
+    [Display(Name = "Usuario")]
+    public string? SUsuario { get; set; }
 
     [Required(ErrorMessage = "El correo es obligatorio.")]
     [EmailAddress(ErrorMessage = "El formato del correo no es válido.")]

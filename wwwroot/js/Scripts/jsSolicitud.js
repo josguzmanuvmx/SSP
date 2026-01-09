@@ -245,13 +245,15 @@
     const lsInputs = {
         sNomEmpl: document.getElementById('SNomEmpl'),
         nNoPer: document.getElementById('NNoPer'),
-        nUsrClv: document.getElementById('NUsrClv'),
+        sUsuario: document.getElementById('SUsuario'),
         sCorreo: document.getElementById('SCorreo'),
         nUResClv: document.getElementById('NUResClv'),
         sUResNom: document.getElementById('SUResNom'),
         Region: document.getElementById('Region'),
         sPueEmpl: document.getElementById('SPueEmpl')
     };
+
+    console.log(Region.value)
 
     // --- 1. FUNCIÓN: BUSCAR EMPLEADO ---
     txtBuscarUsuario.addEventListener('input', async function () {
@@ -304,16 +306,19 @@
     function fnRellenarDatos(emp) {
         if (!emp) return;
 
+        console.log(emp)
+
         // Validamos con 'if' por seguridad
         if (lsInputs.sNomEmpl) lsInputs.sNomEmpl.value = emp.sNomEmpl || '';
         if (lsInputs.nNoPer) lsInputs.nNoPer.value = emp.nNoPer || '';
-        if (lsInputs.nUsrClv) lsInputs.nUsrClv.value = emp.nUsrClv || '';
+        if (lsInputs.sUsuario) lsInputs.sUsuario.value = emp.sUsuario || '';
         if (lsInputs.sCorreo) lsInputs.sCorreo.value = emp.sCorreo || '';
         if (lsInputs.nUResClv) lsInputs.nUResClv.value = emp.nUResClv || '';
         if (lsInputs.sUResNom) lsInputs.sUResNom.value = emp.sUResNom || '';
 
         // Region es un select, asignamos valor si coincide
-        if (lsInputs.Region) lsInputs.Region.value = emp.Region;
+        if (lsInputs.Region) lsInputs.Region.value = emp.region;
+        console.log(lsInputs.Region.value)
 
         // Mapeamos el Puesto (que viene del backend como sPueEmpl o sPerfil)
         if (lsInputs.sPueEmpl) lsInputs.sPueEmpl.value = emp.sPueEmpl || '';
@@ -771,7 +776,7 @@
                                     // CORRECCIÓN 3: Mapeo exacto con tu C# (camelCase por defecto en JSON)
                                     if (inpNoPer) inpNoPer.value = user.nNoPer;       // De tu C#: nNoPer
                                     if (inpNombre) inpNombre.value = user.sNomEmpl;   // De tu C#: sNomEmpl
-                                    if (inpUsuario) inpUsuario.value = user.nUsrClv;  // De tu C#: nUsrClv
+                                    if (inpUsuario) inpUsuario.value = user.sUsuario;  // De tu C#: nUsrClv
                                     if (inpDep) inpDep.value = user.nUResClv;         // De tu C#: nUResClv (Asumo que es la dependencia)
 
                                     // Limpieza visual
@@ -914,4 +919,84 @@
             });
         });
     }
+
+    // ==========================================
+    // LOGICA DE NAVEGACIÓN (ANTERIOR / SIGUIENTE)
+    // ==========================================
+
+    const btnAnterior = document.getElementById('btnAnterior');
+    const btnSiguiente = document.getElementById('btnSiguiente');
+
+    // 1. SELECTOR ESTRICTO: Solo los hijos directos (Usuario, Permisos, Descargar, Finalizar)
+    // Esto ignora las pestañas internas de "Humanos" para que el conteo sea exacto (4 pasos).
+    const listaTabs = Array.from(document.querySelectorAll('#pills-tab > li > button[data-bs-toggle="pill"]'));
+
+    // Función para ocultar/mostrar botones
+    function fnActualizarBotonesNav() {
+        // Buscamos cuál es el tab principal activo actualmente
+        const tabActivo = document.querySelector('#pills-tab > li > button.active');
+
+        if (!tabActivo) return;
+
+        const indexActual = listaTabs.indexOf(tabActivo);
+        const totalTabs = 4;
+
+        // --- CONFIGURAR BOTÓN ANTERIOR ---
+        if (indexActual === 0) {
+            // Si es el primero (Usuario), lo ocultamos
+            btnAnterior.classList.add('d-none');
+        } else {
+            // Si no es el primero, lo mostramos
+            btnAnterior.classList.remove('d-none');
+        }
+
+        // --- CONFIGURAR BOTÓN SIGUIENTE ---
+        if (indexActual === totalTabs - 1) {
+            // Si es el último (Finalizar), lo ocultamos
+            btnSiguiente.classList.add('d-none');
+        } else {
+            // Si no es el último, lo mostramos
+            btnSiguiente.classList.remove('d-none');
+        }
+    }
+
+    // --- EVENTOS CLICK (Moverse con los botones de abajo) ---
+
+    btnSiguiente.addEventListener('click', function () {
+        const tabActivo = document.querySelector('#pills-tab > li > button.active');
+        const indexActual = listaTabs.indexOf(tabActivo);
+        const siguienteIndex = indexActual + 1;
+
+        if (siguienteIndex < listaTabs.length) {
+            const tabBootstrap = new bootstrap.Tab(listaTabs[siguienteIndex]);
+            tabBootstrap.show();
+        }
+    });
+
+    btnAnterior.addEventListener('click', function () {
+        const tabActivo = document.querySelector('#pills-tab > li > button.active');
+        const indexActual = listaTabs.indexOf(tabActivo);
+        const anteriorIndex = indexActual - 1;
+
+        if (anteriorIndex >= 0) {
+            const tabBootstrap = new bootstrap.Tab(listaTabs[anteriorIndex]);
+            tabBootstrap.show();
+        }
+    });
+
+    // --- EVENTO AUTOMÁTICO (Sincronización al dar clic arriba) ---
+    listaTabs.forEach(tabBtn => {
+        tabBtn.addEventListener('shown.bs.tab', function () {
+            // Cada vez que cambia una pestaña principal, actualizamos los botones
+            fnActualizarBotonesNav();
+
+            // Si tienes la lógica de carga de documentos, la llamamos aquí
+            if (typeof fnActualizarSolicitudes === 'function') {
+                fnActualizarSolicitudes();
+            }
+        });
+    });
+
+    // Ejecutar al cargar la página para revisar el estado inicial
+    fnActualizarBotonesNav();
 });
