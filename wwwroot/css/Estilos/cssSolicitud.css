@@ -2,6 +2,16 @@
     border: 1px solid #b3b3b3 !important;
 }
 
+/* El contenedor de resultados debe estar oculto por defecto */
+#divResultadosBusqueda { /* O el ID que tenga tu div */
+    display: none;
+}
+
+    /* Cuando JS agrega la clase 'show', se muestra */
+    #divResultadosBusqueda.show {
+        display: block;
+    }
+
 .custom-tab {
     border: 1px solid #dee2e6;
     color: #053a89 !important;

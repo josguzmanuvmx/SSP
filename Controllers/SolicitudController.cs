@@ -1,11 +1,13 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using SSP.Data; // Asegúrate de tener el using de tu servicio
+using SSP.Data;
 using SSP.Extensions;
 using SSP.Functions;
 using SSP.Models;
 using SSP.ViewModels;
 using System.IO.Compression;
+using System.Reflection;
+using System.ComponentModel.DataAnnotations;
 
 [Authorize(Policy = "ModulosPolicy")]
 public class SolicitudController : Controller
@@ -241,6 +243,35 @@ public class SolicitudController : Controller
         {
             return BadRequest("Error generando el paquete ZIP: " + ex.Message);
         }
+    }
+
+    [HttpGet]
+    public IActionResult BuscarDependencias(string sTermino)
+    {
+        if (string.IsNullOrWhiteSpace(sTermino) || sTermino.Length < 3)
+        {
+            return Json(new List<ItemDependencia>());
+        }
+
+        string termino = sTermino.ToUpper();
+
+        // Ahora el código es mucho más limpio:
+        var listaCompleta = Enum.GetValues(typeof(ClsCatalogoDependencias))
+            .Cast<ClsCatalogoDependencias>()
+            .Select(e => new ItemDependencia
+            {
+                // Usamos las extensiones que acabamos de crear
+                SCodigo = e.GetDisplayName(),      // Lee .Name
+                SDependencia = e.GetDescription()  // Lee .Description
+            });
+
+        var resultados = listaCompleta
+            .Where(x => (x.SCodigo != null && x.SCodigo.Contains(termino)) ||
+                        (x.SDependencia != null && x.SDependencia.Contains(termino)))
+            .Take(15)
+            .ToList();
+
+        return Json(resultados);
     }
 
 }

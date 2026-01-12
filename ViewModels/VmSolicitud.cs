@@ -15,6 +15,11 @@ public class ItemActividad
     public string? SNombre { get; set; }
     public string? SDescripcion { get; set; }
 }
+public class ItemDependencia
+{
+    public string? SCodigo { get; set; }
+    public string? SDependencia { get; set; }
+}
 
 public class VmSolicitud
 {
@@ -306,4 +311,13 @@ public class VmSolicitud
             })
             .ToList();
 
+    public List<ItemDependencia> LsDependencias { get; set; } =
+        Enum.GetValues(typeof(ClsCatalogoDependencias))
+            .Cast<ClsCatalogoDependencias>()
+            .Select(a => new ItemDependencia
+            {
+                SCodigo = a.GetDisplayName(),
+                SDependencia = a.GetDescription()
+            })
+            .ToList();
 }

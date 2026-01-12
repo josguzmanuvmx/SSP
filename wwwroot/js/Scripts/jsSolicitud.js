@@ -276,9 +276,11 @@
                     data.forEach(emp => {
                         // Crear elemento de lista
                         const item = document.createElement('a');
-                        item.classList.add('dropdown-item', 'cursor-pointer');
+                        //item.classList.add('dropdown-item', 'cursor-pointer');
+                        //item.textContent = emp.label;
+                        item.className = 'list-group-item list-group-item-action cursor-pointer';
+                        item.innerHTML = `<span class="fw-bold text-primary">${emp.nNoPer}</span> - <small>${emp.sNomEmpl}</small>`;
                         item.href = "#";
-                        item.textContent = emp.label;
 
                         // Evento Click en un resultado
                         item.addEventListener('click', async function (e) {
@@ -296,9 +298,20 @@
             });
     });
 
+    // EVENTO PARA CERRAR AL DAR CLICK AFUERA
     document.addEventListener('click', function (e) {
-        if (!txtBuscarUsuario.contains(e.target) && !divResultados.contains(e.target)) {
+        // 1. Verificamos que los elementos existan para evitar errores
+        if (!txtBuscarUsuario || !divResultados) return;
+
+        // 2. La Lógica: ¿El click fue FUERA del input Y FUERA de los resultados?
+        const clickEnInput = txtBuscarUsuario.contains(e.target);
+        const clickEnResultados = divResultados.contains(e.target);
+
+        if (!clickEnInput && !clickEnResultados) {
+            // Ocultamos
             divResultados.classList.remove('show');
+            // Opcional: Limpiar resultados para que no reaparezcan viejos al volver a dar click
+            // divResultados.innerHTML = ''; 
         }
     });
 
@@ -767,8 +780,9 @@
                                 //        <i class="fa-solid fa-building"></i> ${user.sUResNom}
                                 //    </div>
                                 //`;
+                                // item.innerHTML = user.label;
+                                item.innerHTML = `<span class="fw-bold text-primary">${user.nNoPer}</span> - <small>${user.sNomEmpl}</small>`;
                                 item.href = "#";
-                                item.innerHTML = user.label;
 
                                 item.addEventListener('click', function (e) {
                                     e.preventDefault();
@@ -878,7 +892,7 @@
             // 2. Actualizar etiqueta en la pestaña correspondiente
             if (extraTabs[index]) {
                 const lblNombre = extraTabs[index].querySelector('.lbl-nombre');
-                if (lblNombre) lblNombre.textContent = `Usuario #${visualNum}`; // O "Usuario Nuevo" si prefieres mantenerlo así
+                if (lblNombre) lblNombre.textContent = `#${visualNum}`; // O "Usuario Nuevo" si prefieres mantenerlo así
             }
 
             // 3. Actualizar 'name' e 'id' de los inputs
@@ -924,43 +938,50 @@
     // LOGICA DE NAVEGACIÓN (ANTERIOR / SIGUIENTE)
     // ==========================================
 
-    const btnAnterior = document.getElementById('btnAnterior');
-    const btnSiguiente = document.getElementById('btnSiguiente');
+    // 1. OBTENER REFERENCIAS (Asegúrate que los IDs en HTML coincidan)
+    // Si en tu HTML se llaman 'btnStepAnterior', cámbialo aquí.
+    const btnAnterior = document.getElementById('btnAnterior') || document.getElementById('btnStepAnterior');
+    const btnSiguiente = document.getElementById('btnSiguiente') || document.getElementById('btnStepSiguiente');
 
-    // 1. SELECTOR ESTRICTO: Solo los hijos directos (Usuario, Permisos, Descargar, Finalizar)
-    // Esto ignora las pestañas internas de "Humanos" para que el conteo sea exacto (4 pasos).
+    // Validación de seguridad: Si no existen los botones, no hacemos nada para evitar errores
+    if (!btnAnterior || !btnSiguiente) return;
+
+    // 2. SELECTOR ESTRICTO: Solo hijos directos (#pills-tab > li > button)
+    // Esto evita contar pestañas internas de otros módulos
     const listaTabs = Array.from(document.querySelectorAll('#pills-tab > li > button[data-bs-toggle="pill"]'));
 
-    // Función para ocultar/mostrar botones
+    // 3. FUNCIÓN DE ACTUALIZACIÓN VISUAL
     function fnActualizarBotonesNav() {
-        // Buscamos cuál es el tab principal activo actualmente
+        // Buscamos cuál es el tab activo actualmente
         const tabActivo = document.querySelector('#pills-tab > li > button.active');
 
         if (!tabActivo) return;
 
         const indexActual = listaTabs.indexOf(tabActivo);
-        const totalTabs = 4;
+        const totalTabs = listaTabs.length; // Dinámico (debería ser 4)
 
         // --- CONFIGURAR BOTÓN ANTERIOR ---
         if (indexActual === 0) {
-            // Si es el primero (Usuario), lo ocultamos
+            // Estamos en el inicio -> Ocultar Anterior
             btnAnterior.classList.add('d-none');
         } else {
-            // Si no es el primero, lo mostramos
+            // Mostrar Anterior
             btnAnterior.classList.remove('d-none');
         }
 
         // --- CONFIGURAR BOTÓN SIGUIENTE ---
         if (indexActual === totalTabs - 1) {
-            // Si es el último (Finalizar), lo ocultamos
+            // Estamos en el final -> Ocultar Siguiente
             btnSiguiente.classList.add('d-none');
+            btnSiguiente.classList.remove('d-flex'); // IMPORTANTE: Quitar d-flex si existe para asegurar que se oculte
         } else {
-            // Si no es el último, lo mostramos
+            // Mostrar Siguiente
             btnSiguiente.classList.remove('d-none');
+            // btnSiguiente.classList.add('d-flex'); // Opcional: restaurar si tu diseño lo requiere
         }
     }
 
-    // --- EVENTOS CLICK (Moverse con los botones de abajo) ---
+    // 4. EVENTOS CLICK (BOTONES INFERIORES)
 
     btnSiguiente.addEventListener('click', function () {
         const tabActivo = document.querySelector('#pills-tab > li > button.active');
@@ -984,19 +1005,144 @@
         }
     });
 
-    // --- EVENTO AUTOMÁTICO (Sincronización al dar clic arriba) ---
+    // 5. EVENTO AUTOMÁTICO (SINCRONIZACIÓN)
+    // Detecta cambios hechos por clic en el menú superior o por los botones de abajo
     listaTabs.forEach(tabBtn => {
         tabBtn.addEventListener('shown.bs.tab', function () {
-            // Cada vez que cambia una pestaña principal, actualizamos los botones
+            // Actualizamos visibilidad de botones
             fnActualizarBotonesNav();
 
-            // Si tienes la lógica de carga de documentos, la llamamos aquí
+            // Llamada a funciones externas si existen
             if (typeof fnActualizarSolicitudes === 'function') {
                 fnActualizarSolicitudes();
             }
         });
     });
 
-    // Ejecutar al cargar la página para revisar el estado inicial
+    // 6. INICIALIZAR AL CARGAR
+    // Ejecutamos una vez para asegurar que el botón "Anterior" esté oculto al principio
     fnActualizarBotonesNav();
+
+    // ==========================================
+    // BUSCADOR DE DEPENDENCIA / ENTIDAD
+    // ==========================================
+
+    const txtBuscarEntidad = document.getElementById('txtBuscarEntidad');
+    const listaResultados = document.getElementById('lista-resultados-entidad');
+
+    // Contenedores visuales
+    const containerBuscar = document.getElementById('container-buscar-entidad');
+    const containerSeleccionado = document.getElementById('container-entidad-seleccionada');
+
+    // Elementos de la selección
+    const lblEntidadTexto = document.getElementById('lblEntidadTexto');
+    const btnQuitarEntidad = document.getElementById('btnQuitarEntidad');
+
+    // Inputs ocultos (binding con ASP.NET Core)
+    const hdnEntClv = document.getElementById('hdnEntClv');
+    const hdnEntNom = document.getElementById('hdnEntNom');
+
+    let debounceEntidad; // Para controlar el tiempo de espera al escribir
+
+    // --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
+    if (txtBuscarEntidad) {
+        txtBuscarEntidad.addEventListener('input', function () {
+            const query = this.value.trim();
+            const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
+
+            // Limpiamos temporizador anterior y ocultamos lista para reiniciar
+            clearTimeout(debounceEntidad);
+            listaResultados.style.display = 'none';
+
+            // Si hay menos de 3 caracteres, no hacemos nada
+            if (query.length < 3) return;
+
+            // Esperar 300ms antes de llamar al servidor (Debounce)
+            debounceEntidad = setTimeout(() => {
+                fetch(`${url}?sTermino=${encodeURIComponent(query)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        listaResultados.innerHTML = '';
+
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                // NOTA: ASP.NET convierte las propiedades a minúscula inicial (camelCase)
+                                // SCodigo -> sCodigo | SDependencia -> sDependencia
+                                const codigo = item.sCodigo || item.SCodigo;
+                                const nombre = item.sDependencia || item.SDependencia;
+
+                                // Crear elemento visual de la lista
+                                const a = document.createElement('a');
+                                a.className = 'list-group-item list-group-item-action cursor-pointer';
+                                a.innerHTML = `<span class="fw-bold text-primary">${codigo}</span> - <small>${nombre}</small>`;
+                                a.href = "#";
+
+                                // Evento al seleccionar una opción
+                                a.addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    fnSeleccionarEntidad(codigo, nombre);
+                                });
+
+                                listaResultados.appendChild(a);
+                            });
+                            listaResultados.style.display = 'block';
+                        } else {
+                            listaResultados.innerHTML = '<div class="list-group-item text-muted small">No se encontraron resultados</div>';
+                            listaResultados.style.display = 'block';
+                        }
+                    })
+                    .catch(err => console.error("Error buscando dependencia:", err));
+            }, 300);
+        });
+    }
+
+    // --- 2. FUNCIÓN: SELECCIONAR UNA ENTIDAD ---
+    function fnSeleccionarEntidad(clave, nombre) {
+        // 1. Llenar inputs ocultos (Lo que se guarda en BD)
+        if (hdnEntClv) hdnEntClv.value = clave;
+        if (hdnEntNom) hdnEntNom.value = nombre;
+
+        // 2. Actualizar texto visual
+        if (lblEntidadTexto) lblEntidadTexto.textContent = `${clave} - ${nombre}`;
+
+        // 3. Cambiar estado visual: Ocultar buscador, Mostrar seleccionado
+        if (listaResultados) listaResultados.style.display = 'none';
+        if (containerBuscar) containerBuscar.classList.add('d-none');
+
+        if (containerSeleccionado) {
+            containerSeleccionado.classList.remove('d-none');
+            containerSeleccionado.classList.add('d-flex');
+        }
+    }
+
+    // --- 3. FUNCIÓN: QUITAR / ELIMINAR SELECCIÓN ---
+    if (btnQuitarEntidad) {
+        btnQuitarEntidad.addEventListener('click', function () {
+            // 1. Limpiar inputs ocultos
+            if (hdnEntClv) hdnEntClv.value = '';
+            if (hdnEntNom) hdnEntNom.value = '';
+
+            // 2. Limpiar input visual
+            if (txtBuscarEntidad) txtBuscarEntidad.value = '';
+
+            // 3. Cambiar estado visual: Ocultar seleccionado, Mostrar buscador
+            if (containerSeleccionado) {
+                containerSeleccionado.classList.add('d-none');
+                containerSeleccionado.classList.remove('d-flex');
+            }
+
+            if (containerBuscar) containerBuscar.classList.remove('d-none');
+
+            // 4. Poner foco para escribir de nuevo
+            setTimeout(() => txtBuscarEntidad.focus(), 100);
+        });
+    }
+
+    // --- 4. CERRAR LISTA AL DAR CLIC FUERA ---
+    document.addEventListener('click', function (e) {
+        // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
+        if (containerBuscar && !containerBuscar.contains(e.target)) {
+            listaResultados.style.display = 'none';
+        }
+    });
 });

@@ -314,7 +314,7 @@ public class ClsGenerarSolicitud
                         // Ejecutar reemplazos para este usuario específico
                         ReemplazarEnFila("{noPer}", usuario.NNoPer?.ToString());
                         ReemplazarEnFila("{nombre}", usuario.SNomEmpl);
-                        ReemplazarEnFila("{usuario}", usuario.SUsuario.ToString());
+                        ReemplazarEnFila("{usuario}", usuario.SUsuario);
                         // Si el perfil necesita conversión, hazlo aquí:
                         ReemplazarEnFila("{perfil}", GetDisplayName(usuario.Perfil) ?? "");
                         ReemplazarEnFila("{dependencia}", usuario.NDepClv?.ToString());
