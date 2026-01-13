@@ -30,7 +30,7 @@
 
             <li class="nav-item position-relative" role="presentation">
                 <button id="pills-usuario-tab" data-bs-target="#pills-usuario"
-                        class="custom-tab nav-link shadow-sm step step-first active"
+                        class="custom-tab nav-link shadow-sm step step-first active pe-none"
                         data-bs-toggle="pill" type="button" role="tab" aria-selected="true">
                     <i class="fa-solid fa-user"></i> Usuario
                 </button>
@@ -38,7 +38,7 @@
 
             <li class="nav-item position-relative" role="presentation">
                 <button id="pills-permisos-tab" data-bs-target="#pills-permisos"
-                        class="custom-tab nav-link shadow-sm step"
+                        class="custom-tab nav-link shadow-sm step pe-none"
                         data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
                     <i class="fa-solid fa-file-circle-check"></i> Permisos
                 </button>
@@ -46,7 +46,7 @@
 
             <li class="nav-item position-relative" role="presentation">
                 <button id="pills-descargar-tab" data-bs-target="#pills-descargar"
-                        class="custom-tab nav-link shadow-sm step"
+                        class="custom-tab nav-link shadow-sm step pe-none"
                         data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
                     <i class="fa-solid fa-print"></i> Descargar
                 </button>
@@ -54,7 +54,7 @@
 
             <li class="nav-item position-relative" role="presentation">
                 <button id="pills-finalizar-tab" data-bs-target="#pills-finalizar"
-                        class="custom-tab nav-link shadow-sm step"
+                        class="custom-tab nav-link shadow-sm step pe-none"
                         data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
                     <i class="fa-solid fa-check"></i> Finalizar
                 </button>
@@ -89,32 +89,41 @@
                             <div class="row align-items-center">
                                 <label asp-for="SNomEmpl" class="col-md-4 col-form-label">Nombre del empleado</label>
                                 <div class="col-md-8">
-                                    <input asp-for="SNomEmpl" class="form-control bg-light" placeholder="ej. Samuel Miral Ramirez" readonly />
+                                    <input asp-for="SNomEmpl" class="form-control bg-light pe-none" placeholder="ej. Samuel Miral Ramirez" tabindex="-1" required readonly />
                                     <span asp-validation-for="SNomEmpl" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row align-items-center">
                                 <label asp-for="NNoPer" class="col-md-4 col-form-label">Número de personal</label>
                                 <div class="col-md-8">
-                                    <input asp-for="NNoPer" class="form-control bg-light" placeholder="ej. 61399" readonly />
+                                    <input asp-for="NNoPer" class="form-control bg-light pe-none" placeholder="ej. 61399" tabindex="-1" readonly required />
                                     <span asp-validation-for="NNoPer" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row align-items-center">
                                 <label asp-for="SUsuario" class="col-md-4 col-form-label">Usuario</label>
                                 <div class="col-md-8">
-                                    <input asp-for="SUsuario" class="form-control bg-light" placeholder="ej. josguzman" readonly />
+                                    <input asp-for="SUsuario" class="form-control bg-light pe-none" placeholder="ej. josguzman" tabindex="-1" readonly required />
                                     <span asp-validation-for="SUsuario" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row align-items-center">
                                 <label asp-for="SCorreo" class="col-md-4 col-form-label">Correo institucional</label>
                                 <div class="col-md-8">
-                                    <input asp-for="SCorreo" class="form-control bg-light" placeholder="ej. usuario@uv.mx" readonly />
+                                    <input asp-for="SCorreo" class="form-control bg-light pe-none" placeholder="ej. usuario@uv.mx" tabindex="-1" readonly required />
                                     <span asp-validation-for="SCorreo" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row align-items-center">
+                                <label asp-for="Region" class="col-md-4 col-form-label">Región</label>
+                                <div class="col-md-8">
+                                    <select asp-for="Region" class="form-select bg-light" asp-items="Html.GetEnumSelectList<Region>()" tabindex="-1" disabled></select>
+                                    <span asp-validation-for="Region" class="text-danger"></span>
+                                    <input type="hidden" asp-for="Region" required />
+
+                                </div>
+                            </div>
+                            @* <div class="row align-items-center">
                                 <label asp-for="NUResClv" class="col-md-4 col-form-label">Unidad Responsable</label>
                                 <div class="col-md-8">
                                     <div class="input-group">
@@ -123,20 +132,63 @@
                                     </div>
                                     <span asp-validation-for="NUResClv" class="text-danger"></span>
                                 </div>
-                            </div>
-                            <div class="row align-items-center">
-                                <label asp-for="Region" class="col-md-4 col-form-label">Región</label>
-                                <div class="col-md-8">
-                                    <select asp-for="Region" class="form-select bg-light" asp-items="Html.GetEnumSelectList<Region>()" disabled></select>
-                                    <span asp-validation-for="Region" class="text-danger"></span>
-                                    <input type="hidden" asp-for="Region" />
+                            </div> *@
 
+                            <hr class="my-3">
+
+                            <h6 class="fw-semibold mb-2">Datos adicionales</h6>
+
+                            <div class="row align-items-center">
+                                <label class="col-md-4 col-form-label">Unidad Responsable</label>
+                                <div class="col-md-8">
+
+                                    <input type="hidden" asp-for="NUResClv" id="hdnEntClv" required />
+                                    <input type="hidden" asp-for="SUResNom" id="hdnEntNom" required />
+
+                                    @{
+                                        bool tieneSeleccion = Model.MoHumanos != null && Model.MoHumanos.NEntClv > 0;
+                                        string claseBusqueda = tieneSeleccion ? "d-none" : "";
+                                        string claseSeleccion = tieneSeleccion ? "d-flex" : "d-none";
+                                        string textoSeleccionado = tieneSeleccion ? $"{Model.MoHumanos.NEntClv} - {Model.MoHumanos.SEntNomb}" : "";
+                                    }
+
+                                    <div id="container-buscar-entidad" class="position-relative @claseBusqueda">
+                                        <div class="input-group">
+                                            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
+                                            <input type="text" id="txtBuscarEntidad" class="form-control border-start-0"
+                                                   placeholder="Escribe el nombre o clave de la dependencia..." autocomplete="off"
+                                                   data-url="@Url.Action("BuscarDependencias", "Solicitud")" required >
+                                        </div>
+                                        <div id="lista-resultados-entidad" class="list-group position-absolute w-100 shadow"
+                                             style="z-index: 1000; max-height: 200px; overflow-y: auto; display: none;">
+                                        </div>
+                                    </div>
+
+                                    <div id="container-entidad-seleccionada"
+                                         class="@claseSeleccion align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm"
+                                         style="min-height: 38px;">
+                                        <div class="d-flex align-items-center w-100">
+                                            <i class="fa-solid fa-building-columns text-primary me-2 flex-shrink-0"></i>
+
+                                            <span id="lblEntidadTexto" class="text-dark text-wrap text-break" style="line-height: 1.2;">
+                                                @textoSeleccionado
+                                            </span>
+                                        </div>
+
+                                        <button type="button" id="btnQuitarEntidad"
+                                                class="btn btn-sm btn-link text-danger p-0 ms-3 flex-shrink-0"
+                                                title="Eliminar selección">
+                                            <i class="fa-solid fa-circle-xmark fa-lg"></i>
+                                        </button>
+                                    </div>
+
+                                    <span asp-validation-for="MoHumanos.NEntClv" class="text-danger"></span>
                                 </div>
                             </div>
                             <div class="row align-items-center">
                                 <label asp-for="SPueEmpl" class="col-md-4 col-form-label">Puesto</label>
                                 <div class="col-md-8">
-                                    <input asp-for="SPueEmpl" class="form-control bg-light" placeholder="Puesto del empleado ej. Becario" readonly />
+                                    <input asp-for="SPueEmpl" class="form-control" placeholder="Puesto del empleado ej. Becario" required />
                                     <span asp-validation-for="SPueEmpl" class="text-danger"></span>
                                 </div>
                             </div>
@@ -444,39 +496,39 @@
                                             <label class="col-md-4 col-form-label">Entidad Académica o Dependencia</label>
                                             <div class="col-md-8">
         
-                                                <input type="hidden" asp-for="MoHumanos.NEntClv" id="hdnEntClv" />
-                                                <input type="hidden" asp-for="MoHumanos.SEntNomb" id="hdnEntNom" />
+                                                <input type="hidden" asp-for="MoHumanos.NEntClv" id="hdnEntClvHumanos" />
+                                                <input type="hidden" asp-for="MoHumanos.SEntNomb" id="hdnEntNomHumanos" />
 
                                                 @{
-                                                    bool tieneSeleccion = Model.MoHumanos != null && Model.MoHumanos.NEntClv > 0;
-                                                    string claseBusqueda = tieneSeleccion ? "d-none" : "";
-                                                    string claseSeleccion = tieneSeleccion ? "d-flex" : "d-none";
-                                                    string textoSeleccionado = tieneSeleccion ? $"{Model.MoHumanos.NEntClv} - {Model.MoHumanos.SEntNomb}" : "";
+                                                    bool tieneSeleccionHumanos = Model.MoHumanos != null && Model.MoHumanos.NEntClv > 0;
+                                                    string claseBusquedaHumanos = tieneSeleccion ? "d-none" : "";
+                                                    string claseSeleccionHumanos = tieneSeleccion ? "d-flex" : "d-none";
+                                                    string textoSeleccionadoHumanos = tieneSeleccion ? $"{Model.MoHumanos.NEntClv} - {Model.MoHumanos.SEntNomb}" : "";
                                                 }
 
-                                                <div id="container-buscar-entidad" class="position-relative @claseBusqueda">
+                                                <div id="container-buscar-entidad-humanos" class="position-relative @claseBusquedaHumanos">
                                                     <div class="input-group">
                                                         <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                                                        <input type="text" id="txtBuscarEntidad" class="form-control border-start-0" 
+                                                        <input type="text" id="txtBuscarEntidadHumanos" class="form-control border-start-0" 
                                                                placeholder="Escribe el nombre o clave de la dependencia..." autocomplete="off"
-                                                               data-url="@Url.Action("BuscarDependencias", "Solicitud")"> </div>
-                                                    <div id="lista-resultados-entidad" class="list-group position-absolute w-100 shadow" 
+                                                               data-url="@Url.Action("BuscarDependencias", "Solicitud")" required > </div>
+                                                    <div id="lista-resultados-entidad-humanos" class="list-group position-absolute w-100 shadow" 
                                                          style="z-index: 1000; max-height: 200px; overflow-y: auto; display: none;">
                                                     </div>
                                                 </div>
 
-                                                <div id="container-entidad-seleccionada" 
-                                                         class="@claseSeleccion align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm"
+                                                <div id="container-entidad-seleccionada-humanos" 
+                                                         class="@claseSeleccionHumanos align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm"
                                                          style="min-height: 38px;">
                                                     <div class="d-flex align-items-center w-100">
                                                         <i class="fa-solid fa-building-columns text-primary me-2 flex-shrink-0"></i>
         
-                                                        <span id="lblEntidadTexto" class="fw-semibold text-dark text-wrap text-break" style="line-height: 1.2;">
-                                                            @textoSeleccionado
+                                                        <span id="lblEntidadTextoHumanos" class="text-dark text-wrap text-break" style="line-height: 1.2;">
+                                                            @textoSeleccionadoHumanos
                                                         </span>
                                                     </div>
 
-                                                    <button type="button" id="btnQuitarEntidad" 
+                                                    <button type="button" id="btnQuitarEntidadHumanos" 
                                                             class="btn btn-sm btn-link text-danger p-0 ms-3 flex-shrink-0" 
                                                             title="Eliminar selección">
                                                         <i class="fa-solid fa-circle-xmark fa-lg"></i>
@@ -531,35 +583,35 @@
                                                     <div class="d-flex">
                                                         <label asp-for="MoHumanos.NDepClv" class="col-4 col-form-label">Clave Dependencia</label>
                                                         <div class="col-8">
-                                                            <input asp-for="MoHumanos.NDepClv" type="number" class="form-control bg-transparent" placeholder="Dependencia">
+                                                            <input asp-for="MoHumanos.NDepClv" type="number" class="form-control bg-transparent" placeholder="Dependencia" required >
                                                             <span asp-validation-for="MoHumanos.NDepClv" class="text-danger"></span>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
                                                         <label asp-for="MoHumanos.NProgClv" class="col-4 col-form-label">Clave de Programa</label>
                                                         <div class="col-8">
-                                                            <input asp-for="MoHumanos.NProgClv" type="number" class="form-control bg-transparent" placeholder="Programa">
+                                                            <input asp-for="MoHumanos.NProgClv" type="number" class="form-control bg-transparent" placeholder="Programa" required >
                                                             <span asp-validation-for="MoHumanos.NProgClv" class="text-danger"></span>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
-                                                        <label asp-for="MoHumanos.SPerfil" class="col-4 col-form-label">Perfil</label>
+                                                        <label asp-for="MoHumanos.Perfil" class="col-4 col-form-label">Perfil</label>
                                                         <div class="col-md-8">
-                                                            <select asp-for="MoHumanos.SPerfil"
+                                                            <select asp-for="MoHumanos.Perfil"
                                                                     class="form-select bg-transparent"
                                                                     asp-items="Html.GetEnumSelectList<Perfil>()">
                                                             </select>
-                                                            <span asp-validation-for="MoHumanos.SPerfil" class="text-danger"></span>
+                                                            <span asp-validation-for="MoHumanos.Perfil" class="text-danger"></span>
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
-                                                        <label asp-for="MoHumanos.STipPerm" class="col-4 col-form-label">Tipo de permiso</label>
+                                                        <label asp-for="MoHumanos.TipPerm" class="col-4 col-form-label">Tipo de permiso</label>
                                                         <div class="col-8">
-                                                            <select asp-for="MoHumanos.STipPerm"
-                                                                    class="form-control bg-transparent"
+                                                            <select asp-for="MoHumanos.TipPerm"
+                                                                    class="form-select bg-transparent"
                                                                     asp-items="Html.GetEnumSelectList<Permiso>()">
                                                             </select>
-                                                            <span asp-validation-for="MoHumanos.STipPerm" class="text-danger"></span>
+                                                            <span asp-validation-for="MoHumanos.TipPerm" class="text-danger"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -862,7 +914,6 @@
                            placeholder="Buscar por Nombre, Usuario o No. Personal..."
                            autocomplete="off"
                            data-url="@Url.Action("BuscarUsuarios", "Solicitud")">
-                    <button class="btn btn-outline-secondary btn-clear-search" type="button" title="Limpiar"><i class="fa-solid fa-eraser"></i></button>
                 </div>
                 <div class="list-group position-absolute w-100 shadow results-container" style="z-index: 1000; display: none; max-height: 200px; overflow-y: auto;">
                 </div>
@@ -873,31 +924,22 @@
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Número de personal</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" type="number" class="form-control bg-transparent field-noper" placeholder="ej. 61399" />
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" type="number" class="form-control bg-light field-noper pe-none" placeholder="ej. 61399" tabindex="-1" required readonly />
                     <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Nombre del empleado</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="form-control bg-transparent field-nombre" placeholder="ej. Samuel Miral" />
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="form-control bg-light field-nombre pe-none" placeholder="ej. Samuel Miral" tabindex="-1" required readonly />
                     <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Usuario</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="form-control bg-transparent field-usuario" placeholder="ej. josguzman" />
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="form-control bg-light field-usuario pe-none" placeholder="ej. josguzman" tabindex="-1" required readonly />
                     <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="d-flex">
-                <label class="col-4 col-form-label">Perfil</label>
-                <div class="col-8">
-                    <select name="LsUsuariosAdicionales[INDEX_LISTA].SPerfil"
-                            class="form-control bg-transparent"
-                            asp-items="Html.GetEnumSelectList<Perfil>()">
-                    </select>
                 </div>
             </div>
         </div>
@@ -926,22 +968,31 @@
             <div class="d-flex">
                 <label class="col-4 col-form-label">Clave Dependencia</label>
                 <div class="col-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NClvDep" type="number" class="form-control bg-transparent" placeholder="Dependencia">
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NClvDep" class="text-danger"></span>
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NDepClv" type="number" class="form-control bg-transparent" placeholder="Dependencia" required >
+                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NDepClv" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-4 col-form-label">Clave de Programa</label>
                 <div class="col-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SClvProg" type="text" class="form-control bg-transparent" placeholder="Programa">
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SClvProg" class="text-danger"></span>
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NProgClv" type="text" class="form-control bg-transparent" placeholder="Programa" required >
+                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NProgClv" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex">
+                <label class="col-4 col-form-label">Perfil</label>
+                <div class="col-8">
+                    <select name="LsUsuariosAdicionales[INDEX_LISTA].Perfil"
+                            class="form-select bg-transparent"
+                            asp-items="Html.GetEnumSelectList<Perfil>()">
+                    </select>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-4 col-form-label">Tipo de permiso</label>
                 <div class="col-8">
-                    <select name="LsUsuariosAdicionales[INDEX_LISTA].STipPerm"
-                            class="form-control bg-transparent"
+                    <select name="LsUsuariosAdicionales[INDEX_LISTA].TipPerm"
+                            class="form-select bg-transparent"
                             asp-items="Html.GetEnumSelectList<Permiso>()">
                     </select>
                 </div>

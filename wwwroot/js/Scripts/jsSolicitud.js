@@ -253,50 +253,110 @@
         sPueEmpl: document.getElementById('SPueEmpl')
     };
 
-    console.log(Region.value)
+    let indiceNavegacionUsuario = -1;
 
-    // --- 1. FUNCIÓN: BUSCAR EMPLEADO ---
-    txtBuscarUsuario.addEventListener('input', async function () {
-        const sBusqueda = this.value;
+    if (txtBuscarUsuario && divResultados) {
+        txtBuscarUsuario.addEventListener('keydown', function (e) {
+            const items = divResultados.querySelectorAll('a.list-group-item');
 
-        if (sBusqueda.length < 3) {
-            divResultados.innerHTML = '';
-            divResultados.classList.remove('show');
-            return;
+            // Si la lista está oculta o vacía, no hacemos nada
+            if (divResultados.style.display === 'none' || items.length === 0) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault(); // Evita que el cursor se mueva en el input
+                indiceNavegacionUsuario++;
+
+                // Si pasamos el último, volvemos al primero (carrusel)
+                if (indiceNavegacionUsuario >= items.length) indiceNavegacionUsuario = 0;
+
+                actualizarSeleccionVisual(items);
+            }
+            else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                indiceNavegacionUsuario--;
+
+                // Si subimos más allá del primero, vamos al último
+                if (indiceNavegacionUsuario < 0) indiceNavegacionUsuario = items.length - 1;
+
+                actualizarSeleccionVisual(items);
+            }
+            else if (e.key === 'Enter') {
+                // Si hay algo seleccionado con las flechas, simulamos el click
+                if (indiceNavegacionUsuario > -1) {
+                    e.preventDefault(); // Evita el submit del formulario
+                    items[indiceNavegacionUsuario].click();
+                }
+            }
+            else if (e.key === 'Escape') {
+                divResultados.style.display = 'none';
+                indiceNavegacionUsuario = -1;
+            }
+        });
+
+        // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
+        function actualizarSeleccionVisual(items) {
+            // Limpiar clase 'active' de todos
+            items.forEach(item => item.classList.remove('active'));
+
+            // Agregar clase 'active' al actual
+            if (indiceNavegacionUsuario > -1 && items[indiceNavegacionUsuario]) {
+                const itemActivo = items[indiceNavegacionUsuario];
+                itemActivo.classList.add('active');
+
+                // SCROLL AUTOMÁTICO:
+                // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
+                itemActivo.scrollIntoView({
+                    block: 'nearest',
+                    behavior: 'smooth'
+                });
+            }
         }
 
-        const urlBusqueda = this.getAttribute('data-url');
-        fetch(`${urlBusqueda}?sUsuario=${sBusqueda}`)
-            .then(response => response.json())
-            .then(data => {
+        // --- 1. FUNCIÓN: BUSCAR EMPLEADO ---
+        txtBuscarUsuario.addEventListener('input', async function () {
+            const sBusqueda = this.value;
+
+            if (sBusqueda.length < 3) {
                 divResultados.innerHTML = '';
+                divResultados.classList.remove('show');
+                return;
+            }
 
-                if (data.length > 0) {
-                    divResultados.classList.add('show');
-                    data.forEach(emp => {
-                        // Crear elemento de lista
-                        const item = document.createElement('a');
-                        //item.classList.add('dropdown-item', 'cursor-pointer');
-                        //item.textContent = emp.label;
-                        item.className = 'list-group-item list-group-item-action cursor-pointer';
-                        item.innerHTML = `<span class="fw-bold text-primary">${emp.nNoPer}</span> - <small>${emp.sNomEmpl}</small>`;
-                        item.href = "#";
+            const urlBusqueda = this.getAttribute('data-url');
+            fetch(`${urlBusqueda}?sUsuario=${sBusqueda}`)
+                .then(response => response.json())
+                .then(data => {
+                    divResultados.innerHTML = '';
 
-                        // Evento Click en un resultado
-                        item.addEventListener('click', async function (e) {
-                            e.preventDefault();
-                            fnRellenarDatos(emp);
-                            divResultados.classList.remove('show');
-                            txtBuscarUsuario.value = '';
+                    if (data.length > 0) {
+                        divResultados.classList.add('show');
+                        data.forEach(emp => {
+                            // Crear elemento de lista
+                            const item = document.createElement('a');
+                            //item.classList.add('dropdown-item', 'cursor-pointer');
+                            //item.textContent = emp.label;
+                            item.className = 'list-group-item list-group-item-action cursor-pointer';
+                            item.innerHTML = `<span class="fw-bold">${emp.nNoPer}</span> - <small>${emp.sNomEmpl}</small>`;
+                            item.href = "#";
+
+                            // Evento Click en un resultado
+                            item.addEventListener('click', async function (e) {
+                                e.preventDefault();
+                                fnRellenarDatos(emp);
+                                divResultados.classList.remove('show');
+                                txtBuscarUsuario.value = '';
+                            });
+
+                            divResultados.appendChild(item);
                         });
+                    } else {
+                        divResultados.classList.remove('show');
+                    }
+                });
 
-                        divResultados.appendChild(item);
-                    });
-                } else {
-                    divResultados.classList.remove('show');
-                }
-            });
-    });
+            indiceNavegacionUsuario = -1;
+        });
+    }
 
     // EVENTO PARA CERRAR AL DAR CLICK AFUERA
     document.addEventListener('click', function (e) {
@@ -509,46 +569,67 @@
     async function actualizarPrevisualizacion(tipoDocumento, idIframe, idBtnDescarga = null, idLoader, idVerDocumento = null) {
         const iframe = document.getElementById(idIframe);
         if (!iframe) return;
+
         const btnDescarga = idBtnDescarga ? document.getElementById(idBtnDescarga) : null;
+        const divVerDocumento = idVerDocumento ? document.getElementById(idVerDocumento) : null;
+        const loader = document.getElementById(idLoader);
+        const urlAction = formSolicitud.getAttribute('data-url-preview');
+
+        // 1. PREPARACIÓN DE UI
         iframe.style.opacity = '0.5';
         if (btnDescarga) btnDescarga.classList.add('disabled');
+        if (divVerDocumento) divVerDocumento.classList.add('d-none');
+
+        // --- CORRECCIÓN AQUÍ ---
+        // Reiniciamos el contenido del loader al Spinner original antes de mostrarlo
+        if (loader) {
+            loader.innerHTML = `
+            <div class="spinner-border text-secondary mb-2" role="status"></div>
+            <small class="text-muted fw-bold">Generando vista previa...</small>
+        `;
+            loader.classList.remove('d-none');
+        }
+        // -----------------------
+
         const formData = new FormData(formSolicitud);
         formData.append('sTipo', tipoDocumento);
-        const divVerDocumento = idVerDocumento ? document.getElementById(idVerDocumento) : null;
-        if (divVerDocumento) divVerDocumento.classList.add('d-none');
-        const urlAction = formSolicitud.getAttribute('data-url-preview');
-        const loader = document.getElementById(idLoader);
-        if (loader) loader.classList.remove('d-none');
+
+        if (loader) loader.classList.add('d-none');
 
         try {
             const response = await fetch(urlAction, {
                 method: 'POST',
                 body: formData
             });
+
             if (response.ok) {
                 const blob = await response.blob();
                 const urlBlob = URL.createObjectURL(blob);
+
+                // Usamos el evento onload para ocultar el loader solo cuando el PDF ya se pintó
+                iframe.onload = function () {
+                    if (loader) loader.classList.add('d-none');
+                    if (divVerDocumento) divVerDocumento.classList.remove('d-none');
+                    iframe.style.opacity = '1'; // Restaurar opacidad aquí
+                };
+
                 iframe.src = urlBlob + "#toolbar=0";
-                if (loader) loader.classList.add('d-none');
-                if (divVerDocumento) divVerDocumento.classList.remove('d-none');
+
                 if (btnDescarga) {
                     btnDescarga.href = urlBlob;
-                    btnDescarga.download = `Solicitud_${tipoDocumento}_${
-                        new Date().toISOString()
-                            .replace('T', '_')
-                            .replace('Z', '')
-                            .replace(/[:.]/g, '-')
-                        }.pdf`;
+                    // Generar nombre de archivo limpio
+                    const fecha = new Date().toISOString().split('T')[0];
+                    btnDescarga.download = `Solicitud_${tipoDocumento}_${fecha}.pdf`;
                     btnDescarga.classList.remove('disabled');
                 }
             } else {
                 console.error("Error generando preview");
-                if (loader) loader.innerHTML = '<span class="text-danger fw-bold">Error al generar</span>';
+                if (loader) loader.innerHTML = '<span class="text-danger fw-bold"><i class="fa-solid fa-circle-exclamation"></i> Error al generar</span>';
+                iframe.style.opacity = '1';
             }
         } catch (error) {
             console.error("Error de red:", error);
-            if (loader) loader.innerHTML = '<span class="text-danger fw-bold">Error de conexión</span>';
-        } finally {
+            if (loader) loader.innerHTML = '<span class="text-danger fw-bold"><i class="fa-solid fa-wifi"></i> Error de conexión</span>';
             iframe.style.opacity = '1';
         }
     }
@@ -750,71 +831,123 @@
 
         let debounceTimer;
 
-        inputSearch.addEventListener('input', function () {
-            const query = this.value.trim();
-            const url = this.getAttribute('data-url');
+        let indiceNavegacionExtra = -1;
 
-            clearTimeout(debounceTimer);
-            resultsContainer.style.display = 'none';
+        if (inputSearch && resultsContainer) {
+            inputSearch.addEventListener('keydown', function (e) {
+                const items = resultsContainer.querySelectorAll('a.list-group-item');
 
-            if (query.length < 3) return;
+                // Si la lista está oculta o vacía, no hacemos nada
+                if (resultsContainer.style.display === 'none' || items.length === 0) return;
 
-            debounceTimer = setTimeout(() => {
-                // CORRECCIÓN 1: Usamos 'sUsuario' porque así se llama tu parámetro en C#
-                fetch(`${url}?sUsuario=${encodeURIComponent(query)}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        resultsContainer.innerHTML = '';
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault(); // Evita que el cursor se mueva en el input
+                    indiceNavegacionExtra++;
 
-                        if (data.length > 0) {
-                            data.forEach(user => {
-                                const item = document.createElement('a');
-                                item.className = 'list-group-item list-group-item-action cursor-pointer';
+                    // Si pasamos el último, volvemos al primero (carrusel)
+                    if (indiceNavegacionExtra >= items.length) indiceNavegacionExtra = 0;
 
-                                // CORRECCIÓN 2: Usamos 'user.label' que ya viene formateado desde C#
-                                // Ejs: "[61399] angel - José Ángel..."
-                                //item.innerHTML = `
-                                //    <div class="fw-bold small">${user.label}</div>
-                                //    <div class="text-muted extra-small" style="font-size:0.75rem;">
-                                //        <i class="fa-solid fa-briefcase"></i> ${user.sPueEmpl} |
-                                //        <i class="fa-solid fa-building"></i> ${user.sUResNom}
-                                //    </div>
-                                //`;
-                                // item.innerHTML = user.label;
-                                item.innerHTML = `<span class="fw-bold text-primary">${user.nNoPer}</span> - <small>${user.sNomEmpl}</small>`;
-                                item.href = "#";
+                    actualizarSeleccionVisual(items);
+                }
+                else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    indiceNavegacionExtra--;
 
-                                item.addEventListener('click', function (e) {
-                                    e.preventDefault();
+                    // Si subimos más allá del primero, vamos al último
+                    if (indiceNavegacionExtra < 0) indiceNavegacionExtra = items.length - 1;
 
-                                    // CORRECCIÓN 3: Mapeo exacto con tu C# (camelCase por defecto en JSON)
-                                    if (inpNoPer) inpNoPer.value = user.nNoPer;       // De tu C#: nNoPer
-                                    if (inpNombre) inpNombre.value = user.sNomEmpl;   // De tu C#: sNomEmpl
-                                    if (inpUsuario) inpUsuario.value = user.sUsuario;  // De tu C#: nUsrClv
-                                    if (inpDep) inpDep.value = user.nUResClv;         // De tu C#: nUResClv (Asumo que es la dependencia)
+                    actualizarSeleccionVisual(items);
+                }
+                else if (e.key === 'Enter') {
+                    // Si hay algo seleccionado con las flechas, simulamos el click
+                    if (indiceNavegacionExtra > -1) {
+                        e.preventDefault(); // Evita el submit del formulario
+                        items[indiceNavegacionExtra].click();
+                    }
+                }
+                else if (e.key === 'Escape') {
+                    resultsContainer.style.display = 'none';
+                    indiceNavegacionExtra = -1;
+                }
+            });
 
-                                    // Limpieza visual
-                                    inputSearch.value = '';
-                                    resultsContainer.style.display = 'none';
+            // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
+            function actualizarSeleccionVisual(items) {
+                // Limpiar clase 'active' de todos
+                items.forEach(item => item.classList.remove('active'));
+
+                // Agregar clase 'active' al actual
+                if (indiceNavegacionExtra > -1 && items[indiceNavegacionExtra]) {
+                    const itemActivo = items[indiceNavegacionExtra];
+                    itemActivo.classList.add('active');
+
+                    // SCROLL AUTOMÁTICO:
+                    // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
+                    itemActivo.scrollIntoView({
+                        block: 'nearest',
+                        behavior: 'smooth'
+                    });
+                }
+            }
+
+            inputSearch.addEventListener('input', function () {
+                const query = this.value.trim();
+                const url = this.getAttribute('data-url');
+
+                clearTimeout(debounceTimer);
+                resultsContainer.style.display = 'none';
+
+                if (query.length < 3) return;
+
+                debounceTimer = setTimeout(() => {
+                    // CORRECCIÓN 1: Usamos 'sUsuario' porque así se llama tu parámetro en C#
+                    fetch(`${url}?sUsuario=${encodeURIComponent(query)}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            resultsContainer.innerHTML = '';
+
+                            if (data.length > 0) {
+                                data.forEach(user => {
+                                    const item = document.createElement('a');
+                                    item.className = 'list-group-item list-group-item-action cursor-pointer';
+
+                                    // CORRECCIÓN 2: Usamos 'user.label' que ya viene formateado desde C#
+                                    // Ejs: "[61399] angel - José Ángel..."
+                                    //item.innerHTML = `
+                                    //    <div class="fw-bold small">${user.label}</div>
+                                    //    <div class="text-muted extra-small" style="font-size:0.75rem;">
+                                    //        <i class="fa-solid fa-briefcase"></i> ${user.sPueEmpl} |
+                                    //        <i class="fa-solid fa-building"></i> ${user.sUResNom}
+                                    //    </div>
+                                    //`;
+                                    // item.innerHTML = user.label;
+                                    item.innerHTML = `<span class="fw-bold">${user.nNoPer}</span> - <small>${user.sNomEmpl}</small>`;
+                                    item.href = "#";
+
+                                    item.addEventListener('click', function (e) {
+                                        e.preventDefault();
+
+                                        // CORRECCIÓN 3: Mapeo exacto con tu C# (camelCase por defecto en JSON)
+                                        if (inpNoPer) inpNoPer.value = user.nNoPer;       // De tu C#: nNoPer
+                                        if (inpNombre) inpNombre.value = user.sNomEmpl;   // De tu C#: sNomEmpl
+                                        if (inpUsuario) inpUsuario.value = user.sUsuario;  // De tu C#: nUsrClv
+                                        if (inpDep) inpDep.value = user.nUResClv;         // De tu C#: nUResClv (Asumo que es la dependencia)
+
+                                        // Limpieza visual
+                                        inputSearch.value = '';
+                                        resultsContainer.style.display = 'none';
+                                    });
+
+                                    resultsContainer.appendChild(item);
                                 });
+                                resultsContainer.style.display = 'block';
+                            }
+                        })
+                        .catch(err => console.error("Error buscando usuarios", err));
+                }, 300);
 
-                                resultsContainer.appendChild(item);
-                            });
-                            resultsContainer.style.display = 'block';
-                        }
-                    })
-                    .catch(err => console.error("Error buscando usuarios", err));
-            }, 300);
-        });
-
-        // Botón Limpiar (Resetear campos)
-        if (btnClear) {
-            btnClear.addEventListener('click', () => {
-                inputSearch.value = '';
-                // Limpiamos los campos vinculados
-                [inpNoPer, inpNombre, inpUsuario, inpPerfil, inpDep].forEach(el => {
-                    if (el) el.value = '';
-                });
+                // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
+                indiceNavegacionExtra = -1;
             });
         }
 
@@ -985,12 +1118,158 @@
 
     btnSiguiente.addEventListener('click', function () {
         const tabActivo = document.querySelector('#pills-tab > li > button.active');
+
+        // 1. VALIDAR PASO ACTUAL ANTES DE AVANZAR
+        if (!validarPasoActual(tabActivo)) {
+            // Si no es válido, detenemos la ejecución aquí.
+            return;
+        }
+
+        // 2. Si es válido, procedemos a avanzar
         const indexActual = listaTabs.indexOf(tabActivo);
         const siguienteIndex = indexActual + 1;
 
         if (siguienteIndex < listaTabs.length) {
             const tabBootstrap = new bootstrap.Tab(listaTabs[siguienteIndex]);
             tabBootstrap.show();
+        }
+    });
+
+    // --- FUNCIÓN DE VALIDACIÓN POR PESTAÑA ---
+    function validarPasoActual(tabButtonMain) {
+        // 1. Identificar el contenedor principal (ej. #pills-permisos)
+        const targetIdMain = tabButtonMain.getAttribute('data-bs-target');
+        const contentDivMain = document.querySelector(targetIdMain);
+
+        // --- LIMPIEZA DE ICONOS PREVIOS ---
+
+        // A. Quitar icono del tab PRINCIPAL (Arriba)
+        const iconMain = tabButtonMain.querySelector('.icon-error-tab');
+        if (iconMain) iconMain.remove();
+
+        // B. Quitar iconos de los SUB-TABS (Estudiantes, Finanzas, Humanos)
+        const subTabButtons = contentDivMain.querySelectorAll('button[data-bs-toggle="pill"]');
+        subTabButtons.forEach(btn => {
+            const icon = btn.querySelector('.icon-error-tab');
+            if (icon) icon.remove();
+        });
+
+        // --- VALIDACIÓN DE INPUTS ---
+
+        const inputs = contentDivMain.querySelectorAll('input, select, textarea');
+        let esValido = true;
+        let primerInvalido = null;
+
+        inputs.forEach(input => {
+            // Ignorar inputs hidden reales (como Token, etc) a menos que sean nuestros custom inputs
+            if (input.type === 'hidden' && !input.classList.contains('input-validation-error')) return;
+
+            // Ignorar botones o submits
+            if (input.type === 'button' || input.type === 'submit') return;
+
+            let tieneError = false;
+
+            // 1. VALIDACIÓN ESTÁNDAR (Lo que dice el navegador)
+            // Nota: checkValidity() devuelve TRUE si el elemento está oculto (display:none), por eso necesitamos el paso 2.
+            if (!input.checkValidity()) {
+                tieneError = true;
+            }
+
+            // 2. VALIDACIÓN MANUAL FORZADA (Para pestañas ocultas y campos readonly)
+            // Si es REQUERIDO y está VACÍO, es error (aunque esté oculto en otra pestaña)
+            if (input.hasAttribute('required')) {
+                if (input.type === 'checkbox' || input.type === 'radio') {
+                    // Para radios/checkbox es más complejo verificar grupos, pero checkValidity suele funcionar bien.
+                } else {
+                    // Para textos, selects, números, fechas...
+                    if (!input.value || input.value.trim() === '') {
+                        tieneError = true;
+                    }
+                }
+            }
+
+            // 3. Validación Selects Deshabilitados
+            if (input.tagName === 'SELECT' && input.hasAttribute('disabled')) {
+                if (!input.value || input.value === '') tieneError = true;
+            }
+
+            // --- PROCESAR RESULTADO ---
+            if (tieneError) {
+                esValido = false;
+
+                // Marcar visualmente el input (Solo se verá si el tab está activo)
+                input.classList.add('is-invalid');
+                input.classList.remove('is-valid');
+
+                if (!primerInvalido) primerInvalido = input;
+
+                // --- MAGIA: MARCAR EL SUB-TAB CORRESPONDIENTE ---
+
+                // a. Buscamos el panel donde vive este input (ej: id="pills-finanzas")
+                const parentPane = input.closest('.tab-pane');
+
+                // b. Aseguramos que encontramos un panel y que NO es el panel principal (#pills-permisos)
+                if (parentPane && parentPane.id !== targetIdMain.replace('#', '')) {
+
+                    // c. Buscamos el botón que controla este panel específico
+                    // El selector busca un botón dentro del área actual que apunte a ese ID
+                    const subBtn = contentDivMain.querySelector(`button[data-bs-target="#${parentPane.id}"]`);
+
+                    if (subBtn) {
+                        // d. Agregamos el icono si no lo tiene ya
+                        if (!subBtn.querySelector('.icon-error-tab')) {
+                            const iconoHtml = '<i class="fa-solid fa-circle-exclamation text-danger ms-2 icon-error-tab"></i>';
+                            subBtn.insertAdjacentHTML('beforeend', iconoHtml);
+                        }
+                    }
+                }
+
+            } else {
+                // Limpiar si es válido
+                input.classList.remove('is-invalid');
+                input.classList.remove('is-valid');
+            }
+        });
+
+        // --- ACCIONES FINALES ---
+
+        if (!esValido) {
+            // 1. Marcar el Tab PRINCIPAL (Permisos) con icono rojo
+            const iconoHtml = '<i class="fa-solid fa-circle-exclamation text-danger ms-2 icon-error-tab"></i>';
+            tabButtonMain.insertAdjacentHTML('beforeend', iconoHtml);
+
+            // 2. Llevar al usuario al error
+            if (primerInvalido) {
+                // Verificar si el error está en una pestaña oculta y abrirla
+                const parentPane = primerInvalido.closest('.tab-pane');
+                // Si el padre NO es el panel principal, significa que es un sub-tab (Finanzas/Humanos/etc)
+                if (parentPane && parentPane.id !== targetIdMain.replace('#', '')) {
+                    // Verificar si este panel NO tiene la clase 'active' (está oculto)
+                    if (!parentPane.classList.contains('active')) {
+                        const subBtn = contentDivMain.querySelector(`button[data-bs-target="#${parentPane.id}"]`);
+                        if (subBtn) {
+                            // Usar API de Bootstrap para cambiar de pestaña automáticamente
+                            const tabInstance = new bootstrap.Tab(subBtn);
+                            tabInstance.show();
+                        }
+                    }
+                }
+
+                // Pequeño delay para permitir que la pestaña se abra antes de hacer focus
+                setTimeout(() => {
+                    primerInvalido.focus();
+                    primerInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 150);
+            }
+        }
+
+        return esValido;
+    }
+
+    // Limpiar error cuando el usuario escriba
+    document.getElementById('formSolicitud').addEventListener('input', function (e) {
+        if (e.target.classList.contains('is-invalid')) {
+            e.target.classList.remove('is-invalid');
         }
     });
 
@@ -1044,8 +1323,66 @@
 
     let debounceEntidad; // Para controlar el tiempo de espera al escribir
 
+    let indiceNavegacion = -1;
+
     // --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
-    if (txtBuscarEntidad) {
+    if (txtBuscarEntidad && listaResultados) {
+        txtBuscarEntidad.addEventListener('keydown', function (e) {
+            const items = listaResultados.querySelectorAll('a.list-group-item');
+
+            // Si la lista está oculta o vacía, no hacemos nada
+            if (listaResultados.style.display === 'none' || items.length === 0) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault(); // Evita que el cursor se mueva en el input
+                indiceNavegacion++;
+
+                // Si pasamos el último, volvemos al primero (carrusel)
+                if (indiceNavegacion >= items.length) indiceNavegacion = 0;
+
+                actualizarSeleccionVisual(items);
+            }
+            else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                indiceNavegacion--;
+
+                // Si subimos más allá del primero, vamos al último
+                if (indiceNavegacion < 0) indiceNavegacion = items.length - 1;
+
+                actualizarSeleccionVisual(items);
+            }
+            else if (e.key === 'Enter') {
+                // Si hay algo seleccionado con las flechas, simulamos el click
+                if (indiceNavegacion > -1) {
+                    e.preventDefault(); // Evita el submit del formulario
+                    items[indiceNavegacion].click();
+                }
+            }
+            else if (e.key === 'Escape') {
+                listaResultados.style.display = 'none';
+                indiceNavegacion = -1;
+            }
+        });
+
+        // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
+        function actualizarSeleccionVisual(items) {
+            // Limpiar clase 'active' de todos
+            items.forEach(item => item.classList.remove('active'));
+
+            // Agregar clase 'active' al actual
+            if (indiceNavegacion > -1 && items[indiceNavegacion]) {
+                const itemActivo = items[indiceNavegacion];
+                itemActivo.classList.add('active');
+
+                // SCROLL AUTOMÁTICO:
+                // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
+                itemActivo.scrollIntoView({
+                    block: 'nearest',
+                    behavior: 'smooth'
+                });
+            }
+        }
+
         txtBuscarEntidad.addEventListener('input', function () {
             const query = this.value.trim();
             const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
@@ -1074,7 +1411,7 @@
                                 // Crear elemento visual de la lista
                                 const a = document.createElement('a');
                                 a.className = 'list-group-item list-group-item-action cursor-pointer';
-                                a.innerHTML = `<span class="fw-bold text-primary">${codigo}</span> - <small>${nombre}</small>`;
+                                a.innerHTML = `<span class="fw-bold">${codigo}</span> - <small>${nombre}</small>`;
                                 a.href = "#";
 
                                 // Evento al seleccionar una opción
@@ -1093,6 +1430,9 @@
                     })
                     .catch(err => console.error("Error buscando dependencia:", err));
             }, 300);
+
+            // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
+            indiceNavegacion = -1;
         });
     }
 
@@ -1143,6 +1483,190 @@
         // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
         if (containerBuscar && !containerBuscar.contains(e.target)) {
             listaResultados.style.display = 'none';
+        }
+    });
+
+    // ============================================
+    // BUSCADOR DE DEPENDENCIA / ENTIDAD DE HUMANOS
+    // ============================================
+
+    const txtBuscarEntidadHumanos = document.getElementById('txtBuscarEntidadHumanos');
+    const listaResultadosHumanos = document.getElementById('lista-resultados-entidad-humanos');
+
+    // Contenedores visuales
+    const containerBuscarHumanos = document.getElementById('container-buscar-entidad-humanos');
+    const containerSeleccionadoHumanos = document.getElementById('container-entidad-seleccionada-humanos');
+
+    // Elementos de la selección
+    const lblEntidadTextoHumanos = document.getElementById('lblEntidadTextoHumanos');
+    const btnQuitarEntidadHumanos = document.getElementById('btnQuitarEntidadHumanos');
+
+    // Inputs ocultos (binding con ASP.NET Core)
+    const hdnEntClvHumanos = document.getElementById('hdnEntClvHumanos');
+    const hdnEntNomHumanos = document.getElementById('hdnEntNomHumanos');
+
+    let debounceEntidadHumanos; // Para controlar el tiempo de espera al escribir
+
+    let indiceNavegacionHumanos = -1;
+
+    // --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
+    if (txtBuscarEntidadHumanos && listaResultadosHumanos) {
+        txtBuscarEntidadHumanos.addEventListener('keydown', function (e) {
+            const items = listaResultadosHumanos.querySelectorAll('a.list-group-item');
+
+            // Si la lista está oculta o vacía, no hacemos nada
+            if (listaResultadosHumanos.style.display === 'none' || items.length === 0) return;
+
+            if (e.key === 'ArrowDown') {
+                e.preventDefault(); // Evita que el cursor se mueva en el input
+                indiceNavegacionHumanos++;
+
+                // Si pasamos el último, volvemos al primero (carrusel)
+                if (indiceNavegacionHumanos >= items.length) indiceNavegacionHumanos = 0;
+
+                actualizarSeleccionVisual(items);
+            }
+            else if (e.key === 'ArrowUp') {
+                e.preventDefault();
+                indiceNavegacionHumanos--;
+
+                // Si subimos más allá del primero, vamos al último
+                if (indiceNavegacionHumanos < 0) indiceNavegacionHumanos = items.length - 1;
+
+                actualizarSeleccionVisual(items);
+            }
+            else if (e.key === 'Enter') {
+                // Si hay algo seleccionado con las flechas, simulamos el click
+                if (indiceNavegacionHumanos > -1) {
+                    e.preventDefault(); // Evita el submit del formulario
+                    items[indiceNavegacionHumanos].click();
+                }
+            }
+            else if (e.key === 'Escape') {
+                listaResultadosHumanos.style.display = 'none';
+                indiceNavegacionHumanos = -1;
+            }
+        });
+
+        // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
+        function actualizarSeleccionVisual(items) {
+            // Limpiar clase 'active' de todos
+            items.forEach(item => item.classList.remove('active'));
+
+            // Agregar clase 'active' al actual
+            if (indiceNavegacionHumanos > -1 && items[indiceNavegacionHumanos]) {
+                const itemActivo = items[indiceNavegacionHumanos];
+                itemActivo.classList.add('active');
+
+                // SCROLL AUTOMÁTICO:
+                // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
+                itemActivo.scrollIntoView({
+                    block: 'nearest',
+                    behavior: 'smooth'
+                });
+            }
+        }
+
+        txtBuscarEntidadHumanos.addEventListener('input', function () {
+            const query = this.value.trim();
+            const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
+
+            // Limpiamos temporizador anterior y ocultamos lista para reiniciar
+            clearTimeout(debounceEntidadHumanos);
+            listaResultadosHumanos.style.display = 'none';
+
+            // Si hay menos de 3 caracteres, no hacemos nada
+            if (query.length < 3) return;
+
+            // Esperar 300ms antes de llamar al servidor (Debounce)
+            debounceEntidadHumanos = setTimeout(() => {
+                fetch(`${url}?sTermino=${encodeURIComponent(query)}`)
+                    .then(res => res.json())
+                    .then(data => {
+                        listaResultadosHumanos.innerHTML = '';
+
+                        if (data.length > 0) {
+                            data.forEach(item => {
+                                // NOTA: ASP.NET convierte las propiedades a minúscula inicial (camelCase)
+                                // SCodigo -> sCodigo | SDependencia -> sDependencia
+                                const codigo = item.sCodigo || item.SCodigo;
+                                const nombre = item.sDependencia || item.SDependencia;
+
+                                // Crear elemento visual de la lista
+                                const a = document.createElement('a');
+                                a.className = 'list-group-item list-group-item-action cursor-pointer';
+                                a.innerHTML = `<span class="fw-bold">${codigo}</span> - <small>${nombre}</small>`;
+                                a.href = "#";
+
+                                // Evento al seleccionar una opción
+                                a.addEventListener('click', (e) => {
+                                    e.preventDefault();
+                                    fnSeleccionarEntidadHumanos(codigo, nombre);
+                                });
+
+                                listaResultadosHumanos.appendChild(a);
+                            });
+                            listaResultadosHumanos.style.display = 'block';
+                        } else {
+                            listaResultadosHumanos.innerHTML = '<div class="list-group-item text-muted small">No se encontraron resultados</div>';
+                            listaResultadosHumanos.style.display = 'block';
+                        }
+                    })
+                    .catch(err => console.error("Error buscando dependencia:", err));
+            }, 300);
+
+            // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
+            indiceNavegacionHumanos = -1;
+        });
+    }
+
+    // --- 2. FUNCIÓN: SELECCIONAR UNA ENTIDAD ---
+    function fnSeleccionarEntidadHumanos(clave, nombre) {
+        // 1. Llenar inputs ocultos (Lo que se guarda en BD)
+        if (hdnEntClvHumanos) hdnEntClvHumanos.value = clave;
+        if (hdnEntNomHumanos) hdnEntNomHumanos.value = nombre;
+
+        // 2. Actualizar texto visual
+        if (lblEntidadTextoHumanos) lblEntidadTextoHumanos.textContent = `${clave} - ${nombre}`;
+
+        // 3. Cambiar estado visual: Ocultar buscador, Mostrar seleccionado
+        if (listaResultadosHumanos) listaResultadosHumanos.style.display = 'none';
+        if (containerBuscarHumanos) containerBuscarHumanos.classList.add('d-none');
+
+        if (containerSeleccionadoHumanos) {
+            containerSeleccionadoHumanos.classList.remove('d-none');
+            containerSeleccionadoHumanos.classList.add('d-flex');
+        }
+    }
+
+    // --- 3. FUNCIÓN: QUITAR / ELIMINAR SELECCIÓN ---
+    if (btnQuitarEntidadHumanos) {
+        btnQuitarEntidadHumanos.addEventListener('click', function () {
+            // 1. Limpiar inputs ocultos
+            if (hdnEntClvHumanos) hdnEntClvHumanos.value = '';
+            if (hdnEntNomHumanos) hdnEntNomHumanos.value = '';
+
+            // 2. Limpiar input visual
+            if (txtBuscarEntidadHumanos) txtBuscarEntidadHumanos.value = '';
+
+            // 3. Cambiar estado visual: Ocultar seleccionado, Mostrar buscador
+            if (containerSeleccionadoHumanos) {
+                containerSeleccionadoHumanos.classList.add('d-none');
+                containerSeleccionadoHumanos.classList.remove('d-flex');
+            }
+
+            if (containerBuscarHumanos) containerBuscarHumanos.classList.remove('d-none');
+
+            // 4. Poner foco para escribir de nuevo
+            setTimeout(() => txtBuscarEntidadHumanos.focus(), 100);
+        });
+    }
+
+    // --- 4. CERRAR LISTA AL DAR CLIC FUERA ---
+    document.addEventListener('click', function (e) {
+        // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
+        if (containerBuscarHumanos && !containerBuscarHumanos.contains(e.target)) {
+            listaResultadosHumanos.style.display = 'none';
         }
     });
 });

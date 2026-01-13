@@ -12,6 +12,13 @@
         display: block;
     }
 
+.list-group-item span {
+    color: #0d6efd;
+}
+.list-group-item.active span {
+    color: white;
+}
+
 .custom-tab {
     border: 1px solid #dee2e6;
     color: #053a89 !important;

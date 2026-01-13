@@ -273,6 +273,7 @@ public class ClsGenerarSolicitud
                         int filaActual = filaInicio + i;
 
                         string sPermiso;
+                        Console.WriteLine(usuario.TipPerm);
                         switch (usuario.TipPerm)
                         {
                             case Permiso.SConsult:
