@@ -35,6 +35,7 @@ public class VmSolicitud
     [Display(Name = "Número de personal")]
     public int? NNoPer { get; set; }
 
+    [Required(ErrorMessage = "El usuario es obligatorio.")]
     [Display(Name = "Usuario")]
     public string? SUsuario { get; set; }
 
@@ -51,11 +52,9 @@ public class VmSolicitud
     [Display(Name = "Nombre de Unidad Responsable")]
     public string? SUResNom { get; set; }
 
-    [Required(ErrorMessage = "La clave de región es obligatoria.")]
     [Display(Name = "Clave de la Región")]
     public int? NRegClv { get; set; }
 
-    [Required(ErrorMessage = "El nombre de región es obligatorio.")]
     [Display(Name = "Nombre de la Región")]
     public string? SRegNom { get; set; }
 
@@ -86,14 +85,15 @@ public class VmSolicitud
     public MoHumanos MoHumanos { get; set; } = new();
 
     // --- Datos Utilidad ---
-    public int? NEstatus { get; set; }
-    public Estatus Estatus =>
-        NEstatus.HasValue && Enum.IsDefined(typeof(Estatus), NEstatus.Value)
-            ? (Estatus) NEstatus.Value
-            : Estatus.SFinal;
+    public int? NEstado { get; set; } = 1;
+    public Estado Estatus =>
+        NEstado.HasValue && Enum.IsDefined(typeof(Estado), NEstado.Value)
+            ? (Estado)NEstado.Value
+            : Estado.SFinal;
     public DateTime DtFecCre { get; set; } = DateTime.Now;
     public DateTime DtUltAct { get; set; } = DateTime.Now;
     public string? SAutor { get; set; }
+    public bool BActivo { get; set; }
 
     // --- Finanzas ---
     [Display(

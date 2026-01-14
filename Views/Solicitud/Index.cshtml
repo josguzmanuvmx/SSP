@@ -22,8 +22,11 @@
     </div>
     <form id="formSolicitud"
           class="col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 m-auto d-flex flex-column gap-2 needs-validation mb-3"
-          method="post" asp-action="Guardar" data-url-preview="@Url.Action("PrevisualizarBorrador", "Solicitud")"
-          data-url-zip="@Url.Action("DescargarZipBorrador", "Solicitud")" novalidate>
+          method="post" asp-action="Guardar"
+          data-url-preview="@Url.Action("PrevisualizarBorrador", "Solicitud")"
+          data-url-zip="@Url.Action("DescargarZipBorrador", "Solicitud")"
+          data-url-guardar="@Url.Action("Guardar", "Solicitud")"
+          novalidate>
         @Html.AntiForgeryToken()
 
         <ul class="nav nav-pills nav-fill mt-3 overflow-visible stepper-container" id="pills-tab" role="tablist">
@@ -305,8 +308,8 @@
 
                                         <div class="row g-1 mt-2">
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BDirec" class="form-check-input" type="checkbox">
-                                                <label asp-for="BDirec" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BDirec" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BDirec" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BDirec)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BDirec)"></i>
@@ -314,8 +317,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BDirGen" class="form-check-input" type="checkbox">
-                                                <label asp-for="BDirGen" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BDirGen" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BDirGen" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BDirGen)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BDirGen)"></i>
@@ -323,8 +326,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BAdmin" class="form-check-input" type="checkbox">
-                                                <label asp-for="BAdmin" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BAdmin" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BAdmin" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BAdmin)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BAdmin)"></i>
@@ -332,8 +335,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BAuxAdm" class="form-check-input" type="checkbox">
-                                                <label asp-for="BAuxAdm" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BAuxAdm" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BAuxAdm" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BAuxAdm)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BAuxAdm)"></i>
@@ -341,8 +344,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BResProy" class="form-check-input" type="checkbox">
-                                                <label asp-for="BResProy" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BResProy" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BResProy" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BResProy)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BResProy)"></i>
@@ -350,8 +353,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BResCB" class="form-check-input" type="checkbox">
-                                                <label asp-for="BResCB" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BResCB" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BResCB" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BResCB)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BResCB)"></i>
@@ -359,8 +362,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BEstudi" class="form-check-input" type="checkbox">
-                                                <label asp-for="BEstudi" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BEstudi" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BEstudi" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BEstudi)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BEstudi)"></i>
@@ -368,8 +371,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BEvenIng" class="form-check-input" type="checkbox">
-                                                <label asp-for="BEvenIng" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BEvenIng" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BEvenIng" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BEvenIng)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BEvenIng)"></i>
@@ -377,8 +380,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BSuper" class="form-check-input" type="checkbox">
-                                                <label asp-for="BSuper" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BSuper" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BSuper" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BSuper)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BSuper)"></i>
@@ -386,8 +389,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BCajeros" class="form-check-input" type="checkbox">
-                                                <label asp-for="BCajeros" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BCajeros" class="form-check-input" type="checkbox">
+                                                <label asp-for="MoFinanzas.BCajeros" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BCajeros)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BCajeros)"></i>
@@ -395,8 +398,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BRevisor" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-revisor">
-                                                <label asp-for="BRevisor" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BRevisor" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-revisor">
+                                                <label asp-for="MoFinanzas.BRevisor" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BRevisor)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BRevisor)"></i>
@@ -407,8 +410,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BOtroGru" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-otro-grupo">
-                                                <label asp-for="BOtroGru" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BOtroGru" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-otro-grupo">
+                                                <label asp-for="MoFinanzas.BOtroGru" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BOtroGru)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BOtroGru)"></i>
@@ -419,8 +422,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BUrAdici" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-ur-adicional">
-                                                <label asp-for="BUrAdici" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BUrAdici" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-ur-adicional">
+                                                <label asp-for="MoFinanzas.BUrAdici" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BUrAdici)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BUrAdici)"></i>
@@ -431,8 +434,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BPermEsp" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-permiso-especifico">
-                                                <label asp-for="BPermEsp" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BPermEsp" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-permiso-especifico">
+                                                <label asp-for="MoFinanzas.BPermEsp" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BPermEsp)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BPermEsp)"></i>
@@ -443,8 +446,8 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="BPermSim" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-permiso-similar">
-                                                <label asp-for="BPermSim" class="form-check-label d-flex align-items-center gap-2">
+                                                <input asp-for="MoFinanzas.BPermSim" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-permiso-similar">
+                                                <label asp-for="MoFinanzas.BPermSim" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BPermSim)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BPermSim)"></i>
@@ -729,6 +732,8 @@
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Finalizar</h5>
                         <h6 class="text-muted">Aqui se podra guardar la solicitud con estado "Completado" ó "Borrador" con un nombre personalizado o descartarla completamente.</h6>
+
+                        <button id="btnGuardar" type="button" class="btn btn-primary shadow-sm">Guardar</button>
                     </div>
                 </div>
             </div>

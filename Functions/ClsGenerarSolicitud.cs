@@ -95,31 +95,31 @@ public class ClsGenerarSolicitud
                     }
 
                     // --- A. REVISOR (Mezclado: Negrita + Normal) ---
-                    if (vmSolicitud.BRevisor && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaRev))
+                    if (vmSolicitud.MoFinanzas.BRevisor && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaRev))
                     {
                         AgregarLineaConEstilo("REVISOR: ", vmSolicitud.MoFinanzas.SDetaRev);
                     }
 
                     // --- B. OTRO GRUPO ---
-                    if (vmSolicitud.BOtroGru && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaGru))
+                    if (vmSolicitud.MoFinanzas.BOtroGru && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaGru))
                     {
                         AgregarLineaConEstilo("OTRO GRUPO: ", vmSolicitud.MoFinanzas.SDetaGru);
                     }
 
                     // --- C. UR ADICIONAL ---
-                    if (vmSolicitud.BUrAdici && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaUrA))
+                    if (vmSolicitud.MoFinanzas.BUrAdici && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaUrA))
                     {
                         AgregarLineaConEstilo("UR adicional: ", vmSolicitud.MoFinanzas.SDetaUrA);
                     }
 
                     // --- D. PERMISO ESPECÍFICO ---
-                    if (vmSolicitud.BPermEsp && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaEsp))
+                    if (vmSolicitud.MoFinanzas.BPermEsp && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaEsp))
                     {
                         AgregarLineaConEstilo("Permiso específico: ", vmSolicitud.MoFinanzas.SDetaEsp);
                     }
 
                     // --- E. PERMISO SIMILAR ---
-                    if (vmSolicitud.BPermSim && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaSim))
+                    if (vmSolicitud.MoFinanzas.BPermSim && !string.IsNullOrWhiteSpace(vmSolicitud.MoFinanzas.SDetaSim))
                     {
                         AgregarLineaConEstilo("Permisos similares a: ", vmSolicitud.MoFinanzas.SDetaSim);
                     }
@@ -145,21 +145,21 @@ public class ClsGenerarSolicitud
                 ReemplazarCheck("{modificacion}", vmSolicitud.MoFinanzas.SFinaMov == Movimiento.SModifi);
                 ReemplazarCheck("{baja}", vmSolicitud.MoFinanzas.SFinaMov == Movimiento.SBaja);
 
-                doc.Replace("{director}", vmSolicitud.BDirec ? "x" : "", true, true);
-                doc.Replace("{dirGen}", vmSolicitud.BDirGen ? "x" : "", true, true);
-                doc.Replace("{admin}", vmSolicitud.BAdmin ? "x" : "", true, true);
-                doc.Replace("{auxAdmin}", vmSolicitud.BAuxAdm ? "x" : "", true, true);
-                doc.Replace("{resProy}", vmSolicitud.BResProy ? "x" : "", true, true);
-                doc.Replace("{resCB}", vmSolicitud.BResCB ? "x" : "", true, true);
-                doc.Replace("{estudi}", vmSolicitud.BEstudi ? "x" : "", true, true);
-                doc.Replace("{eveIng}", vmSolicitud.BEvenIng ? "x" : "", true, true);
-                doc.Replace("{super}", vmSolicitud.BSuper ? "x" : "", true, true);
-                doc.Replace("{cajeros}", vmSolicitud.BCajeros ? "x" : "", true, true);
-                doc.Replace("{revisor}", vmSolicitud.BRevisor ? "x" : "", true, true);
-                doc.Replace("{otroGrupo}", vmSolicitud.BOtroGru ? "x" : "", true, true);
-                doc.Replace("{urAdic}", vmSolicitud.BUrAdici ? "x" : "", true, true);
-                doc.Replace("{permEsp}", vmSolicitud.BPermEsp ? "x" : "", true, true);
-                doc.Replace("{asigPerm}", vmSolicitud.BPermSim ? "x" : "", true, true);
+                doc.Replace("{director}", vmSolicitud.MoFinanzas.BDirec ? "x" : "", true, true);
+                doc.Replace("{dirGen}", vmSolicitud.MoFinanzas.BDirGen ? "x" : "", true, true);
+                doc.Replace("{admin}", vmSolicitud.MoFinanzas.BAdmin ? "x" : "", true, true);
+                doc.Replace("{auxAdmin}", vmSolicitud.MoFinanzas.BAuxAdm ? "x" : "", true, true);
+                doc.Replace("{resProy}", vmSolicitud.MoFinanzas.BResProy ? "x" : "", true, true);
+                doc.Replace("{resCB}", vmSolicitud.MoFinanzas.BResCB ? "x" : "", true, true);
+                doc.Replace("{estudi}", vmSolicitud.MoFinanzas.BEstudi ? "x" : "", true, true);
+                doc.Replace("{eveIng}", vmSolicitud.MoFinanzas.BEvenIng ? "x" : "", true, true);
+                doc.Replace("{super}", vmSolicitud.MoFinanzas.BSuper ? "x" : "", true, true);
+                doc.Replace("{cajeros}", vmSolicitud.MoFinanzas.BCajeros ? "x" : "", true, true);
+                doc.Replace("{revisor}", vmSolicitud.MoFinanzas.BRevisor ? "x" : "", true, true);
+                doc.Replace("{otroGrupo}", vmSolicitud.MoFinanzas.BOtroGru ? "x" : "", true, true);
+                doc.Replace("{urAdic}", vmSolicitud.MoFinanzas.BUrAdici ? "x" : "", true, true);
+                doc.Replace("{permEsp}", vmSolicitud.MoFinanzas.BPermEsp ? "x" : "", true, true);
+                doc.Replace("{asigPerm}", vmSolicitud.MoFinanzas.BPermSim ? "x" : "", true, true);
 
                 // ============================================
                 // D. CONVERSIÓN A PDF

@@ -52,7 +52,7 @@ public enum Permiso
     SManteni,
 }
 
-public enum Estatus
+public enum Estado
 {
     [Display(Name = "Pendiente")]
     SPend = 1,
@@ -83,41 +83,50 @@ public class MoSolicitud
     [Column("nUResClv")]
     public int? NUResClv { get; set; }
 
-    [Column("sUResNom")]
-    public string? SUResNom { get; set; }
-
     [Column("nRegClv")]
     public int? NRegClv { get; set; }
 
     [Column("sPueEmpl")]
     public string? SPueEmpl { get; set; }
 
-    // --- Datos Diccionarios ---
-
-    [Column("dcEstu")]
-    public MoEstudiantes MoEstudiantes { get; set; } = new();
-    
-    [Column("dcFina")]
-    public MoFinanzas MoFinanzas { get; set; } = new();
-
-    [Column("dcHuma")]
-    public MoHumanos MoHumanos { get; set; } = new();
-
-
     // --- Datos Utilidad ---
 
-    [Column("nEstatus")]
-    public int? nEstatus { get; set; }
+    [Column("nEstado")]
+    public int? NEstado { get; set; }
 
     [Column("dtFecCre")]
-    public DateTime DtFecCre { get; set; } = DateTime.Now;
+    public DateTime DtFecCre { get; set; }
 
     [Column("dtUltAct")]
-    public DateTime DtUltAct { get; set; } = DateTime.Now;
+    public DateTime DtUltAct { get; set; }
 
     [Column("sAutor")]
     public string? SAutor { get; set; }
-    public bool BActivo { get; set; } = true;
+
+    [Column("bActivo")]
+    public bool BActivo { get; set; }
 
     // ---
+
+    // --- Datos Diccionarios ---
+
+    [Column("dcEstu")]
+    public string? DcEstuJson { get; set; }
+
+    [Column("dcFina")]
+    public string? DcFinaJson { get; set; }
+
+    [Column("dcHuma")]
+    public string? DcHumaJson { get; set; }
+
+    // Usado en ViewModel
+
+    [NotMapped]
+    public MoEstudiantes? MoEstudiantes { get; set; }
+
+    [NotMapped]
+    public MoFinanzas? MoFinanzas { get; set; }
+
+    [NotMapped]
+    public MoHumanos? MoHumanos { get; set; }
 }

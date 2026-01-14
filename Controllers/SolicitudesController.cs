@@ -17,23 +17,39 @@ public class SolicitudesController : Controller
         _encrypt = new ClsEncrypt(config);
     }
 
-    [HttpGet]
     public IActionResult Index()
     {
-        var lsVmSolicitud = new List<VmSolicitud>();
-        var lsMoSolicitud = new List<MoSolicitud>();
+        // 1. Obtener la lista cruda de la base de datos
+        List<MoSolicitud> listaBd = _daSolicitud.Obtener();
 
-        foreach (var moSolicitud in lsMoSolicitud)
+        // 2. Mapeo Manual (DB Entity -> ViewModel)
+        // Usamos .Select() para proyectar cada elemento
+        List<VmSolicitud> listaVm = listaBd.Select(dbItem => new VmSolicitud
         {
-            string sIdEncrypt = _encrypt.FnsEncripta(moSolicitud.NId.ToString())?.SEncript ?? "";
+            // Convertimos el ID numérico a string (o a Hash si usas encriptación)
+            SId = dbItem.NId.ToString(),
 
-            VmSolicitud vmSolicitud = new()
-            {
-                SId = sIdEncrypt
-            };
+            // Mapeo directo de propiedades simples
+            SNomEmpl = dbItem.SNomEmpl,
+            NNoPer = dbItem.NNoPer,
+            SUsuario = dbItem.SUsuario,
+            SCorreo = dbItem.SCorreo,
 
-            lsVmSolicitud.Add(vmSolicitud);
-        }
-        return View(lsVmSolicitud);
+            // Datos de la dependencia
+            NUResClv = dbItem.NUResClv,
+            // Como la tabla solo tiene la Clave, ponemos la clave en el Nombre 
+            // (O aquí harías una búsqueda en tu catálogo de dependencias)
+            SUResNom = dbItem.NUResClv.ToString(),
+
+            // Estatus y Fechas
+            NEstado = dbItem.NEstado,
+            DtFecCre = dbItem.DtFecCre,
+
+            // No es necesario deserializar los JSON (dcFina, dcEstu) para el listado principal
+            // Esto hace que la carga sea mucho más rápida.
+        }).OrderByDescending(x => x.DtFecCre).ToList();
+
+        // 3. Mandamos la lista ya convertida a la vista
+        return View(listaVm);
     }
 }

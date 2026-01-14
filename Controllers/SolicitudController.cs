@@ -5,9 +5,10 @@ using SSP.Extensions;
 using SSP.Functions;
 using SSP.Models;
 using SSP.ViewModels;
+using System.ComponentModel.DataAnnotations;
 using System.IO.Compression;
 using System.Reflection;
-using System.ComponentModel.DataAnnotations;
+using System.Text.Json;
 
 [Authorize(Policy = "ModulosPolicy")]
 public class SolicitudController : Controller
@@ -32,98 +33,203 @@ public class SolicitudController : Controller
         return View(new VmSolicitud());
     }
 
-    [HttpGet]
-    public IActionResult Agregar()
+    [HttpPost]
+    [ValidateAntiForgeryToken] // 1. Seguridad contra ataques CSRF
+    public async Task<IActionResult> Guardar(VmSolicitud vm)
     {
-        //var vmSolicitudAct = new VmSolicitudAct
-        //{
-        //    vmSolicitud = new VmSolicitud(),
-        //    lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
-        //                    .Cast<ClsSprfmActividades>()
-        //                    .Select(a => new ClslActividades
-        //                    {
-        //                        SNombre = a.GetDisplayName(),
-        //                        SDescripcion = a.GetDescription()
-        //                    })
-        //                    .ToList()
-        //};
-        return View("Index", new VmSolicitud());
+        // 1. Validar estado del modelo (Back-end validation)
+        // Nota: Ignoramos errores de propiedades complejas si las vamos a construir manualmente
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            return Json(new { success = false, message = "Datos incompletos", errors = errors });
+        }
+
+        try
+        {
+            // 2. Crear la Entidad de BD
+            var solicitudDb = new MoSolicitud
+            {
+                // Datos Raíz
+                SNomEmpl = vm.SNomEmpl,
+                NNoPer = vm.NNoPer,
+                SUsuario = vm.SUsuario,
+                SCorreo = vm.SCorreo,
+                NUResClv = vm.NUResClv,
+                NRegClv = vm.NRegClv,
+                SPueEmpl = vm.SPueEmpl,
+
+                // Datos de Control
+                NEstado = vm.NEstado ?? 1,
+                DtFecCre = DateTime.Now,
+                DtUltAct = DateTime.Now,
+                SAutor = User.Identity?.Name ?? "Sistema",
+                BActivo = true,
+
+                // 4. SERIALIZACIÓN JSON (Aquí convertimos los objetos a string)
+
+                // Estudiantes
+                DcEstuJson = JsonSerializer.Serialize(vm.MoEstudiantes),
+
+                // Finanzas (Usamos el objeto que llenamos arriba)
+                DcFinaJson = JsonSerializer.Serialize(vm.MoFinanzas),
+
+                // Humanos
+                DcHumaJson = JsonSerializer.Serialize(vm.MoHumanos)
+            };
+
+            // 3. Guardar en Base de Datos
+            // Asumiendo que usas Entity Framework y tu contexto se llama _context
+            _daSolicitud.Agregar(solicitudDb);
+
+            return Json(new { success = true, message = "Solicitud guardada correctamente." });
+        }
+        catch (Exception ex)
+        {
+            // Log error (Console.WriteLine(ex.Message));
+            return Json(new { success = false, message = "Error interno: " + ex.Message });
+        }
     }
 
     [HttpGet]
-    public IActionResult Editar(string sId)
+    public IActionResult Editar(string id)
     {
-        //var vmSolicitudAct = new VmSolicitudAct
-        //{
-        //    vmSolicitud = new VmSolicitud(),
-        //    lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
-        //                    .Cast<ClsSprfmActividades>()
-        //                    .Select(a => new ClslActividades
-        //                    {
-        //                        SNombre = a.GetDisplayName(),
-        //                        SDescripcion = a.GetDescription()
-        //                    })
-        //                    .ToList()
-        //};
-        return View("Index", new VmSolicitud());
-    }
+        // 1. Validaciones básicas del ID
+        if (string.IsNullOrEmpty(id) || !int.TryParse(id, out int nId))
+        {
+            return RedirectToAction("Index", "Inicio");
+        }
 
+        // 2. Buscar en BD usando tu DataAccess
+        var dbItem = _daSolicitud.ObtenerPorId(nId);
+
+        if (dbItem == null) return NotFound();
+
+        // 3. Mapeo Manual: BD Entity -> ViewModel
+        var vm = new VmSolicitud
+        {
+            SId = dbItem.NId.ToString(), // El ID para saber qué estamos editando
+
+            // Datos planos
+            SNomEmpl = dbItem.SNomEmpl,
+            NNoPer = dbItem.NNoPer,
+            SUsuario = dbItem.SUsuario,
+            SCorreo = dbItem.SCorreo,
+            NUResClv = dbItem.NUResClv,
+
+            // Casteo de Int a Enum para la vista
+            Region = dbItem.NRegClv.HasValue ? (Region)dbItem.NRegClv.Value : Region.SXal,
+
+            SPueEmpl = dbItem.SPueEmpl,
+            NEstado = dbItem.NEstado,
+            BActivo = dbItem.BActivo
+            // Nota: DtFecCre y SAutor no se suelen editar, así que no es obligatorio pasarlos, 
+            // pero puedes hacerlo si los muestras como "readonly" en la vista.
+        };
+
+        // 4. DESERIALIZACIÓN (La parte clave)
+        // Convertimos el texto JSON de la BD de vuelta a Objetos C#
+
+        // A. Finanzas
+        if (!string.IsNullOrEmpty(dbItem.DcFinaJson))
+        {
+            try
+            {
+                vm.MoFinanzas = JsonSerializer.Deserialize<MoFinanzas>(dbItem.DcFinaJson) ?? new MoFinanzas();
+            }
+            catch { vm.MoFinanzas = new MoFinanzas(); }
+        }
+        else { vm.MoFinanzas = new MoFinanzas(); } // Inicializar vacío para evitar null reference en la vista
+
+        // B. Estudiantes
+        if (!string.IsNullOrEmpty(dbItem.DcEstuJson))
+        {
+            try
+            {
+                vm.MoEstudiantes = JsonSerializer.Deserialize<MoEstudiantes>(dbItem.DcEstuJson) ?? new MoEstudiantes();
+            }
+            catch { vm.MoEstudiantes = new MoEstudiantes(); }
+        }
+        else { vm.MoEstudiantes = new MoEstudiantes(); }
+
+        // C. Humanos
+        if (!string.IsNullOrEmpty(dbItem.DcHumaJson))
+        {
+            try
+            {
+                vm.MoHumanos = JsonSerializer.Deserialize<MoHumanos>(dbItem.DcHumaJson) ?? new MoHumanos();
+            }
+            catch { vm.MoHumanos = new MoHumanos(); }
+        }
+        else { vm.MoHumanos = new MoHumanos(); }
+
+        // 5. Retornar la vista (Reutilizamos la misma vista Index/Formulario)
+        return View("Index", vm);
+    }
 
     [HttpPost]
-    public async Task<IActionResult> GuardarBorrador(VmSolicitud modeloRecibido)
+    [ValidateAntiForgeryToken]
+    public IActionResult Actualizar(VmSolicitud vm)
     {
-        //try
-        //{
-        //    // Accedemos a los datos
-        //    var datos = modeloRecibido.vmSprfm;
+        // 1. Validar Modelo
+        if (!ModelState.IsValid)
+        {
+            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
+            return Json(new { success = false, message = "Datos inválidos", errors = errors });
+        }
 
-        //    // Mapeamos a la entidad (Aquí usa tu lógica de mapeo habitual)
-        //    var solicitud = new MoSolicitud
-        //    {
-        //        // Datos básicos (incluso si son nulos, permitimos guardarlos como borrador)
-        //        NombreEmpleado = datos.SNombreEmpleado,
-        //        UnidadResponsableClave = datos.NUnidadResponsableClave,
-        //        // ... resto de campos ...
+        try
+        {
+            // 2. Obtener y Validar ID
+            if (string.IsNullOrEmpty(vm.SId) || !int.TryParse(vm.SId, out int nId))
+            {
+                return Json(new { success = false, message = "ID de solicitud inválido." });
+            }
 
-        //        // IMPORTANTE: Marcamos el estado
-        //        Estado = "Borrador",
-        //        FechaSolicitud = DateTime.Now
-        //    };
+            // 3. Recuperar la entidad ORIGINAL de la BD
+            // Esto es vital para mantener el ID, SAutor y DtFecCre originales
+            var solicitudDb = _daSolicitud.ObtenerPorId(nId);
 
-        //    // Guardamos en BD
-        //    _context.Solicitudes.Add(solicitud);
-        //    await _context.SaveChangesAsync();
+            if (solicitudDb == null)
+            {
+                return Json(new { success = false, message = "La solicitud no existe o fue eliminada." });
+            }
 
-        //    return Json(new { success = true, message = "Borrador guardado correctamente." });
-        //}
-        //catch (Exception ex)
-        //{
-        //    return Json(new { success = false, message = "Error al guardar borrador: " + ex.Message });
-        //}
-        return Json(new { success = true, message = "Borrador guardado correctamente." });
+            // 4. Actualizar campos planos (Sobreescribimos con lo que viene del form)
+            solicitudDb.SNomEmpl = vm.SNomEmpl;
+            solicitudDb.NNoPer = vm.NNoPer;
+            solicitudDb.SUsuario = vm.SUsuario;
+            solicitudDb.SCorreo = vm.SCorreo;
+            solicitudDb.NUResClv = vm.NUResClv;
+            solicitudDb.NRegClv = vm.NRegClv; // El setter del VM ya convirtió el Enum a Int
+            solicitudDb.SPueEmpl = vm.SPueEmpl;
+
+            // Actualizamos metadatos de modificación
+            solicitudDb.DtUltAct = DateTime.Now;
+            solicitudDb.BActivo = true; // O vm.BActivo si permites desactivar desde aquí
+
+            // 5. SERIALIZACIÓN JSON (Convertir Objetos -> String)
+            // Como ya no usas booleanos sueltos, serializamos directo el objeto del VM
+
+            // Estudiantes
+            solicitudDb.DcEstuJson = JsonSerializer.Serialize(vm.MoEstudiantes);
+
+            // Finanzas
+            solicitudDb.DcFinaJson = JsonSerializer.Serialize(vm.MoFinanzas);
+
+            // Humanos
+            solicitudDb.DcHumaJson = JsonSerializer.Serialize(vm.MoHumanos);
+
+            // 6. Guardar cambios en BD
+            _daSolicitud.Actualizar(solicitudDb);
+
+            return Json(new { success = true, message = "Solicitud actualizada correctamente." });
+        }
+        catch (Exception ex)
+        {
+            return Json(new { success = false, message = "Error al actualizar: " + ex.Message });
+        }
     }
-
-    //public IActionResult Index()
-    //{
-    //    var modelo = new VmSprfmAct
-    //    {
-    //        // Inicializamos el formulario vacío
-    //        vmSprfm = new VmSoliSprfm(),
-
-    //        // 2. ¡AQUÍ ESTÁ LA MAGIA!
-    //        // Convertimos el Enum en una lista de objetos para la vista
-    //        lsActividades = Enum.GetValues(typeof(ClsSprfmActividades))
-    //                        .Cast<ClsSprfmActividades>()
-    //                        .Select(a => new ItemActividad
-    //                        {
-    //                            SNombre = a.GetDisplayName(),
-    //                            SDescripcion = a.GetDescription() // Aquí recuperamos el HTML de la lista
-    //                        })
-    //                        .ToList()
-    //    };
-
-    //    return View(modelo);
-    //}
 
     [HttpGet]
     public IActionResult BuscarUsuarios(string sUsuario)

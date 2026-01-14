@@ -210,29 +210,61 @@
     //    hayCambiosSinGuardar = false;
     //    window.location.href = urlDestino;
     //});
-    //document.getElementById('btn-guardar-borrador').addEventListener('click', async function () {
-    //    const btn = this;
-    //    btn.disabled = true;
-    //    btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-    //    const formData = new FormData(form);
-    //    try {
-    //        const response = await fetch('@Url.Action("GuardarBorrador", "Solicitud")', {
-    //            method: 'POST',
-    //            body: formData
-    //        });
-    //        const result = await response.json();
-    //        if (result.success) {
-    //            hayCambiosSinGuardar = false;
-    //            window.location.href = urlDestino; // Éxito -> Ir a Inicio
-    //        } else {
-    //            alert("Error: " + result.message);
-    //            btn.disabled = false;
-    //        }
-    //    } catch (error) {
-    //        alert("Error de red");
-    //        btn.disabled = false;
-    //    }
-    //});
+
+    // ============================
+    // FORMULARIO GUARDARSOLICITUD
+    // ============================
+    const btnGuardar = document.getElementById('btnGuardar');
+
+    btnGuardar.addEventListener('click', async function () {
+        const btn = this;
+
+        // 1. Validar formulario visualmente antes de enviar (Opcional pero recomendado)
+        // if (!document.getElementById('formSolicitud').checkValidity()) { ... }
+
+        // 2. Bloquear botón
+        const textoOriginal = btn.innerHTML;
+        btn.disabled = true;
+        btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
+
+        const form = document.getElementById('formSolicitud');
+        const formData = new FormData(form);
+        const urlAction = form.getAttribute('data-url-guardar') || form.action; // Asegúrate de tener la URL
+
+        try {
+            const response = await fetch(urlAction, {
+                method: 'POST',
+                body: formData
+            });
+
+            const result = await response.json();
+
+            if (result.success) {
+                // Éxito
+                // Usar SweetAlert si lo tienes, sino alert normal
+                if (typeof Swal !== 'undefined') {
+                    Swal.fire('¡Éxito!', result.message, 'success').then(() => {
+                        window.location.href = '/Inicio'; // O recargar
+                    });
+                } else {
+                    alert("Guardado correctamente");
+                    window.location.reload();
+                }
+            } else {
+                // Error de lógica (validación)
+                let msg = result.message;
+                if (result.errors) msg += "\n" + result.errors.join("\n");
+                alert("Atención: " + msg);
+            }
+        } catch (error) {
+            console.error(error);
+            alert("Error de conexión con el servidor.");
+        } finally {
+            // Restaurar botón siempre
+            btn.disabled = false;
+            btn.innerHTML = textoOriginal;
+        }
+    });
     // ----------
 
     //const btnManual = document.getElementById('btnManual');
@@ -594,7 +626,7 @@
         const formData = new FormData(formSolicitud);
         formData.append('sTipo', tipoDocumento);
 
-        if (loader) loader.classList.add('d-none');
+        // if (loader) loader.classList.add('d-none');
 
         try {
             const response = await fetch(urlAction, {
@@ -1161,6 +1193,20 @@
         let primerInvalido = null;
 
         inputs.forEach(input => {
+            // 1. FILTRO DE SECCIÓN ACTIVA
+            if (input.closest('#pills-estudiantes')) {
+                const chk = document.getElementById('txtEstuAct');
+                if (chk && !chk.checked) return;
+            }
+            if (input.closest('#pills-finanzas')) {
+                const chk = document.getElementById('txtFinaAct');
+                if (chk && !chk.checked) return;
+            }
+            if (input.closest('#pills-humanos')) {
+                const chk = document.getElementById('txtHumaAct');
+                if (chk && !chk.checked) return;
+            }
+
             // Ignorar inputs hidden reales (como Token, etc) a menos que sean nuestros custom inputs
             if (input.type === 'hidden' && !input.classList.contains('input-validation-error')) return;
 
