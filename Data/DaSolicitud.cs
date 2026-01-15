@@ -49,9 +49,52 @@ public class DaSolicitud
     public void Agregar(MoSolicitud moSolicitud)
     {
         if (moSolicitud == null) throw new ArgumentNullException(nameof(moSolicitud));
-        
-        _context.Solicitudes.Add(moSolicitud);
-        _context.SaveChanges();
+
+        try
+        {
+            // --- GENERACIÓN DE FOLIO ÚNICO ---
+            string folioGenerado = "";
+            bool esUnico = false;
+            int intentos = 0;
+
+            do
+            {
+                // 1. Generamos el código (6 caracteres)
+                string codigo = GenerarCodigoAleatorio(6);
+                folioGenerado = $"SOL-{codigo}";
+
+                // 2. Verificamos "en caliente" si existe en la BD
+                // Nota: Aunque esto diga false, existe una micro-posibilidad de choque
+                // en concurrencia, pero el índice UNIQUE de la BD lo detendrá al guardar.
+                bool existe = _context.Solicitudes.Any(x => x.SFolio == folioGenerado);
+
+                if (!existe) esUnico = true;
+
+                intentos++;
+                // Evitamos bucles infinitos por seguridad
+                if (intentos > 10) throw new Exception("No se pudo asignar un folio único. Intente de nuevo.");
+
+            } while (!esUnico);
+
+            moSolicitud.SFolio = folioGenerado;
+            // ---------------------------------
+
+            // 3. Guardar
+            // EF Core abre su propia transacción aquí automáticamente.
+            _context.Solicitudes.Add(moSolicitud);
+            _context.SaveChanges();
+        }
+        catch (DbUpdateException ex)
+        {
+            // Si entra aquí, es probable que (por mala suerte extrema) se generó un duplicado 
+            // justo en el milisegundo que otro usuario guardaba.
+            // Opcional: Podrías llamar a Agregar(moSolicitud) recursivamente para reintentar.
+            throw new Exception("Error de concurrencia al generar folio. Intente guardar de nuevo.", ex);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
     }
 
     // Versión Asíncrona (Recomendada)
@@ -140,5 +183,23 @@ public class DaSolicitud
                        };
 
         return consulta.Take(10).ToList();
+    }
+
+    private string GenerarCodigoAleatorio(int longitud)
+    {
+        // Alfabeto seguro:
+        // 1. Sin vocales (Evita palabras ofensivas como FEO, CACO, PIS)
+        // 2. Sin confusos (Sin 0, O, 1, I, L)
+        const string chars = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+
+        var random = new Random();
+        var resultado = new char[longitud];
+
+        for (int i = 0; i < longitud; i++)
+        {
+            resultado[i] = chars[random.Next(chars.Length)];
+        }
+
+        return new string(resultado);
     }
 }

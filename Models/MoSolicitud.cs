@@ -66,6 +66,9 @@ public class MoSolicitud
     [Column("nId")]
     public int NId { get; set; }
 
+    [Column("sFolio")]
+    public string? SFolio { get; set; }
+
     // --- Pestaña 1: Datos del Usuario ---
 
     [Column("sNomEmpl")]

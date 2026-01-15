@@ -3,8 +3,6 @@ using System.ComponentModel.DataAnnotations;
 
 public enum ClsCatalogoDependencias
 {
-    [Display(Name = "CÓDIGO", Description = "DEPENDENCIA")]
-    DCÓDIGO,
     [Display(Name = "11101", Description = "UNIDAD ACADÉMICA DE INGENIERÍA Y CIENCIAS QUÍMICAS")]
     D11101,
     [Display(Name = "11102", Description = "FACULTAD DE INGENIERÍA CIVIL")]

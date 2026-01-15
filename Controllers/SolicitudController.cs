@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authorization;
+﻿using DocumentFormat.OpenXml;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using SSP.Data;
 using SSP.Extensions;
@@ -92,23 +93,69 @@ public class SolicitudController : Controller
     }
 
     [HttpGet]
-    public IActionResult Editar(string id)
+    public IActionResult Editar(string sId)
     {
-        // 1. Validaciones básicas del ID
-        if (string.IsNullOrEmpty(id) || !int.TryParse(id, out int nId))
+        // 1. VALIDACIÓN Y DESENCRIPTACIÓN DEL ID
+        if (string.IsNullOrEmpty(sId))
         {
-            return RedirectToAction("Index", "Inicio");
+            return RedirectToAction("Index", "Solicitudes");
         }
 
-        // 2. Buscar en BD usando tu DataAccess
+        int nId = 0;
+        try
+        {
+            // A. Restaurar caracteres URL (por si el navegador cambió + por espacio)
+            string idLimpio = Uri.UnescapeDataString(sId);
+
+            // B. Desencriptar usando tu clase
+            string idDesencriptado = _encrypt.FnsDesEncripta(idLimpio);
+
+            // C. Convertir a entero real (Ahora sí funcionará)
+            if (!int.TryParse(idDesencriptado, out nId))
+            {
+                return RedirectToAction("Index", "Solicitud");
+            }
+        }
+        catch (Exception)
+        {
+            // Si el usuario manipuló la URL y el hash es inválido
+            return RedirectToAction("Index", "Solicitud");
+        }
+
+        // 2. BUSCAR EN BD
         var dbItem = _daSolicitud.ObtenerPorId(nId);
 
         if (dbItem == null) return NotFound();
 
-        // 3. Mapeo Manual: BD Entity -> ViewModel
-        var vm = new VmSolicitud
+        Region enumValue = dbItem.NRegClv.HasValue
+                       ? (Region)dbItem.NRegClv.Value
+                       : Region.SXal;
+
+        // Ahora aplicamos tu lógica de Reflection para obtener el Nombre y el Código
+        // Nota: Agregué 'FirstOrDefault()' para seguridad y el 'using' necesario
+        string sRegNom = enumValue.GetType()
+                            .GetMember(enumValue.ToString())
+                            .FirstOrDefault()? // Usar FirstOrDefault evita crash si algo raro pasa
+                            .GetCustomAttribute<System.ComponentModel.DataAnnotations.DisplayAttribute>()?
+                            .Name ?? enumValue.ToString();
+
+        // Si también necesitas la clave personalizada (ClsClaveRegion)
+        string sRegClv = enumValue.GetType()
+                            .GetMember(enumValue.ToString())
+                            .FirstOrDefault()?
+                            .GetCustomAttribute<ClsClaveRegion>()?
+                            .Codigo ?? string.Empty;
+
+        // 3. MAPEO MANUAL: BD Entity -> ViewModel
+        var vmSolicitud = new VmSolicitud
         {
-            SId = dbItem.NId.ToString(), // El ID para saber qué estamos editando
+            // IMPORTANTE: Volvemos a ENCRIPTAR el ID para mandarlo a la vista.
+            // Así, el <input type="hidden" asp-for="SId" /> tendrá el valor seguro
+            // y cuando des clic en "Guardar", el método Actualizar recibirá el ID encriptado.
+            SId = Uri.EscapeDataString(_encrypt.FnsEncripta(dbItem.NId.ToString())?.SEncript ?? ""),
+
+            // Pasamos el folio para mostrarlo en el título (ej: "Editando Solicitud SOL-2024...")
+            SFolio = dbItem.SFolio,
 
             // Datos planos
             SNomEmpl = dbItem.SNomEmpl,
@@ -116,55 +163,34 @@ public class SolicitudController : Controller
             SUsuario = dbItem.SUsuario,
             SCorreo = dbItem.SCorreo,
             NUResClv = dbItem.NUResClv,
+            SUResNom = Enum.GetValues(typeof(ClsCatalogoDependencias))
+                   .Cast<ClsCatalogoDependencias>()
+                   .Where(x => int.Parse(x.GetDisplayName()) == dbItem.NUResClv) // Asumiendo que GetDisplayName() devuelve el número como string "100", "110"
+                   .Select(x => x.GetDescription()) // Obtenemos el nombre "Facultad de X"
+                   .FirstOrDefault() ?? "Dependencia no encontrada",
 
-            // Casteo de Int a Enum para la vista
+            // Casteo de Int a Enum
+            
+
             Region = dbItem.NRegClv.HasValue ? (Region)dbItem.NRegClv.Value : Region.SXal,
+
+            SRegNom = sRegNom,
+
+            NRegClv = dbItem.NRegClv,
 
             SPueEmpl = dbItem.SPueEmpl,
             NEstado = dbItem.NEstado,
-            BActivo = dbItem.BActivo
-            // Nota: DtFecCre y SAutor no se suelen editar, así que no es obligatorio pasarlos, 
-            // pero puedes hacerlo si los muestras como "readonly" en la vista.
+            BActivo = dbItem.BActivo,
+
+            MoFinanzas = JsonSerializer.Deserialize<MoFinanzas>(dbItem.DcFinaJson),
+            MoEstudiantes = JsonSerializer.Deserialize<MoEstudiantes>(dbItem.DcEstuJson),
+            MoHumanos = JsonSerializer.Deserialize<MoHumanos>(dbItem.DcHumaJson)
         };
 
-        // 4. DESERIALIZACIÓN (La parte clave)
-        // Convertimos el texto JSON de la BD de vuelta a Objetos C#
-
-        // A. Finanzas
-        if (!string.IsNullOrEmpty(dbItem.DcFinaJson))
-        {
-            try
-            {
-                vm.MoFinanzas = JsonSerializer.Deserialize<MoFinanzas>(dbItem.DcFinaJson) ?? new MoFinanzas();
-            }
-            catch { vm.MoFinanzas = new MoFinanzas(); }
-        }
-        else { vm.MoFinanzas = new MoFinanzas(); } // Inicializar vacío para evitar null reference en la vista
-
-        // B. Estudiantes
-        if (!string.IsNullOrEmpty(dbItem.DcEstuJson))
-        {
-            try
-            {
-                vm.MoEstudiantes = JsonSerializer.Deserialize<MoEstudiantes>(dbItem.DcEstuJson) ?? new MoEstudiantes();
-            }
-            catch { vm.MoEstudiantes = new MoEstudiantes(); }
-        }
-        else { vm.MoEstudiantes = new MoEstudiantes(); }
-
-        // C. Humanos
-        if (!string.IsNullOrEmpty(dbItem.DcHumaJson))
-        {
-            try
-            {
-                vm.MoHumanos = JsonSerializer.Deserialize<MoHumanos>(dbItem.DcHumaJson) ?? new MoHumanos();
-            }
-            catch { vm.MoHumanos = new MoHumanos(); }
-        }
-        else { vm.MoHumanos = new MoHumanos(); }
-
-        // 5. Retornar la vista (Reutilizamos la misma vista Index/Formulario)
-        return View("Index", vm);
+        // 5. RETORNAR LA VISTA
+        // Asegúrate de que "Index" sea la vista donde está tu formulario.
+        // Si tu formulario está en una vista llamada "Crear.cshtml" o "Formulario.cshtml", cámbialo aquí.
+        return View("Index", vmSolicitud);
     }
 
     [HttpPost]

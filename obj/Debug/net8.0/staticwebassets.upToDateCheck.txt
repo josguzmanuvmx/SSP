@@ -6,6 +6,7 @@ wwwroot\css\Estilos\cssLogin.css
 wwwroot\css\Estilos\cssSeleccion.css
 wwwroot\css\Estilos\cssSiisu.css
 wwwroot\css\Estilos\cssSolicitud.css
+wwwroot\css\Estilos\cssSolicitudes.css
 wwwroot\css\Estilos\cssSprfm.css
 wwwroot\css\site.css
 wwwroot\favicon.ico
@@ -14,6 +15,7 @@ wwwroot\images\Logueo.jpg
 wwwroot\images\Logueo2.jpg
 wwwroot\images\LogueoHD.jpg
 wwwroot\images\Logueo_Egresados.jpg
+wwwroot\images\USII-CROP.png
 wwwroot\images\USII-GIF.gif
 wwwroot\js\Scripts\jsAgregarEditarEmpleado.js
 wwwroot\js\Scripts\jsCrearSolicitud.js
@@ -24,6 +26,7 @@ wwwroot\js\Scripts\jsLogin.js
 wwwroot\js\Scripts\jsSeleccion.js
 wwwroot\js\Scripts\jsSiisu.js
 wwwroot\js\Scripts\jsSolicitud.js
+wwwroot\js\Scripts\jsSolicitudes.js
 wwwroot\js\Scripts\jsSprfm.js
 wwwroot\js\site.js
 wwwroot\lib\bootstrap\css\bootstrap-grid.css

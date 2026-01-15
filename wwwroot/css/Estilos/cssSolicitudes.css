@@ -1,0 +1,35 @@
+﻿﻿#tblSolicitudes_wrapper .dataTables_paginate {
+    margin-top: .6rem;
+}
+
+#tblSolicitudes_wrapper .dataTables_info {
+    margin-top: -.2rem;
+}
+
+#tblSolicitudes_filter, #tblSolicitudes_wrapper > div:nth-child(1) {
+    display: none;
+}
+
+#tblSolicitudes_info {
+    color: #026ad5;
+}
+
+.hover-scale {
+    transition: transform 0.2s;
+}
+
+    .hover-scale:hover {
+        transform: scale(1.1);
+    }
+/* Colores suaves para los badges */
+.badge-pendiente {
+    background-color: #fff3cd;
+    color: #856404;
+    border: 1px solid #ffeeba;
+}
+
+.badge-finalizado {
+    background-color: #d1e7dd;
+    color: #0f5132;
+    border: 1px solid #badbcc;
+}

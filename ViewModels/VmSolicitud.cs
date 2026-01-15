@@ -24,6 +24,7 @@ public class ItemDependencia
 public class VmSolicitud
 {
     public string? SId { get; set; }
+    public string? SFolio { get; set; }
 
     // --- Pestaña 1: Datos del Usuario ---
 

@@ -1,6 +1,9 @@
 ﻿@using SSP.ViewModels;
 @using SSP.Models;
 @model VmSolicitud
+@{
+    ViewData["Title"] = "Generar Solicitud";
+}
 @section Styles {
     <link rel="stylesheet" href="~/css/Estilos/cssSolicitud.css" asp-append-version="true" />
 }
@@ -12,10 +15,10 @@
     bool bDocActivo = Model.MoEstudiantes!.BActivo || Model.MoFinanzas!.BActivo || Model.MoHumanos!.BActivo;
 }
 
-<div class="container-fluid text-start">
+<div class="container-fluid">
     <br />
     <div class="col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 m-auto d-flex gap-3 align-items-center" style="min-height: 3rem;">
-        <a id="btnRegresar" class="btn btn-secondary d-flex p-2" asp-controller="Inicio" asp-action="Index">
+        <a id="btnRegresar" class="btn btn-outline-secondary d-flex p-2" asp-controller="Inicio" asp-action="Index">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <h4 class="text-start m-0">Solicitud</h4>
@@ -123,6 +126,8 @@
                                     <select asp-for="Region" class="form-select bg-light" asp-items="Html.GetEnumSelectList<Region>()" tabindex="-1" disabled></select>
                                     <span asp-validation-for="Region" class="text-danger"></span>
                                     <input type="hidden" asp-for="Region" required />
+                                    <input asp-for="NRegClv" required />
+                                    <input asp-for="SRegNom" required />
 
                                 </div>
                             </div>
@@ -145,14 +150,14 @@
                                 <label class="col-md-4 col-form-label">Unidad Responsable</label>
                                 <div class="col-md-8">
 
-                                    <input type="hidden" asp-for="NUResClv" id="hdnEntClv" required />
-                                    <input type="hidden" asp-for="SUResNom" id="hdnEntNom" required />
+                                    <input asp-for="NUResClv" id="hdnEntClv" required />
+                                    <input asp-for="SUResNom" id="hdnEntNom" required />
 
                                     @{
-                                        bool tieneSeleccion = Model.MoHumanos != null && Model.MoHumanos.NEntClv > 0;
+                                        bool tieneSeleccion = Model != null && Model.NUResClv > 0;
                                         string claseBusqueda = tieneSeleccion ? "d-none" : "";
                                         string claseSeleccion = tieneSeleccion ? "d-flex" : "d-none";
-                                        string textoSeleccionado = tieneSeleccion ? $"{Model.MoHumanos.NEntClv} - {Model.MoHumanos.SEntNomb}" : "";
+                                        string textoSeleccionado = tieneSeleccion ? $"{Model.NUResClv} - {Model.SUResNom}" : "";
                                     }
 
                                     <div id="container-buscar-entidad" class="position-relative @claseBusqueda">
