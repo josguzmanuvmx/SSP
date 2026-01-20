@@ -12,12 +12,16 @@
         display: block;
     }
 
-.list-group-item span {
+.list-group-item .codigo, .list-group-item {
     color: #0d6efd;
 }
-.list-group-item.active span {
-    color: white;
+.list-group-item {
+    color: black;
 }
+    .list-group-item.active, .list-group-item.active .codigo {
+        color: white !important;
+    }
+
 
 .custom-tab {
     border: 1px solid #dee2e6;

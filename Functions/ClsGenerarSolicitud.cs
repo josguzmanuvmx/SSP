@@ -9,6 +9,7 @@ using Syncfusion.DocIORenderer;
 using Syncfusion.Pdf;
 using Syncfusion.XlsIO;
 using Syncfusion.XlsIORenderer;
+using System.ComponentModel.DataAnnotations;
 using System.Reflection;
 using Xceed.Words.NET;
 
@@ -34,6 +35,15 @@ public class ClsGenerarSolicitud
             .First()
             .GetCustomAttribute<System.ComponentModel.DataAnnotations.DisplayAttribute>()?
             .Name ?? enumValue.ToString();
+    }
+
+    public static string GetEnumDescription(Enum enumValue)
+    {
+        return enumValue.GetType()
+            .GetMember(enumValue.ToString())
+            .First()
+            .GetCustomAttribute<DisplayAttribute>()?
+            .Description ?? ""; // Retorna vacío si no tiene descripción
     }
 
     public static string GetCodigoRegion(Enum enumValue)
@@ -71,8 +81,8 @@ public class ClsGenerarSolicitud
                 doc.Replace("{nombreEmpleado}", vmSolicitud.SNomEmpl ?? "", true, true);
                 doc.Replace("{noPersonal}", vmSolicitud.NNoPer.ToString() ?? "", true, true);
                 doc.Replace("{correoInst}", vmSolicitud.SCorreo ?? "", true, true);
-                doc.Replace("{uRC}", vmSolicitud.NUResClv.ToString() ?? "", true, true);
-                doc.Replace("{uRN}", vmSolicitud.SUResNom ?? "", true, true);
+                doc.Replace("{uRC}", GetDisplayName(vmSolicitud.Dependencia), true, true);
+                doc.Replace("{uRN}", GetEnumDescription(vmSolicitud.Dependencia), true, true);
                 doc.Replace("{rC}", GetCodigoRegion(vmSolicitud.Region), true, true);
                 doc.Replace("{rN}", GetNombreSinNumero(vmSolicitud.Region), true, true);
                 doc.Replace("{puestoEmpleado}", vmSolicitud.SPueEmpl ?? "", true, true);
@@ -334,7 +344,7 @@ public class ClsGenerarSolicitud
                 sheet.Replace("{a}", DateTime.Now.ToString("yyyy"), ExcelFindOptions.None);
 
                 sheet.Replace("{entClv}", solicitud.MoHumanos.NEntClv.ToString() ?? "", ExcelFindOptions.None);
-                sheet.Replace("{entNombre}", solicitud.MoHumanos.SEntNomb ?? "", ExcelFindOptions.None);
+                sheet.Replace("{entNombre}", GetEnumDescription(solicitud.MoHumanos.Dependencia), ExcelFindOptions.None);
                 // Asumiendo que tienes GetNombreSinNumero disponible
                 sheet.Replace("{region}", GetNombreSinNumero(solicitud.Region), ExcelFindOptions.None);
                 // sheet.Replace("{region}", GetNombreSinNumero(solicitud.Region)); // Temporal si no tienes el helper

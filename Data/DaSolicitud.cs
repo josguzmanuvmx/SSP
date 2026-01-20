@@ -61,7 +61,7 @@ public class DaSolicitud
             {
                 // 1. Generamos el código (6 caracteres)
                 string codigo = GenerarCodigoAleatorio(6);
-                folioGenerado = $"SOL-{codigo}";
+                folioGenerado = $"{codigo}";
 
                 // 2. Verificamos "en caliente" si existe en la BD
                 // Nota: Aunque esto diga false, existe una micro-posibilidad de choque

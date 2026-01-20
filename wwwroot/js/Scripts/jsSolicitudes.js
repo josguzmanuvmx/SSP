@@ -3,7 +3,7 @@
 
     var tblSolicitudes = $('#tblSolicitudes').DataTable({
         responsive: true,
-        ordering: false,
+        ordering: true,
         paging: true,
         searching: true,
         destroy: true,

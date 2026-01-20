@@ -34,6 +34,14 @@ public class SolicitudController : Controller
         return View(new VmSolicitud());
     }
 
+    [HttpGet]
+    public IActionResult Crear()
+    {
+        ViewBag.OrigenController = "Solicitudes";
+        var vmSolicitud = new VmSolicitud();
+        return View("Index", new VmSolicitud());
+    }
+
     [HttpPost]
     [ValidateAntiForgeryToken] // 1. Seguridad contra ataques CSRF
     public async Task<IActionResult> Guardar(VmSolicitud vm)
@@ -277,7 +285,7 @@ public class SolicitudController : Controller
             nUResClv = 1,
             sUResNom = "USII",
             nRegClv = 1,
-            Region = 1,
+            Region = Region.SXal,
             sPueEmpl = "Becario"
 
             //sNomEmpl = u.sNomEmpl,

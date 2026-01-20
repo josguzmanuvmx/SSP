@@ -38,6 +38,9 @@
     });
     // ----------
 
+    // Lista Catalogo de Dependencias
+    const catalogo = window.datosDependencias || [];
+
     // Especificaciones Contador
     //const textArea = document.getElementById('especificaciones');
     //const contador = document.getElementById('contador');
@@ -84,7 +87,7 @@
     var nTamPag = parseInt($('#ddlActividades').val(), 10) || 10;
     var tblActividades = $('#tblActividades').DataTable({
         responsive: true,
-        ordering: false,
+        ordering: true,
         paging: true,
         searching: true,
         destroy: true,
@@ -267,8 +270,6 @@
     });
     // ----------
 
-    //const btnManual = document.getElementById('btnManual');
-
     // Busqueda de usuario
     const txtBuscarUsuario = document.getElementById('txtBuscarUsuario');
     const divResultados = document.getElementById('divResultadosBusqueda');
@@ -279,10 +280,7 @@
         nNoPer: document.getElementById('NNoPer'),
         sUsuario: document.getElementById('SUsuario'),
         sCorreo: document.getElementById('SCorreo'),
-        nUResClv: document.getElementById('NUResClv'),
-        sUResNom: document.getElementById('SUResNom'),
         Region: document.getElementById('Region'),
-        sPueEmpl: document.getElementById('SPueEmpl')
     };
 
     let indiceNavegacionUsuario = -1;
@@ -359,16 +357,16 @@
                 .then(response => response.json())
                 .then(data => {
                     divResultados.innerHTML = '';
+                    divResultados.classList.add('show');
 
                     if (data.length > 0) {
-                        divResultados.classList.add('show');
                         data.forEach(emp => {
                             // Crear elemento de lista
                             const item = document.createElement('a');
                             //item.classList.add('dropdown-item', 'cursor-pointer');
                             //item.textContent = emp.label;
                             item.className = 'list-group-item list-group-item-action cursor-pointer';
-                            item.innerHTML = `<span class="fw-bold">${emp.nNoPer}</span> - <small>${emp.sNomEmpl}</small>`;
+                            item.innerHTML = `<span class="codigo fw-semibold">${emp.nNoPer}</span> <span class="dep mx-1">-</span> <span>${emp.sNomEmpl}</span>`;
                             item.href = "#";
 
                             // Evento Click en un resultado
@@ -382,7 +380,9 @@
                             divResultados.appendChild(item);
                         });
                     } else {
-                        divResultados.classList.remove('show');
+                        divResultados.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
+                        //divResultados.style.display = 'block';
+                        //divResultados.classList.remove('show');
                     }
                 });
 
@@ -411,22 +411,21 @@
     function fnRellenarDatos(emp) {
         if (!emp) return;
 
-        console.log(emp)
+        //console.log(emp)
 
         // Validamos con 'if' por seguridad
         if (lsInputs.sNomEmpl) lsInputs.sNomEmpl.value = emp.sNomEmpl || '';
         if (lsInputs.nNoPer) lsInputs.nNoPer.value = emp.nNoPer || '';
         if (lsInputs.sUsuario) lsInputs.sUsuario.value = emp.sUsuario || '';
         if (lsInputs.sCorreo) lsInputs.sCorreo.value = emp.sCorreo || '';
-        if (lsInputs.nUResClv) lsInputs.nUResClv.value = emp.nUResClv || '';
-        if (lsInputs.sUResNom) lsInputs.sUResNom.value = emp.sUResNom || '';
+        //if (lsInputs.nUResClv) lsInputs.nUResClv.value = emp.nUResClv || '';
+        //if (lsInputs.sUResNom) lsInputs.sUResNom.value = emp.sUResNom || '';
 
         // Region es un select, asignamos valor si coincide
         if (lsInputs.Region) lsInputs.Region.value = emp.region;
-        console.log(lsInputs.Region.value)
 
         // Mapeamos el Puesto (que viene del backend como sPueEmpl o sPerfil)
-        if (lsInputs.sPueEmpl) lsInputs.sPueEmpl.value = emp.sPueEmpl || '';
+        //if (lsInputs.sPueEmpl) lsInputs.sPueEmpl.value = emp.sPueEmpl || '';
 
         // Asegurar que sigan bloqueados (Solo lectura) para evitar errores manuales
         // (Asegúrate de tener la función bloquearCampos definida o descomentada)
@@ -436,38 +435,41 @@
     }
 
     // --- 3. FUNCIÓN: MODO MANUAL (Desbloquear) ---
-    //btnManual.addEventListener('click', function (e) {
-    //    e.preventDefault(); // Evitar que el botón haga submit si está dentro de un form
+    const btnManual = document.getElementById('btnManual');
+    btnManual.addEventListener('click', function (e) {
+        e.preventDefault(); // Evitar que el botón haga submit si está dentro de un form
 
-    //    // Limpiar campos (opcional, si quieres que escriban desde cero)
-    //    // O puedes dejarlos con los datos actuales para editar sobre ellos.
+        // Limpiar campos (opcional, si quieres que escriban desde cero)
+        // O puedes dejarlos con los datos actuales para editar sobre ellos.
 
-    //    //bloquearCampos(false); // Desbloquear todo
+        bloquearCampos(false); // Desbloquear todo
 
-    //    // Dar foco al primer campo
-    //    lsInputs.sNomEmpl.focus();
-    //});
+        // Dar foco al primer campo
+        lsInputs.sNomEmpl.focus();
+    });
 
-    // --- AUXILIAR: BLOQUEAR / DESBLOQUEAR ---
-    //function bloquearCampos(bloquear) {
-    //    Object.values(lsInputs).forEach(el => {
-    //        if (bloquear) {
-    //            // MODO BLOQUEADO
-    //            el.setAttribute('readonly', true);
-    //            if (el.tagName === 'SELECT') el.setAttribute('disabled', true);
+    //--- AUXILIAR: BLOQUEAR / DESBLOQUEAR ---
+    function bloquearCampos(bloquear) {
+        Object.values(lsInputs).forEach(el => {
+            if (bloquear) {
+                // MODO BLOQUEADO
+                el.classList.add('pe-none')
+                el.setAttribute('readonly', true);
+                if (el.tagName === 'SELECT') el.setAttribute('disabled', true);
 
-    //            el.classList.add('bg-light');
-    //            el.classList.remove('bg-white');
-    //        } else {
-    //            // MODO EDITABLE
-    //            el.removeAttribute('readonly');
-    //            if (el.tagName === 'SELECT') el.removeAttribute('disabled');
+                el.classList.add('bg-light');
+                el.classList.remove('bg-white');
+            } else {
+                // MODO EDITABLE
+                el.classList.remove('pe-none')
+                el.removeAttribute('readonly');
+                if (el.tagName === 'SELECT') el.removeAttribute('disabled');
 
-    //            el.classList.remove('bg-light');
-    //            el.classList.add('bg-white');
-    //        }
-    //    });
-    //}
+                el.classList.remove('bg-light');
+                el.classList.add('bg-white');
+            }
+        });
+    }
     // ----------
 
     // Verificacion Solicitudes
@@ -954,6 +956,7 @@
                                     //`;
                                     // item.innerHTML = user.label;
                                     item.innerHTML = `<span class="fw-bold">${user.nNoPer}</span> - <small>${user.sNomEmpl}</small>`;
+                                    item.innerHTML = `<span class="codigo fw-semibold">${user.nNoPer}</span> <span class="dep mx-1">-</span> <span>${user.sNomEmpl}</span>`;
                                     item.href = "#";
 
                                     item.addEventListener('click', function (e) {
@@ -972,6 +975,9 @@
 
                                     resultsContainer.appendChild(item);
                                 });
+                                resultsContainer.style.display = 'block';
+                            } else {
+                                resultsContainer.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
                                 resultsContainer.style.display = 'block';
                             }
                         })
@@ -1207,8 +1213,8 @@
                 if (chk && !chk.checked) return;
             }
 
-            // Ignorar inputs hidden reales (como Token, etc) a menos que sean nuestros custom inputs
-            if (input.type === 'hidden' && !input.classList.contains('input-validation-error')) return;
+            // Si un input es hidden pero tiene 'required', dejamos que el código siga para validarlo manualmente.
+            if (input.type === 'hidden' && !input.hasAttribute('required')) return;
 
             // Ignorar botones o submits
             if (input.type === 'button' || input.type === 'submit') return;
@@ -1352,32 +1358,26 @@
     // BUSCADOR DE DEPENDENCIA / ENTIDAD
     // ==========================================
 
-    const txtBuscarEntidad = document.getElementById('txtBuscarEntidad');
-    const listaResultados = document.getElementById('lista-resultados-entidad');
+    const txtBuscar = document.getElementById('txtBuscarDep');
+    const lista = document.getElementById('listaResultadosDep');
+    const hdnEnum = document.getElementById('hdnDependenciaEnum');
 
-    // Contenedores visuales
-    const containerBuscar = document.getElementById('container-buscar-entidad');
-    const containerSeleccionado = document.getElementById('container-entidad-seleccionada');
+    const containerBuscar = document.getElementById('container-buscar');
+    const containerSeleccionado = document.getElementById('container-seleccionado');
+    const lblTexto = document.getElementById('lblTextoSeleccionado');
+    const btnEliminar = document.getElementById('btnEliminarSeleccion');
 
-    // Elementos de la selección
-    const lblEntidadTexto = document.getElementById('lblEntidadTexto');
-    const btnQuitarEntidad = document.getElementById('btnQuitarEntidad');
-
-    // Inputs ocultos (binding con ASP.NET Core)
-    const hdnEntClv = document.getElementById('hdnEntClv');
-    const hdnEntNom = document.getElementById('hdnEntNom');
-
-    let debounceEntidad; // Para controlar el tiempo de espera al escribir
+    // VARIABLE PARA EL TEMPORIZADOR
+    let debounceTimer;
 
     let indiceNavegacion = -1;
 
-    // --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
-    if (txtBuscarEntidad && listaResultados) {
-        txtBuscarEntidad.addEventListener('keydown', function (e) {
-            const items = listaResultados.querySelectorAll('a.list-group-item');
+    if (txtBuscar && lista) {
+        txtBuscar.addEventListener('keydown', function (e) {
+            const items = lista.querySelectorAll('.list-group-item');
 
             // Si la lista está oculta o vacía, no hacemos nada
-            if (listaResultados.style.display === 'none' || items.length === 0) return;
+            if (lista.style.display === 'none' || items.length === 0) return;
 
             if (e.key === 'ArrowDown') {
                 e.preventDefault(); // Evita que el cursor se mueva en el input
@@ -1405,7 +1405,7 @@
                 }
             }
             else if (e.key === 'Escape') {
-                listaResultados.style.display = 'none';
+                lista.style.display = 'none';
                 indiceNavegacion = -1;
             }
         });
@@ -1429,290 +1429,649 @@
             }
         }
 
-        txtBuscarEntidad.addEventListener('input', function () {
-            const query = this.value.trim();
-            const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
+        // EVENTO: Escribir
+        txtBuscar.addEventListener('input', function () {
+            const termino = this.value.toLowerCase().trim();
 
-            // Limpiamos temporizador anterior y ocultamos lista para reiniciar
-            clearTimeout(debounceEntidad);
-            listaResultados.style.display = 'none';
+            // A. Si limpia el input, ocultamos la lista INMEDIATAMENTE (sin esperar)
+            if (termino === '') {
+                clearTimeout(debounceTimer); // Cancelamos cualquier búsqueda pendiente
+                lista.style.display = 'none';
+                return;
+            }
 
-            // Si hay menos de 3 caracteres, no hacemos nada
-            if (query.length < 3) return;
+            // B. Cancelamos el temporizador anterior si el usuario sigue escribiendo rápido
+            clearTimeout(debounceTimer);
 
-            // Esperar 300ms antes de llamar al servidor (Debounce)
-            debounceEntidad = setTimeout(() => {
-                fetch(`${url}?sTermino=${encodeURIComponent(query)}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        listaResultados.innerHTML = '';
+            if (termino.length < 3) return;
 
-                        if (data.length > 0) {
-                            data.forEach(item => {
-                                // NOTA: ASP.NET convierte las propiedades a minúscula inicial (camelCase)
-                                // SCodigo -> sCodigo | SDependencia -> sDependencia
-                                const codigo = item.sCodigo || item.SCodigo;
-                                const nombre = item.sDependencia || item.SDependencia;
+            // C. Creamos un nuevo temporizador para esperar 300ms antes de buscar
+            debounceTimer = setTimeout(() => {
 
-                                // Crear elemento visual de la lista
-                                const a = document.createElement('a');
-                                a.className = 'list-group-item list-group-item-action cursor-pointer';
-                                a.innerHTML = `<span class="fw-bold">${codigo}</span> - <small>${nombre}</small>`;
-                                a.href = "#";
+                // --- INICIO DE LA BÚSQUEDA (Dentro del Timeout) ---
 
-                                // Evento al seleccionar una opción
-                                a.addEventListener('click', (e) => {
-                                    e.preventDefault();
-                                    fnSeleccionarEntidad(codigo, nombre);
-                                });
+                // Filtramos
+                const resultados = catalogo.filter(item => {
+                    const codigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
+                    const nombre = (item.sDependencia || item.SDependencia || "").toLowerCase();
+                    return codigo.includes(termino) || nombre.includes(termino);
+                });
 
-                                listaResultados.appendChild(a);
-                            });
-                            listaResultados.style.display = 'block';
-                        } else {
-                            listaResultados.innerHTML = '<div class="list-group-item text-muted small">No se encontraron resultados</div>';
-                            listaResultados.style.display = 'block';
-                        }
-                    })
-                    .catch(err => console.error("Error buscando dependencia:", err));
-            }, 300);
+                // Renderizamos
+                lista.innerHTML = '';
 
-            // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
+                if (resultados.length > 0) {
+                    resultados.forEach(item => {
+                        const sCodigo = item.sCodigo || item.SCodigo;
+                        const sDependencia = item.sDependencia || item.SDependencia;
+
+                        const htmlVisual = `<span class="codigo fw-semibold">${sCodigo}</span> <span class="dep mx-1">-</span> <span>${sDependencia}</span>`;
+
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'list-group-item list-group-item-action text-start px-3 py-2';
+                        btn.innerHTML = htmlVisual;
+
+                        btn.addEventListener('click', () => {
+                            fnSeleccionar(sCodigo, htmlVisual);
+                        });
+
+                        lista.appendChild(btn);
+                    });
+                    lista.style.display = 'block';
+                } else {
+                    lista.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
+                    lista.style.display = 'block';
+                }
+
+                // --- FIN DE LA BÚSQUEDA ---
+
+            }, 300); // <--- TIEMPO DE DELAY (300 milisegundos)
+
             indiceNavegacion = -1;
         });
     }
 
-    // --- 2. FUNCIÓN: SELECCIONAR UNA ENTIDAD ---
-    function fnSeleccionarEntidad(clave, nombre) {
-        // 1. Llenar inputs ocultos (Lo que se guarda en BD)
-        if (hdnEntClv) hdnEntClv.value = clave;
-        if (hdnEntNom) hdnEntNom.value = nombre;
+    // FUNCIÓN SELECCIONAR
+    function fnSeleccionar(codigo, htmlVisual) {
+        // Guardamos el código ("11101") en el input hidden
+        hdnEnum.value = codigo;
 
-        // 2. Actualizar texto visual
-        if (lblEntidadTexto) lblEntidadTexto.textContent = `${clave} - ${nombre}`;
+        // Ponemos el HTML bonito en la caja de selección
+        lblTexto.innerHTML = htmlVisual;
 
-        // 3. Cambiar estado visual: Ocultar buscador, Mostrar seleccionado
-        if (listaResultados) listaResultados.style.display = 'none';
-        if (containerBuscar) containerBuscar.classList.add('d-none');
+        // Limpiamos y hacemos el Switch de vistas
+        lista.style.display = 'none';
+        txtBuscar.value = '';
 
-        if (containerSeleccionado) {
-            containerSeleccionado.classList.remove('d-none');
-            containerSeleccionado.classList.add('d-flex');
-        }
+        containerBuscar.classList.add('d-none');
+        containerSeleccionado.classList.remove('d-none');
+        containerSeleccionado.classList.add('d-flex');
     }
 
-    // --- 3. FUNCIÓN: QUITAR / ELIMINAR SELECCIÓN ---
-    if (btnQuitarEntidad) {
-        btnQuitarEntidad.addEventListener('click', function () {
-            // 1. Limpiar inputs ocultos
-            if (hdnEntClv) hdnEntClv.value = '';
-            if (hdnEntNom) hdnEntNom.value = '';
+    // FUNCIÓN ELIMINAR
+    if (btnEliminar) {
+        btnEliminar.addEventListener('click', function () {
+            hdnEnum.value = ''; // Borramos valor
+            lblTexto.innerHTML = '';
 
-            // 2. Limpiar input visual
-            if (txtBuscarEntidad) txtBuscarEntidad.value = '';
+            // Switch inverso
+            containerSeleccionado.classList.remove('d-flex');
+            containerSeleccionado.classList.add('d-none');
 
-            // 3. Cambiar estado visual: Ocultar seleccionado, Mostrar buscador
-            if (containerSeleccionado) {
-                containerSeleccionado.classList.add('d-none');
-                containerSeleccionado.classList.remove('d-flex');
-            }
+            containerBuscar.classList.remove('d-none');
 
-            if (containerBuscar) containerBuscar.classList.remove('d-none');
-
-            // 4. Poner foco para escribir de nuevo
-            setTimeout(() => txtBuscarEntidad.focus(), 100);
+            txtBuscar.focus();
         });
     }
 
-    // --- 4. CERRAR LISTA AL DAR CLIC FUERA ---
+    // CERRAR SI CLIC AFUERA
     document.addEventListener('click', function (e) {
-        // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
         if (containerBuscar && !containerBuscar.contains(e.target)) {
-            listaResultados.style.display = 'none';
+            lista.style.display = 'none';
         }
     });
 
-    // ============================================
-    // BUSCADOR DE DEPENDENCIA / ENTIDAD DE HUMANOS
-    // ============================================
 
-    const txtBuscarEntidadHumanos = document.getElementById('txtBuscarEntidadHumanos');
-    const listaResultadosHumanos = document.getElementById('lista-resultados-entidad-humanos');
+    //const txtBuscarEntidad = document.getElementById('txtBuscarEntidad');
+    //const listaResultados = document.getElementById('lista-resultados-entidad');
 
-    // Contenedores visuales
-    const containerBuscarHumanos = document.getElementById('container-buscar-entidad-humanos');
-    const containerSeleccionadoHumanos = document.getElementById('container-entidad-seleccionada-humanos');
+    //// Contenedores visuales
+    //const containerBuscar = document.getElementById('container-buscar-entidad');
+    //const containerSeleccionado = document.getElementById('container-entidad-seleccionada');
 
-    // Elementos de la selección
-    const lblEntidadTextoHumanos = document.getElementById('lblEntidadTextoHumanos');
-    const btnQuitarEntidadHumanos = document.getElementById('btnQuitarEntidadHumanos');
+    //// Elementos de la selección
+    //const lblEntidadTexto = document.getElementById('lblEntidadTexto');
+    //const btnQuitarEntidad = document.getElementById('btnQuitarEntidad');
 
-    // Inputs ocultos (binding con ASP.NET Core)
-    const hdnEntClvHumanos = document.getElementById('hdnEntClvHumanos');
-    const hdnEntNomHumanos = document.getElementById('hdnEntNomHumanos');
+    //// Inputs ocultos (binding con ASP.NET Core)
+    //const hdnEntClv = document.getElementById('hdnEntClv');
+    //const hdnEntNom = document.getElementById('hdnEntNom');
 
-    let debounceEntidadHumanos; // Para controlar el tiempo de espera al escribir
+    //let debounceEntidad; // Para controlar el tiempo de espera al escribir
 
-    let indiceNavegacionHumanos = -1;
+    //let indiceNavegacion = -1;
 
-    // --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
-    if (txtBuscarEntidadHumanos && listaResultadosHumanos) {
-        txtBuscarEntidadHumanos.addEventListener('keydown', function (e) {
-            const items = listaResultadosHumanos.querySelectorAll('a.list-group-item');
+    //// --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
+    //if (txtBuscarEntidad && listaResultados) {
+    //    txtBuscarEntidad.addEventListener('keydown', function (e) {
+    //        const items = listaResultados.querySelectorAll('a.list-group-item');
+
+    //        // Si la lista está oculta o vacía, no hacemos nada
+    //        if (listaResultados.style.display === 'none' || items.length === 0) return;
+
+    //        if (e.key === 'ArrowDown') {
+    //            e.preventDefault(); // Evita que el cursor se mueva en el input
+    //            indiceNavegacion++;
+
+    //            // Si pasamos el último, volvemos al primero (carrusel)
+    //            if (indiceNavegacion >= items.length) indiceNavegacion = 0;
+
+    //            actualizarSeleccionVisual(items);
+    //        }
+    //        else if (e.key === 'ArrowUp') {
+    //            e.preventDefault();
+    //            indiceNavegacion--;
+
+    //            // Si subimos más allá del primero, vamos al último
+    //            if (indiceNavegacion < 0) indiceNavegacion = items.length - 1;
+
+    //            actualizarSeleccionVisual(items);
+    //        }
+    //        else if (e.key === 'Enter') {
+    //            // Si hay algo seleccionado con las flechas, simulamos el click
+    //            if (indiceNavegacion > -1) {
+    //                e.preventDefault(); // Evita el submit del formulario
+    //                items[indiceNavegacion].click();
+    //            }
+    //        }
+    //        else if (e.key === 'Escape') {
+    //            listaResultados.style.display = 'none';
+    //            indiceNavegacion = -1;
+    //        }
+    //    });
+
+    //    // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
+    //    function actualizarSeleccionVisual(items) {
+    //        // Limpiar clase 'active' de todos
+    //        items.forEach(item => item.classList.remove('active'));
+
+    //        // Agregar clase 'active' al actual
+    //        if (indiceNavegacion > -1 && items[indiceNavegacion]) {
+    //            const itemActivo = items[indiceNavegacion];
+    //            itemActivo.classList.add('active');
+
+    //            // SCROLL AUTOMÁTICO:
+    //            // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
+    //            itemActivo.scrollIntoView({
+    //                block: 'nearest',
+    //                behavior: 'smooth'
+    //            });
+    //        }
+    //    }
+
+    //    txtBuscarEntidad.addEventListener('input', function () {
+    //        const query = this.value.trim();
+    //        const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
+
+    //        // Limpiamos temporizador anterior y ocultamos lista para reiniciar
+    //        clearTimeout(debounceEntidad);
+    //        listaResultados.style.display = 'none';
+
+    //        // Si hay menos de 3 caracteres, no hacemos nada
+    //        if (query.length < 3) return;
+
+    //        // Esperar 300ms antes de llamar al servidor (Debounce)
+    //        debounceEntidad = setTimeout(() => {
+    //            fetch(`${url}?sTermino=${encodeURIComponent(query)}`)
+    //                .then(res => res.json())
+    //                .then(data => {
+    //                    listaResultados.innerHTML = '';
+
+    //                    if (data.length > 0) {
+    //                        data.forEach(item => {
+    //                            // NOTA: ASP.NET convierte las propiedades a minúscula inicial (camelCase)
+    //                            // SCodigo -> sCodigo | SDependencia -> sDependencia
+    //                            const codigo = item.sCodigo || item.SCodigo;
+    //                            const nombre = item.sDependencia || item.SDependencia;
+
+    //                            // Crear elemento visual de la lista
+    //                            const a = document.createElement('a');
+    //                            a.className = 'list-group-item list-group-item-action cursor-pointer';
+    //                            a.innerHTML = `<span class="fw-bold">${codigo}</span> - <small>${nombre}</small>`;
+    //                            a.href = "#";
+
+    //                            // Evento al seleccionar una opción
+    //                            a.addEventListener('click', (e) => {
+    //                                e.preventDefault();
+    //                                fnSeleccionarEntidad(codigo, nombre);
+    //                            });
+
+    //                            listaResultados.appendChild(a);
+    //                        });
+    //                        listaResultados.style.display = 'block';
+    //                    } else {
+    //                        listaResultados.innerHTML = '<div class="list-group-item text-muted small">No se encontraron resultados</div>';
+    //                        listaResultados.style.display = 'block';
+    //                    }
+    //                })
+    //                .catch(err => console.error("Error buscando dependencia:", err));
+    //        }, 300);
+
+    //        // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
+    //        indiceNavegacion = -1;
+    //    });
+    //}
+
+    //// --- 2. FUNCIÓN: SELECCIONAR UNA ENTIDAD ---
+    //function fnSeleccionarEntidad(clave, nombre) {
+    //    // 1. Llenar inputs ocultos (Lo que se guarda en BD)
+    //    if (hdnEntClv) hdnEntClv.value = clave;
+    //    if (hdnEntNom) hdnEntNom.value = nombre;
+
+    //    // 2. Actualizar texto visual
+    //    if (lblEntidadTexto) lblEntidadTexto.textContent = `${clave} - ${nombre}`;
+
+    //    // 3. Cambiar estado visual: Ocultar buscador, Mostrar seleccionado
+    //    if (listaResultados) listaResultados.style.display = 'none';
+    //    if (containerBuscar) containerBuscar.classList.add('d-none');
+
+    //    if (containerSeleccionado) {
+    //        containerSeleccionado.classList.remove('d-none');
+    //        containerSeleccionado.classList.add('d-flex');
+    //    }
+    //}
+
+    //// --- 3. FUNCIÓN: QUITAR / ELIMINAR SELECCIÓN ---
+    //if (btnQuitarEntidad) {
+    //    btnQuitarEntidad.addEventListener('click', function () {
+    //        // 1. Limpiar inputs ocultos
+    //        if (hdnEntClv) hdnEntClv.value = '';
+    //        if (hdnEntNom) hdnEntNom.value = '';
+
+    //        // 2. Limpiar input visual
+    //        if (txtBuscarEntidad) txtBuscarEntidad.value = '';
+
+    //        // 3. Cambiar estado visual: Ocultar seleccionado, Mostrar buscador
+    //        if (containerSeleccionado) {
+    //            containerSeleccionado.classList.add('d-none');
+    //            containerSeleccionado.classList.remove('d-flex');
+    //        }
+
+    //        if (containerBuscar) containerBuscar.classList.remove('d-none');
+
+    //        // 4. Poner foco para escribir de nuevo
+    //        setTimeout(() => txtBuscarEntidad.focus(), 100);
+    //    });
+    //}
+
+    //// --- 4. CERRAR LISTA AL DAR CLIC FUERA ---
+    //document.addEventListener('click', function (e) {
+    //    // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
+    //    if (containerBuscar && !containerBuscar.contains(e.target)) {
+    //        listaResultados.style.display = 'none';
+    //    }
+    //});
+
+    // ==========================================
+    // BUSCADOR DE DEPENDENCIA / ENTIDAD
+    // ==========================================
+
+    const txtBuscarHuma = document.getElementById('txtBuscarDepHuma');
+    const listaHuma = document.getElementById('listaResultadosDepHuma');
+    const hdnEnumHuma = document.getElementById('txtHumanosDependencia');
+
+    const containerBuscarHuma = document.getElementById('container-buscar-huma');
+    const containerSeleccionadoHuma = document.getElementById('container-seleccionado-huma');
+    const lblTextoHuma = document.getElementById('lblTextoSeleccionadoHuma');
+    const btnEliminarHuma = document.getElementById('btnEliminarSeleccionHuma');
+
+    // VARIABLE PARA EL TEMPORIZADOR
+    let debounceTimerHuma;
+
+    let indiceNavegacionHuma = -1;
+
+    if (txtBuscarHuma && listaHuma) {
+        txtBuscarHuma.addEventListener('keydown', function (e) {
+            const itemsHuma = listaHuma.querySelectorAll('.list-group-item');
 
             // Si la lista está oculta o vacía, no hacemos nada
-            if (listaResultadosHumanos.style.display === 'none' || items.length === 0) return;
+            if (listaHuma.style.display === 'none' || itemsHuma.length === 0) return;
 
             if (e.key === 'ArrowDown') {
                 e.preventDefault(); // Evita que el cursor se mueva en el input
-                indiceNavegacionHumanos++;
+                indiceNavegacionHuma++;
 
                 // Si pasamos el último, volvemos al primero (carrusel)
-                if (indiceNavegacionHumanos >= items.length) indiceNavegacionHumanos = 0;
+                if (indiceNavegacionHuma >= itemsHuma.length) indiceNavegacionHuma = 0;
 
-                actualizarSeleccionVisual(items);
+                actualizarSeleccionVisualHuma(itemsHuma);
             }
             else if (e.key === 'ArrowUp') {
                 e.preventDefault();
-                indiceNavegacionHumanos--;
+                indiceNavegacionHuma--;
 
                 // Si subimos más allá del primero, vamos al último
-                if (indiceNavegacionHumanos < 0) indiceNavegacionHumanos = items.length - 1;
+                if (indiceNavegacionHuma < 0) indiceNavegacionHuma = itemsHuma.length - 1;
 
-                actualizarSeleccionVisual(items);
+                actualizarSeleccionVisualHuma(itemsHuma);
             }
             else if (e.key === 'Enter') {
                 // Si hay algo seleccionado con las flechas, simulamos el click
-                if (indiceNavegacionHumanos > -1) {
+                if (indiceNavegacionHuma > -1) {
                     e.preventDefault(); // Evita el submit del formulario
-                    items[indiceNavegacionHumanos].click();
+                    itemsHuma[indiceNavegacionHuma].click();
                 }
             }
             else if (e.key === 'Escape') {
-                listaResultadosHumanos.style.display = 'none';
-                indiceNavegacionHumanos = -1;
+                listaHuma.style.display = 'none';
+                indiceNavegacionHuma = -1;
             }
         });
 
         // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
-        function actualizarSeleccionVisual(items) {
+        function actualizarSeleccionVisualHuma(itemsHuma) {
             // Limpiar clase 'active' de todos
-            items.forEach(item => item.classList.remove('active'));
+            itemsHuma.forEach(item => item.classList.remove('active'));
 
             // Agregar clase 'active' al actual
-            if (indiceNavegacionHumanos > -1 && items[indiceNavegacionHumanos]) {
-                const itemActivo = items[indiceNavegacionHumanos];
-                itemActivo.classList.add('active');
+            if (indiceNavegacionHuma > -1 && itemsHuma[indiceNavegacionHuma]) {
+                const itemActivoHuma = itemsHuma[indiceNavegacionHuma];
+                itemActivoHuma.classList.add('active');
 
                 // SCROLL AUTOMÁTICO:
                 // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
-                itemActivo.scrollIntoView({
+                itemActivoHuma.scrollIntoView({
                     block: 'nearest',
                     behavior: 'smooth'
                 });
             }
         }
 
-        txtBuscarEntidadHumanos.addEventListener('input', function () {
-            const query = this.value.trim();
-            const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
+        // EVENTO: Escribir
+        txtBuscarHuma.addEventListener('input', function () {
+            const terminoHuma = this.value.toLowerCase().trim();
 
-            // Limpiamos temporizador anterior y ocultamos lista para reiniciar
-            clearTimeout(debounceEntidadHumanos);
-            listaResultadosHumanos.style.display = 'none';
-
-            // Si hay menos de 3 caracteres, no hacemos nada
-            if (query.length < 3) return;
-
-            // Esperar 300ms antes de llamar al servidor (Debounce)
-            debounceEntidadHumanos = setTimeout(() => {
-                fetch(`${url}?sTermino=${encodeURIComponent(query)}`)
-                    .then(res => res.json())
-                    .then(data => {
-                        listaResultadosHumanos.innerHTML = '';
-
-                        if (data.length > 0) {
-                            data.forEach(item => {
-                                // NOTA: ASP.NET convierte las propiedades a minúscula inicial (camelCase)
-                                // SCodigo -> sCodigo | SDependencia -> sDependencia
-                                const codigo = item.sCodigo || item.SCodigo;
-                                const nombre = item.sDependencia || item.SDependencia;
-
-                                // Crear elemento visual de la lista
-                                const a = document.createElement('a');
-                                a.className = 'list-group-item list-group-item-action cursor-pointer';
-                                a.innerHTML = `<span class="fw-bold">${codigo}</span> - <small>${nombre}</small>`;
-                                a.href = "#";
-
-                                // Evento al seleccionar una opción
-                                a.addEventListener('click', (e) => {
-                                    e.preventDefault();
-                                    fnSeleccionarEntidadHumanos(codigo, nombre);
-                                });
-
-                                listaResultadosHumanos.appendChild(a);
-                            });
-                            listaResultadosHumanos.style.display = 'block';
-                        } else {
-                            listaResultadosHumanos.innerHTML = '<div class="list-group-item text-muted small">No se encontraron resultados</div>';
-                            listaResultadosHumanos.style.display = 'block';
-                        }
-                    })
-                    .catch(err => console.error("Error buscando dependencia:", err));
-            }, 300);
-
-            // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
-            indiceNavegacionHumanos = -1;
-        });
-    }
-
-    // --- 2. FUNCIÓN: SELECCIONAR UNA ENTIDAD ---
-    function fnSeleccionarEntidadHumanos(clave, nombre) {
-        // 1. Llenar inputs ocultos (Lo que se guarda en BD)
-        if (hdnEntClvHumanos) hdnEntClvHumanos.value = clave;
-        if (hdnEntNomHumanos) hdnEntNomHumanos.value = nombre;
-
-        // 2. Actualizar texto visual
-        if (lblEntidadTextoHumanos) lblEntidadTextoHumanos.textContent = `${clave} - ${nombre}`;
-
-        // 3. Cambiar estado visual: Ocultar buscador, Mostrar seleccionado
-        if (listaResultadosHumanos) listaResultadosHumanos.style.display = 'none';
-        if (containerBuscarHumanos) containerBuscarHumanos.classList.add('d-none');
-
-        if (containerSeleccionadoHumanos) {
-            containerSeleccionadoHumanos.classList.remove('d-none');
-            containerSeleccionadoHumanos.classList.add('d-flex');
-        }
-    }
-
-    // --- 3. FUNCIÓN: QUITAR / ELIMINAR SELECCIÓN ---
-    if (btnQuitarEntidadHumanos) {
-        btnQuitarEntidadHumanos.addEventListener('click', function () {
-            // 1. Limpiar inputs ocultos
-            if (hdnEntClvHumanos) hdnEntClvHumanos.value = '';
-            if (hdnEntNomHumanos) hdnEntNomHumanos.value = '';
-
-            // 2. Limpiar input visual
-            if (txtBuscarEntidadHumanos) txtBuscarEntidadHumanos.value = '';
-
-            // 3. Cambiar estado visual: Ocultar seleccionado, Mostrar buscador
-            if (containerSeleccionadoHumanos) {
-                containerSeleccionadoHumanos.classList.add('d-none');
-                containerSeleccionadoHumanos.classList.remove('d-flex');
+            // A. Si limpia el input, ocultamos la lista INMEDIATAMENTE (sin esperar)
+            if (terminoHuma === '') {
+                clearTimeout(debounceTimerHuma); // Cancelamos cualquier búsqueda pendiente
+                listaHuma.style.display = 'none';
+                return;
             }
 
-            if (containerBuscarHumanos) containerBuscarHumanos.classList.remove('d-none');
+            // B. Cancelamos el temporizador anterior si el usuario sigue escribiendo rápido
+            clearTimeout(debounceTimerHuma);
 
-            // 4. Poner foco para escribir de nuevo
-            setTimeout(() => txtBuscarEntidadHumanos.focus(), 100);
+            if (terminoHuma.length < 3) return;
+
+            // C. Creamos un nuevo temporizador para esperar 300ms antes de buscar
+            debounceTimerHuma = setTimeout(() => {
+
+                // --- INICIO DE LA BÚSQUEDA (Dentro del Timeout) ---
+
+                // Filtramos
+                const resultados = catalogo.filter(item => {
+                    const codigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
+                    const nombre = (item.sDependencia || item.SDependencia || "").toLowerCase();
+                    return codigo.includes(terminoHuma) || nombre.includes(terminoHuma);
+                });
+
+                // Renderizamos
+                listaHuma.innerHTML = '';
+
+                if (resultados.length > 0) {
+                    resultados.forEach(item => {
+                        const sCodigo = item.sCodigo || item.SCodigo;
+                        const sDependencia = item.sDependencia || item.SDependencia;
+
+                        const htmlVisual = `<span class="codigo fw-semibold">${sCodigo}</span> <span class="dep mx-1">-</span> <span>${sDependencia}</span>`;
+
+                        const btn = document.createElement('button');
+                        btn.type = 'button';
+                        btn.className = 'list-group-item list-group-item-action text-start px-3 py-2';
+                        btn.innerHTML = htmlVisual;
+
+                        btn.addEventListener('click', () => {
+                            fnSeleccionarHuma(sCodigo, htmlVisual);
+                        });
+
+                        listaHuma.appendChild(btn);
+                    });
+                    listaHuma.style.display = 'block';
+                } else {
+                    listaHuma.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
+                    listaHuma.style.display = 'block';
+                }
+
+                // --- FIN DE LA BÚSQUEDA ---
+
+            }, 300); // <--- TIEMPO DE DELAY (300 milisegundos)
+
+            indiceNavegacionHuma = -1;
         });
     }
 
-    // --- 4. CERRAR LISTA AL DAR CLIC FUERA ---
+    // FUNCIÓN SELECCIONAR
+    function fnSeleccionarHuma(codigo, htmlVisual) {
+        // Guardamos el código ("11101") en el input hidden
+        hdnEnumHuma.value = codigo;
+
+        // Ponemos el HTML bonito en la caja de selección
+        lblTextoHuma.innerHTML = htmlVisual;
+
+        // Limpiamos y hacemos el Switch de vistas
+        listaHuma.style.display = 'none';
+        txtBuscarHuma.value = '';
+
+        containerBuscarHuma.classList.add('d-none');
+        containerSeleccionadoHuma.classList.remove('d-none');
+        containerSeleccionadoHuma.classList.add('d-flex');
+    }
+
+    // FUNCIÓN ELIMINAR
+    if (btnEliminarHuma) {
+        btnEliminarHuma.addEventListener('click', function () {
+            hdnEnumHuma.value = ''; // Borramos valor
+            lblTextoHuma.innerHTML = '';
+
+            // Switch inverso
+            containerSeleccionadoHuma.classList.remove('d-flex');
+            containerSeleccionadoHuma.classList.add('d-none');
+
+            containerBuscarHuma.classList.remove('d-none');
+
+            txtBuscarHuma.focus();
+        });
+    }
+
+    // CERRAR SI CLIC AFUERA
     document.addEventListener('click', function (e) {
-        // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
-        if (containerBuscarHumanos && !containerBuscarHumanos.contains(e.target)) {
-            listaResultadosHumanos.style.display = 'none';
+        if (containerBuscarHuma && !containerBuscarHuma.contains(e.target)) {
+            listaHuma.style.display = 'none';
         }
     });
+    
+    // ============================================
+    // BUSCADOR DE DEPENDENCIA / ENTIDAD DE HUMANOS
+    // ============================================
+
+    //const txtBuscarEntidadHumanos = document.getElementById('txtBuscarEntidadHumanos');
+    //const listaResultadosHumanos = document.getElementById('lista-resultados-entidad-humanos');
+
+    //// Contenedores visuales
+    //const containerBuscarHumanos = document.getElementById('container-buscar-entidad-humanos');
+    //const containerSeleccionadoHumanos = document.getElementById('container-entidad-seleccionada-humanos');
+
+    //// Elementos de la selección
+    //const lblEntidadTextoHumanos = document.getElementById('lblEntidadTextoHumanos');
+    //const btnQuitarEntidadHumanos = document.getElementById('btnQuitarEntidadHumanos');
+
+    //// Inputs ocultos (binding con ASP.NET Core)
+    //const hdnEntClvHumanos = document.getElementById('hdnEntClvHumanos');
+    //const hdnEntNomHumanos = document.getElementById('hdnEntNomHumanos');
+
+    //let debounceEntidadHumanos; // Para controlar el tiempo de espera al escribir
+
+    //let indiceNavegacionHumanos = -1;
+
+    //// --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
+    //if (txtBuscarEntidadHumanos && listaResultadosHumanos) {
+    //    txtBuscarEntidadHumanos.addEventListener('keydown', function (e) {
+    //        const items = listaResultadosHumanos.querySelectorAll('a.list-group-item');
+
+    //        // Si la lista está oculta o vacía, no hacemos nada
+    //        if (listaResultadosHumanos.style.display === 'none' || items.length === 0) return;
+
+    //        if (e.key === 'ArrowDown') {
+    //            e.preventDefault(); // Evita que el cursor se mueva en el input
+    //            indiceNavegacionHumanos++;
+
+    //            // Si pasamos el último, volvemos al primero (carrusel)
+    //            if (indiceNavegacionHumanos >= items.length) indiceNavegacionHumanos = 0;
+
+    //            actualizarSeleccionVisual(items);
+    //        }
+    //        else if (e.key === 'ArrowUp') {
+    //            e.preventDefault();
+    //            indiceNavegacionHumanos--;
+
+    //            // Si subimos más allá del primero, vamos al último
+    //            if (indiceNavegacionHumanos < 0) indiceNavegacionHumanos = items.length - 1;
+
+    //            actualizarSeleccionVisual(items);
+    //        }
+    //        else if (e.key === 'Enter') {
+    //            // Si hay algo seleccionado con las flechas, simulamos el click
+    //            if (indiceNavegacionHumanos > -1) {
+    //                e.preventDefault(); // Evita el submit del formulario
+    //                items[indiceNavegacionHumanos].click();
+    //            }
+    //        }
+    //        else if (e.key === 'Escape') {
+    //            listaResultadosHumanos.style.display = 'none';
+    //            indiceNavegacionHumanos = -1;
+    //        }
+    //    });
+
+    //    // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
+    //    function actualizarSeleccionVisual(items) {
+    //        // Limpiar clase 'active' de todos
+    //        items.forEach(item => item.classList.remove('active'));
+
+    //        // Agregar clase 'active' al actual
+    //        if (indiceNavegacionHumanos > -1 && items[indiceNavegacionHumanos]) {
+    //            const itemActivo = items[indiceNavegacionHumanos];
+    //            itemActivo.classList.add('active');
+
+    //            // SCROLL AUTOMÁTICO:
+    //            // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
+    //            itemActivo.scrollIntoView({
+    //                block: 'nearest',
+    //                behavior: 'smooth'
+    //            });
+    //        }
+    //    }
+
+    //    txtBuscarEntidadHumanos.addEventListener('input', function () {
+    //        const query = this.value.trim();
+    //        const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
+
+    //        // Limpiamos temporizador anterior y ocultamos lista para reiniciar
+    //        clearTimeout(debounceEntidadHumanos);
+    //        listaResultadosHumanos.style.display = 'none';
+
+    //        // Si hay menos de 3 caracteres, no hacemos nada
+    //        if (query.length < 3) return;
+
+    //        // Esperar 300ms antes de llamar al servidor (Debounce)
+    //        debounceEntidadHumanos = setTimeout(() => {
+    //            fetch(`${url}?sTermino=${encodeURIComponent(query)}`)
+    //                .then(res => res.json())
+    //                .then(data => {
+    //                    listaResultadosHumanos.innerHTML = '';
+
+    //                    if (data.length > 0) {
+    //                        data.forEach(item => {
+    //                            // NOTA: ASP.NET convierte las propiedades a minúscula inicial (camelCase)
+    //                            // SCodigo -> sCodigo | SDependencia -> sDependencia
+    //                            const codigo = item.sCodigo || item.SCodigo;
+    //                            const nombre = item.sDependencia || item.SDependencia;
+
+    //                            // Crear elemento visual de la lista
+    //                            const a = document.createElement('a');
+    //                            a.className = 'list-group-item list-group-item-action cursor-pointer';
+    //                            a.innerHTML = `<span class="fw-bold">${codigo}</span> - <small>${nombre}</small>`;
+    //                            a.href = "#";
+
+    //                            // Evento al seleccionar una opción
+    //                            a.addEventListener('click', (e) => {
+    //                                e.preventDefault();
+    //                                fnSeleccionarEntidadHumanos(codigo, nombre);
+    //                            });
+
+    //                            listaResultadosHumanos.appendChild(a);
+    //                        });
+    //                        listaResultadosHumanos.style.display = 'block';
+    //                    } else {
+    //                        listaResultadosHumanos.innerHTML = '<div class="list-group-item text-muted small">No se encontraron resultados</div>';
+    //                        listaResultadosHumanos.style.display = 'block';
+    //                    }
+    //                })
+    //                .catch(err => console.error("Error buscando dependencia:", err));
+    //        }, 300);
+
+    //        // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
+    //        indiceNavegacionHumanos = -1;
+    //    });
+    //}
+
+    //// --- 2. FUNCIÓN: SELECCIONAR UNA ENTIDAD ---
+    //function fnSeleccionarEntidadHumanos(clave, nombre) {
+    //    // 1. Llenar inputs ocultos (Lo que se guarda en BD)
+    //    if (hdnEntClvHumanos) hdnEntClvHumanos.value = clave;
+    //    if (hdnEntNomHumanos) hdnEntNomHumanos.value = nombre;
+
+    //    // 2. Actualizar texto visual
+    //    if (lblEntidadTextoHumanos) lblEntidadTextoHumanos.textContent = `${clave} - ${nombre}`;
+
+    //    // 3. Cambiar estado visual: Ocultar buscador, Mostrar seleccionado
+    //    if (listaResultadosHumanos) listaResultadosHumanos.style.display = 'none';
+    //    if (containerBuscarHumanos) containerBuscarHumanos.classList.add('d-none');
+
+    //    if (containerSeleccionadoHumanos) {
+    //        containerSeleccionadoHumanos.classList.remove('d-none');
+    //        containerSeleccionadoHumanos.classList.add('d-flex');
+    //    }
+    //}
+
+    //// --- 3. FUNCIÓN: QUITAR / ELIMINAR SELECCIÓN ---
+    //if (btnQuitarEntidadHumanos) {
+    //    btnQuitarEntidadHumanos.addEventListener('click', function () {
+    //        // 1. Limpiar inputs ocultos
+    //        if (hdnEntClvHumanos) hdnEntClvHumanos.value = '';
+    //        if (hdnEntNomHumanos) hdnEntNomHumanos.value = '';
+
+    //        // 2. Limpiar input visual
+    //        if (txtBuscarEntidadHumanos) txtBuscarEntidadHumanos.value = '';
+
+    //        // 3. Cambiar estado visual: Ocultar seleccionado, Mostrar buscador
+    //        if (containerSeleccionadoHumanos) {
+    //            containerSeleccionadoHumanos.classList.add('d-none');
+    //            containerSeleccionadoHumanos.classList.remove('d-flex');
+    //        }
+
+    //        if (containerBuscarHumanos) containerBuscarHumanos.classList.remove('d-none');
+
+    //        // 4. Poner foco para escribir de nuevo
+    //        setTimeout(() => txtBuscarEntidadHumanos.focus(), 100);
+    //    });
+    //}
+
+    //// --- 4. CERRAR LISTA AL DAR CLIC FUERA ---
+    //document.addEventListener('click', function (e) {
+    //    // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
+    //    if (containerBuscarHumanos && !containerBuscarHumanos.contains(e.target)) {
+    //        listaResultadosHumanos.style.display = 'none';
+    //    }
+    //});
 });

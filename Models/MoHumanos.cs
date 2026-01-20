@@ -13,6 +13,22 @@ public class MoHumanos
 
     [Column("sEntNomb")]
     public string? SEntNomb { get; set; }
+    public ClsCatalogoDependencias Dependencia
+    {
+        get
+        {
+            // Lógica de lectura segura (la que ya tenías)
+            return NEntClv.HasValue && Enum.IsDefined(typeof(ClsCatalogoDependencias), NEntClv.Value)
+                ? (ClsCatalogoDependencias)NEntClv.Value
+                : ClsCatalogoDependencias.D11101;
+        }
+        set
+        {
+            // Lógica de escritura: Cuando el usuario selecciona en el dropdown,
+            // guardamos el número entero en la propiedad real de la BD.
+            NEntClv = (int)value;
+        }
+    }
 
     [Column("sPerfil")]
     public string? SPerfil { get; set; }

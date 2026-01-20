@@ -45,13 +45,27 @@ public class VmSolicitud
     [Display(Name = "Correo electrónico institucional")]
     public string? SCorreo { get; set; }
 
-    [Required(ErrorMessage = "La clave de la Unidad Responsable es obligatoria.")]
     [Display(Name = "Clave de Unidad Responsable")]
     public int? NUResClv { get; set; }
 
-    [Required(ErrorMessage = "El nombre de la Unidad Responsable es obligatorio.")]
     [Display(Name = "Nombre de Unidad Responsable")]
     public string? SUResNom { get; set; }
+    public ClsCatalogoDependencias Dependencia
+    {
+        get
+        {
+            // Lógica de lectura segura (la que ya tenías)
+            return NUResClv.HasValue && Enum.IsDefined(typeof(ClsCatalogoDependencias), NUResClv.Value)
+                ? (ClsCatalogoDependencias)NUResClv.Value
+                : ClsCatalogoDependencias.D11101;
+        }
+        set
+        {
+            // Lógica de escritura: Cuando el usuario selecciona en el dropdown,
+            // guardamos el número entero en la propiedad real de la BD.
+            NUResClv = (int)value;
+        }
+    }
 
     [Display(Name = "Clave de la Región")]
     public int? NRegClv { get; set; }
