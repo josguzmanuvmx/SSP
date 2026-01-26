@@ -3,231 +3,231 @@ using System.ComponentModel.DataAnnotations;
 
 public enum ClsCatalogoDependencias
 {
-    [Display(Name = "11101", Description = "UNIDAD ACAD…MICA DE INGENIERÕA Y CIENCIAS QUÕMICAS")]
+    [Display(Name = "11101", Description = "UNIDAD ACAD√âMICA DE INGENIER√çA Y CIENCIAS QU√çMICAS")]
     D11101 = 11101,
-    [Display(Name = "11102", Description = "FACULTAD DE INGENIERÕA CIVIL")]
+    [Display(Name = "11102", Description = "FACULTAD DE INGENIER√çA CIVIL (Xalapa)")]
     D11102 = 11102,
-    [Display(Name = "11103", Description = "FACULTAD DE INGENIERÕA MEC¡NICA Y EL…CTRICA")]
+    [Display(Name = "11103", Description = "FACULTAD DE INGENIER√çA MEC√ÅNICA Y EL√âCTRICA")]
     D11103 = 11103,
-    [Display(Name = "11104", Description = "FACULTAD DE CIENCIAS QUÕMICAS")]
+    [Display(Name = "11104", Description = "FACULTAD DE CIENCIAS QU√çMICAS (Xalapa)")]
     D11104 = 11104,
-    [Display(Name = "11105", Description = "FACULTAD DE QUÕMICA FARMAC…UTICA BIOL”GICA")]
+    [Display(Name = "11105", Description = "FACULTAD DE QU√çMICA FARMAC√âUTICA BIOL√ìGICA")]
     D11105 = 11105,
-    [Display(Name = "11106", Description = "FACULTAD DE FÕSICA")]
+    [Display(Name = "11106", Description = "FACULTAD DE F√çSICA")]
     D11106 = 11106,
-    [Display(Name = "11107", Description = "FACULTAD DE MATEM¡TICAS")]
+    [Display(Name = "11107", Description = "FACULTAD DE MATEM√ÅTICAS")]
     D11107 = 11107,
-    [Display(Name = "11108", Description = "FACULTAD DE ARQUITECTURA")]
+    [Display(Name = "11108", Description = "FACULTAD DE ARQUITECTURA (Xalapa)")]
     D11108 = 11108,
-    [Display(Name = "11109", Description = "FACULTAD DE INSTRUMENTACI”N ELECTR”NICA")]
+    [Display(Name = "11109", Description = "FACULTAD DE INSTRUMENTACI√ìN ELECTR√ìNICA")]
     D11109 = 11109,
-    [Display(Name = "11110", Description = "INSTITUTO DE CIENCIAS B¡SICAS")]
+    [Display(Name = "11110", Description = "INSTITUTO DE CIENCIAS B√ÅSICAS")]
     D11110 = 11110,
-    [Display(Name = "11111", Description = "DEPARTAMENTO DE FÕSICA")]
+    [Display(Name = "11111", Description = "DEPARTAMENTO DE F√çSICA")]
     D11111 = 11111,
     [Display(Name = "11112", Description = "INSTITUTO DE INVESTIGACIONES EN INTELIGENCIA ARTIFICIAL")]
     D11112 = 11112,
-    [Display(Name = "11113", Description = "INSTITUTO DE QUÕMICA APLICADA")]
+    [Display(Name = "11113", Description = "INSTITUTO DE QU√çMICA APLICADA")]
     D11113 = 11113,
     [Display(Name = "11114", Description = "CENTRO DE CIENCIAS DE LA TIERRA")]
     D11114 = 11114,
-    [Display(Name = "11115", Description = "CENTRO DE INVESTIGACI”N Y DESARROLLO EN ALIMENTOS")]
+    [Display(Name = "11115", Description = "CENTRO DE INVESTIGACI√ìN Y DESARROLLO EN ALIMENTOS")]
     D11115 = 11115,
     [Display(Name = "11201", Description = "FACULTAD DE DERECHO")]
     D11201 = 11201,
-    [Display(Name = "11202", Description = "UNIDAD ACAD…MICA DE HUMANIDADES")]
+    [Display(Name = "11202", Description = "UNIDAD ACAD√âMICA DE HUMANIDADES")]
     D11202 = 11202,
     [Display(Name = "11203", Description = "FACULTAD DE IDIOMAS")]
     D11203 = 11203,
-    [Display(Name = "11204", Description = "FACULTAD DE PEDAGOGÕA")]
+    [Display(Name = "11204", Description = "FACULTAD DE PEDAGOG√çA (Xalapa)")]
     D11204 = 11204,
-    [Display(Name = "11205", Description = "FACULTAD DE LETRAS ESPA—OLAS")]
+    [Display(Name = "11205", Description = "FACULTAD DE LETRAS ESPA√ëOLAS")]
     D11205 = 11205,
     [Display(Name = "11206", Description = "FACULTAD DE HISTORIA")]
     D11206 = 11206,
-    [Display(Name = "11207", Description = "FACULTAD DE FILOSOFÕA")]
+    [Display(Name = "11207", Description = "FACULTAD DE FILOSOF√çA")]
     D11207 = 11207,
-    [Display(Name = "11208", Description = "FACULTAD DE ANTROPOLOGÕA")]
+    [Display(Name = "11208", Description = "FACULTAD DE ANTROPOLOG√çA")]
     D11208 = 11208,
-    [Display(Name = "11209", Description = "FACULTAD DE SOCIOLOGÕA")]
+    [Display(Name = "11209", Description = "FACULTAD DE SOCIOLOG√çA")]
     D11209 = 11209,
-    [Display(Name = "11211", Description = "INSTITUTO DE ANTROPOLOGÕA")]
+    [Display(Name = "11211", Description = "INSTITUTO DE ANTROPOLOG√çA")]
     D11211 = 11211,
-    [Display(Name = "11212", Description = "MUSEO DE ANTROPOLOGÕA DE XALAPA")]
+    [Display(Name = "11212", Description = "MUSEO DE ANTROPOLOG√çA DE XALAPA")]
     D11212 = 11212,
-    [Display(Name = "11213", Description = "INSTITUTO DE INVESTIGACIONES JURÕDICAS")]
+    [Display(Name = "11213", Description = "INSTITUTO DE INVESTIGACIONES JUR√çDICAS")]
     D11213 = 11213,
-    [Display(Name = "11214", Description = "INSTITUTO DE INVESTIGACIONES HIST”RICO-SOCIALES")]
+    [Display(Name = "11214", Description = "INSTITUTO DE INVESTIGACIONES HIST√ìRICO-SOCIALES")]
     D11214 = 11214,
-    [Display(Name = "11215", Description = "INSTITUTO DE INVESTIGACIONES LING‹ÕSTICO LITERARIAS")]
+    [Display(Name = "11215", Description = "INSTITUTO DE INVESTIGACIONES LING√ú√çSTICO LITERARIAS")]
     D11215 = 11215,
-    [Display(Name = "11216", Description = "INSTITUTO DE INVESTIGACIONES EN EDUCACI”N")]
+    [Display(Name = "11216", Description = "INSTITUTO DE INVESTIGACIONES EN EDUCACI√ìN")]
     D11216 = 11216,
-    [Display(Name = "11217", Description = "CENTRO DE INVESTIGACI”N EN DOCUMENTACI”N SOBRE LA UNIVERSIDAD")]
+    [Display(Name = "11217", Description = "CENTRO DE INVESTIGACI√ìN EN DOCUMENTACI√ìN SOBRE LA UNIVERSIDAD")]
     D11217 = 11217,
-    [Display(Name = "11218", Description = "INSTITUTO DE FILOSOFÕA")]
+    [Display(Name = "11218", Description = "INSTITUTO DE FILOSOF√çA")]
     D11218 = 11218,
-    [Display(Name = "11219", Description = "CENTRO DE ESTUDIOS DE LA CULTURA Y LA COMUNICACI”N")]
+    [Display(Name = "11219", Description = "CENTRO DE ESTUDIOS DE LA CULTURA Y LA COMUNICACI√ìN")]
     D11219 = 11219,
-    [Display(Name = "11220", Description = "CENTRO DE ESTUDIOS SOBRE DERECHO, GLOBALIZACI”N Y SEGURIDAD")]
+    [Display(Name = "11220", Description = "CENTRO DE ESTUDIOS SOBRE DERECHO, GLOBALIZACI√ìN Y SEGURIDAD")]
     D11220 = 11220,
-    [Display(Name = "11221", Description = "CENTRO DE ESTUDIOS DE G…NERO")]
+    [Display(Name = "11221", Description = "CENTRO DE ESTUDIOS DE G√âNERO")]
     D11221 = 11221,
     [Display(Name = "11222", Description = "CENTRO DE INVESTIGACIONES EN HUMANIDADES AMBIENTALES, ARTES Y LITERATURA")]
     D11222 = 11222,
-    [Display(Name = "11301", Description = "FACULTAD DE CONTADURÕA Y ADMINISTRACI”N")]
+    [Display(Name = "11301", Description = "FACULTAD DE CONTADUR√çA Y ADMINISTRACI√ìN (Xalapa)")]
     D11301 = 11301,
-    [Display(Name = "11302", Description = "UNIDAD ACAD…MICA DE ECONOMÕA Y ESTADÕSTICA")]
+    [Display(Name = "11302", Description = "UNIDAD ACAD√âMICA DE ECONOM√çA Y ESTAD√çSTICA")]
     D11302 = 11302,
-    [Display(Name = "11303", Description = "FACULTAD DE ECONOMÕA")]
+    [Display(Name = "11303", Description = "FACULTAD DE ECONOM√çA")]
     D11303 = 11303,
-    [Display(Name = "11304", Description = "FACULTAD DE ESTADÕSTICA E INFORM¡TICA")]
+    [Display(Name = "11304", Description = "FACULTAD DE ESTAD√çSTICA E INFORM√ÅTICA")]
     D11304 = 11304,
-    [Display(Name = "11305", Description = "INSTITUTO DE INVESTIGACIONES Y ESTUDIOS SUPERIORES ECON”MICOS Y SOCIALES")]
+    [Display(Name = "11305", Description = "INSTITUTO DE INVESTIGACIONES Y ESTUDIOS SUPERIORES ECON√ìMICOS Y SOCIALES")]
     D11305 = 11305,
     [Display(Name = "11306", Description = "INSTITUTO DE INVESTIGACIONES Y ESTUDIOS SUPERIORES DE LAS CIENCIAS ADMINISTRATIVAS")]
     D11306 = 11306,
-    [Display(Name = "11307", Description = "INSTITUTO DE INVESTIGACIONES EN CONTADURÕA")]
+    [Display(Name = "11307", Description = "INSTITUTO DE INVESTIGACIONES EN CONTADUR√çA")]
     D11307 = 11307,
     [Display(Name = "11308", Description = "INSTITUTO DE INVESTIGACIONES EN INTELIGENCIA ARTIFICIAL")]
     D11308 = 11308,
     [Display(Name = "11309", Description = "FACULTAD DE CIENCIAS ADMINISTRATIVAS Y SOCIALES")]
     D11309 = 11309,
-    [Display(Name = "11310", Description = "CENTRO DE ESTUDIOS DE OPINI”N Y AN¡LISIS")]
+    [Display(Name = "11310", Description = "CENTRO DE ESTUDIOS DE OPINI√ìN Y AN√ÅLISIS")]
     D11310 = 11310,
-    [Display(Name = "11401", Description = "UNIDAD ACAD…MICA DE CIENCIAS DE LA SALUD")]
+    [Display(Name = "11401", Description = "UNIDAD ACAD√âMICA DE CIENCIAS DE LA SALUD (Xalapa)")]
     D11401 = 11401,
-    [Display(Name = "11402", Description = "FACULTAD DE MEDICINA")]
+    [Display(Name = "11402", Description = "FACULTAD DE MEDICINA (Xalapa)")]
     D11402 = 11402,
-    [Display(Name = "11403", Description = "FACULTAD DE ODONTOLOGÕA")]
+    [Display(Name = "11403", Description = "FACULTAD DE ODONTOLOG√çA (Xalapa)")]
     D11403 = 11403,
-    [Display(Name = "11404", Description = "FACULTAD DE BIOAN¡LISIS")]
+    [Display(Name = "11404", Description = "FACULTAD DE BIOAN√ÅLISIS (Xalapa)")]
     D11404 = 11404,
-    [Display(Name = "11405", Description = "FACULTAD DE NUTRICI”N")]
+    [Display(Name = "11405", Description = "FACULTAD DE NUTRICI√ìN (Xalapa)")]
     D11405 = 11405,
-    [Display(Name = "11406", Description = "FACULTAD DE ENFERMERÕA")]
+    [Display(Name = "11406", Description = "FACULTAD DE ENFERMER√çA (Xalapa)")]
     D11406 = 11406,
-    [Display(Name = "11407", Description = "FACULTAD DE PSICOLOGÕA")]
+    [Display(Name = "11407", Description = "FACULTAD DE PSICOLOG√çA (Xalapa)")]
     D11407 = 11407,
     [Display(Name = "11408", Description = "INSTITUTO DE CIENCIAS DE LA SALUD")]
     D11408 = 11408,
-    [Display(Name = "11409", Description = "INSTITUTO DE INVESTIGACIONES PSICOL”GICAS")]
+    [Display(Name = "11409", Description = "INSTITUTO DE INVESTIGACIONES PSICOL√ìGICAS")]
     D11409 = 11409,
-    [Display(Name = "11410", Description = "CLÕNICA UNIVERSITARIA DE SALUD REPRODUCTIVA Y SEXUAL")]
+    [Display(Name = "11410", Description = "CL√çNICA UNIVERSITARIA DE SALUD REPRODUCTIVA Y SEXUAL")]
     D11410 = 11410,
-    [Display(Name = "11411", Description = "INSTITUTO DE SALUD P⁄BLICA")]
+    [Display(Name = "11411", Description = "INSTITUTO DE SALUD P√öBLICA")]
     D11411 = 11411,
     [Display(Name = "11412", Description = "CENTRO PARA EL DESARROLLO HUMANO E INTEGRAL DE LOS UNIVERSITARIOS")]
     D11412 = 11412,
-    [Display(Name = "11413", Description = "INSTITUTO DE PSICOLOGÕA Y EDUCACI”N")]
+    [Display(Name = "11413", Description = "INSTITUTO DE PSICOLOG√çA Y EDUCACI√ìN (Xalapa)")]
     D11413 = 11413,
-    [Display(Name = "11414", Description = "CENTRO DE INVESTIGACIONES BIOM…DICAS")]
+    [Display(Name = "11414", Description = "CENTRO DE INVESTIGACIONES BIOM√âDICAS")]
     D11414 = 11414,
     [Display(Name = "11415", Description = "INSTITUTO DE INVESTIGACIONES CEREBRALES")]
     D11415 = 11415,
-    [Display(Name = "11501", Description = "UNIDAD ACAD…MICA DE CIENCIAS BIOL”GICAS Y AGROPEC.")]
+    [Display(Name = "11501", Description = "UNIDAD ACAD√âMICA DE CIENCIAS BIOL√ìGICAS Y AGROPEC.")]
     D11501 = 11501,
-    [Display(Name = "11502", Description = "FACULTAD DE BIOLOGÕA")]
+    [Display(Name = "11502", Description = "FACULTAD DE BIOLOG√çA")]
     D11502 = 11502,
-    [Display(Name = "11503", Description = "FACULTAD DE CIENCIAS AGRÕCOLAS")]
+    [Display(Name = "11503", Description = "FACULTAD DE CIENCIAS AGR√çCOLAS")]
     D11503 = 11503,
-    [Display(Name = "11504", Description = "INSTITUTO DE INVESTIGACIONES BIOL”GICAS")]
+    [Display(Name = "11504", Description = "INSTITUTO DE INVESTIGACIONES BIOL√ìGICAS")]
     D11504 = 11504,
-    [Display(Name = "11505", Description = "INSTITUTO DE NEUROETOLOGÕA")]
+    [Display(Name = "11505", Description = "INSTITUTO DE NEUROETOLOG√çA")]
     D11505 = 11505,
     [Display(Name = "11506", Description = "INSTITUTO DE INVESTIGACIONES FORESTALES")]
     D11506 = 11506,
-    [Display(Name = "11507", Description = "INSTITUTO DE CIENCIAS MARINAS Y PESQUERIÕAS")]
+    [Display(Name = "11507", Description = "INSTITUTO DE CIENCIAS MARINAS Y PESQUER√çAS (Xalapa)")]
     D11507 = 11507,
-    [Display(Name = "11508", Description = "INSTITUTO DE BIOTECNOLOGÕA Y ECOLOGÕA APLICADA")]
+    [Display(Name = "11508", Description = "INSTITUTO DE BIOTECNOLOG√çA Y ECOLOG√çA APLICADA")]
     D11508 = 11508,
     [Display(Name = "11509", Description = "CENTRO DE INVESTIGACIONES TROPICALES")]
     D11509 = 11509,
     [Display(Name = "11510", Description = "INSTITUTO DE INVESTIGACIONES MULTIDISCIPLINARIAS")]
     D11510 = 11510,
-    [Display(Name = "11511", Description = "CENTRO DE INVESTIGACION EN MICOLOGÕA APLICADA")]
+    [Display(Name = "11511", Description = "CENTRO DE INVESTIGACION EN MICOLOG√çA APLICADA")]
     D11511 = 11511,
-    [Display(Name = "11601", Description = "UNIDAD ACAD…MICA DE ARTES")]
+    [Display(Name = "11601", Description = "UNIDAD ACAD√âMICA DE ARTES")]
     D11601 = 11601,
-    [Display(Name = "11602", Description = "FACULTAD DE M⁄SICA")]
+    [Display(Name = "11602", Description = "FACULTAD DE M√öSICA")]
     D11602 = 11602,
     [Display(Name = "11603", Description = "FACULTAD DE DANZA")]
     D11603 = 11603,
-    [Display(Name = "11604", Description = "FACULTAD DE ARTES PL¡STICAS")]
+    [Display(Name = "11604", Description = "FACULTAD DE ARTES PL√ÅSTICAS")]
     D11604 = 11604,
     [Display(Name = "11605", Description = "FACULTAD DE TEATRO")]
     D11605 = 11605,
-    [Display(Name = "11606", Description = "INSTITUTO DE ARTES PL¡STICAS")]
+    [Display(Name = "11606", Description = "INSTITUTO DE ARTES PL√ÅSTICAS")]
     D11606 = 11606,
-    [Display(Name = "11607", Description = "CENTRO DE INICIACI”N MUSICAL INFANTIL")]
+    [Display(Name = "11607", Description = "CENTRO DE INICIACI√ìN MUSICAL INFANTIL (Xalapa)")]
     D11607 = 11607,
     [Display(Name = "11608", Description = "CENTRO DE ESTUDIOS DE JAZZ (JAZZUV)")]
     D11608 = 11608,
-    [Display(Name = "11609", Description = "CENTRO DE ESTUDIOS, CREACI”N Y DOCUMENTACI”N DE LAS ARTES")]
+    [Display(Name = "11609", Description = "CENTRO DE ESTUDIOS, CREACI√ìN Y DOCUMENTACI√ìN DE LAS ARTES")]
     D11609 = 11609,
-    [Display(Name = "11701", Description = "DIRECCI”N GENERAL DEL SISTEMA DE ENSE—ANZA ABIERTA")]
+    [Display(Name = "11701", Description = "DIRECCI√ìN GENERAL DEL SISTEMA DE ENSE√ëANZA ABIERTA")]
     D11701 = 11701,
     [Display(Name = "11702", Description = "ESCUELA PARA ESTUDIANTES EXTRANJEROS")]
     D11702 = 11702,
     [Display(Name = "11703", Description = "DIRECCION GENERAL DE LA UNIDAD DE ESTUDIOS DE POSGRADO")]
     D11703 = 11703,
-    [Display(Name = "11704", Description = "UNIVERSIDAD VERACRUZANA INTERCULTURAL")]
+    [Display(Name = "11704", Description = "UNIVERSIDAD VERACRUZANA INTERCULTURAL (Xalapa)")]
     D11704 = 11704,
-    [Display(Name = "11705", Description = "DIRECCI”N DE CENTROS DE IDIOMAS Y DE AUTOACCESO")]
+    [Display(Name = "11705", Description = "DIRECCI√ìN DE CENTROS DE IDIOMAS Y DE AUTOACCESO")]
     D11705 = 11705,
-    [Display(Name = "11706", Description = "COORDINACI”N UNIVERSITARIA DE OBSERVATORIOS")]
+    [Display(Name = "11706", Description = "COORDINACI√ìN UNIVERSITARIA DE OBSERVATORIOS")]
     D11706 = 11706,
     [Display(Name = "11707", Description = "CENTRO DE ESTUDIOS CHINA-VERACRUZ")]
     D11707 = 11707,
-    [Display(Name = "11708", Description = "COORDINACI”N UNIVERSITARIA PARA LA SUSTENTABILIDAD")]
+    [Display(Name = "11708", Description = "COORDINACI√ìN UNIVERSITARIA PARA LA SUSTENTABILIDAD")]
     D11708 = 11708,
-    [Display(Name = "11709", Description = "CENTRO DE ECOALFABETIZACI”N Y DI¡LOGO DE SABERES")]
+    [Display(Name = "11709", Description = "CENTRO DE ECOALFABETIZACI√ìN Y DI√ÅLOGO DE SABERES")]
     D11709 = 11709,
-    [Display(Name = "11710", Description = "DIRECCI”N GENERAL DE RELACIONES INTERNACIONALES")]
+    [Display(Name = "11710", Description = "DIRECCI√ìN GENERAL DE RELACIONES INTERNACIONALES")]
     D11710 = 11710,
     [Display(Name = "11711", Description = "CENTRO DE ESTUDIOS E INVESTIGACIONES EN CONOCIMIENTO Y APRENDIZAJE HUMANO")]
     D11711 = 11711,
-    [Display(Name = "11712", Description = "DIRECCI”N DE MEDIOS DE COMUNICACI”N")]
+    [Display(Name = "11712", Description = "DIRECCI√ìN DE MEDIOS DE COMUNICACI√ìN")]
     D11712 = 11712,
-    [Display(Name = "11713", Description = "DIRECCI”N DE COMUNICACI”N DE LA CIENCIA")]
+    [Display(Name = "11713", Description = "DIRECCI√ìN DE COMUNICACI√ìN DE LA CIENCIA")]
     D11713 = 11713,
-    [Display(Name = "11714", Description = "COORDINACI”N DE DESARROLLO DE LA INVESTIGACI”N")]
+    [Display(Name = "11714", Description = "COORDINACI√ìN DE DESARROLLO DE LA INVESTIGACI√ìN")]
     D11714 = 11714,
-    [Display(Name = "11715", Description = "COORDINACI”N DE GESTI”N Y DIVULGACI”N DE LA INVESTIGACI”N")]
+    [Display(Name = "11715", Description = "COORDINACI√ìN DE GESTI√ìN Y DIVULGACI√ìN DE LA INVESTIGACI√ìN")]
     D11715 = 11715,
-    [Display(Name = "11716", Description = "COORDINACI”N DE ADMINISTRACI”N DE RECURSOS PARA LA INVESTIGACI”N")]
+    [Display(Name = "11716", Description = "COORDINACI√ìN DE ADMINISTRACI√ìN DE RECURSOS PARA LA INVESTIGACI√ìN")]
     D11716 = 11716,
-    [Display(Name = "11717", Description = "DIRECCI”N DE NORMATIVIDAD")]
+    [Display(Name = "11717", Description = "DIRECCI√ìN DE NORMATIVIDAD")]
     D11717 = 11717,
-    [Display(Name = "11718", Description = "COORDINACI”N DE COOPERACI”N ACAD…MICA")]
+    [Display(Name = "11718", Description = "COORDINACI√ìN DE COOPERACI√ìN ACAD√âMICA")]
     D11718 = 11718,
-    [Display(Name = "11719", Description = "COORDINACI”N DE PROGRAMAS Y SERVICIOS")]
+    [Display(Name = "11719", Description = "COORDINACI√ìN DE PROGRAMAS Y SERVICIOS")]
     D11719 = 11719,
-    [Display(Name = "11720", Description = "COORDINACI”N DE MOVILIDAD ESTUDIANTIL Y ACAD…MICA")]
+    [Display(Name = "11720", Description = "COORDINACI√ìN DE MOVILIDAD ESTUDIANTIL Y ACAD√âMICA")]
     D11720 = 11720,
-    [Display(Name = "11721", Description = "COORDINACI”N DEL PROG.DE FORM.EN GEST.MUNICIPAL UV")]
+    [Display(Name = "11721", Description = "COORDINACI√ìN DEL PROG.DE FORM.EN GEST.MUNICIPAL UV")]
     D11721 = 11721,
-    [Display(Name = "11722", Description = "UNIDAD ACAD…MICA ARCO SUR")]
+    [Display(Name = "11722", Description = "UNIDAD ACAD√âMICA ARCO SUR")]
     D11722 = 11722,
-    [Display(Name = "11723", Description = "SISTEMA DE ATENCI”N INTEGRAL PARA LA SALUD DE LA UNIVERSIDAD VERACRUZANA (SAISUV)")]
+    [Display(Name = "11723", Description = "SISTEMA DE ATENCI√ìN INTEGRAL PARA LA SALUD DE LA UNIVERSIDAD VERACRUZANA (SAISUV)")]
     D11723 = 11723,
-    [Display(Name = "11724", Description = "COORDINACI”N DE LA UNIDAD DE G…NERO")]
+    [Display(Name = "11724", Description = "COORDINACI√ìN DE LA UNIDAD DE G√âNERO")]
     D11724 = 11724,
-    [Display(Name = "11725", Description = "DOCENCIA E INVESTIGACI”N XALAPA")]
+    [Display(Name = "11725", Description = "DOCENCIA E INVESTIGACI√ìN XALAPA")]
     D11725 = 11725,
-    [Display(Name = "11726", Description = "DIRECCI”N DEL SISTEMA DE GESTI”N INTEGRAL DE RIESGO")]
+    [Display(Name = "11726", Description = "DIRECCI√ìN DEL SISTEMA DE GESTI√ìN INTEGRAL DE RIESGO")]
     D11726 = 11726,
-    [Display(Name = "11727", Description = "COORDINACI”N UNIVERSITARIA DE ATENCI”N ESTUDIANTIL")]
+    [Display(Name = "11727", Description = "COORDINACI√ìN UNIVERSITARIA DE ATENCI√ìN ESTUDIANTIL")]
     D11727 = 11727,
-    [Display(Name = "11728", Description = "CENTRO DE INVESTIGACI”N E INNOVACI”N EN EDUCACI”N SUPERIOR")]
+    [Display(Name = "11728", Description = "CENTRO DE INVESTIGACI√ìN E INNOVACI√ìN EN EDUCACI√ìN SUPERIOR")]
     D11728 = 11728,
-    [Display(Name = "11729", Description = "DIRECCI”N DE RESPONSABILIDADES ADMINISTRATIVAS Y SITUACI”N PATRIMONIAL")]
+    [Display(Name = "11729", Description = "DIRECCI√ìN DE RESPONSABILIDADES ADMINISTRATIVAS Y SITUACI√ìN PATRIMONIAL")]
     D11729 = 11729,
     [Display(Name = "11801", Description = "TALLER LIBRE DE ARTES")]
     D11801 = 11801,
-    [Display(Name = "11802", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO")]
+    [Display(Name = "11802", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO (Xalapa)")]
     D11802 = 11802,
-    [Display(Name = "11803", Description = "ORGANIZACI”N TEATRAL DE LA U.V.")]
+    [Display(Name = "11803", Description = "ORGANIZACI√ìN TEATRAL DE LA U.V.")]
     D11803 = 11803,
     [Display(Name = "11804", Description = "ORBIS TERTIUS")]
     D11804 = 11804,
@@ -235,223 +235,223 @@ public enum ClsCatalogoDependencias
     D11805 = 11805,
     [Display(Name = "11806", Description = "GRUPO DE RECITALISTAS")]
     D11806 = 11806,
-    [Display(Name = "11807", Description = "ENSAMBLE CL¡SICO DE GUITARRAS")]
+    [Display(Name = "11807", Description = "ENSAMBLE CL√ÅSICO DE GUITARRAS")]
     D11807 = 11807,
-    [Display(Name = "11808", Description = "ORQUESTA UNIVERSITARIA DE M⁄SICA POPULAR")]
+    [Display(Name = "11808", Description = "ORQUESTA UNIVERSITARIA DE M√öSICA POPULAR")]
     D11808 = 11808,
     [Display(Name = "11809", Description = "TLEN-HUICANI")]
     D11809 = 11809,
-    [Display(Name = "11810", Description = "BALLET FOLKL”RICO")]
+    [Display(Name = "11810", Description = "BALLET FOLKL√ìRICO")]
     D11810 = 11810,
-    [Display(Name = "11811", Description = "ORQUESTA SINF”NICA DE XALAPA")]
+    [Display(Name = "11811", Description = "ORQUESTA SINF√ìNICA DE XALAPA")]
     D11811 = 11811,
     [Display(Name = "11812", Description = "ORQUESTA DE SALSA")]
     D11812 = 11812,
-    [Display(Name = "11813", Description = "GALERIA RAM”N ALVA DE LA CANAL")]
+    [Display(Name = "11813", Description = "GALERIA RAM√ìN ALVA DE LA CANAL")]
     D11813 = 11813,
-    [Display(Name = "11814", Description = "TALLER DE LAUDERÕA")]
+    [Display(Name = "11814", Description = "TALLER DE LAUDER√çA")]
     D11814 = 11814,
-    [Display(Name = "11815", Description = "COORDINACI”N REGIONAL DE ACTIVIDADES DEPORTIVAS")]
+    [Display(Name = "11815", Description = "COORDINACI√ìN REGIONAL DE ACTIVIDADES DEPORTIVAS (Xalapa)")]
     D11815 = 11815,
     [Display(Name = "11816", Description = "CENTRO DE AUTOACCESO (USBI)")]
     D11816 = 11816,
-    [Display(Name = "11817", Description = "COMPLEJO TLAQN¡")]
+    [Display(Name = "11817", Description = "COMPLEJO TLAQN√Å")]
     D11817 = 11817,
-    [Display(Name = "11901", Description = "ADMINISTRACI”N CENTRAL")]
+    [Display(Name = "11901", Description = "ADMINISTRACI√ìN CENTRAL")]
     D11901 = 11901,
-    [Display(Name = "11902", Description = "RECTORÕA")]
+    [Display(Name = "11902", Description = "RECTOR√çA (Xalapa)")]
     D11902 = 11902,
-    [Display(Name = "11903", Description = "COORDINACI”N DE ASESORES")]
+    [Display(Name = "11903", Description = "COORDINACI√ìN DE ASESORES")]
     D11903 = 11903,
     [Display(Name = "11904", Description = "OFICINA DEL ABOGADO GENERAL")]
     D11904 = 11904,
-    [Display(Name = "11905", Description = "DIRECCI”N DE ASUNTOS JURÕDICOS")]
+    [Display(Name = "11905", Description = "DIRECCI√ìN DE ASUNTOS JUR√çDICOS")]
     D11905 = 11905,
-    [Display(Name = "11906", Description = "CONTRALORÕA GENERAL")]
+    [Display(Name = "11906", Description = "CONTRALOR√çA GENERAL")]
     D11906 = 11906,
-    [Display(Name = "11907", Description = "DIRECCI”N DE AUDITORÕA")]
+    [Display(Name = "11907", Description = "DIRECCI√ìN DE AUDITOR√çA")]
     D11907 = 11907,
-    [Display(Name = "11908", Description = "DIRECCI”N DE PLANEACI”N INSTITUCIONAL")]
+    [Display(Name = "11908", Description = "DIRECCI√ìN DE PLANEACI√ìN INSTITUCIONAL")]
     D11908 = 11908,
-    [Display(Name = "11909", Description = "COORDINACI”N T…CNICA")]
+    [Display(Name = "11909", Description = "COORDINACI√ìN T√âCNICA")]
     D11909 = 11909,
-    [Display(Name = "11910", Description = "DEFENSORÕA DE LOS DERECHOS UNIVERSITARIOS")]
+    [Display(Name = "11910", Description = "DEFENSOR√çA DE LOS DERECHOS UNIVERSITARIOS")]
     D11910 = 11910,
-    [Display(Name = "11911", Description = "DIRECCI”N GENERAL DE TECNOLOGÕA DE INFORMACI”N")]
+    [Display(Name = "11911", Description = "DIRECCI√ìN GENERAL DE TECNOLOG√çA DE INFORMACI√ìN")]
     D11911 = 11911,
-    [Display(Name = "11912", Description = "DIRECCI”N DE PROYECTOS, CONSTRUCCIONES Y MANTENIMIENTO")]
+    [Display(Name = "11912", Description = "DIRECCI√ìN DE PROYECTOS, CONSTRUCCIONES Y MANTENIMIENTO")]
     D11912 = 11912,
-    [Display(Name = "11913", Description = "SECRETARÕA DE DESARROLLO INSTITUCIONAL")]
+    [Display(Name = "11913", Description = "SECRETAR√çA DE DESARROLLO INSTITUCIONAL")]
     D11913 = 11913,
-    [Display(Name = "11914", Description = "DEPARTAMENTO DE CONSTRUCCI”N REGI”N XALAPA")]
+    [Display(Name = "11914", Description = "DEPARTAMENTO DE CONSTRUCCI√ìN REGI√ìN XALAPA")]
     D11914 = 11914,
-    [Display(Name = "11915", Description = "DIRECCI”N GENERAL DE COMUNICACI”N UNIVERSITARIA")]
+    [Display(Name = "11915", Description = "DIRECCI√ìN GENERAL DE COMUNICACI√ìN UNIVERSITARIA")]
     D11915 = 11915,
-    [Display(Name = "11916", Description = "DEPARTAMENTO DE CINEMATOGRAFÕA")]
+    [Display(Name = "11916", Description = "DEPARTAMENTO DE CINEMATOGRAF√çA")]
     D11916 = 11916,
     [Display(Name = "11917", Description = "DEPARTAMENTO DE RADIO U.V.")]
     D11917 = 11917,
     [Display(Name = "11918", Description = "DEPARTAMENTO DE MEDIOS AUDIOVISUALES")]
     D11918 = 11918,
-    [Display(Name = "11919", Description = "DIRECCI”N GENERAL DE VINCULACI”N")]
+    [Display(Name = "11919", Description = "DIRECCI√ìN GENERAL DE VINCULACI√ìN")]
     D11919 = 11919,
-    [Display(Name = "11920", Description = "SECRETARÕA ACAD…MICA")]
+    [Display(Name = "11920", Description = "SECRETAR√çA ACAD√âMICA (Xalapa)")]
     D11920 = 11920,
-    [Display(Name = "11921", Description = "DIRECCI”N GENERAL DEL AREA ACAD…MICA T…CNICA")]
+    [Display(Name = "11921", Description = "DIRECCI√ìN GENERAL DEL √ÅREA ACAD√âMICA T√âCNICA")]
     D11921 = 11921,
-    [Display(Name = "11922", Description = "DIRECCI”N GENERAL DEL ¡REA ACAD…MICA DE HUMANIDADES")]
+    [Display(Name = "11922", Description = "DIRECCI√ìN GENERAL DEL √ÅREA ACAD√âMICA DE HUMANIDADES")]
     D11922 = 11922,
-    [Display(Name = "11923", Description = "DIRECCI”N GENERAL DEL ¡REA ACAD…MICA ECON”MICA-ADMINISTRATIVA")]
+    [Display(Name = "11923", Description = "DIRECCI√ìN GENERAL DEL √ÅREA ACAD√âMICA ECON√ìMICA-ADMINISTRATIVA")]
     D11923 = 11923,
-    [Display(Name = "11924", Description = "DIRECCI”N GENERAL DEL ¡REA ACAD…MICA DE CIENCIAS DE LA SALUD")]
+    [Display(Name = "11924", Description = "DIRECCI√ìN GENERAL DEL √ÅREA ACAD√âMICA DE CIENCIAS DE LA SALUD")]
     D11924 = 11924,
-    [Display(Name = "11925", Description = "DIRECCI”N GENERAL DEL ¡REA ACAD…MICA DE CIENCIAS BIOL”GICAS Y AGROPECUARIAS")]
+    [Display(Name = "11925", Description = "DIRECCI√ìN GENERAL DEL √ÅREA ACAD√âMICA DE CIENCIAS BIOL√ìGICAS Y AGROPECUARIAS")]
     D11925 = 11925,
-    [Display(Name = "11926", Description = "DIRECCI”N GENERAL DEL ¡REA ACAD…MICA DE ARTES")]
+    [Display(Name = "11926", Description = "DIRECCI√ìN GENERAL DEL √ÅREA ACAD√âMICA DE ARTES")]
     D11926 = 11926,
-    [Display(Name = "11927", Description = "DIRECCI”N GENERAL DE INVESTIGACIONES")]
+    [Display(Name = "11927", Description = "DIRECCI√ìN GENERAL DE INVESTIGACIONES")]
     D11927 = 11927,
-    [Display(Name = "11928", Description = "DIRECCI”N GENERAL DE DESARROLLO ACAD…MICO E INNOVACI”N EDUCATIVA")]
+    [Display(Name = "11928", Description = "DIRECCI√ìN GENERAL DE DESARROLLO ACAD√âMICO E INNOVACI√ìN EDUCATIVA")]
     D11928 = 11928,
-    [Display(Name = "11929", Description = "DIRECCI”N GENERAL DE ADMINISTRACI”N ESCOLAR")]
+    [Display(Name = "11929", Description = "DIRECCI√ìN GENERAL DE ADMINISTRACI√ìN ESCOLAR")]
     D11929 = 11929,
-    [Display(Name = "11930", Description = "DIRECCI”N DE SERVICIOS ESCOLARES")]
+    [Display(Name = "11930", Description = "DIRECCI√ìN DE SERVICIOS ESCOLARES")]
     D11930 = 11930,
     [Display(Name = "11931", Description = "DEPARTAMENTO DE CONTROL ESCOLAR")]
     D11931 = 11931,
-    [Display(Name = "11932", Description = "COORDINACI”N DE INTEGRACI”N SALARIAL")]
+    [Display(Name = "11932", Description = "COORDINACI√ìN DE INTEGRACI√ìN SALARIAL")]
     D11932 = 11932,
-    [Display(Name = "11933", Description = "DEPARTAMENTO DE EDUCACI”N CONTINUA")]
+    [Display(Name = "11933", Description = "DEPARTAMENTO DE EDUCACI√ìN CONTINUA")]
     D11933 = 11933,
     [Display(Name = "11934", Description = "DEPARTAMENTO DE POSGRADO")]
     D11934 = 11934,
-    [Display(Name = "11935", Description = "DIRECCI”N GENERAL DE BIBLIOTECAS")]
+    [Display(Name = "11935", Description = "DIRECCI√ìN GENERAL DE BIBLIOTECAS")]
     D11935 = 11935,
-    [Display(Name = "11936", Description = "COORDINACI”N DE ORGANIZACI”N DOCUMENTAL")]
+    [Display(Name = "11936", Description = "COORDINACI√ìN DE ORGANIZACI√ìN DOCUMENTAL")]
     D11936 = 11936,
-    [Display(Name = "11937", Description = "COORDINACI”N DE PROCESOS T…CNICOS")]
+    [Display(Name = "11937", Description = "COORDINACI√ìN DE PROCESOS T√âCNICOS")]
     D11937 = 11937,
-    [Display(Name = "11938", Description = "COORDINACI”N REGIONAL DE BIBLIOTECAS XALAPA")]
+    [Display(Name = "11938", Description = "COORDINACI√ìN REGIONAL DE BIBLIOTECAS XALAPA")]
     D11938 = 11938,
-    [Display(Name = "11939", Description = "OFICIALÕA MAYOR")]
+    [Display(Name = "11939", Description = "OFICIAL√çA MAYOR")]
     D11939 = 11939,
-    [Display(Name = "11940", Description = "DEPARTAMENTO DE TITULACI”N Y SERVICIO SOCIAL")]
+    [Display(Name = "11940", Description = "DEPARTAMENTO DE TITULACI√ìN Y SERVICIO SOCIAL")]
     D11940 = 11940,
-    [Display(Name = "11941", Description = "DIRECCI”N DE FORTALECIMIENTO ACAD…MICO")]
+    [Display(Name = "11941", Description = "DIRECCI√ìN DE FORTALECIMIENTO ACAD√âMICO")]
     D11941 = 11941,
-    [Display(Name = "11942", Description = "DIRECCI”N DE INNOVACI”N EDUCATIVA")]
+    [Display(Name = "11942", Description = "DIRECCI√ìN DE INNOVACI√ìN EDUCATIVA")]
     D11942 = 11942,
-    [Display(Name = "11943", Description = "SECRETARÕA DE ADMINISTRACI”N Y FINANZAS")]
+    [Display(Name = "11943", Description = "SECRETAR√çA DE ADMINISTRACI√ìN Y FINANZAS (Xalapa)")]
     D11943 = 11943,
-    [Display(Name = "11944", Description = "DIRECCI”N GENERAL DE RECURSOS FINANCIEROS")]
+    [Display(Name = "11944", Description = "DIRECCI√ìN GENERAL DE RECURSOS FINANCIEROS")]
     D11944 = 11944,
     [Display(Name = "11945", Description = "DEPARTAMENTO DE CAJA")]
     D11945 = 11945,
-    [Display(Name = "11946", Description = "DIRECCI”N DE INGRESOS")]
+    [Display(Name = "11946", Description = "DIRECCI√ìN DE INGRESOS")]
     D11946 = 11946,
-    [Display(Name = "11947", Description = "DIRECCI”N DE EGRESOS")]
+    [Display(Name = "11947", Description = "DIRECCI√ìN DE EGRESOS")]
     D11947 = 11947,
-    [Display(Name = "11948", Description = "DIRECCI”N DE PRESUPUESTOS")]
+    [Display(Name = "11948", Description = "DIRECCI√ìN DE PRESUPUESTOS")]
     D11948 = 11948,
     [Display(Name = "11949", Description = "DEPARTAMENTO DE CONTROL PRESUPUESTAL DEL GASTO")]
     D11949 = 11949,
     [Display(Name = "11950", Description = "DEPARTAMENTO DE CONTROL DE PLAZAS")]
     D11950 = 11950,
-    [Display(Name = "11951", Description = "DIRECCI”N DE CONTABILIDAD")]
+    [Display(Name = "11951", Description = "DIRECCI√ìN DE CONTABILIDAD")]
     D11951 = 11951,
-    [Display(Name = "11952", Description = "DEPARTAMENTO DE AFECTACI”N CONTABLE")]
+    [Display(Name = "11952", Description = "DEPARTAMENTO DE AFECTACI√ìN CONTABLE")]
     D11952 = 11952,
-    [Display(Name = "11953", Description = "DEPARTAMENTO DE AN¡LISIS E INTERPRETACI”N DE ESTADOS FINANCIEROS")]
+    [Display(Name = "11953", Description = "DEPARTAMENTO DE AN√ÅLISIS E INTERPRETACI√ìN DE ESTADOS FINANCIEROS")]
     D11953 = 11953,
-    [Display(Name = "11954", Description = "DIRECCI”N DE CONTROL DE BIENES MUEBLES E INMUEBLES")]
+    [Display(Name = "11954", Description = "DIRECCI√ìN DE CONTROL DE BIENES MUEBLES E INMUEBLES")]
     D11954 = 11954,
-    [Display(Name = "11955", Description = "DIRECCI”N DE RECURSOS MATERIALES")]
+    [Display(Name = "11955", Description = "DIRECCI√ìN DE RECURSOS MATERIALES")]
     D11955 = 11955,
-    [Display(Name = "11956", Description = "DEPARTAMENTO DE ALMAC…N")]
+    [Display(Name = "11956", Description = "DEPARTAMENTO DE ALMAC√âN")]
     D11956 = 11956,
-    [Display(Name = "11957", Description = "DIRECCI”N GENERAL DE RECURSOS HUMANOS")]
+    [Display(Name = "11957", Description = "DIRECCI√ìN GENERAL DE RECURSOS HUMANOS")]
     D11957 = 11957,
-    [Display(Name = "11958", Description = "DIRECCI”N DE PERSONAL")]
+    [Display(Name = "11958", Description = "DIRECCI√ìN DE PERSONAL")]
     D11958 = 11958,
-    [Display(Name = "11959", Description = "DEPARTAMENTO DE CONTROL DE PERSONAL ACAD…MICO")]
+    [Display(Name = "11959", Description = "DEPARTAMENTO DE CONTROL DE PERSONAL ACAD√âMICO")]
     D11959 = 11959,
     [Display(Name = "11960", Description = "DEPARTAMENTO DE CONTROL DE PERSONAL ADMINISTRATIVO")]
     D11960 = 11960,
     [Display(Name = "11961", Description = "DEPARTAMENTO DE PRESTACIONES SOCIALES")]
     D11961 = 11961,
-    [Display(Name = "11962", Description = "DEPARTAMENTO DE EVALUACI”N Y DESARROLLO DE PERSONAL")]
+    [Display(Name = "11962", Description = "DEPARTAMENTO DE EVALUACI√ìN Y DESARROLLO DE PERSONAL")]
     D11962 = 11962,
-    [Display(Name = "11963", Description = "DIRECCI”N DE RELACIONES LABORALES")]
+    [Display(Name = "11963", Description = "DIRECCI√ìN DE RELACIONES LABORALES")]
     D11963 = 11963,
-    [Display(Name = "11964", Description = "DIRECCI”N DE N”MINAS")]
+    [Display(Name = "11964", Description = "DIRECCI√ìN DE N√ìMINAS")]
     D11964 = 11964,
     [Display(Name = "11965", Description = "DEPARTAMENTO DE REGISTRO")]
     D11965 = 11965,
-    [Display(Name = "11966", Description = "DEPARTAMENTO DE VALIDACI”N Y CONTROL")]
+    [Display(Name = "11966", Description = "DEPARTAMENTO DE VALIDACI√ìN Y CONTROL")]
     D11966 = 11966,
-    [Display(Name = "11967", Description = "DIRECCI”N GENERAL DE TECNOLOGÕA DE INFORMACI”N")]
+    [Display(Name = "11967", Description = "DIRECCI√ìN GENERAL DE TECNOLOG√çA DE INFORMACI√ìN")]
     D11967 = 11967,
-    [Display(Name = "11968", Description = "DIRECCI”N DE SERVICIOS DE RED E INFRAESTRUCTURA TECNOL”GICA")]
+    [Display(Name = "11968", Description = "DIRECCI√ìN DE SERVICIOS DE RED E INFRAESTRUCTURA TECNOL√ìGICA")]
     D11968 = 11968,
-    [Display(Name = "11969", Description = "DIRECCI”N DE EXTENSI”N DE SERVICIOS TECNOL”GICOS")]
+    [Display(Name = "11969", Description = "DIRECCI√ìN DE EXTENSI√ìN DE SERVICIOS TECNOL√ìGICOS")]
     D11969 = 11969,
-    [Display(Name = "11970", Description = "DIRECCI”N DE DESARROLLO INFORM¡TICO DE APOYO ACAD…MICO")]
+    [Display(Name = "11970", Description = "DIRECCI√ìN DE DESARROLLO INFORM√ÅTICO DE APOYO ACAD√âMICO")]
     D11970 = 11970,
-    [Display(Name = "11971", Description = "DIRECCI”N DE SERVICIOS INFORM¡TICOS ADMINISTRATIVOS")]
+    [Display(Name = "11971", Description = "DIRECCI√ìN DE SERVICIOS INFORM√ÅTICOS ADMINISTRATIVOS")]
     D11971 = 11971,
-    [Display(Name = "11972", Description = "UNIDAD DEL SISTEMA INSTITUCIONAL DE INFORMACI”N")]
+    [Display(Name = "11972", Description = "UNIDAD DEL SISTEMA INSTITUCIONAL DE INFORMACI√ìN")]
     D11972 = 11972,
-    [Display(Name = "11973", Description = "DIRECCI”N DE OPERATIVIDAD E IMPACTO DE TECNOLOGÕA DE INFORMACI”N")]
+    [Display(Name = "11973", Description = "DIRECCI√ìN DE OPERATIVIDAD E IMPACTO DE TECNOLOG√çA DE INFORMACI√ìN")]
     D11973 = 11973,
-    [Display(Name = "11974", Description = "UNIDAD DE ORGANIZACI”N Y M…TODOS")]
+    [Display(Name = "11974", Description = "UNIDAD DE ORGANIZACI√ìN Y M√âTODOS")]
     D11974 = 11974,
     [Display(Name = "11975", Description = "DEPARTAMENTO DE SERVICIOS GENERALES")]
     D11975 = 11975,
-    [Display(Name = "11976", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI”N XALAPA")]
+    [Display(Name = "11976", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI√ìN XALAPA")]
     D11976 = 11976,
-    [Display(Name = "11977", Description = "DIRECCI”N GENERAL DE DIFUSI”N CULTURAL")]
+    [Display(Name = "11977", Description = "DIRECCI√ìN GENERAL DE DIFUSI√ìN CULTURAL")]
     D11977 = 11977,
-    [Display(Name = "11978", Description = "DIRECCI”N DE GRUPOS ARTÕSTICOS")]
+    [Display(Name = "11978", Description = "DIRECCI√ìN DE GRUPOS ART√çSTICOS")]
     D11978 = 11978,
-    [Display(Name = "11979", Description = "DIRECCI”N DEL ¡REA DE FORMACI”N B¡SICA GENERAL")]
+    [Display(Name = "11979", Description = "DIRECCI√ìN DEL √ÅREA DE FORMACI√ìN B√ÅSICA GENERAL")]
     D11979 = 11979,
-    [Display(Name = "11980", Description = "DIRECCI”N DE ACTIVIDADES DEPORTIVAS")]
+    [Display(Name = "11980", Description = "DIRECCI√ìN DE ACTIVIDADES DEPORTIVAS")]
     D11980 = 11980,
-    [Display(Name = "11981", Description = "DIRECCI”N DE EDITORIAL")]
+    [Display(Name = "11981", Description = "DIRECCI√ìN DE EDITORIAL")]
     D11981 = 11981,
-    [Display(Name = "11982", Description = "DEPARTAMENTO DE DISTRIBUCI”N")]
+    [Display(Name = "11982", Description = "DEPARTAMENTO DE DISTRIBUCI√ìN")]
     D11982 = 11982,
-    [Display(Name = "11983", Description = "COORDINACI”N UNIVERSITARIA DE TRANSPARENCIA,ACCESO A LA INFORMACI”N Y PROTECCI”N DE DATOS PERSONALES")]
+    [Display(Name = "11983", Description = "COORDINACI√ìN UNIVERSITARIA DE TRANSPARENCIA,ACCESO A LA INFORMACI√ìN Y PROTECCI√ìN DE DATOS PERSONALES")]
     D11983 = 11983,
-    [Display(Name = "11984", Description = "DEPARTAMENTO DE EDUCACI”N A DISTANCIA Y SERVICIOS CORPORATIVOS")]
+    [Display(Name = "11984", Description = "DEPARTAMENTO DE EDUCACI√ìN A DISTANCIA Y SERVICIOS CORPORATIVOS")]
     D11984 = 11984,
     [Display(Name = "11985", Description = "JUNTA DE GOBIERNO")]
     D11985 = 11985,
-    [Display(Name = "11986", Description = "DEPARTAMENTO DE COORDINACI”N DE PROYECTOS")]
+    [Display(Name = "11986", Description = "DEPARTAMENTO DE COORDINACI√ìN DE PROYECTOS")]
     D11986 = 11986,
-    [Display(Name = "11987", Description = "DIRECCI”N DE AUDITORÕA A ENTIDADES")]
+    [Display(Name = "11987", Description = "DIRECCI√ìN DE AUDITOR√çA A ENTIDADES")]
     D11987 = 11987,
-    [Display(Name = "11988", Description = "DIRECCI”N DE AUDITORÕA PATRIMONIAL")]
+    [Display(Name = "11988", Description = "DIRECCI√ìN DE AUDITOR√çA PATRIMONIAL")]
     D11988 = 11988,
-    [Display(Name = "11989", Description = "DIRECCI”N DE ANALISIS Y SITUACI”N PATRIMONIAL")]
+    [Display(Name = "11989", Description = "DIRECCI√ìN DE ANALISIS Y SITUACI√ìN PATRIMONIAL")]
     D11989 = 11989,
-    [Display(Name = "11990", Description = "DIRECCI”N DE CONTROL Y EVALUACI”N")]
+    [Display(Name = "11990", Description = "DIRECCI√ìN DE CONTROL Y EVALUACI√ìN")]
     D11990 = 11990,
     [Display(Name = "11991", Description = "DEPARTAMENTO DE MANTENIMIENTO")]
     D11991 = 11991,
     [Display(Name = "11992", Description = "DEPARTAMENTO DE PROYECTOS ESPECIALES")]
     D11992 = 11992,
-    [Display(Name = "11993", Description = "DEPARTAMENTO DE TELEVISI”N")]
+    [Display(Name = "11993", Description = "DEPARTAMENTO DE TELEVISI√ìN")]
     D11993 = 11993,
     [Display(Name = "11994", Description = "DEPARTAMENTO DE PRENSA")]
     D11994 = 11994,
-    [Display(Name = "11995", Description = "DEPARTAMENTO DE VINCULACI”N SOCIAL")]
+    [Display(Name = "11995", Description = "DEPARTAMENTO DE VINCULACI√ìN SOCIAL")]
     D11995 = 11995,
-    [Display(Name = "11996", Description = "DEPARTAMENTO DE VINCULACI”N CON EL SECTOR PRODUCTIVO")]
+    [Display(Name = "11996", Description = "DEPARTAMENTO DE VINCULACI√ìN CON EL SECTOR PRODUCTIVO")]
     D11996 = 11996,
-    [Display(Name = "11997", Description = "DEPARTAMENTO DE CERTIFICACI”N Y LEGALIZACI”N DE DOCUMENTOS")]
+    [Display(Name = "11997", Description = "DEPARTAMENTO DE CERTIFICACI√ìN Y LEGALIZACI√ìN DE DOCUMENTOS")]
     D11997 = 11997,
-    [Display(Name = "11998", Description = "DEPARTAMENTO DE ASESORÕA Y PROCEDIMIENTOS LABORALES")]
+    [Display(Name = "11998", Description = "DEPARTAMENTO DE ASESOR√çA Y PROCEDIMIENTOS LABORALES")]
     D11998 = 11998,
     [Display(Name = "11999", Description = "DEPARTAMENTO DE VIDEOCONFERENCIAS")]
     D11999 = 11999,
@@ -459,258 +459,258 @@ public enum ClsCatalogoDependencias
     D12801 = 12801,
     [Display(Name = "13801", Description = "TALLER LIBRE DE ARTES")]
     D13801 = 13801,
-    [Display(Name = "21301", Description = "FACULTAD DE ADMINISTRACI”N")]
+    [Display(Name = "21301", Description = "FACULTAD DE ADMINISTRACI√ìN")]
     D21301 = 21301,
-    [Display(Name = "21401", Description = "UNIDAD ACAD…MICA DE CIENCIAS DE LA SALUD")]
+    [Display(Name = "21401", Description = "UNIDAD ACAD√âMICA DE CIENCIAS DE LA SALUD (Veracruz)")]
     D21401 = 21401,
-    [Display(Name = "21402", Description = "FACULTAD DE MEDICINA")]
+    [Display(Name = "21402", Description = "FACULTAD DE MEDICINA (Veracruz)")]
     D21402 = 21402,
-    [Display(Name = "21403", Description = "FACULTAD DE BIOAN¡LISIS")]
+    [Display(Name = "21403", Description = "FACULTAD DE BIOAN√ÅLISIS (Veracruz)")]
     D21403 = 21403,
-    [Display(Name = "21404", Description = "FACULTAD DE NUTRICI”N")]
+    [Display(Name = "21404", Description = "FACULTAD DE NUTRICI√ìN (Veracruz)")]
     D21404 = 21404,
-    [Display(Name = "21405", Description = "FACULTAD DE PSICOLOGÕA")]
+    [Display(Name = "21405", Description = "FACULTAD DE PSICOLOG√çA (Veracruz)")]
     D21405 = 21405,
-    [Display(Name = "21406", Description = "FACULTAD DE ENFERMERÕA")]
+    [Display(Name = "21406", Description = "FACULTAD DE ENFERMER√çA (Veracruz)")]
     D21406 = 21406,
-    [Display(Name = "21407", Description = "INSTITUTO DE INVESTIGACIONES M…DICO-BIOL”GICAS")]
+    [Display(Name = "21407", Description = "INSTITUTO DE INVESTIGACIONES M√âDICO-BIOL√ìGICAS")]
     D21407 = 21407,
     [Display(Name = "21501", Description = "FACULTAD DE MEDICINA VETERINARIA Y ZOOTECNIA")]
     D21501 = 21501,
-    [Display(Name = "21502", Description = "RANCHO TORRE”N DEL MOLINO")]
+    [Display(Name = "21502", Description = "RANCHO TORRE√ìN DEL MOLINO")]
     D21502 = 21502,
     [Display(Name = "21801", Description = "TALLER LIBRE DE ARTES VERACRUZ")]
     D21801 = 21801,
     [Display(Name = "21802", Description = "ORQUESTA TRADICIONAL MOSCOVITA")]
     D21802 = 21802,
-    [Display(Name = "21803", Description = "NEMATATLÕN")]
+    [Display(Name = "21803", Description = "NEMATATL√ÅN")]
     D21803 = 21803,
-    [Display(Name = "22101", Description = "FACULTAD DE INGENIERÕA")]
+    [Display(Name = "22101", Description = "FACULTAD DE INGENIER√çA (Veracruz)")]
     D22101 = 22101,
-    [Display(Name = "22102", Description = "INSTITUTO DE INGENIERÕA")]
+    [Display(Name = "22102", Description = "INSTITUTO DE INGENIER√çA")]
     D22102 = 22102,
-    [Display(Name = "22103", Description = "CENTRO DE INVESTIGACI”N EN MICRO Y NANOTECNOLOGÕA")]
+    [Display(Name = "22103", Description = "CENTRO DE INVESTIGACI√ìN EN MICRO Y NANOTECNOLOG√çA")]
     D22103 = 22103,
-    [Display(Name = "22104", Description = "FACULTAD DE INGENIERÕA EL…CTRICA Y ELECTR”NICA")]
+    [Display(Name = "22104", Description = "FACULTAD DE INGENIER√çA EL√âCTRICA Y ELECTR√ìNICA")]
     D22104 = 22104,
-    [Display(Name = "22105", Description = "FACULTAD DE CIENCIAS QUÕMICAS")]
+    [Display(Name = "22105", Description = "FACULTAD DE CIENCIAS QU√çMICAS (Veracruz)")]
     D22105 = 22105,
-    [Display(Name = "22106", Description = "FACULTAD DE INGENIERÕA MEC¡NICA Y CIENCIAS NAVALES")]
+    [Display(Name = "22106", Description = "FACULTAD DE INGENIER√çA MEC√ÅNICA Y CIENCIAS NAVALES")]
     D22106 = 22106,
-    [Display(Name = "22107", Description = "FACULTAD DE INGENIERÕA DE LA CONSTRUCCI”N Y EL H¡BITAT")]
+    [Display(Name = "22107", Description = "FACULTAD DE INGENIER√çA DE LA CONSTRUCCI√ìN Y EL H√ÅBITAT")]
     D22107 = 22107,
-    [Display(Name = "22201", Description = "FACULTAD DE CIENCIAS Y T…CNICAS DE LA COMUNICACI”N")]
+    [Display(Name = "22201", Description = "FACULTAD DE CIENCIAS Y T√âCNICAS DE LA COMUNICACI√ìN")]
     D22201 = 22201,
-    [Display(Name = "22202", Description = "FACULTAD DE PEDAGOGÕA")]
+    [Display(Name = "22202", Description = "FACULTAD DE PEDAGOG√çA (Veracruz)")]
     D22202 = 22202,
-    [Display(Name = "22302", Description = "FACULTAD DE CONTADURÕA Y NEGOCIOS")]
+    [Display(Name = "22302", Description = "FACULTAD DE CONTADUR√çA Y NEGOCIOS")]
     D22302 = 22302,
-    [Display(Name = "22401", Description = "FACULTAD DE ODONTOLOGÕA")]
+    [Display(Name = "22401", Description = "FACULTAD DE ODONTOLOG√çA (Veracruz)")]
     D22401 = 22401,
-    [Display(Name = "22402", Description = "FACULTAD DE EDUCACI”N FÕSICA DEPORTE Y RECREACI”N")]
+    [Display(Name = "22402", Description = "FACULTAD DE EDUCACI√ìN F√çSICA DEPORTE Y RECREACI√ìN")]
     D22402 = 22402,
     [Display(Name = "22403", Description = "INSTITUTO DE MEDICINA FORENSE")]
     D22403 = 22403,
-    [Display(Name = "22501", Description = "INSTITUTO DE CIENCIAS MARINAS Y PESQUERÕAS")]
+    [Display(Name = "22501", Description = "INSTITUTO DE CIENCIAS MARINAS Y PESQUER√çAS (Veracruz)")]
     D22501 = 22501,
-    [Display(Name = "22601", Description = "CENTRO DE INICIACI”N MUSICAL INFANTIL")]
+    [Display(Name = "22601", Description = "CENTRO DE INICIACI√ìN MUSICAL INFANTIL (Veracruz)")]
     D22601 = 22601,
-    [Display(Name = "22701", Description = "COORDINACI”N ACAD…MICA REGIONAL DE ENSE—ANZA ABIERTA")]
+    [Display(Name = "22701", Description = "COORDINACI√ìN ACAD√âMICA REGIONAL DE ENSE√ëANZA ABIERTA (Veracruz)")]
     D22701 = 22701,
-    [Display(Name = "22702", Description = "COORDINACI”N ACAD…MICA REGIONAL DE TECNOLOGÕA DE INFORMACI”N")]
+    [Display(Name = "22702", Description = "COORDINACI√ìN ACAD√âMICA REGIONAL DE TECNOLOG√çA DE INFORMACI√ìN (Veracruz)")]
     D22702 = 22702,
-    [Display(Name = "22725", Description = "DOCENCIA E INVESTIGACI”N BOCA DEL RÕO")]
+    [Display(Name = "22725", Description = "DOCENCIA E INVESTIGACI√ìN BOCA DEL R√çO")]
     D22725 = 22725,
-    [Display(Name = "22801", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO")]
+    [Display(Name = "22801", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO (Veracruz)")]
     D22801 = 22801,
-    [Display(Name = "22802", Description = "COORDINACI”N REGIONAL DE ACTIVIDADES DEPORTIVAS")]
+    [Display(Name = "22802", Description = "COORDINACI√ìN REGIONAL DE ACTIVIDADES DEPORTIVAS (Veracruz)")]
     D22802 = 22802,
-    [Display(Name = "22901", Description = "VICE-RECTORÕA VERACRUZ")]
+    [Display(Name = "22901", Description = "VICE-RECTOR√çA VERACRUZ")]
     D22901 = 22901,
-    [Display(Name = "22902", Description = "SECRETARÕA ACAD…MICA REGIONAL")]
+    [Display(Name = "22902", Description = "SECRETAR√çA ACAD√âMICA REGIONAL (Veracruz)")]
     D22902 = 22902,
-    [Display(Name = "22903", Description = "SECRETARÕA DE ADMINISTRACI”N Y FINANZAS REGIONAL")]
+    [Display(Name = "22903", Description = "SECRETAR√çA DE ADMINISTRACI√ìN Y FINANZAS REGIONAL (Veracruz)")]
     D22903 = 22903,
-    [Display(Name = "22904", Description = "COORDINACI”N REGIONAL DE DIFUSI”N CULTURAL Y EXTENSI”N UNIVERSITARIA")]
+    [Display(Name = "22904", Description = "COORDINACI√ìN REGIONAL DE DIFUSI√ìN CULTURAL Y EXTENSI√ìN UNIVERSITARIA (Veracruz)")]
     D22904 = 22904,
-    [Display(Name = "22905", Description = "COORDINACI”N REGIONAL DE BIBLIOTECAS VERACRUZ")]
+    [Display(Name = "22905", Description = "COORDINACI√ìN REGIONAL DE BIBLIOTECAS VERACRUZ")]
     D22905 = 22905,
-    [Display(Name = "22906", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI”N DE VERACRUZ")]
+    [Display(Name = "22906", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI√ìN DE VERACRUZ")]
     D22906 = 22906,
     [Display(Name = "22907", Description = "CENTRO DE ESTUDIO Y SERVICIOS EN SALUD")]
     D22907 = 22907,
-    [Display(Name = "22908", Description = "COORDINACI”N REGIONAL DEL ¡REA DE FORMACI”N B¡SICA GENERAL")]
+    [Display(Name = "22908", Description = "COORDINACI√ìN REGIONAL DEL √ÅREA DE FORMACI√ìN B√ÅSICA GENERAL (Veracruz)")]
     D22908 = 22908,
-    [Display(Name = "31101", Description = "FACULTAD DE CIENCIAS QUÕMICAS")]
+    [Display(Name = "31101", Description = "FACULTAD DE CIENCIAS QU√çMICAS (Orizaba - C√≥rdoba)")]
     D31101 = 31101,
-    [Display(Name = "31201", Description = "CENTRO DE INVESTIGACI”N EN CIENCIAS SOCIALES Y HUMANIDADES")]
+    [Display(Name = "31201", Description = "CENTRO DE INVESTIGACI√ìN EN CIENCIAS SOCIALES Y HUMANIDADES")]
     D31201 = 31201,
-    [Display(Name = "31401", Description = "FACULTAD DE ENFERMERÕA")]
+    [Display(Name = "31401", Description = "FACULTAD DE ENFERMER√çA (Orizaba - C√≥rdoba)")]
     D31401 = 31401,
-    [Display(Name = "31413", Description = "INSTITUTO DE PSICOLOGÕA Y EDUCACI”N(CEEORI)")]
+    [Display(Name = "31413", Description = "INSTITUTO DE PSICOLOG√çA Y EDUCACI√ìN(CEEORI) (Orizaba - C√≥rdoba)")]
     D31413 = 31413,
-    [Display(Name = "31701", Description = "COORDINACI”N ACAD…MICA REGIONAL DE ENSE—ANZA ABIERTA")]
+    [Display(Name = "31701", Description = "COORDINACI√ìN ACAD√âMICA REGIONAL DE ENSE√ëANZA ABIERTA (Orizaba - C√≥rdoba)")]
     D31701 = 31701,
-    [Display(Name = "31702", Description = "COORDINACI”N ACAD…MICA REGIONAL DE TECNOLOGÕA DE INFORMACI”N")]
+    [Display(Name = "31702", Description = "COORDINACI√ìN ACAD√âMICA REGIONAL DE TECNOLOG√çA DE INFORMACI√ìN (Orizaba - C√≥rdoba)")]
     D31702 = 31702,
-    [Display(Name = "31725", Description = "DOCENCIA E INVESTIGACI”N ORIZABA")]
+    [Display(Name = "31725", Description = "DOCENCIA E INVESTIGACI√ìN ORIZABA")]
     D31725 = 31725,
-    [Display(Name = "31801", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO")]
+    [Display(Name = "31801", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO (Orizaba - C√≥rdoba)")]
     D31801 = 31801,
-    [Display(Name = "31802", Description = "COORDINACI”N REGIONAL DE ACTIVIDADES DEPORTIVAS")]
+    [Display(Name = "31802", Description = "COORDINACI√ìN REGIONAL DE ACTIVIDADES DEPORTIVAS (Orizaba - C√≥rdoba)")]
     D31802 = 31802,
-    [Display(Name = "31901", Description = "VICE-RECTORÕA")]
+    [Display(Name = "31901", Description = "VICE-RECTOR√çA (Orizaba - C√≥rdoba)")]
     D31901 = 31901,
-    [Display(Name = "31902", Description = "SECRETARIA ACAD…MICA REGIONAL")]
+    [Display(Name = "31902", Description = "SECRETARIA ACAD√âMICA REGIONAL")]
     D31902 = 31902,
-    [Display(Name = "31903", Description = "SECRETARÕA DE ADMINISTRACI”N Y FINANZAS REGIONAL")]
+    [Display(Name = "31903", Description = "SECRETAR√çA DE ADMINISTRACI√ìN Y FINANZAS REGIONAL (Orizaba - C√≥rdoba)")]
     D31903 = 31903,
-    [Display(Name = "31904", Description = "COORDINACI”N REGIONAL DE DIFUSI”N CULTURAL Y EXTENSI”N UNIVERSITARIA")]
+    [Display(Name = "31904", Description = "COORDINACI√ìN REGIONAL DE DIFUSI√ìN CULTURAL Y EXTENSI√ìN UNIVERSITARIA (Orizaba - C√≥rdoba)")]
     D31904 = 31904,
-    [Display(Name = "31905", Description = "COORDINACI”N REGIONAL DE BIBLIOTECAS ORIZABA-CORD.")]
+    [Display(Name = "31905", Description = "COORDINACI√ìN REGIONAL DE BIBLIOTECAS ORIZABA-CORD.")]
     D31905 = 31905,
-    [Display(Name = "31908", Description = "COORDINACI”N REGIONAL DEL ¡REA DE FORMACI”N B¡SICA GENERAL")]
+    [Display(Name = "31908", Description = "COORDINACI√ìN REGIONAL DEL √ÅREA DE FORMACI√ìN B√ÅSICA GENERAL")]
     D31908 = 31908,
-    [Display(Name = "32101", Description = "FACULTAD DE ARQUITECTURA")]
+    [Display(Name = "32101", Description = "FACULTAD DE ARQUITECTURA (Orizaba - C√≥rdoba)")]
     D32101 = 32101,
-    [Display(Name = "32413", Description = "INSTITUTO DE PSICOLOGÕA Y EDUCACI”N")]
+    [Display(Name = "32413", Description = "INSTITUTO DE PSICOLOG√çA Y EDUCACI√ìN (Orizaba - C√≥rdoba)")]
     D32413 = 32413,
     [Display(Name = "32801", Description = "CENTRO DE IDIOMAS")]
     D32801 = 32801,
-    [Display(Name = "32802", Description = "TALLER LIBRE DE ARTES DE C”RDOBA")]
+    [Display(Name = "32802", Description = "TALLER LIBRE DE ARTES DE C√ìRDOBA")]
     D32802 = 32802,
     [Display(Name = "32906", Description = "CENTRO UNIVERSITARIO PARA LAS ARTES, LA CIENCIA Y LA CULTURA")]
     D32906 = 32906,
-    [Display(Name = "32908", Description = "COORDINACI”N REGIONAL DEL ¡REA DE FORMACI”N B¡SICA GENERAL")]
+    [Display(Name = "32908", Description = "COORDINACI√ìN REGIONAL DEL √ÅREA DE FORMACI√ìN B√ÅSICA GENERAL")]
     D32908 = 32908,
-    [Display(Name = "33101", Description = "FACULTAD DE INGENIERÕA")]
+    [Display(Name = "33101", Description = "FACULTAD DE INGENIER√çA (Orizaba - C√≥rdoba)")]
     D33101 = 33101,
-    [Display(Name = "33401", Description = "FACULTAD DE MEDICINA")]
+    [Display(Name = "33401", Description = "FACULTAD DE MEDICINA (Orizaba - C√≥rdoba)")]
     D33401 = 33401,
-    [Display(Name = "34301", Description = "FACULTAD DE NEGOCIOS Y TECNOLOGÕAS")]
+    [Display(Name = "34301", Description = "FACULTAD DE NEGOCIOS Y TECNOLOG√çAS")]
     D34301 = 34301,
-    [Display(Name = "35501", Description = "FACULTAD DE CIENCIAS BIOL”GICAS Y AGROPECUARIAS")]
+    [Display(Name = "35501", Description = "FACULTAD DE CIENCIAS BIOL√ìGICAS Y AGROPECUARIAS (Orizaba - C√≥rdoba)")]
     D35501 = 35501,
-    [Display(Name = "36401", Description = "FACULTAD DE ODONTOLOGÕA")]
+    [Display(Name = "36401", Description = "FACULTAD DE ODONTOLOG√çA (Orizaba - C√≥rdoba)")]
     D36401 = 36401,
-    [Display(Name = "37906", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI”N DE IXTACZOQUITLAN")]
+    [Display(Name = "37906", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI√ìN DE IXTACZOQUITLAN")]
     D37906 = 37906,
-    [Display(Name = "41101", Description = "FACULTAD DE INGENIERÕA CIVIL")]
+    [Display(Name = "41101", Description = "FACULTAD DE INGENIER√çA CIVIL (Poza Rica - Tuxpan)")]
     D41101 = 41101,
-    [Display(Name = "41102", Description = "FACULTAD DE CIENCIAS QUÕMICAS")]
+    [Display(Name = "41102", Description = "FACULTAD DE CIENCIAS QU√çMICAS (Poza Rica - Tuxpan)")]
     D41102 = 41102,
-    [Display(Name = "41103", Description = "FACULTAD DE ARQUITECTURA")]
+    [Display(Name = "41103", Description = "FACULTAD DE ARQUITECTURA (Poza Rica - Tuxpan)")]
     D41103 = 41103,
-    [Display(Name = "41104", Description = "FACULTAD DE INGENIERÕA MEC¡NICA EL…CTRICA")]
+    [Display(Name = "41104", Description = "FACULTAD DE INGENIER√çA MEC√ÅNICA EL√âCTRICA")]
     D41104 = 41104,
-    [Display(Name = "41105", Description = "FACULTAD DE INGENIERÕA ELECTR”NICA Y COMUNICACIONES")]
+    [Display(Name = "41105", Description = "FACULTAD DE INGENIER√çA ELECTR√ìNICA Y COMUNICACIONES")]
     D41105 = 41105,
-    [Display(Name = "41201", Description = "FACULTAD DE PEDAGOGÕA")]
+    [Display(Name = "41201", Description = "FACULTAD DE PEDAGOG√çA (Poza Rica - Tuxpan)")]
     D41201 = 41201,
-    [Display(Name = "41202", Description = "FACULTAD DE TRABAJO SOCIAL")]
+    [Display(Name = "41202", Description = "FACULTAD DE TRABAJO SOCIAL (Poza Rica - Tuxpan)")]
     D41202 = 41202,
-    [Display(Name = "41401", Description = "UNIDAD ACAD…MICA DE CIENCIAS DE LA SALUD")]
+    [Display(Name = "41401", Description = "UNIDAD ACAD√âMICA DE CIENCIAS DE LA SALUD (Poza Rica - Tuxpan)")]
     D41401 = 41401,
-    [Display(Name = "41402", Description = "FACULTAD DE MEDICINA")]
+    [Display(Name = "41402", Description = "FACULTAD DE MEDICINA (Poza Rica - Tuxpan)")]
     D41402 = 41402,
-    [Display(Name = "41403", Description = "FACULTAD DE ODONTOLOGÕA")]
+    [Display(Name = "41403", Description = "FACULTAD DE ODONTOLOG√çA (Poza Rica - Tuxpan)")]
     D41403 = 41403,
-    [Display(Name = "41404", Description = "FACULTAD DE PSICOLOGÕA")]
+    [Display(Name = "41404", Description = "FACULTAD DE PSICOLOG√çA (Poza Rica - Tuxpan)")]
     D41404 = 41404,
-    [Display(Name = "41405", Description = "FACULTAD DE ENFERMERÕA")]
+    [Display(Name = "41405", Description = "FACULTAD DE ENFERMER√çA (Poza Rica - Tuxpan)")]
     D41405 = 41405,
-    [Display(Name = "41701", Description = "COORDINACI”N ACAD…MICA REGIONAL DE ENSE—ANZA ABIERTA")]
+    [Display(Name = "41701", Description = "COORDINACI√ìN ACAD√âMICA REGIONAL DE ENSE√ëANZA ABIERTA (Poza Rica - Tuxpan)")]
     D41701 = 41701,
-    [Display(Name = "41702", Description = "COORDINACI”N ACAD…MICA REGIONAL DE TECNOLOGÕA DE INFORMACI”N")]
+    [Display(Name = "41702", Description = "COORDINACI√ìN ACAD√âMICA REGIONAL DE TECNOLOG√çA DE INFORMACI√ìN (Poza Rica - Tuxpan)")]
     D41702 = 41702,
-    [Display(Name = "41725", Description = "DOCENCIA E INVESTIGACI”N POZA RICA")]
+    [Display(Name = "41725", Description = "DOCENCIA E INVESTIGACI√ìN POZA RICA")]
     D41725 = 41725,
     [Display(Name = "41801", Description = "TALLER LIBRE DE ARTES DE POZA RICA")]
     D41801 = 41801,
-    [Display(Name = "41802", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO")]
+    [Display(Name = "41802", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO (Poza Rica - Tuxpan)")]
     D41802 = 41802,
-    [Display(Name = "41803", Description = "COORDINACI”N REGIONAL DE ACTIVIDADES DEPORTIVAS")]
+    [Display(Name = "41803", Description = "COORDINACI√ìN REGIONAL DE ACTIVIDADES DEPORTIVAS (Poza Rica - Tuxpan)")]
     D41803 = 41803,
-    [Display(Name = "41901", Description = "VICE-RECTORÕA")]
+    [Display(Name = "41901", Description = "VICE-RECTOR√çA (Poza Rica - Tuxpan)")]
     D41901 = 41901,
-    [Display(Name = "41902", Description = "SECRETARÕA ACAD…MICA REGIONAL")]
+    [Display(Name = "41902", Description = "SECRETAR√çA ACAD√âMICA REGIONAL (Poza Rica - Tuxpan)")]
     D41902 = 41902,
-    [Display(Name = "41903", Description = "SECRETARIA DE ADMINISTRACI”N Y FINANZAS REGIONAL")]
+    [Display(Name = "41903", Description = "SECRETARIA DE ADMINISTRACI√ìN Y FINANZAS REGIONAL")]
     D41903 = 41903,
-    [Display(Name = "41904", Description = "COORDINACI”N REGIONAL DE DIFUSI”N CULTURAL Y EXTENSI”N UNIVERSITARIA")]
+    [Display(Name = "41904", Description = "COORDINACI√ìN REGIONAL DE DIFUSI√ìN CULTURAL Y EXTENSI√ìN UNIVERSITARIA (Poza Rica - Tuxpan)")]
     D41904 = 41904,
-    [Display(Name = "41905", Description = "COORDINACI”N REGIONAL DE BIBLIOTECAS POZA R-TUXPAM")]
+    [Display(Name = "41905", Description = "COORDINACI√ìN REGIONAL DE BIBLIOTECAS POZA R-TUXPAM")]
     D41905 = 41905,
-    [Display(Name = "41906", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI”N DE POZA RICA")]
+    [Display(Name = "41906", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI√ìN DE POZA RICA")]
     D41906 = 41906,
-    [Display(Name = "41908", Description = "COORDINACI”N REGIONAL DEL ¡REA DE FORMACI”N B¡SICA GENERAL")]
+    [Display(Name = "41908", Description = "COORDINACI√ìN REGIONAL DEL √ÅREA DE FORMACI√ìN B√ÅSICA GENERAL")]
     D41908 = 41908,
-    [Display(Name = "42301", Description = "FACULTAD DE CONTADURÕA")]
+    [Display(Name = "42301", Description = "FACULTAD DE CONTADUR√çA (Poza Rica - Tuxpan)")]
     D42301 = 42301,
-    [Display(Name = "42501", Description = "FACULTAD DE CIENCIAS BIOL”GICAS Y AGROPECUARIAS")]
+    [Display(Name = "42501", Description = "FACULTAD DE CIENCIAS BIOL√ìGICAS Y AGROPECUARIAS (Poza Rica - Tuxpan)")]
     D42501 = 42501,
-    [Display(Name = "42908", Description = "COORDINACI”N REGIONAL DEL ¡REA DE FORMACI”N B¡SICA GENERAL")]
+    [Display(Name = "42908", Description = "COORDINACI√ìN REGIONAL DEL √ÅREA DE FORMACI√ìN B√ÅSICA GENERAL")]
     D42908 = 42908,
     [Display(Name = "43801", Description = "TALLER LIBRE DE ARTES DE PAPANTLA")]
     D43801 = 43801,
-    [Display(Name = "51101", Description = "FACULTAD DE INGENIERÕA")]
+    [Display(Name = "51101", Description = "FACULTAD DE INGENIER√çA (Coatzacoalcos - Minatitlan)")]
     D51101 = 51101,
-    [Display(Name = "51102", Description = "FACULTAD DE CIENCIAS QUÕMICAS")]
+    [Display(Name = "51102", Description = "FACULTAD DE CIENCIAS QU√çMICAS (Coatzacoalcos - Minatitlan)")]
     D51102 = 51102,
     [Display(Name = "51201", Description = "CENTRO DE INVESTIGACIONES INTERDISCIPLINARIAS EN CIENCIAS SOCIALES")]
     D51201 = 51201,
-    [Display(Name = "51301", Description = "FACULTAD DE CONTADURÕA Y ADMINISTRACI”N")]
+    [Display(Name = "51301", Description = "FACULTAD DE CONTADUR√çA Y ADMINISTRACI√ìN (Coatzacoalcos - Minatitlan)")]
     D51301 = 51301,
-    [Display(Name = "51401", Description = "ESCUELA DE ENFERMERÕA")]
+    [Display(Name = "51401", Description = "ESCUELA DE ENFERMER√çA")]
     D51401 = 51401,
-    [Display(Name = "51701", Description = "COORDINACI”N ACAD…MICA REGIONAL DE ENSE—ANZA ABIERTA")]
+    [Display(Name = "51701", Description = "COORDINACI√ìN ACAD√âMICA REGIONAL DE ENSE√ëANZA ABIERTA (Coatzacoalcos - Minatitlan)")]
     D51701 = 51701,
-    [Display(Name = "51702", Description = "COORDINACI”N REGIONAL DE TECNOLOGÕA DE INFORMACI”N")]
+    [Display(Name = "51702", Description = "COORDINACI√ìN REGIONAL DE TECNOLOG√çA DE INFORMACI√ìN")]
     D51702 = 51702,
-    [Display(Name = "51703", Description = "CENTRO DE INVESTIGACI”N EN RECURSOS ENERG…TICOS Y SUSTENTABLES")]
+    [Display(Name = "51703", Description = "CENTRO DE INVESTIGACI√ìN EN RECURSOS ENERG√âTICOS Y SUSTENTABLES")]
     D51703 = 51703,
-    [Display(Name = "51725", Description = "DOCENCIA E INVESTIGACI”N COATZACOALCOS")]
+    [Display(Name = "51725", Description = "DOCENCIA E INVESTIGACI√ìN COATZACOALCOS")]
     D51725 = 51725,
-    [Display(Name = "51801", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO")]
+    [Display(Name = "51801", Description = "CENTRO DE IDIOMAS Y DE AUTOACCESO (Coatzacoalcos - Minatitlan)")]
     D51801 = 51801,
-    [Display(Name = "51802", Description = "COORDINACI”N REGIONAL DE ACTIVIDADES DEPORTIVAS")]
+    [Display(Name = "51802", Description = "COORDINACI√ìN REGIONAL DE ACTIVIDADES DEPORTIVAS (Coatzacoalcos - Minatitlan)")]
     D51802 = 51802,
     [Display(Name = "51803", Description = "TALLER LIBRE DE ARTES COATZACOALCOS")]
     D51803 = 51803,
-    [Display(Name = "51901", Description = "VICE-RECTORÕA")]
+    [Display(Name = "51901", Description = "VICE-RECTOR√çA (Coatzacoalcos - Minatitlan)")]
     D51901 = 51901,
-    [Display(Name = "51902", Description = "SECRETARÕA ACAD…MICA REGIONAL")]
+    [Display(Name = "51902", Description = "SECRETAR√çA ACAD√âMICA REGIONAL (Coatzacoalcos - Minatitlan)")]
     D51902 = 51902,
-    [Display(Name = "51903", Description = "SECRETARÕA DE ADMINISTRACI”N Y FINANZAS REGIONAL")]
+    [Display(Name = "51903", Description = "SECRETAR√çA DE ADMINISTRACI√ìN Y FINANZAS REGIONAL (Coatzacoalcos - Minatitlan)")]
     D51903 = 51903,
-    [Display(Name = "51904", Description = "COORDINACI”N REGIONAL DE DIFUSI”N CULTURAL Y EXTENSI”N UNIVERSITARIA")]
+    [Display(Name = "51904", Description = "COORDINACI√ìN REGIONAL DE DIFUSI√ìN CULTURAL Y EXTENSI√ìN UNIVERSITARIA (Coatzacoalcos - Minatitlan)")]
     D51904 = 51904,
-    [Display(Name = "51905", Description = "COORDINACI”N REGIONAL DE BIBLIOTECAS COATZA-MINA")]
+    [Display(Name = "51905", Description = "COORDINACI√ìN REGIONAL DE BIBLIOTECAS COATZA-MINA")]
     D51905 = 51905,
-    [Display(Name = "51906", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI”N (USBI) COATZACOALCOS")]
+    [Display(Name = "51906", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI√ìN (USBI) COATZACOALCOS")]
     D51906 = 51906,
-    [Display(Name = "51908", Description = "COORDINACI”N REGIONAL DEL ¡REA DE FORMACI”N B¡SICA GENERAL")]
+    [Display(Name = "51908", Description = "COORDINACI√ìN REGIONAL DEL √ÅREA DE FORMACI√ìN B√ÅSICA GENERAL (Coatzacoalcos - Minatitlan)")]
     D51908 = 51908,
-    [Display(Name = "52201", Description = "FACULTAD DE TRABAJO SOCIAL")]
+    [Display(Name = "52201", Description = "FACULTAD DE TRABAJO SOCIAL (Coatzacoalcos - Minatitlan)")]
     D52201 = 52201,
-    [Display(Name = "52401", Description = "UNIDAD ACAD…MICA DE CIENCIAS DE LA SALUD Y TRABAJO SOCIAL")]
+    [Display(Name = "52401", Description = "UNIDAD ACAD√âMICA DE CIENCIAS DE LA SALUD Y TRABAJO SOCIAL")]
     D52401 = 52401,
-    [Display(Name = "52402", Description = "FACULTAD DE ODONTOLOGÕA")]
+    [Display(Name = "52402", Description = "FACULTAD DE ODONTOLOG√çA (Coatzacoalcos - Minatitlan)")]
     D52402 = 52402,
-    [Display(Name = "52403", Description = "FACULTAD DE MEDICINA")]
+    [Display(Name = "52403", Description = "FACULTAD DE MEDICINA (Coatzacoalcos - Minatitlan)")]
     D52403 = 52403,
-    [Display(Name = "52404", Description = "FACULTAD DE ENFERMERÕA")]
+    [Display(Name = "52404", Description = "FACULTAD DE ENFERMER√çA (Coatzacoalcos - Minatitlan)")]
     D52404 = 52404,
-    [Display(Name = "52701", Description = "COORDINACI”N REGIONAL DE TECNOLOGÕA DE INFORMACI”N")]
+    [Display(Name = "52701", Description = "COORDINACI√ìN REGIONAL DE TECNOLOG√çA DE INFORMACI√ìN")]
     D52701 = 52701,
-    [Display(Name = "52901", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI”N DE MINATITL¡N")]
+    [Display(Name = "52901", Description = "UNIDAD DE SERVICIOS BIBLIOTECARIOS Y DE INFORMACI√ìN DE MINATITLAN")]
     D52901 = 52901,
-    [Display(Name = "53501", Description = "INGENIERÕA EN SISTEMAS DE PRODUCCI”N AGROPECUARIA")]
+    [Display(Name = "53501", Description = "INGENIER√çA EN SISTEMAS DE PRODUCCI√ìN AGROPECUARIA")]
     D53501 = 53501,
     [Display(Name = "53502", Description = "CENTRO DE ESTUDIOS INTERDISCIPLINARIOS EN AGROBIODIVERSIDAD")]
     D53502 = 53502,
-    [Display(Name = "54704", Description = "UNIVERSIDAD VERACRUZANA INTERCULTURAL HUAZUNTL¡N")]
+    [Display(Name = "54704", Description = "UNIVERSIDAD VERACRUZANA INTERCULTURAL HUAZUNTL√ìN")]
     D54704 = 54704,
-    [Display(Name = "99999", Description = "¡REA PLAZAS DUMMY")]
+    [Display(Name = "99999", Description = "√ÅREA PLAZAS DUMMY")]
     D99999 = 99999,
 }
