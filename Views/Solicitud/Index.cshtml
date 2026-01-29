@@ -89,10 +89,10 @@
                             <div class="position-relative">
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
-                                    <input type="text" id="txtBuscarUsuario" class="form-control border-start-0" placeholder="Buscar por Nombre, Usuario o No. Personal..." autocomplete="off" data-url="@Url.Action("BuscarUsuarios", "Solicitud")" />
+                                    <input type="text" id="txtUsuario" class="form-control border-start-0" placeholder="Buscar por Nombre, Usuario o No. Personal..." autocomplete="off" data-url="@Url.Action("BuscarUsuarios", "Solicitud")" />
                                 </div>
                                 @* <div id="divResultadosBusqueda" class="dropdown-menu w-100 shadow-sm border" style="max-height: 200px; overflow-y: auto; width: max-content;"></div> *@
-                                <div id="divResultadosBusqueda" class="list-group position-absolute w-100 shadow"
+                                <div id="divResultados" class="list-group position-absolute w-100 shadow"
                                      style="z-index: 1000; max-height: 200px; overflow-y: auto;">
                                 </div>
                             </div>
@@ -135,6 +135,13 @@
                                     @* <input asp-for="NRegClv" required /> *@
                                     @* <input asp-for="SRegNom" required /> *@
 
+                                </div>
+                            </div>
+                            <div class="row align-items-center">
+                                <label asp-for="SPueEmpl" class="col-md-4 col-form-label">Puesto</label>
+                                <div class="col-md-8">
+                                    <input asp-for="SPueEmpl" class="form-control bg-light pe-none" placeholder="Puesto del empleado ej. Becario" tabindex="-1" readonly required />
+                                    <span asp-validation-for="SPueEmpl" class="text-danger"></span>
                                 </div>
                             </div>
                             @* <div class="row align-items-center">
@@ -255,14 +262,6 @@
                                 </div>
                             </div> *@
 
-
-                            <div class="row align-items-center">
-                                <label asp-for="SPueEmpl" class="col-md-4 col-form-label">Puesto</label>
-                                <div class="col-md-8">
-                                    <input asp-for="SPueEmpl" class="form-control" placeholder="Puesto del empleado ej. Becario" required />
-                                    <span asp-validation-for="SPueEmpl" class="text-danger"></span>
-                                </div>
-                            </div>
                         </div>
                     </div>
                 </div>
@@ -466,61 +465,61 @@
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="MoFinanzas.BRevisor" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-revisor">
+                                                <input asp-for="MoFinanzas.BRevisor" class="form-check-input clsAlternarDetalle" type="checkbox" data-target="#divRevisor">
                                                 <label asp-for="MoFinanzas.BRevisor" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BRevisor)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BRevisor)"></i>
                                                 </label>
-                                                <div id="detalle-revisor" class="mt-2 d-none">
+                                                <div id="divRevisor" class="mt-2 d-none">
                                                     <textarea asp-for="MoFinanzas.SDetaRev" class="form-control form-control-sm" rows="2" placeholder="Especifique las operaciones a revisar. "></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="MoFinanzas.BOtroGru" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-otro-grupo">
+                                                <input asp-for="MoFinanzas.BOtroGru" class="form-check-input clsAlternarDetalle" type="checkbox" data-target="#divDetalleOtroGrupo">
                                                 <label asp-for="MoFinanzas.BOtroGru" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BOtroGru)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BOtroGru)"></i>
                                                 </label>
-                                                <div id="detalle-otro-grupo" class="mt-2 d-none">
+                                                <div id="divDetalleOtroGrupo" class="mt-2 d-none">
                                                     <textarea asp-for="MoFinanzas.SDetaGru" class="form-control form-control-sm" rows="2" placeholder="Especifique el grupo..."></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="MoFinanzas.BUrAdici" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-ur-adicional">
+                                                <input asp-for="MoFinanzas.BUrAdici" class="form-check-input clsAlternarDetalle" type="checkbox" data-target="#divDetalleURAdicional">
                                                 <label asp-for="MoFinanzas.BUrAdici" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BUrAdici)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BUrAdici)"></i>
                                                 </label>
-                                                <div id="detalle-ur-adicional" class="mt-2 d-none">
+                                                <div id="divDetalleURAdicional" class="mt-2 d-none">
                                                     <textarea asp-for="MoFinanzas.SDetaUrA" class="form-control form-control-sm" rows="2" placeholder="Especifique la clave y nombre de la UR..."></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="MoFinanzas.BPermEsp" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-permiso-especifico">
+                                                <input asp-for="MoFinanzas.BPermEsp" class="form-check-input clsAlternarDetalle" type="checkbox" data-target="#divPermisoEspecifico">
                                                 <label asp-for="MoFinanzas.BPermEsp" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BPermEsp)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BPermEsp)"></i>
                                                 </label>
-                                                <div id="detalle-permiso-especifico" class="mt-2 d-none">
+                                                <div id="divPermisoEspecifico" class="mt-2 d-none">
                                                     <textarea asp-for="MoFinanzas.SDetaEsp" class="form-control form-control-sm" rows="2" placeholder="Describa el permiso..."></textarea>
                                                 </div>
                                             </div>
 
                                             <div class="form-check col-12 col-md-6">
-                                                <input asp-for="MoFinanzas.BPermSim" class="form-check-input alternar-detalle" type="checkbox" data-target="#detalle-permiso-similar">
+                                                <input asp-for="MoFinanzas.BPermSim" class="form-check-input clsAlternarDetalle" type="checkbox" data-target="#divPermisoSimilar">
                                                 <label asp-for="MoFinanzas.BPermSim" class="form-check-label d-flex align-items-center gap-2">
                                                     @Html.DisplayNameFor(m => m.BPermSim)
                                                     <i class="fa-solid fa-circle-info text-secondary" data-bs-toggle="tooltip" data-bs-html="true"
                                                        title="@Html.DescriptionFor(m => m.BPermSim)"></i>
                                                 </label>
-                                                <div id="detalle-permiso-similar" class="mt-2 d-none">
+                                                <div id="divPermisoSimilar" class="mt-2 d-none">
                                                     <textarea asp-for="MoFinanzas.SDetaSim" class="form-control form-control-sm" rows="2" placeholder="Usuario o No. Personal de referencia..."></textarea>
                                                 </div>
                                             </div>
@@ -1054,21 +1053,21 @@
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Número de personal</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" type="number" class="form-control bg-light field-noper pe-none" placeholder="ej. 61399" tabindex="-1" required readonly />
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" type="number" class="txtNoPer form-control bg-light pe-none" placeholder="ej. 61399" tabindex="-1" required readonly />
                     <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Nombre del empleado</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="form-control bg-light field-nombre pe-none" placeholder="ej. Samuel Miral" tabindex="-1" required readonly />
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="txtNomEmpl form-control bg-light pe-none" placeholder="ej. Samuel Miral" tabindex="-1" required readonly />
                     <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Usuario</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="form-control bg-light field-usuario pe-none" placeholder="ej. josguzman" tabindex="-1" required readonly />
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="txtUsuario form-control bg-light pe-none" placeholder="ej. josguzman" tabindex="-1" required readonly />
                     <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="text-danger"></span>
                 </div>
             </div>

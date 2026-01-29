@@ -8,17 +8,16 @@
             delay: { "show": 100, "hide": 100 }
         })
     });
-    // ----------
 
-    // Checkboxes Especiales
-    const lsDivAlternarDetalle = document.querySelectorAll('.alternar-detalle');
+    // Checkboxes Especiales para Alternar Detalles en Finanzas
+    const lsDivAlternarDetalle = document.querySelectorAll('.clsAlternarDetalle');
     lsDivAlternarDetalle.forEach(txtDetalle => {
-        const toggleState = (isChecked) => {
+        const fnAlternarDetalle = (bMarcado) => {
             const txtId = txtDetalle.getAttribute('data-target');
             const txtDiv = document.querySelector(txtId);
             const txtArea = txtDiv.querySelector('textarea');
 
-            if (isChecked) {
+            if (bMarcado) {
                 txtDiv.classList.remove('d-none');
                 txtArea.setAttribute('required', 'required');
                 setTimeout(() => txtArea.focus(), 100);
@@ -30,60 +29,17 @@
             if (formSolicitud) formSolicitud.dispatchEvent(new Event('input'));
         };
         txtDetalle.addEventListener('change', function () {
-            toggleState(this.checked);
+            fnAlternarDetalle(this.checked);
         });
         if (txtDetalle.checked) {
-            toggleState(true);
+            fnAlternarDetalle(true);
         }
     });
-    // ----------
 
     // Lista Catalogo de Dependencias
-    const catalogo = window.datosDependencias || [];
+    const lsCatalogoDependencias = window.datosDependencias || [];
 
-    // Especificaciones Contador
-    //const textArea = document.getElementById('especificaciones');
-    //const contador = document.getElementById('contador');
-    //const maxLength = textArea.getAttribute('maxlength');
-
-    //contador.textContent = `${maxLength}/${maxLength}`;
-    //contador.style.color = "#6c757d";
-
-    //textArea.addEventListener('input', () => {
-    //    const caracteresEscritos = textArea.value.length;
-    //    const caracteresRestantes = maxLength - caracteresEscritos;
-    //    contador.textContent = `${caracteresRestantes}/${maxLength}`;
-    //    if (caracteresRestantes <= 20) {
-    //        contador.style.color = "#dc3545";
-    //    } else {
-    //        contador.style.color = "#6c757d";
-    //    }
-    //});
-    // ----------
-
-    // Form Solicitud
-    //const formSolicitud = document.getElementById('form-solicitud');
-    //if (!formSolicitud) return;
-    //const lstxtInputsParaValidar = formSolicitud.querySelectorAll('input[required], textarea[required], input[type="email"]');
-    //const btnDescargar = document.getElementById('btn-descargar-solicitud');
-    //function fnbVerificarForm() {
-    //    for (const txtInput of lstxtInputsParaValidar) {
-    //        if (!txtInput.checkValidity()) {
-    //            return false;
-    //        }
-    //    }
-    //    return true;
-    //}
-    //function alternarBtnDescargar(bHabilitar) {
-    //    btnDescargar.disabled = !bHabilitar;
-    //}
-    //formSolicitud.addEventListener('input', () => {
-    //    const bEsValido = fnbVerificarForm();
-    //    alternarBtnDescargar(bEsValido);
-    //});
-    // ----------
-
-    // Tabla Actividades
+    // Tabla Glosario de Actividades
     var nTamPag = parseInt($('#ddlActividades').val(), 10) || 10;
     var tblActividades = $('#tblActividades').DataTable({
         responsive: true,
@@ -103,9 +59,11 @@
         },
         autoWidth: false
     });
-    function fnsLimpiarTexto(texto) {
-        if (!texto) return "";
-        return texto
+
+    // Metodo para limpiar el texto
+    function fnsLimpiarTexto(sTexto) {
+        if (!sTexto) return "";
+        return sTexto
             .toLowerCase()
             .replace(/<[^>]*>?/gm, '') // Elimina cualquier etiqueta HTML (<span>, <br>, etc.)
             .replace(/\s+/g, ' ')      // Convierte saltos de línea y espacios múltiples en un solo espacio
@@ -134,86 +92,6 @@
     });
     // ----------
 
-
-    // Acciones quien hara la solicitud (prueba temporal)
-    //const btnYo = document.getElementById('btn-yo');
-    //const btnOtro = document.getElementById('btn-otro');
-    //const seccionBuscar = document.getElementById('seccion-buscar-usuario');
-    //const inputsDatos = document.querySelectorAll('#info-basica input, #info-basica select');
-    //const misDatos = {};
-    //inputsDatos.forEach(input => {
-    //    misDatos[input.id] = input.value;
-    //});
-    //function fnIntercambiarCampos(bloquear) {
-    //    inputsDatos.forEach(input => {
-    //        if (bloquear) {
-    //            if (input.tagName === 'SELECT') {
-    //                input.setAttribute('disabled', true);
-    //            } else {
-    //                input.setAttribute('readonly', true);
-    //            }
-    //            input.classList.add('bg-light', 'text-muted');
-    //            input.classList.remove('bg-white', 'text-dark');
-    //        } else {
-    //            if (input.tagName === 'SELECT') {
-    //                input.removeAttribute('disabled');
-    //            } else {
-    //                input.removeAttribute('readonly');
-    //            }
-    //            input.classList.remove('bg-light', 'text-muted');
-    //            input.classList.add('bg-white', 'text-dark');
-    //        }
-    //    });
-    //}
-    //btnYo.addEventListener('click', function () {
-    //    btnYo.classList.replace('btn-outline-primary', 'btn-primary');
-    //    btnYo.classList.add('active');
-    //    btnOtro.classList.replace('btn-secondary', 'btn-outline-secondary');
-    //    btnOtro.classList.remove('active');
-    //    seccionBuscar.classList.add('d-none');
-    //    inputsDatos.forEach(input => {
-    //        input.value = misDatos[input.id] || '';
-    //    });
-    //    fnIntercambiarCampos(true);
-    //});
-    //btnOtro.addEventListener('click', function () {
-    //    btnOtro.classList.replace('btn-outline-secondary', 'btn-secondary');
-    //    btnOtro.classList.add('active');
-    //    btnYo.classList.replace('btn-primary', 'btn-outline-primary');
-    //    btnYo.classList.remove('active');
-    //    seccionBuscar.classList.remove('d-none');
-    //    inputsDatos.forEach(input => {
-    //        input.value = '';
-    //    });
-    //    fnIntercambiarCampos(false);
-    //    document.getElementById('buscador-usuarios').focus();
-    //});
-    //fnIntercambiarCampos(true);
-    // ----------
-
-
-    // Boton para salir de la solicitud
-    //let hayCambiosSinGuardar = false;
-    //let urlDestino = "";
-    //const btnRegresar = document.getElementById('btnRegresar');
-    //const modalSalida = new bootstrap.Modal(document.getElementById('modalConfirmarSalida'));
-    //form.addEventListener('input', () => { hayCambiosSinGuardar = true; });
-    //form.addEventListener('change', () => { hayCambiosSinGuardar = true; });
-    //form.addEventListener('submit', () => { hayCambiosSinGuardar = false; });
-    //if (btnRegresar) {
-    //    btnRegresar.addEventListener('click', function (e) {
-    //        if (hayCambiosSinGuardar) {
-    //            e.preventDefault();
-    //            urlDestino = this.href;
-    //            modalSalida.show();
-    //        }
-    //    });
-    //}
-    //document.getElementById('btn-descartar').addEventListener('click', function () {
-    //    hayCambiosSinGuardar = false;
-    //    window.location.href = urlDestino;
-    //});
-
     // ============================
     // FORMULARIO GUARDARSOLICITUD
     // ============================
@@ -222,46 +100,33 @@
     btnGuardar.addEventListener('click', async function () {
         const btn = this;
 
-        // 1. Validar formulario visualmente antes de enviar (Opcional pero recomendado)
-        // if (!document.getElementById('formSolicitud').checkValidity()) { ... }
-
-        // 2. Bloquear botón
         const textoOriginal = btn.innerHTML;
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-
         const form = document.getElementById('formSolicitud');
         const formData = new FormData(form);
-        const urlAction = form.getAttribute('data-url-guardar') || form.action; // Asegúrate de tener la URL
-
+        const urlAction = form.getAttribute('data-url-guardar') || form.action;
         try {
             const response = await fetch(urlAction, {
                 method: 'POST',
                 body: formData
             });
-
             const result = await response.json();
-
             if (result.success) {
-                // Éxito
-                // Usar SweetAlert si lo tienes, sino alert normal
                 if (typeof Swal !== 'undefined') {
                     Swal.fire('¡Éxito!', result.message, 'success').then(() => {
-                        window.location.href = '/Inicio'; // O recargar
+                        window.location.href = '/Inicio';
                     });
                 } else {
-                    alert("Guardado correctamente");
                     window.location.reload();
                 }
             } else {
                 // Error de lógica (validación)
                 let msg = result.message;
                 if (result.errors) msg += "\n" + result.errors.join("\n");
-                alert("Atención: " + msg);
             }
         } catch (error) {
             console.error(error);
-            alert("Error de conexión con el servidor.");
         } finally {
             // Restaurar botón siempre
             btn.disabled = false;
@@ -270,209 +135,161 @@
     });
     // ----------
 
-    // Busqueda de usuario
-    const txtBuscarUsuario = document.getElementById('txtBuscarUsuario');
-    const divResultados = document.getElementById('divResultadosBusqueda');
-
     // Referencias a los inputs del formulario (Usamos los IDs generados por asp-for)
-    const lsInputs = {
+    const lsTxtUsuario = {
         sNomEmpl: document.getElementById('SNomEmpl'),
         nNoPer: document.getElementById('NNoPer'),
         sUsuario: document.getElementById('SUsuario'),
         sCorreo: document.getElementById('SCorreo'),
         Region: document.getElementById('Region'),
+        sPueEmpl: document.getElementById('SPueEmpl'),
     };
 
-    let indiceNavegacionUsuario = -1;
-
-    if (txtBuscarUsuario && divResultados) {
-        txtBuscarUsuario.addEventListener('keydown', function (e) {
-            const items = divResultados.querySelectorAll('a.list-group-item');
-
-            // Si la lista está oculta o vacía, no hacemos nada
-            if (divResultados.style.display === 'none' || items.length === 0) return;
-
-            if (e.key === 'ArrowDown') {
-                e.preventDefault(); // Evita que el cursor se mueva en el input
-                indiceNavegacionUsuario++;
-
-                // Si pasamos el último, volvemos al primero (carrusel)
-                if (indiceNavegacionUsuario >= items.length) indiceNavegacionUsuario = 0;
-
-                actualizarSeleccionVisual(items);
-            }
-            else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                indiceNavegacionUsuario--;
-
-                // Si subimos más allá del primero, vamos al último
-                if (indiceNavegacionUsuario < 0) indiceNavegacionUsuario = items.length - 1;
-
-                actualizarSeleccionVisual(items);
-            }
-            else if (e.key === 'Enter') {
-                // Si hay algo seleccionado con las flechas, simulamos el click
-                if (indiceNavegacionUsuario > -1) {
-                    e.preventDefault(); // Evita el submit del formulario
-                    items[indiceNavegacionUsuario].click();
-                }
-            }
-            else if (e.key === 'Escape') {
-                divResultados.style.display = 'none';
-                indiceNavegacionUsuario = -1;
-            }
-        });
-
-        // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
-        function actualizarSeleccionVisual(items) {
-            // Limpiar clase 'active' de todos
-            items.forEach(item => item.classList.remove('active'));
-
-            // Agregar clase 'active' al actual
-            if (indiceNavegacionUsuario > -1 && items[indiceNavegacionUsuario]) {
-                const itemActivo = items[indiceNavegacionUsuario];
-                itemActivo.classList.add('active');
-
-                // SCROLL AUTOMÁTICO:
-                // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
-                itemActivo.scrollIntoView({
-                    block: 'nearest',
-                    behavior: 'smooth'
-                });
-            }
+    // ====================
+    // BUSQUEDA DE USUARIO
+    // ====================
+    function fnActualizarSeleccionUsuario(lsItems, idUsuario) {
+        lsItems.forEach(item => item.classList.remove('active'));
+        if (idUsuario > -1 && lsItems[idUsuario]) {
+            const itemActivo = lsItems[idUsuario];
+            itemActivo.classList.add('active');
+            itemActivo.scrollIntoView({
+                block: 'nearest',
+                behavior: 'smooth'
+            });
         }
-
-        // --- 1. FUNCIÓN: BUSCAR EMPLEADO ---
-        txtBuscarUsuario.addEventListener('input', async function () {
-            const sBusqueda = this.value;
-
-            if (sBusqueda.length < 3) {
-                divResultados.innerHTML = '';
-                divResultados.classList.remove('show');
-                return;
-            }
-
-            const urlBusqueda = this.getAttribute('data-url');
-            fetch(`${urlBusqueda}?sUsuario=${sBusqueda}`)
-                .then(response => response.json())
-                .then(data => {
-                    divResultados.innerHTML = '';
-                    divResultados.classList.add('show');
-
-                    if (data.length > 0) {
-                        data.forEach(emp => {
-                            // Crear elemento de lista
-                            const item = document.createElement('a');
-                            //item.classList.add('dropdown-item', 'cursor-pointer');
-                            //item.textContent = emp.label;
-                            item.className = 'list-group-item list-group-item-action cursor-pointer';
-                            item.innerHTML = `<span class="codigo fw-semibold">${emp.nNoPer}</span> <span class="dep mx-1">-</span> <span>${emp.sNomEmpl}</span>`;
-                            item.href = "#";
-
-                            // Evento Click en un resultado
-                            item.addEventListener('click', async function (e) {
-                                e.preventDefault();
-                                fnRellenarDatos(emp);
-                                divResultados.classList.remove('show');
-                                txtBuscarUsuario.value = '';
-                            });
-
-                            divResultados.appendChild(item);
-                        });
-                    } else {
-                        divResultados.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
-                        //divResultados.style.display = 'block';
-                        //divResultados.classList.remove('show');
-                    }
-                });
-
-            indiceNavegacionUsuario = -1;
-        });
     }
-
-    // EVENTO PARA CERRAR AL DAR CLICK AFUERA
-    document.addEventListener('click', function (e) {
-        // 1. Verificamos que los elementos existan para evitar errores
-        if (!txtBuscarUsuario || !divResultados) return;
-
-        // 2. La Lógica: ¿El click fue FUERA del input Y FUERA de los resultados?
-        const clickEnInput = txtBuscarUsuario.contains(e.target);
-        const clickEnResultados = divResultados.contains(e.target);
-
-        if (!clickEnInput && !clickEnResultados) {
-            // Ocultamos
-            divResultados.classList.remove('show');
-            // Opcional: Limpiar resultados para que no reaparezcan viejos al volver a dar click
-            // divResultados.innerHTML = ''; 
-        }
-    });
-
-    // --- 2. FUNCIÓN: RELLENAR DATOS (Autocompletado) ---
     function fnRellenarDatos(emp) {
         if (!emp) return;
-
-        //console.log(emp)
-
-        // Validamos con 'if' por seguridad
-        if (lsInputs.sNomEmpl) lsInputs.sNomEmpl.value = emp.sNomEmpl || '';
-        if (lsInputs.nNoPer) lsInputs.nNoPer.value = emp.nNoPer || '';
-        if (lsInputs.sUsuario) lsInputs.sUsuario.value = emp.sUsuario || '';
-        if (lsInputs.sCorreo) lsInputs.sCorreo.value = emp.sCorreo || '';
-        //if (lsInputs.nUResClv) lsInputs.nUResClv.value = emp.nUResClv || '';
-        //if (lsInputs.sUResNom) lsInputs.sUResNom.value = emp.sUResNom || '';
-
-        // Region es un select, asignamos valor si coincide
-        if (lsInputs.Region) lsInputs.Region.value = emp.region;
-
-        // Mapeamos el Puesto (que viene del backend como sPueEmpl o sPerfil)
-        //if (lsInputs.sPueEmpl) lsInputs.sPueEmpl.value = emp.sPueEmpl || '';
-
-        // Asegurar que sigan bloqueados (Solo lectura) para evitar errores manuales
-        // (Asegúrate de tener la función bloquearCampos definida o descomentada)
-        //if (typeof bloquearCampos === "function") {
-        //    bloquearCampos(true);
-        //}
+        if (lsTxtUsuario.sNomEmpl) lsTxtUsuario.sNomEmpl.value = emp.sNomEmpl || '';
+        if (lsTxtUsuario.nNoPer) lsTxtUsuario.nNoPer.value = emp.nNoPer || '';
+        if (lsTxtUsuario.sUsuario) lsTxtUsuario.sUsuario.value = emp.sUsuario || '';
+        if (lsTxtUsuario.sCorreo) lsTxtUsuario.sCorreo.value = emp.sCorreo || '';
+        if (lsTxtUsuario.sPueEmpl) lsTxtUsuario.sPueEmpl.value = emp.sPueEmpl || '';
     }
-
-    // --- 3. FUNCIÓN: MODO MANUAL (Desbloquear) ---
-    const btnManual = document.getElementById('btnManual');
-    btnManual.addEventListener('click', function (e) {
-        e.preventDefault(); // Evitar que el botón haga submit si está dentro de un form
-
-        // Limpiar campos (opcional, si quieres que escriban desde cero)
-        // O puedes dejarlos con los datos actuales para editar sobre ellos.
-
-        bloquearCampos(false); // Desbloquear todo
-
-        // Dar foco al primer campo
-        lsInputs.sNomEmpl.focus();
-    });
-
-    //--- AUXILIAR: BLOQUEAR / DESBLOQUEAR ---
-    function bloquearCampos(bloquear) {
-        Object.values(lsInputs).forEach(el => {
-            if (bloquear) {
-                // MODO BLOQUEADO
-                el.classList.add('pe-none')
-                el.setAttribute('readonly', true);
-                if (el.tagName === 'SELECT') el.setAttribute('disabled', true);
-
-                el.classList.add('bg-light');
-                el.classList.remove('bg-white');
-            } else {
-                // MODO EDITABLE
-                el.classList.remove('pe-none')
-                el.removeAttribute('readonly');
-                if (el.tagName === 'SELECT') el.removeAttribute('disabled');
-
-                el.classList.remove('bg-light');
-                el.classList.add('bg-white');
+    function fnBuscarUsuario(sUsuario, sResultados, divHumaContainer = null) {
+        const txtUsuario = document.getElementById(sUsuario);
+        const divResultados = document.getElementById(sResultados);
+        let debounceTimer;
+        let idUsuario = -1;
+        // R. HUMANOS
+        let txtHumanosNoPer;
+        let txtHumanosNomEmpl;
+        let txtHumanosUsuario;
+        if (divHumaContainer) {
+            txtNoPer = divHumaContainer.querySelector('.txtNoPer');
+            txtNomEmpl = divHumaContainer.querySelector('.txtNomEmpl');
+            txtUsuario = divHumaContainer.querySelector('.txtUsuario');
+        }
+        if (txtUsuario && divResultados) {
+            txtUsuario.addEventListener('keydown', function (e) {
+                const lsItems = divResultados.querySelectorAll('a.list-group-item');
+                if (divResultados.style.display === 'none' || lsItems.length === 0) return;
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    idUsuario++;
+                    if (idUsuario >= lsItems.length) idUsuario = 0;
+                    fnActualizarSeleccionUsuario(lsItems, idUsuario);
+                }
+                else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    idUsuario--;
+                    if (idUsuario < 0) idUsuario = lsItems.length - 1;
+                    fnActualizarSeleccionUsuario(lsItems, idUsuario);
+                }
+                else if (e.key === 'Enter') {
+                    if (idUsuario > -1) {
+                        e.preventDefault();
+                        lsItems[idUsuario].click();
+                    }
+                }
+                else if (e.key === 'Escape') {
+                    divResultados.style.display = 'none';
+                    idUsuario = -1;
+                }
+            });
+            txtUsuario.addEventListener('input', async function () {
+                const sBusqueda = this.value;
+                const sUrlBusqueda = this.getAttribute('data-url');
+                clearTimeout(debounceTimer);
+                divResultados.innerHTML = '';
+                if (sBusqueda.length < 3) { return; }
+                debounceTimer = setTimeout(() => {
+                    fetch(`${sUrlBusqueda}?sUsuario=${sBusqueda}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.length > 0) {
+                                data.forEach(moUsr => {
+                                    const aUsr = document.createElement('a');
+                                    aUsr.className = 'list-group-item list-group-item-action cursor-pointer';
+                                    aUsr.innerHTML = `<span class="codigo fw-semibold">${moUsr.nNoPer}</span> <span class="dep mx-1">-</span> <span>${moUsr.sNomEmpl}</span>`;
+                                    aUsr.href = "#";
+                                    aUsr.addEventListener('click', async function (e) {
+                                        e.preventDefault();
+                                        if (divHumaContainer) {
+                                            if (txtHumanosNoPer) { txtHumanosNoPer.value = moUsr.nNoPer }
+                                            if (txtHumanosNomEmpl) { txtHumanosNomEmpl.value = moUsr.sNomEmpl }
+                                            if (txtHumanosUsuario) { txtHumanosUsuario.value = moUsr.sUsuario }
+                                        } else {
+                                            fnRellenarDatos(moUsr);
+                                        }
+                                        txtUsuario.value = '';
+                                        divResultados.style.display = 'none';
+                                    });
+                                    divResultados.appendChild(aUsr);
+                                });
+                                divResultados.style.display = 'block';
+                            } else {
+                                divResultados.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
+                                divResultados.style.display = 'block';
+                            }
+                        })
+                        .catch (err => console.error("Error buscando usuarios", err));
+                }, 300);
+                idUsuario = -1;
+            });
+        }
+        document.addEventListener('click', function (e) {
+            if (!txtUsuario || !divResultados) return;
+            if (!txtUsuario.contains(e.target) && !divResultados.contains(e.target)) {
+                divResultados.style.display = 'none';
             }
         });
     }
-    // ----------
+    fnBuscarUsuario('txtUsuario', 'divResultados')
 
-    // Verificacion Solicitudes
+
+    // ============================================
+    // BOTON MANUAL PARA INGRESAR DATOS EN USUARIO
+    // ============================================
+    function fnBloquearCampos(bBloqueado) {
+        lsTxtUsuario.forEach(txtUsr => {
+            if (bBloqueado) {
+                txtUsr.classList.add('pe-none')
+                txtUsr.setAttribute('readonly', true);
+                if (txtUsr.tagName === 'SELECT') txtUsr.setAttribute('disabled', true);
+                txtUsr.classList.add('bg-light');
+                txtUsr.classList.remove('bg-white');
+            } else {
+                txtUsr.classList.remove('pe-none')
+                txtUsr.removeAttribute('readonly');
+                if (txtUsr.tagName === 'SELECT') txtUsr.removeAttribute('disabled');
+                txtUsr.classList.remove('bg-light');
+                txtUsr.classList.add('bg-white');
+            }
+        });
+    }
+    const btnManual = document.getElementById('btnManual');
+    btnManual.addEventListener('click', function (e) {
+        e.preventDefault();
+        fnBloquearCampos(false);
+        lsTxtUsuario.sNomEmpl.focus();
+    });
+    
+
+    // ============
+    // SOLICITUDES
+    // ============
     const divSinDocumentos = document.getElementById('divSinDocumentos');
     const divDescargarSolicitudes = document.getElementById('divDescargarSolicitudes');
     function fnActualizarDocumentoActivo() {
@@ -482,11 +299,9 @@
         const bDocActivo = (txtHumaAct?.checked) || (txtFinaAct?.checked) || (txtEstuAct?.checked);
 
         if (bDocActivo) {
-            // SI HAY ACTIVOS: Ocultar mensaje, Mostrar botón
             divSinDocumentos.classList.add('d-none');
             divDescargarSolicitudes.classList.remove('d-none');
         } else {
-            // NO HAY ACTIVOS: Mostrar mensaje, Ocultar botón
             divSinDocumentos.classList.remove('d-none');
             divDescargarSolicitudes.classList.add('d-none');
         }
@@ -1451,7 +1266,7 @@
                 // --- INICIO DE LA BÚSQUEDA (Dentro del Timeout) ---
 
                 // Filtramos
-                const resultados = catalogo.filter(item => {
+                const resultados = lsCatalogoDependencias.filter(item => {
                     const codigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
                     const nombre = (item.sDependencia || item.SDependencia || "").toLowerCase();
                     return codigo.includes(termino) || nombre.includes(termino);
@@ -1810,7 +1625,7 @@
                 // --- INICIO DE LA BÚSQUEDA (Dentro del Timeout) ---
 
                 // Filtramos
-                const resultados = catalogo.filter(item => {
+                const resultados = lsCatalogoDependencias.filter(item => {
                     const codigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
                     const nombre = (item.sDependencia || item.SDependencia || "").toLowerCase();
                     return codigo.includes(terminoHuma) || nombre.includes(terminoHuma);

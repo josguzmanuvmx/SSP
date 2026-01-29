@@ -1,93 +1,49 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    // Activar botones tooltip
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl, {
+    // Activar botones tooltip para Todos los Permisos en Finanzas
+    var lsTooltip = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    lsTooltip.map(function (tooltip) {
+        return new bootstrap.Tooltip(tooltip, {
             animation: true,
             delay: { "show": 100, "hide": 100 }
         })
     });
-    // ----------
 
-    // Checkboxes Especiales
-    const lsDivAlternarDetalle = document.querySelectorAll('.alternar-detalle');
-    lsDivAlternarDetalle.forEach(checkbox => {
-        const toggleState = (isChecked) => {
-            const targetId = checkbox.getAttribute('data-target');
-            const targetDiv = document.querySelector(targetId);
-            const textarea = targetDiv.querySelector('textarea');
+    // Checkboxes Especiales para Alternar Detalles en Finanzas
+    const lsDivAlternarDetalle = document.querySelectorAll('.clsAlternarDetalle');
+    lsDivAlternarDetalle.forEach(txtDetalle => {
+        const fnAlternarDetalle = (bMarcado) => {
+            const txtId = txtDetalle.getAttribute('data-target');
+            const txtDiv = document.querySelector(txtId);
+            const txtArea = txtDiv.querySelector('textarea');
 
-            if (isChecked) {
-                targetDiv.classList.remove('d-none');
-                textarea.setAttribute('required', 'required');
-                setTimeout(() => textarea.focus(), 100);
+            if (bMarcado) {
+                txtDiv.classList.remove('d-none');
+                txtArea.setAttribute('required', 'required');
+                setTimeout(() => txtArea.focus(), 100);
             } else {
-                targetDiv.classList.add('d-none');
-                textarea.removeAttribute('required');
-                textarea.value = '';
+                txtDiv.classList.add('d-none');
+                txtArea.removeAttribute('required');
+                txtArea.value = '';
             }
             if (formSolicitud) formSolicitud.dispatchEvent(new Event('input'));
         };
-        checkbox.addEventListener('change', function () {
-            toggleState(this.checked);
+        txtDetalle.addEventListener('change', function () {
+            fnAlternarDetalle(this.checked);
         });
-        if (checkbox.checked) {
-            toggleState(true);
+        if (txtDetalle.checked) {
+            fnAlternarDetalle(true);
         }
     });
-    // ----------
 
     // Lista Catalogo de Dependencias
-    const catalogo = window.datosDependencias || [];
+    const lsCatalogoDependencias = window.datosDependencias || [];
 
-    // Especificaciones Contador
-    //const textArea = document.getElementById('especificaciones');
-    //const contador = document.getElementById('contador');
-    //const maxLength = textArea.getAttribute('maxlength');
-
-    //contador.textContent = `${maxLength}/${maxLength}`;
-    //contador.style.color = "#6c757d";
-
-    //textArea.addEventListener('input', () => {
-    //    const caracteresEscritos = textArea.value.length;
-    //    const caracteresRestantes = maxLength - caracteresEscritos;
-    //    contador.textContent = `${caracteresRestantes}/${maxLength}`;
-    //    if (caracteresRestantes <= 20) {
-    //        contador.style.color = "#dc3545";
-    //    } else {
-    //        contador.style.color = "#6c757d";
-    //    }
-    //});
-    // ----------
-
-    // Form Solicitud
-    //const formSolicitud = document.getElementById('form-solicitud');
-    //if (!formSolicitud) return;
-    //const lstxtInputsParaValidar = formSolicitud.querySelectorAll('input[required], textarea[required], input[type="email"]');
-    //const btnDescargar = document.getElementById('btn-descargar-solicitud');
-    //function fnbVerificarForm() {
-    //    for (const txtInput of lstxtInputsParaValidar) {
-    //        if (!txtInput.checkValidity()) {
-    //            return false;
-    //        }
-    //    }
-    //    return true;
-    //}
-    //function alternarBtnDescargar(bHabilitar) {
-    //    btnDescargar.disabled = !bHabilitar;
-    //}
-    //formSolicitud.addEventListener('input', () => {
-    //    const bEsValido = fnbVerificarForm();
-    //    alternarBtnDescargar(bEsValido);
-    //});
-    // ----------
-
-    // Tabla Actividades
+    // Tabla Glosario de Actividades
     var nTamPag = parseInt($('#ddlActividades').val(), 10) || 10;
     var tblActividades = $('#tblActividades').DataTable({
         responsive: true,
-        ordering: false,
+        ordering: true,
         paging: true,
         searching: true,
         destroy: true,
@@ -103,9 +59,11 @@
         },
         autoWidth: false
     });
-    function fnsLimpiarTexto(texto) {
-        if (!texto) return "";
-        return texto
+
+    // Metodo para limpiar el texto
+    function fnsLimpiarTexto(sTexto) {
+        if (!sTexto) return "";
+        return sTexto
             .toLowerCase()
             .replace(/<[^>]*>?/gm, '') // Elimina cualquier etiqueta HTML (<span>, <br>, etc.)
             .replace(/\s+/g, ' ')      // Convierte saltos de línea y espacios múltiples en un solo espacio
@@ -134,86 +92,6 @@
     });
     // ----------
 
-
-    // Acciones quien hara la solicitud (prueba temporal)
-    //const btnYo = document.getElementById('btn-yo');
-    //const btnOtro = document.getElementById('btn-otro');
-    //const seccionBuscar = document.getElementById('seccion-buscar-usuario');
-    //const inputsDatos = document.querySelectorAll('#info-basica input, #info-basica select');
-    //const misDatos = {};
-    //inputsDatos.forEach(input => {
-    //    misDatos[input.id] = input.value;
-    //});
-    //function fnIntercambiarCampos(bloquear) {
-    //    inputsDatos.forEach(input => {
-    //        if (bloquear) {
-    //            if (input.tagName === 'SELECT') {
-    //                input.setAttribute('disabled', true);
-    //            } else {
-    //                input.setAttribute('readonly', true);
-    //            }
-    //            input.classList.add('bg-light', 'text-muted');
-    //            input.classList.remove('bg-white', 'text-dark');
-    //        } else {
-    //            if (input.tagName === 'SELECT') {
-    //                input.removeAttribute('disabled');
-    //            } else {
-    //                input.removeAttribute('readonly');
-    //            }
-    //            input.classList.remove('bg-light', 'text-muted');
-    //            input.classList.add('bg-white', 'text-dark');
-    //        }
-    //    });
-    //}
-    //btnYo.addEventListener('click', function () {
-    //    btnYo.classList.replace('btn-outline-primary', 'btn-primary');
-    //    btnYo.classList.add('active');
-    //    btnOtro.classList.replace('btn-secondary', 'btn-outline-secondary');
-    //    btnOtro.classList.remove('active');
-    //    seccionBuscar.classList.add('d-none');
-    //    inputsDatos.forEach(input => {
-    //        input.value = misDatos[input.id] || '';
-    //    });
-    //    fnIntercambiarCampos(true);
-    //});
-    //btnOtro.addEventListener('click', function () {
-    //    btnOtro.classList.replace('btn-outline-secondary', 'btn-secondary');
-    //    btnOtro.classList.add('active');
-    //    btnYo.classList.replace('btn-primary', 'btn-outline-primary');
-    //    btnYo.classList.remove('active');
-    //    seccionBuscar.classList.remove('d-none');
-    //    inputsDatos.forEach(input => {
-    //        input.value = '';
-    //    });
-    //    fnIntercambiarCampos(false);
-    //    document.getElementById('buscador-usuarios').focus();
-    //});
-    //fnIntercambiarCampos(true);
-    // ----------
-
-
-    // Boton para salir de la solicitud
-    //let hayCambiosSinGuardar = false;
-    //let urlDestino = "";
-    //const btnRegresar = document.getElementById('btnRegresar');
-    //const modalSalida = new bootstrap.Modal(document.getElementById('modalConfirmarSalida'));
-    //form.addEventListener('input', () => { hayCambiosSinGuardar = true; });
-    //form.addEventListener('change', () => { hayCambiosSinGuardar = true; });
-    //form.addEventListener('submit', () => { hayCambiosSinGuardar = false; });
-    //if (btnRegresar) {
-    //    btnRegresar.addEventListener('click', function (e) {
-    //        if (hayCambiosSinGuardar) {
-    //            e.preventDefault();
-    //            urlDestino = this.href;
-    //            modalSalida.show();
-    //        }
-    //    });
-    //}
-    //document.getElementById('btn-descartar').addEventListener('click', function () {
-    //    hayCambiosSinGuardar = false;
-    //    window.location.href = urlDestino;
-    //});
-
     // ============================
     // FORMULARIO GUARDARSOLICITUD
     // ============================
@@ -222,46 +100,33 @@
     btnGuardar.addEventListener('click', async function () {
         const btn = this;
 
-        // 1. Validar formulario visualmente antes de enviar (Opcional pero recomendado)
-        // if (!document.getElementById('formSolicitud').checkValidity()) { ... }
-
-        // 2. Bloquear botón
         const textoOriginal = btn.innerHTML;
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-
         const form = document.getElementById('formSolicitud');
         const formData = new FormData(form);
-        const urlAction = form.getAttribute('data-url-guardar') || form.action; // Asegúrate de tener la URL
-
+        const urlAction = form.getAttribute('data-url-guardar') || form.action;
         try {
             const response = await fetch(urlAction, {
                 method: 'POST',
                 body: formData
             });
-
             const result = await response.json();
-
             if (result.success) {
-                // Éxito
-                // Usar SweetAlert si lo tienes, sino alert normal
                 if (typeof Swal !== 'undefined') {
                     Swal.fire('¡Éxito!', result.message, 'success').then(() => {
-                        window.location.href = '/Inicio'; // O recargar
+                        window.location.href = '/Inicio';
                     });
                 } else {
-                    alert("Guardado correctamente");
                     window.location.reload();
                 }
             } else {
                 // Error de lógica (validación)
                 let msg = result.message;
                 if (result.errors) msg += "\n" + result.errors.join("\n");
-                alert("Atención: " + msg);
             }
         } catch (error) {
             console.error(error);
-            alert("Error de conexión con el servidor.");
         } finally {
             // Restaurar botón siempre
             btn.disabled = false;
@@ -270,162 +135,125 @@
     });
     // ----------
 
-    // Busqueda de usuario
-    const txtBuscarUsuario = document.getElementById('txtBuscarUsuario');
-    const divResultados = document.getElementById('divResultadosBusqueda');
-
     // Referencias a los inputs del formulario (Usamos los IDs generados por asp-for)
-    const lsInputs = {
+    const lsTxtUsuario = {
         sNomEmpl: document.getElementById('SNomEmpl'),
         nNoPer: document.getElementById('NNoPer'),
         sUsuario: document.getElementById('SUsuario'),
         sCorreo: document.getElementById('SCorreo'),
         Region: document.getElementById('Region'),
+        SPueEmpl: document.getElementById('SPueEmpl'),
     };
 
-    let indiceNavegacionUsuario = -1;
-
-    if (txtBuscarUsuario && divResultados) {
-        txtBuscarUsuario.addEventListener('keydown', function (e) {
-            const items = divResultados.querySelectorAll('a.list-group-item');
-
-            // Si la lista está oculta o vacía, no hacemos nada
-            if (divResultados.style.display === 'none' || items.length === 0) return;
-
-            if (e.key === 'ArrowDown') {
-                e.preventDefault(); // Evita que el cursor se mueva en el input
-                indiceNavegacionUsuario++;
-
-                // Si pasamos el último, volvemos al primero (carrusel)
-                if (indiceNavegacionUsuario >= items.length) indiceNavegacionUsuario = 0;
-
-                actualizarSeleccionVisual(items);
-            }
-            else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                indiceNavegacionUsuario--;
-
-                // Si subimos más allá del primero, vamos al último
-                if (indiceNavegacionUsuario < 0) indiceNavegacionUsuario = items.length - 1;
-
-                actualizarSeleccionVisual(items);
-            }
-            else if (e.key === 'Enter') {
-                // Si hay algo seleccionado con las flechas, simulamos el click
-                if (indiceNavegacionUsuario > -1) {
-                    e.preventDefault(); // Evita el submit del formulario
-                    items[indiceNavegacionUsuario].click();
-                }
-            }
-            else if (e.key === 'Escape') {
-                divResultados.style.display = 'none';
-                indiceNavegacionUsuario = -1;
-            }
-        });
-
-        // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
-        function actualizarSeleccionVisual(items) {
-            // Limpiar clase 'active' de todos
-            items.forEach(item => item.classList.remove('active'));
-
-            // Agregar clase 'active' al actual
-            if (indiceNavegacionUsuario > -1 && items[indiceNavegacionUsuario]) {
-                const itemActivo = items[indiceNavegacionUsuario];
-                itemActivo.classList.add('active');
-
-                // SCROLL AUTOMÁTICO:
-                // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
-                itemActivo.scrollIntoView({
-                    block: 'nearest',
-                    behavior: 'smooth'
-                });
-            }
+    // ====================
+    // BUSQUEDA DE USUARIO
+    // ====================
+    function fnActualizarSeleccionUsuario(items) {
+        items.forEach(item => item.classList.remove('active'));
+        if (idUsuario > -1 && items[idUsuario]) {
+            const itemActivo = items[idUsuario];
+            itemActivo.classList.add('active');
+            itemActivo.scrollIntoView({
+                block: 'nearest',
+                behavior: 'smooth'
+            });
         }
-
-        // --- 1. FUNCIÓN: BUSCAR EMPLEADO ---
-        txtBuscarUsuario.addEventListener('input', async function () {
-            const sBusqueda = this.value;
-
-            if (sBusqueda.length < 3) {
-                divResultados.innerHTML = '';
-                divResultados.classList.remove('show');
-                return;
-            }
-
-            const urlBusqueda = this.getAttribute('data-url');
-            fetch(`${urlBusqueda}?sUsuario=${sBusqueda}`)
-                .then(response => response.json())
-                .then(data => {
-                    divResultados.innerHTML = '';
-                    divResultados.classList.add('show');
-
-                    if (data.length > 0) {
-                        data.forEach(emp => {
-                            // Crear elemento de lista
-                            const item = document.createElement('a');
-                            //item.classList.add('dropdown-item', 'cursor-pointer');
-                            //item.textContent = emp.label;
-                            item.className = 'list-group-item list-group-item-action cursor-pointer';
-                            item.innerHTML = `<span class="codigo fw-semibold">${emp.nNoPer}</span> <span class="dep mx-1">-</span> <span>${emp.sNomEmpl}</span>`;
-                            item.href = "#";
-
-                            // Evento Click en un resultado
-                            item.addEventListener('click', async function (e) {
-                                e.preventDefault();
-                                fnRellenarDatos(emp);
-                                divResultados.classList.remove('show');
-                                txtBuscarUsuario.value = '';
-                            });
-
-                            divResultados.appendChild(item);
-                        });
-                    } else {
-                        divResultados.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
-                        //divResultados.style.display = 'block';
-                        //divResultados.classList.remove('show');
-                    }
-                });
-
-            indiceNavegacionUsuario = -1;
-        });
     }
 
-    // EVENTO PARA CERRAR AL DAR CLICK AFUERA
-    document.addEventListener('click', function (e) {
-        // 1. Verificamos que los elementos existan para evitar errores
-        if (!txtBuscarUsuario || !divResultados) return;
+    function fnBuscarUsuario(sUsuario, sResultados) {
+        const txtUsuario = document.getElementById(sUsuario);
+        const divResultados = document.getElementById(sResultados);
+        let idUsuario = -1;
+        if (txtUsuario && divResultados) {
+            txtUsuario.addEventListener('keydown', function (e) {
+                const items = divResultados.querySelectorAll('a.list-group-item');
+                if (divResultados.style.display === 'none' || items.length === 0) return;
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    idUsuario++;
+                    if (idUsuario >= items.length) idUsuario = 0;
+                    fnActualizarSeleccionUsuario(items);
+                }
+                else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    idUsuario--;
+                    if (idUsuario < 0) idUsuario = items.length - 1;
+                    fnActualizarSeleccionUsuario(items);
+                }
+                else if (e.key === 'Enter') {
+                    if (idUsuario > -1) {
+                        e.preventDefault();
+                        items[idUsuario].click();
+                    }
+                }
+                else if (e.key === 'Escape') {
+                    divResultados.style.display = 'none';
+                    idUsuario = -1;
+                }
+            });
 
-        // 2. La Lógica: ¿El click fue FUERA del input Y FUERA de los resultados?
-        const clickEnInput = txtBuscarUsuario.contains(e.target);
-        const clickEnResultados = divResultados.contains(e.target);
-
-        if (!clickEnInput && !clickEnResultados) {
-            // Ocultamos
-            divResultados.classList.remove('show');
-            // Opcional: Limpiar resultados para que no reaparezcan viejos al volver a dar click
-            // divResultados.innerHTML = ''; 
+            txtUsuario.addEventListener('input', async function () {
+                const sBusqueda = this.value;
+                if (sBusqueda.length < 3) {
+                    divResultados.innerHTML = '';
+                    divResultados.classList.remove('show');
+                    return;
+                }
+                const urlBusqueda = this.getAttribute('data-url');
+                fetch(`${urlBusqueda}?sUsuario=${sBusqueda}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        divResultados.innerHTML = '';
+                        divResultados.classList.add('show');
+                        if (data.length > 0) {
+                            data.forEach(emp => {
+                                const item = document.createElement('a');
+                                item.className = 'list-group-item list-group-item-action cursor-pointer';
+                                item.innerHTML = `<span class="codigo fw-semibold">${emp.nNoPer}</span> <span class="dep mx-1">-</span> <span>${emp.sNomEmpl}</span>`;
+                                item.href = "#";
+                                item.addEventListener('click', async function (e) {
+                                    e.preventDefault();
+                                    fnRellenarDatos(emp);
+                                    divResultados.classList.remove('show');
+                                    txtUsuario.value = '';
+                                });
+                                divResultados.appendChild(item);
+                            });
+                        } else {
+                            divResultados.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
+                        }
+                    });
+                idUsuario = -1;
+            });
         }
-    });
+
+        document.addEventListener('click', function (e) {
+            if (!txtUsuario || !divResultados) return;
+            const clickEnInput = txtUsuario.contains(e.target);
+            const clickEnResultados = divResultados.contains(e.target);
+            if (!clickEnInput && !clickEnResultados) {
+                divResultados.classList.remove('show');
+            }
+        });
+    }
+    fnBuscarUsuario('txtUsuario', 'divResultados')
 
     // --- 2. FUNCIÓN: RELLENAR DATOS (Autocompletado) ---
     function fnRellenarDatos(emp) {
         if (!emp) return;
 
-        console.log(emp)
+        //console.log(emp)
 
         // Validamos con 'if' por seguridad
-        if (lsInputs.sNomEmpl) lsInputs.sNomEmpl.value = emp.sNomEmpl || '';
-        if (lsInputs.nNoPer) lsInputs.nNoPer.value = emp.nNoPer || '';
-        if (lsInputs.sUsuario) lsInputs.sUsuario.value = emp.sUsuario || '';
-        if (lsInputs.sCorreo) lsInputs.sCorreo.value = emp.sCorreo || '';
-        //if (lsInputs.nUResClv) lsInputs.nUResClv.value = emp.nUResClv || '';
-        //if (lsInputs.sUResNom) lsInputs.sUResNom.value = emp.sUResNom || '';
-
-        // Region es un select, asignamos valor si coincide
-        if (lsInputs.Region) lsInputs.Region.value = emp.region;
+        if (lsTxtUsuario.sNomEmpl) lsTxtUsuario.sNomEmpl.value = emp.sNomEmpl || '';
+        if (lsTxtUsuario.nNoPer) lsTxtUsuario.nNoPer.value = emp.nNoPer || '';
+        if (lsTxtUsuario.sUsuario) lsTxtUsuario.sUsuario.value = emp.sUsuario || '';
+        if (lsTxtUsuario.sCorreo) lsTxtUsuario.sCorreo.value = emp.sCorreo || '';
+        //if (lsTxtUsuario.nUResClv) lsTxtUsuario.nUResClv.value = emp.nUResClv || '';
+        //if (lsTxtUsuario.sUResNom) lsTxtUsuario.sUResNom.value = emp.sUResNom || '';
 
         // Mapeamos el Puesto (que viene del backend como sPueEmpl o sPerfil)
-        //if (lsInputs.sPueEmpl) lsInputs.sPueEmpl.value = emp.sPueEmpl || '';
+        if (lsTxtUsuario.sPueEmpl) lsTxtUsuario.sPueEmpl.value = emp.sPueEmpl || '';
 
         // Asegurar que sigan bloqueados (Solo lectura) para evitar errores manuales
         // (Asegúrate de tener la función bloquearCampos definida o descomentada)
@@ -445,12 +273,12 @@
         bloquearCampos(false); // Desbloquear todo
 
         // Dar foco al primer campo
-        lsInputs.sNomEmpl.focus();
+        lsTxtUsuario.sNomEmpl.focus();
     });
 
     //--- AUXILIAR: BLOQUEAR / DESBLOQUEAR ---
     function bloquearCampos(bloquear) {
-        Object.values(lsInputs).forEach(el => {
+        Object.values(lsTxtUsuario).forEach(el => {
             if (bloquear) {
                 // MODO BLOQUEADO
                 el.classList.add('pe-none')
@@ -711,7 +539,7 @@
     tabEls.forEach(tab => {
         tab.addEventListener('shown.bs.tab', function (event) {
             const activeTabId = event.target.id;
-            if (activeTabId === 'pills-descargar-tab') fnActualizarSolicitudes();
+            if (activeTabId === 'divDescargar') fnActualizarSolicitudes();
         });
     });
 
@@ -956,6 +784,7 @@
                                     //`;
                                     // item.innerHTML = user.label;
                                     item.innerHTML = `<span class="fw-bold">${user.nNoPer}</span> - <small>${user.sNomEmpl}</small>`;
+                                    item.innerHTML = `<span class="codigo fw-semibold">${user.nNoPer}</span> <span class="dep mx-1">-</span> <span>${user.sNomEmpl}</span>`;
                                     item.href = "#";
 
                                     item.addEventListener('click', function (e) {
@@ -974,6 +803,9 @@
 
                                     resultsContainer.appendChild(item);
                                 });
+                                resultsContainer.style.display = 'block';
+                            } else {
+                                resultsContainer.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
                                 resultsContainer.style.display = 'block';
                             }
                         })
@@ -1115,12 +947,12 @@
 
     // 2. SELECTOR ESTRICTO: Solo hijos directos (#pills-tab > li > button)
     // Esto evita contar pestañas internas de otros módulos
-    const listaTabs = Array.from(document.querySelectorAll('#pills-tab > li > button[data-bs-toggle="pill"]'));
+    const listaTabs = Array.from(document.querySelectorAll('#ulSolicitud > li > button[data-bs-toggle="pill"]'));
 
     // 3. FUNCIÓN DE ACTUALIZACIÓN VISUAL
     function fnActualizarBotonesNav() {
         // Buscamos cuál es el tab activo actualmente
-        const tabActivo = document.querySelector('#pills-tab > li > button.active');
+        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
 
         if (!tabActivo) return;
 
@@ -1147,27 +979,6 @@
             // btnSiguiente.classList.add('d-flex'); // Opcional: restaurar si tu diseño lo requiere
         }
     }
-
-    // 4. EVENTOS CLICK (BOTONES INFERIORES)
-
-    btnSiguiente.addEventListener('click', function () {
-        const tabActivo = document.querySelector('#pills-tab > li > button.active');
-
-        // 1. VALIDAR PASO ACTUAL ANTES DE AVANZAR
-        if (!validarPasoActual(tabActivo)) {
-            // Si no es válido, detenemos la ejecución aquí.
-            return;
-        }
-
-        // 2. Si es válido, procedemos a avanzar
-        const indexActual = listaTabs.indexOf(tabActivo);
-        const siguienteIndex = indexActual + 1;
-
-        if (siguienteIndex < listaTabs.length) {
-            const tabBootstrap = new bootstrap.Tab(listaTabs[siguienteIndex]);
-            tabBootstrap.show();
-        }
-    });
 
     // --- FUNCIÓN DE VALIDACIÓN POR PESTAÑA ---
     function validarPasoActual(tabButtonMain) {
@@ -1196,15 +1007,15 @@
 
         inputs.forEach(input => {
             // 1. FILTRO DE SECCIÓN ACTIVA
-            if (input.closest('#pills-estudiantes')) {
+            if (input.closest('#divEstudiantes')) {
                 const chk = document.getElementById('txtEstuAct');
                 if (chk && !chk.checked) return;
             }
-            if (input.closest('#pills-finanzas')) {
+            if (input.closest('#divFinanzas')) {
                 const chk = document.getElementById('txtFinaAct');
                 if (chk && !chk.checked) return;
             }
-            if (input.closest('#pills-humanos')) {
+            if (input.closest('#divHumanos')) {
                 const chk = document.getElementById('txtHumaAct');
                 if (chk && !chk.checked) return;
             }
@@ -1321,8 +1132,29 @@
         }
     });
 
+    // 4. EVENTOS CLICK (BOTONES INFERIORES)
+
+    btnSiguiente.addEventListener('click', function () {
+        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
+
+        // 1. VALIDAR PASO ACTUAL ANTES DE AVANZAR
+        if (!validarPasoActual(tabActivo)) {
+            // Si no es válido, detenemos la ejecución aquí.
+            return;
+        }
+
+        // 2. Si es válido, procedemos a avanzar
+        const indexActual = listaTabs.indexOf(tabActivo);
+        const siguienteIndex = indexActual + 1;
+
+        if (siguienteIndex < listaTabs.length) {
+            const tabBootstrap = new bootstrap.Tab(listaTabs[siguienteIndex]);
+            tabBootstrap.show();
+        }
+    });
+
     btnAnterior.addEventListener('click', function () {
-        const tabActivo = document.querySelector('#pills-tab > li > button.active');
+        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
         const indexActual = listaTabs.indexOf(tabActivo);
         const anteriorIndex = indexActual - 1;
 
@@ -1447,7 +1279,7 @@
                 // --- INICIO DE LA BÚSQUEDA (Dentro del Timeout) ---
 
                 // Filtramos
-                const resultados = catalogo.filter(item => {
+                const resultados = lsCatalogoDependencias.filter(item => {
                     const codigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
                     const nombre = (item.sDependencia || item.SDependencia || "").toLowerCase();
                     return codigo.includes(termino) || nombre.includes(termino);
@@ -1806,7 +1638,7 @@
                 // --- INICIO DE LA BÚSQUEDA (Dentro del Timeout) ---
 
                 // Filtramos
-                const resultados = catalogo.filter(item => {
+                const resultados = lsCatalogoDependencias.filter(item => {
                     const codigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
                     const nombre = (item.sDependencia || item.SDependencia || "").toLowerCase();
                     return codigo.includes(terminoHuma) || nombre.includes(terminoHuma);
