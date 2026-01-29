@@ -1,9 +1,9 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    // Activar botones tooltip
-    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-    var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-        return new bootstrap.Tooltip(tooltipTriggerEl, {
+    // Activar botones tooltip para Todos los Permisos en Finanzas
+    var lsTooltip = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
+    lsTooltip.map(function (tooltip) {
+        return new bootstrap.Tooltip(tooltip, {
             animation: true,
             delay: { "show": 100, "hide": 100 }
         })
@@ -12,27 +12,27 @@
 
     // Checkboxes Especiales
     const lsDivAlternarDetalle = document.querySelectorAll('.alternar-detalle');
-    lsDivAlternarDetalle.forEach(checkbox => {
+    lsDivAlternarDetalle.forEach(txtDetalle => {
         const toggleState = (isChecked) => {
-            const targetId = checkbox.getAttribute('data-target');
-            const targetDiv = document.querySelector(targetId);
-            const textarea = targetDiv.querySelector('textarea');
+            const txtId = txtDetalle.getAttribute('data-target');
+            const txtDiv = document.querySelector(txtId);
+            const txtArea = txtDiv.querySelector('textarea');
 
             if (isChecked) {
-                targetDiv.classList.remove('d-none');
-                textarea.setAttribute('required', 'required');
-                setTimeout(() => textarea.focus(), 100);
+                txtDiv.classList.remove('d-none');
+                txtArea.setAttribute('required', 'required');
+                setTimeout(() => txtArea.focus(), 100);
             } else {
-                targetDiv.classList.add('d-none');
-                textarea.removeAttribute('required');
-                textarea.value = '';
+                txtDiv.classList.add('d-none');
+                txtArea.removeAttribute('required');
+                txtArea.value = '';
             }
             if (formSolicitud) formSolicitud.dispatchEvent(new Event('input'));
         };
-        checkbox.addEventListener('change', function () {
+        txtDetalle.addEventListener('change', function () {
             toggleState(this.checked);
         });
-        if (checkbox.checked) {
+        if (txtDetalle.checked) {
             toggleState(true);
         }
     });
@@ -711,7 +711,7 @@
     tabEls.forEach(tab => {
         tab.addEventListener('shown.bs.tab', function (event) {
             const activeTabId = event.target.id;
-            if (activeTabId === 'pills-descargar-tab') fnActualizarSolicitudes();
+            if (activeTabId === 'divDescargar') fnActualizarSolicitudes();
         });
     });
 
@@ -1119,12 +1119,12 @@
 
     // 2. SELECTOR ESTRICTO: Solo hijos directos (#pills-tab > li > button)
     // Esto evita contar pestañas internas de otros módulos
-    const listaTabs = Array.from(document.querySelectorAll('#pills-tab > li > button[data-bs-toggle="pill"]'));
+    const listaTabs = Array.from(document.querySelectorAll('#ulSolicitud > li > button[data-bs-toggle="pill"]'));
 
     // 3. FUNCIÓN DE ACTUALIZACIÓN VISUAL
     function fnActualizarBotonesNav() {
         // Buscamos cuál es el tab activo actualmente
-        const tabActivo = document.querySelector('#pills-tab > li > button.active');
+        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
 
         if (!tabActivo) return;
 
@@ -1151,27 +1151,6 @@
             // btnSiguiente.classList.add('d-flex'); // Opcional: restaurar si tu diseño lo requiere
         }
     }
-
-    // 4. EVENTOS CLICK (BOTONES INFERIORES)
-
-    btnSiguiente.addEventListener('click', function () {
-        const tabActivo = document.querySelector('#pills-tab > li > button.active');
-
-        // 1. VALIDAR PASO ACTUAL ANTES DE AVANZAR
-        if (!validarPasoActual(tabActivo)) {
-            // Si no es válido, detenemos la ejecución aquí.
-            return;
-        }
-
-        // 2. Si es válido, procedemos a avanzar
-        const indexActual = listaTabs.indexOf(tabActivo);
-        const siguienteIndex = indexActual + 1;
-
-        if (siguienteIndex < listaTabs.length) {
-            const tabBootstrap = new bootstrap.Tab(listaTabs[siguienteIndex]);
-            tabBootstrap.show();
-        }
-    });
 
     // --- FUNCIÓN DE VALIDACIÓN POR PESTAÑA ---
     function validarPasoActual(tabButtonMain) {
@@ -1200,15 +1179,15 @@
 
         inputs.forEach(input => {
             // 1. FILTRO DE SECCIÓN ACTIVA
-            if (input.closest('#pills-estudiantes')) {
+            if (input.closest('#divEstudiantes')) {
                 const chk = document.getElementById('txtEstuAct');
                 if (chk && !chk.checked) return;
             }
-            if (input.closest('#pills-finanzas')) {
+            if (input.closest('#divFinanzas')) {
                 const chk = document.getElementById('txtFinaAct');
                 if (chk && !chk.checked) return;
             }
-            if (input.closest('#pills-humanos')) {
+            if (input.closest('#divHumanos')) {
                 const chk = document.getElementById('txtHumaAct');
                 if (chk && !chk.checked) return;
             }
@@ -1325,8 +1304,29 @@
         }
     });
 
+    // 4. EVENTOS CLICK (BOTONES INFERIORES)
+
+    btnSiguiente.addEventListener('click', function () {
+        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
+
+        // 1. VALIDAR PASO ACTUAL ANTES DE AVANZAR
+        if (!validarPasoActual(tabActivo)) {
+            // Si no es válido, detenemos la ejecución aquí.
+            return;
+        }
+
+        // 2. Si es válido, procedemos a avanzar
+        const indexActual = listaTabs.indexOf(tabActivo);
+        const siguienteIndex = indexActual + 1;
+
+        if (siguienteIndex < listaTabs.length) {
+            const tabBootstrap = new bootstrap.Tab(listaTabs[siguienteIndex]);
+            tabBootstrap.show();
+        }
+    });
+
     btnAnterior.addEventListener('click', function () {
-        const tabActivo = document.querySelector('#pills-tab > li > button.active');
+        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
         const indexActual = listaTabs.indexOf(tabActivo);
         const anteriorIndex = indexActual - 1;
 

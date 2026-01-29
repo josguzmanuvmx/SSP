@@ -46,45 +46,37 @@
           novalidate>
         @Html.AntiForgeryToken()
 
-        <ul class="nav nav-pills nav-fill mt-3 overflow-visible stepper-container" id="pills-tab" role="tablist">
+        <ul class="nav nav-pills nav-fill mt-3 overflow-visible stepper-container" id="ulSolicitud" role="tablist">
 
             <li class="nav-item position-relative" role="presentation">
-                <button id="pills-usuario-tab" data-bs-target="#pills-usuario"
-                        class="custom-tab nav-link shadow-sm step step-first active pe-none"
-                        data-bs-toggle="pill" type="button" role="tab" aria-selected="true">
+                <button id="btnUsuario" data-bs-target="#divUsuario" aria-controls="divUsuario" class="custom-tab nav-link shadow-sm step step-first active pe-none" data-bs-toggle="pill" type="button" role="tab" aria-selected="true">
                     <i class="fa-solid fa-user"></i> Usuario
                 </button>
             </li>
 
             <li class="nav-item position-relative" role="presentation">
-                <button id="pills-permisos-tab" data-bs-target="#pills-permisos"
-                        class="custom-tab nav-link shadow-sm step pe-none"
-                        data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
+                <button id="btnPermisos" data-bs-target="#divPermisos" aria-controls="divPermisos" class="custom-tab nav-link shadow-sm step pe-none" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
                     <i class="fa-solid fa-file-circle-check"></i> Permisos
                 </button>
             </li>
 
             <li class="nav-item position-relative" role="presentation">
-                <button id="pills-descargar-tab" data-bs-target="#pills-descargar"
-                        class="custom-tab nav-link shadow-sm step pe-none"
-                        data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
+                <button id="btnDescargar" data-bs-target="#divDescargar" aria-controls="divDescargar" class="custom-tab nav-link shadow-sm step pe-none" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
                     <i class="fa-solid fa-print"></i> Descargar
                 </button>
             </li>
 
             <li class="nav-item position-relative" role="presentation">
-                <button id="pills-finalizar-tab" data-bs-target="#pills-finalizar"
-                        class="custom-tab nav-link shadow-sm step pe-none"
-                        data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
+                <button id="btnFinalizar" data-bs-target="#divFinalizar" aria-controls="divFinalizar" class="custom-tab nav-link shadow-sm step pe-none" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
                     <i class="fa-solid fa-check"></i> Finalizar
                 </button>
             </li>
         </ul>
 
-        <div class="tab-content mt-2" id="pills-tabContent">
+        <div class="tab-content mt-2" id="divSolicitud">
 
             <!-- Usuario -->
-            <div id="pills-usuario" aria-labelledby="pills-usuario-tab" class="tab-pane fade show active" role="tabpanel" tabindex="0">
+            <div id="divUsuario" aria-labelledby="btnUsuario" class="tab-pane fade show active" role="tabpanel" tabindex="0">
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Datos del Usuario</h5>
@@ -277,34 +269,34 @@
             </div>
 
             <!-- Permisos -->
-            <div id="pills-permisos" aria-labelledby="pills-permisos-tab" class="tab-pane fade" role="tabpanel" tabindex="0">
+            <div id="divPermisos" aria-labelledby="btnPermisos" class="tab-pane fade" role="tabpanel" tabindex="0">
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Area de Permisos</h5>
                         <h6 class="text-muted">Aqui habilita solo las areas a modificar sus permisos.</h6>
 
-                        <ul class="nav nav-pills nav-fill gap-1 mt-3" id="pills-tab-permisos" role="tablist">
+                        <ul class="nav nav-pills nav-fill gap-1 mt-3" id="ulPermisos" role="tablist">
                             <li class="nav-item" role="presentation">
-                                <button id="pills-estudiantes-tab" data-bs-target="#pills-estudiantes" aria-controls="pills-estudiantes" class="custom-tab nav-link shadow-sm" data-bs-toggle="pill" type="button" role="tab" aria-selected="true" disabled>
+                                <button id="btnEstudiantes" data-bs-target="#divEstudiantes" aria-controls="divEstudiantes" class="custom-tab nav-link shadow-sm" data-bs-toggle="pill" type="button" role="tab" aria-selected="true" disabled>
                                     <i class="fa-solid fa-user-graduate me-2"></i> Estudiantes
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button id="pills-finanzas-tab" data-bs-target="#pills-finanzas" aria-controls="pills-finanzas" class="custom-tab nav-link shadow-sm active" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
+                                <button id="btnFinanzas" data-bs-target="#divFinanzas" aria-controls="divFinanzas" class="custom-tab nav-link shadow-sm active" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
                                     <i class="fa-solid fa-hand-holding-dollar me-2"></i> Finanzas
                                 </button>
                             </li>
                             <li class="nav-item" role="presentation">
-                                <button id="pills-humanos-tab" data-bs-target="#pills-humanos" aria-controls="pills-humanos" class="custom-tab nav-link shadow-sm" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
+                                <button id="btnHumanos" data-bs-target="#divHumanos" aria-controls="divHumanos" class="custom-tab nav-link shadow-sm" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
                                     <i class="fa-solid fa-users me-2"></i> Humanos
                                 </button>
                             </li>
                         </ul>
 
-                        <div class="tab-content" id="pills-tabContent">
+                        <div class="tab-content" id="divPermisosContent">
 
                             <!-- Estudiantes -->
-                            <div id="pills-estudiantes" aria-labelledby="pills-estudiantes-tab" class="tab-pane fade" role="tabpanel" tabindex="0">
+                            <div id="divEstudiantes" aria-labelledby="btnEstudiantes" class="tab-pane fade" role="tabpanel" tabindex="0">
 
                                 <input type="checkbox" asp-for="MoEstudiantes.BActivo" id="txtEstuAct" class="d-none">
 
@@ -334,7 +326,7 @@
                             </div>
 
                             <!-- Finanzas -->
-                            <div id="pills-finanzas" aria-labelledby="pills-finanzas-tab" class="tab-pane fade show active" role="tabpanel" tabindex="0">
+                            <div id="divFinanzas" aria-labelledby="btnFinanzas" class="tab-pane fade show active" role="tabpanel" tabindex="0">
 
                                 <input type="checkbox" asp-for="MoFinanzas.BActivo" id="txtFinaAct" class="d-none">
 
@@ -539,7 +531,7 @@
                             </div>
 
                             <!-- Humanos -->
-                            <div id="pills-humanos" class="tab-pane fade" role="tabpanel" tabindex="0">
+                            <div id="divHumanos" aria-labelledby="btnHumanos" class="tab-pane fade" role="tabpanel" tabindex="0">
 
                                 <input type="checkbox" asp-for="MoHumanos.BActivo" id="txtHumaAct" class="d-none">
 
@@ -761,7 +753,7 @@
             </div>
 
             <!-- Descarga -->
-            <div id="pills-descargar" aria-labelledby="pills-descargar-tab" class="tab-pane fade" role="tabpanel" tabindex="0">
+            <div id="divDescargar" aria-labelledby="btnDescargar" class="tab-pane fade" role="tabpanel" tabindex="0">
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Revision y Descarga</h5>
@@ -856,7 +848,7 @@
             </div>
 
             <!-- Finalizar -->
-            <div id="pills-finalizar" aria-labelledby="pills-finalizar-tab" class="tab-pane fade" role="tabpanel" tabindex="0">
+            <div id="divFinalizar" aria-labelledby="btnFinalizar" class="tab-pane fade" role="tabpanel" tabindex="0">
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Finalizar</h5>

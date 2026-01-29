@@ -11,7 +11,7 @@ using Syncfusion.XlsIO;
 using Syncfusion.XlsIORenderer;
 using System.ComponentModel.DataAnnotations;
 using System.Reflection;
-using Xceed.Words.NET;
+using System.Text.RegularExpressions;
 
 public class ClsGenerarSolicitud
 {
@@ -39,11 +39,16 @@ public class ClsGenerarSolicitud
 
     public static string GetEnumDescription(Enum enumValue)
     {
-        return enumValue.GetType()
+        var description = enumValue.GetType()
             .GetMember(enumValue.ToString())
             .First()
             .GetCustomAttribute<DisplayAttribute>()?
-            .Description ?? ""; // Retorna vacío si no tiene descripción
+            .Description ?? "";
+
+        // Elimina SOLO el último paréntesis (generalmente la sede)
+        description = Regex.Replace(description, @"\s*\([^()]*\)\s*$", "");
+
+        return description.Trim();
     }
 
     public static string GetCodigoRegion(Enum enumValue)
