@@ -1034,17 +1034,17 @@
         <div class="bg-light p-2 rounded border mb-3 div-search-wrapper">
             <div class="d-flex align-items-center mb-2">
                 <label class="form-label text-sm m-0">Busca un empleado rapidamente.</label>
-                <button id="btnManual" class="btn btn-link border-0 ms-auto p-0">Ingresar los datos manualmente.</button>
+                <button class="btn btn-link border-0 ms-auto p-0 btnHumaManual">Ingresar los datos manualmente.</button>
             </div>
             <div class="position-relative">
                 <div class="input-group ">
-                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                    <input type="text" class="form-control input-search-user border-start-0"
+                    <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
+                    <input type="text" class="form-control border-start-0 txtUsuario"
                            placeholder="Buscar por Nombre, Usuario o No. Personal..."
                            autocomplete="off"
                            data-url="@Url.Action("BuscarUsuarios", "Solicitud")">
                 </div>
-                <div class="list-group position-absolute w-100 shadow results-container" style="z-index: 1000; display: none; max-height: 200px; overflow-y: auto;">
+                <div class="list-group position-absolute w-100 shadow divResultados" style="z-index: 1000; max-height: 200px; overflow-y: auto;">
                 </div>
             </div>
         </div>
@@ -1067,7 +1067,7 @@
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Usuario</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="txtUsuario form-control bg-light pe-none" placeholder="ej. josguzman" tabindex="-1" required readonly />
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="txtHumaUsuario form-control bg-light pe-none" placeholder="ej. josguzman" tabindex="-1" required readonly />
                     <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="text-danger"></span>
                 </div>
             </div>

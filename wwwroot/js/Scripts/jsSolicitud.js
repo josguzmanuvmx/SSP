@@ -168,18 +168,41 @@
         if (lsTxtUsuario.sPueEmpl) lsTxtUsuario.sPueEmpl.value = emp.sPueEmpl || '';
     }
     function fnBuscarUsuario(sUsuario, sResultados, divHumaContainer = null) {
-        const txtUsuario = document.getElementById(sUsuario);
-        const divResultados = document.getElementById(sResultados);
         let debounceTimer;
         let idUsuario = -1;
         // R. HUMANOS
         let txtHumanosNoPer;
         let txtHumanosNomEmpl;
         let txtHumanosUsuario;
+        let btnHumaManual;
+        let txtUsuario;
+        let divResultados;
         if (divHumaContainer) {
-            txtNoPer = divHumaContainer.querySelector('.txtNoPer');
-            txtNomEmpl = divHumaContainer.querySelector('.txtNomEmpl');
-            txtUsuario = divHumaContainer.querySelector('.txtUsuario');
+            txtHumanosNoPer = divHumaContainer.querySelector('.txtNoPer');
+            txtHumanosNomEmpl = divHumaContainer.querySelector('.txtNomEmpl');
+            txtHumanosUsuario = divHumaContainer.querySelector('.txtHumaUsuario');
+
+            txtUsuario = divHumaContainer.querySelector(sUsuario)
+            divResultados = divHumaContainer.querySelector(sResultados)
+
+            btnHumaManual = divHumaContainer.querySelector('.btnHumaManual');
+            btnHumaManual.addEventListener('click', function (e) {
+                e.preventDefault();
+
+                const txtUsrs = [txtHumanosNoPer, txtHumanosNomEmpl, txtHumanosUsuario];
+                txtUsrs.forEach(txtUsr => {
+                    txtUsr.classList.remove('pe-none');
+                    txtUsr.removeAttribute('readonly');
+                    if (txtUsr.tagName === 'SELECT') txtUsr.removeAttribute('disabled');
+                    txtUsr.classList.remove('bg-light');
+                    txtUsr.classList.add('bg-white');
+                });
+
+                lsTxtUsuario.sNomEmpl.focus();
+            });
+        } else {
+            txtUsuario = document.getElementById(sUsuario);
+            divResultados = document.getElementById(sResultados);
         }
         if (txtUsuario && divResultados) {
             txtUsuario.addEventListener('keydown', function (e) {
@@ -263,7 +286,7 @@
     // BOTON MANUAL PARA INGRESAR DATOS EN USUARIO
     // ============================================
     function fnBloquearCampos(bBloqueado) {
-        lsTxtUsuario.forEach(txtUsr => {
+        Object.values(lsTxtUsuario).forEach(txtUsr => {
             if (bBloqueado) {
                 txtUsr.classList.add('pe-none')
                 txtUsr.setAttribute('readonly', true);
@@ -655,7 +678,8 @@
         const paneElement = document.getElementById(contentId);
 
         // 4. INICIALIZAR LA BÚSQUEDA PARA ESTA PESTAÑA
-        setupBusquedaUsuario(paneElement);
+        // setupBusquedaUsuario(paneElement);
+        fnBuscarUsuario('.txtUsuario', '.divResultados', paneElement)
 
         // 5. Actualizar índices y activar
         actualizarEstadoUsuarios();

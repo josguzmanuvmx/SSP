@@ -142,16 +142,16 @@
         sUsuario: document.getElementById('SUsuario'),
         sCorreo: document.getElementById('SCorreo'),
         Region: document.getElementById('Region'),
-        SPueEmpl: document.getElementById('SPueEmpl'),
+        sPueEmpl: document.getElementById('SPueEmpl'),
     };
 
     // ====================
     // BUSQUEDA DE USUARIO
     // ====================
-    function fnActualizarSeleccionUsuario(items) {
-        items.forEach(item => item.classList.remove('active'));
-        if (idUsuario > -1 && items[idUsuario]) {
-            const itemActivo = items[idUsuario];
+    function fnActualizarSeleccionUsuario(lsItems, idUsuario) {
+        lsItems.forEach(item => item.classList.remove('active'));
+        if (idUsuario > -1 && lsItems[idUsuario]) {
+            const itemActivo = lsItems[idUsuario];
             itemActivo.classList.add('active');
             itemActivo.scrollIntoView({
                 block: 'nearest',
@@ -159,31 +159,48 @@
             });
         }
     }
-
-    function fnBuscarUsuario(sUsuario, sResultados) {
+    function fnRellenarDatos(emp) {
+        if (!emp) return;
+        if (lsTxtUsuario.sNomEmpl) lsTxtUsuario.sNomEmpl.value = emp.sNomEmpl || '';
+        if (lsTxtUsuario.nNoPer) lsTxtUsuario.nNoPer.value = emp.nNoPer || '';
+        if (lsTxtUsuario.sUsuario) lsTxtUsuario.sUsuario.value = emp.sUsuario || '';
+        if (lsTxtUsuario.sCorreo) lsTxtUsuario.sCorreo.value = emp.sCorreo || '';
+        if (lsTxtUsuario.sPueEmpl) lsTxtUsuario.sPueEmpl.value = emp.sPueEmpl || '';
+    }
+    function fnBuscarUsuario(sUsuario, sResultados, divHumaContainer = null) {
         const txtUsuario = document.getElementById(sUsuario);
         const divResultados = document.getElementById(sResultados);
+        let debounceTimer;
         let idUsuario = -1;
+        // R. HUMANOS
+        let txtHumanosNoPer;
+        let txtHumanosNomEmpl;
+        let txtHumanosUsuario;
+        if (divHumaContainer) {
+            txtNoPer = divHumaContainer.querySelector('.txtNoPer');
+            txtNomEmpl = divHumaContainer.querySelector('.txtNomEmpl');
+            txtUsuario = divHumaContainer.querySelector('.txtUsuario');
+        }
         if (txtUsuario && divResultados) {
             txtUsuario.addEventListener('keydown', function (e) {
-                const items = divResultados.querySelectorAll('a.list-group-item');
-                if (divResultados.style.display === 'none' || items.length === 0) return;
+                const lsItems = divResultados.querySelectorAll('a.list-group-item');
+                if (divResultados.style.display === 'none' || lsItems.length === 0) return;
                 if (e.key === 'ArrowDown') {
                     e.preventDefault();
                     idUsuario++;
-                    if (idUsuario >= items.length) idUsuario = 0;
-                    fnActualizarSeleccionUsuario(items);
+                    if (idUsuario >= lsItems.length) idUsuario = 0;
+                    fnActualizarSeleccionUsuario(lsItems, idUsuario);
                 }
                 else if (e.key === 'ArrowUp') {
                     e.preventDefault();
                     idUsuario--;
-                    if (idUsuario < 0) idUsuario = items.length - 1;
-                    fnActualizarSeleccionUsuario(items);
+                    if (idUsuario < 0) idUsuario = lsItems.length - 1;
+                    fnActualizarSeleccionUsuario(lsItems, idUsuario);
                 }
                 else if (e.key === 'Enter') {
                     if (idUsuario > -1) {
                         e.preventDefault();
-                        items[idUsuario].click();
+                        lsItems[idUsuario].click();
                     }
                 }
                 else if (e.key === 'Escape') {
@@ -191,116 +208,88 @@
                     idUsuario = -1;
                 }
             });
-
             txtUsuario.addEventListener('input', async function () {
                 const sBusqueda = this.value;
-                if (sBusqueda.length < 3) {
-                    divResultados.innerHTML = '';
-                    divResultados.classList.remove('show');
-                    return;
-                }
-                const urlBusqueda = this.getAttribute('data-url');
-                fetch(`${urlBusqueda}?sUsuario=${sBusqueda}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        divResultados.innerHTML = '';
-                        divResultados.classList.add('show');
-                        if (data.length > 0) {
-                            data.forEach(emp => {
-                                const item = document.createElement('a');
-                                item.className = 'list-group-item list-group-item-action cursor-pointer';
-                                item.innerHTML = `<span class="codigo fw-semibold">${emp.nNoPer}</span> <span class="dep mx-1">-</span> <span>${emp.sNomEmpl}</span>`;
-                                item.href = "#";
-                                item.addEventListener('click', async function (e) {
-                                    e.preventDefault();
-                                    fnRellenarDatos(emp);
-                                    divResultados.classList.remove('show');
-                                    txtUsuario.value = '';
+                const sUrlBusqueda = this.getAttribute('data-url');
+                clearTimeout(debounceTimer);
+                divResultados.innerHTML = '';
+                if (sBusqueda.length < 3) { return; }
+                debounceTimer = setTimeout(() => {
+                    fetch(`${sUrlBusqueda}?sUsuario=${sBusqueda}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            if (data.length > 0) {
+                                data.forEach(moUsr => {
+                                    const aUsr = document.createElement('a');
+                                    aUsr.className = 'list-group-item list-group-item-action cursor-pointer';
+                                    aUsr.innerHTML = `<span class="codigo fw-semibold">${moUsr.nNoPer}</span> <span class="dep mx-1">-</span> <span>${moUsr.sNomEmpl}</span>`;
+                                    aUsr.href = "#";
+                                    aUsr.addEventListener('click', async function (e) {
+                                        e.preventDefault();
+                                        if (divHumaContainer) {
+                                            if (txtHumanosNoPer) { txtHumanosNoPer.value = moUsr.nNoPer }
+                                            if (txtHumanosNomEmpl) { txtHumanosNomEmpl.value = moUsr.sNomEmpl }
+                                            if (txtHumanosUsuario) { txtHumanosUsuario.value = moUsr.sUsuario }
+                                        } else {
+                                            fnRellenarDatos(moUsr);
+                                        }
+                                        txtUsuario.value = '';
+                                        divResultados.style.display = 'none';
+                                    });
+                                    divResultados.appendChild(aUsr);
                                 });
-                                divResultados.appendChild(item);
-                            });
-                        } else {
-                            divResultados.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
-                        }
-                    });
+                                divResultados.style.display = 'block';
+                            } else {
+                                divResultados.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
+                                divResultados.style.display = 'block';
+                            }
+                        })
+                        .catch (err => console.error("Error buscando usuarios", err));
+                }, 300);
                 idUsuario = -1;
             });
         }
-
         document.addEventListener('click', function (e) {
             if (!txtUsuario || !divResultados) return;
-            const clickEnInput = txtUsuario.contains(e.target);
-            const clickEnResultados = divResultados.contains(e.target);
-            if (!clickEnInput && !clickEnResultados) {
-                divResultados.classList.remove('show');
+            if (!txtUsuario.contains(e.target) && !divResultados.contains(e.target)) {
+                divResultados.style.display = 'none';
             }
         });
     }
     fnBuscarUsuario('txtUsuario', 'divResultados')
 
-    // --- 2. FUNCIÓN: RELLENAR DATOS (Autocompletado) ---
-    function fnRellenarDatos(emp) {
-        if (!emp) return;
 
-        //console.log(emp)
-
-        // Validamos con 'if' por seguridad
-        if (lsTxtUsuario.sNomEmpl) lsTxtUsuario.sNomEmpl.value = emp.sNomEmpl || '';
-        if (lsTxtUsuario.nNoPer) lsTxtUsuario.nNoPer.value = emp.nNoPer || '';
-        if (lsTxtUsuario.sUsuario) lsTxtUsuario.sUsuario.value = emp.sUsuario || '';
-        if (lsTxtUsuario.sCorreo) lsTxtUsuario.sCorreo.value = emp.sCorreo || '';
-        //if (lsTxtUsuario.nUResClv) lsTxtUsuario.nUResClv.value = emp.nUResClv || '';
-        //if (lsTxtUsuario.sUResNom) lsTxtUsuario.sUResNom.value = emp.sUResNom || '';
-
-        // Mapeamos el Puesto (que viene del backend como sPueEmpl o sPerfil)
-        if (lsTxtUsuario.sPueEmpl) lsTxtUsuario.sPueEmpl.value = emp.sPueEmpl || '';
-
-        // Asegurar que sigan bloqueados (Solo lectura) para evitar errores manuales
-        // (Asegúrate de tener la función bloquearCampos definida o descomentada)
-        //if (typeof bloquearCampos === "function") {
-        //    bloquearCampos(true);
-        //}
-    }
-
-    // --- 3. FUNCIÓN: MODO MANUAL (Desbloquear) ---
-    const btnManual = document.getElementById('btnManual');
-    btnManual.addEventListener('click', function (e) {
-        e.preventDefault(); // Evitar que el botón haga submit si está dentro de un form
-
-        // Limpiar campos (opcional, si quieres que escriban desde cero)
-        // O puedes dejarlos con los datos actuales para editar sobre ellos.
-
-        bloquearCampos(false); // Desbloquear todo
-
-        // Dar foco al primer campo
-        lsTxtUsuario.sNomEmpl.focus();
-    });
-
-    //--- AUXILIAR: BLOQUEAR / DESBLOQUEAR ---
-    function bloquearCampos(bloquear) {
-        Object.values(lsTxtUsuario).forEach(el => {
-            if (bloquear) {
-                // MODO BLOQUEADO
-                el.classList.add('pe-none')
-                el.setAttribute('readonly', true);
-                if (el.tagName === 'SELECT') el.setAttribute('disabled', true);
-
-                el.classList.add('bg-light');
-                el.classList.remove('bg-white');
+    // ============================================
+    // BOTON MANUAL PARA INGRESAR DATOS EN USUARIO
+    // ============================================
+    function fnBloquearCampos(bBloqueado) {
+        Object.values(lsTxtUsuario).forEach(txtUsr => {
+            if (bBloqueado) {
+                txtUsr.classList.add('pe-none')
+                txtUsr.setAttribute('readonly', true);
+                if (txtUsr.tagName === 'SELECT') txtUsr.setAttribute('disabled', true);
+                txtUsr.classList.add('bg-light');
+                txtUsr.classList.remove('bg-white');
             } else {
-                // MODO EDITABLE
-                el.classList.remove('pe-none')
-                el.removeAttribute('readonly');
-                if (el.tagName === 'SELECT') el.removeAttribute('disabled');
-
-                el.classList.remove('bg-light');
-                el.classList.add('bg-white');
+                txtUsr.classList.remove('pe-none')
+                txtUsr.removeAttribute('readonly');
+                if (txtUsr.tagName === 'SELECT') txtUsr.removeAttribute('disabled');
+                txtUsr.classList.remove('bg-light');
+                txtUsr.classList.add('bg-white');
             }
         });
     }
-    // ----------
+    const btnManual = document.getElementById('btnManual');
+    btnManual.addEventListener('click', function (e) {
+        e.preventDefault();
+        fnBloquearCampos(false);
+        lsTxtUsuario.sNomEmpl.focus();
+    });
+    
 
-    // Verificacion Solicitudes
+    // ============
+    // SOLICITUDES
+    // ============
     const divSinDocumentos = document.getElementById('divSinDocumentos');
     const divDescargarSolicitudes = document.getElementById('divDescargarSolicitudes');
     function fnActualizarDocumentoActivo() {
@@ -310,11 +299,9 @@
         const bDocActivo = (txtHumaAct?.checked) || (txtFinaAct?.checked) || (txtEstuAct?.checked);
 
         if (bDocActivo) {
-            // SI HAY ACTIVOS: Ocultar mensaje, Mostrar botón
             divSinDocumentos.classList.add('d-none');
             divDescargarSolicitudes.classList.remove('d-none');
         } else {
-            // NO HAY ACTIVOS: Mostrar mensaje, Ocultar botón
             divSinDocumentos.classList.remove('d-none');
             divDescargarSolicitudes.classList.add('d-none');
         }
@@ -1718,7 +1705,7 @@
             listaHuma.style.display = 'none';
         }
     });
-
+    
     // ============================================
     // BUSCADOR DE DEPENDENCIA / ENTIDAD DE HUMANOS
     // ============================================
