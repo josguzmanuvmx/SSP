@@ -178,7 +178,7 @@
     // ===============
     // BUSCAR USUARIO
     // ===============
-    function fnBuscarUsuario(sUsuario, sResultados, divHumaContainer = null) {
+    function fnBuscar_Usuario(sUsuario, sResultados, divHumaContainer = null) {
         let debounceTimer;
         let idUsuario = -1;
 
@@ -287,7 +287,7 @@
             }
         });
     }
-    fnBuscarUsuario('txtUsuario', 'divResultados')
+    fnBuscar_Usuario('txtUsuario', 'divResultados')
 
 
     // ========================================================
@@ -385,9 +385,9 @@
     // --------
 
 
-    // =========================
-    // PREVISUALIZAR FORMULARIO
-    // =========================
+    // ===================================
+    // ACTUALIZAR PREVISUALIZAR SOLICITUD
+    // ===================================
     const formSolicitud = document.getElementById('formSolicitud');
 
     async function fnActualizar_PrevisualizarSolicitud(sDocumento, idIframe, idBtnDescarga = null, idLoader, idVerDocumento = null) {
@@ -407,34 +407,24 @@
         `;
             loader.classList.remove('d-none');
         }
-        // -----------------------
-
         const formDataSolicitud = new FormData(formSolicitud);
         formDataSolicitud.append('sTipo', sDocumento);
-        // if (loader) loader.classList.add('d-none');
-
         try {
             const response = await fetch(urlAction, {
                 method: 'POST',
                 body: formDataSolicitud
             });
-
             if (response.ok) {
                 const blob = await response.blob();
                 const urlBlob = URL.createObjectURL(blob);
-
-                // Usamos el evento onload para ocultar el loader solo cuando el PDF ya se pintó
                 iframe.onload = function () {
                     if (loader) loader.classList.add('d-none');
                     if (divVerDocumento) divVerDocumento.classList.remove('d-none');
                     iframe.style.opacity = '1'; // Restaurar opacidad aquí
                 };
-
                 iframe.src = urlBlob + "#toolbar=0";
-
                 if (btnDescarga) {
                     btnDescarga.href = urlBlob;
-                    // Generar nombre de archivo limpio
                     const fecha = new Date().toISOString().split('T')[0];
                     btnDescarga.download = `Solicitud_${sDocumento}_${fecha}.pdf`;
                     btnDescarga.classList.remove('disabled');
@@ -450,21 +440,24 @@
             iframe.style.opacity = '1';
         }
     }
+    // ----------------------
 
-    // --- EVENTOS ---
+    // ==============================
+    // MODAL PREVISUALIZAR SOLICITUD
+    // ==============================
     const iframeSolicitud = document.getElementById('iframeSolicitud');
     const mdlPrevisualizar = document.getElementById('mdlPrevisualizarDocumento');
     if (mdlPrevisualizar) {
         mdlPrevisualizar.addEventListener('show.bs.modal', function (event) {
-            const button = event.relatedTarget;
-            const tipo = button.getAttribute('data-tipo');
-            fnActualizar_PrevisualizarSolicitud(tipo, 'iframeSolicitud', 'btnDescargarModal');
+            const btnTarget = event.relatedTarget;
+            const sTipo = btnTarget.getAttribute('data-tipo');
+            fnActualizar_PrevisualizarSolicitud(sTipo, 'iframeSolicitud', 'btnDescargarModal');
             iframeSolicitud.style.opacity = '0';
         });
         // Opcional: Limpiar al cerrar para que no se quede la URL vieja
         mdlPrevisualizar.addEventListener('hidden.bs.modal', function () {
-            const btn = document.getElementById('btnDescargarModal');
-            if (btn) btn.href = "#";
+            const btnDescargarModal = document.getElementById('btnDescargarModal');
+            if (btnDescargarModal) btnDescargarModal.href = "#";
             document.activeElement.blur();
         });
     }
@@ -473,98 +466,83 @@
             iframeSolicitud.style.opacity = '1';
         });
     }
+    // ----------------------
 
+    // ==============================
+    // MODAL GLOSARIO DE ACTIVIDADES
+    // ==============================
     const mdlGlosarioActividades = document.getElementById('mdlGlosarioActividades');
     if (mdlGlosarioActividades) {
-        //mdlGlosarioActividades.addEventListener('show.bs.modal', function (event) {
-        //    const button = event.relatedTarget;
-        //    const tipo = button.getAttribute('data-tipo');
-        //    fnActualizar_PrevisualizarSolicitud(tipo, 'iframeSolicitud', 'btnDescargarModal');
-        //    iframe.style.opacity = '0';
-        //});
-        // Opcional: Limpiar al cerrar para que no se quede la URL vieja
         mdlGlosarioActividades.addEventListener('hidden.bs.modal', function () {
-            const btn = document.getElementById('btnGlosarioActividades');
-            if (btn) btn.href = "#";
+            const btnGlosarioActividades = document.getElementById('btnGlosarioActividades');
+            if (btnGlosarioActividades) btnGlosarioActividades.href = "#";
             document.activeElement.blur();
         });
     }
+    // ----------------------
 
-    const tabEls = document.querySelectorAll('button[data-bs-toggle="pill"]');
-    tabEls.forEach(tab => {
-        tab.addEventListener('shown.bs.tab', function (event) {
-            const activeTabId = event.target.id;
-            if (activeTabId === 'divDescargar') fnActualizarSolicitudes();
-        });
-    });
-
-    function fnActualizarSolicitudes() {
+    // ========================================
+    // ACTUALIZAR SOLICITUDES EN TAB DESCARGAR
+    // ========================================
+    function fnActualizar_Solicitudes() {
         const divDescargarTodo = document.getElementById('divDescargarSolicitudes');
-        let bDocumentos = false;
-        // if (txtFinaAct.checked) fnActualizar_PrevisualizarSolicitud('SPRFM', 'iframeMiniHumanos');
+        let bExisteSolicitud = false;
         if (txtFinaAct && txtFinaAct.checked) {
             fnActualizar_PrevisualizarSolicitud('Finanzas', 'iframeMiniFinanzas', 'btnDescargaFinanzas', 'divCargandoFinanzas', 'divVerFinanzas');
-            bDocumentos = true;
+            bExisteSolicitud = true;
         }
         if (txtHumaAct && txtHumaAct.checked) {
             fnActualizar_PrevisualizarSolicitud('Humanos', 'iframeMiniHumanos', 'btnDescargaHumanos', 'divCargandoHumanos', 'divVerHumanos');
-            bDocumentos = true;
+            bExisteSolicitud = true;
         }
         if (divDescargarTodo) {
-            if (bDocumentos) {
+            if (bExisteSolicitud) {
                 divDescargarTodo.classList.remove('d-none');
             } else {
                 divDescargarTodo.classList.add('d-none');
             }
         }
     }
-
+    const tabSolicitud = document.querySelectorAll('button[data-bs-toggle="pill"]');
+    tabSolicitud.forEach(tab => {
+        tab.addEventListener('shown.bs.tab', function (event) {
+            const tabActual = event.target.id;
+            if (tabActual === 'divDescargar') fnActualizar_Solicitudes();
+        });
+    });
     // Cargar todos los documentos al iniciar
     document.addEventListener("DOMContentLoaded", () => {
-        fnActualizarSolicitudes();
+        fnActualizar_Solicitudes();
     });
+    // ----------------------
 
-    // Descargar ZIP
-    const btnZip = document.getElementById('btnDescargarTodoZip');
-    if (btnZip && formSolicitud) {
-
-        btnZip.addEventListener('click', async (e) => {
-            e.preventDefault(); // Evitar que recargue o suba la página
-
-            // Feedback visual (Deshabilitar botón y cambiar texto)
-            const textoOriginal = btnZip.innerHTML;
-            btnZip.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Generando ZIP...';
-            btnZip.classList.add('disabled');
-
-            // 1. Preparar datos
+    // ================================
+    // DESCARGAR TODAS LAS SOLICITUDES
+    // ================================
+    const btnDescargarZip = document.getElementById('btnDescargarTodoZip');
+    if (btnDescargarZip && formSolicitud) {
+        btnDescargarZip.addEventListener('click', async (e) => {
+            e.preventDefault();
+            const sTextoDescargarZip = btnDescargarZip.innerHTML;
+            btnDescargarZip.innerHTML = '<i class="fa-solid fa-spinner fa-spin me-2"></i> Generando ZIP...';
+            btnDescargarZip.classList.add('disabled');
             const formDataSolicitud = new FormData(formSolicitud);
-            const urlZip = formSolicitud.getAttribute('data-url-zip');
-
+            const sURLZip = formSolicitud.getAttribute('data-url-zip');
             try {
-                // 2. Enviar petición POST
-                const response = await fetch(urlZip, {
+                const response = await fetch(sURLZip, {
                     method: 'POST',
                     body: formDataSolicitud
                 });
-
                 if (response.ok) {
-                    // 3. Convertir respuesta a Blob (ZIP)
                     const blob = await response.blob();
-                    const urlBlob = URL.createObjectURL(blob);
-
-                    // 4. Crear enlace temporal y hacer clic automático
-                    const linkTemp = document.createElement('a');
-                    linkTemp.href = urlBlob;
-                    // Nombre sugerido (aunque el servidor ya lo manda, esto asegura la extensión)
-                    linkTemp.download = `Paquete_Solicitudes_${new Date().getTime()}.zip`;
-
-                    document.body.appendChild(linkTemp);
-                    linkTemp.click();
-                    document.body.removeChild(linkTemp);
-
-                    // Liberar memoria
-                    URL.revokeObjectURL(urlBlob);
-
+                    const sURLBlob = URL.createObjectURL(blob);
+                    const aDescargaTemporal = document.createElement('a');
+                    aDescargaTemporal.href = sURLBlob;
+                    aDescargaTemporal.download = `Paquete_Solicitudes_${new Date().getTime()}.zip`;
+                    document.body.appendChild(aDescargaTemporal);
+                    aDescargaTemporal.click();
+                    document.body.removeChild(aDescargaTemporal);
+                    URL.revokeObjectURL(sURLBlob);
                 } else {
                     console.error("Error al generar el ZIP");
                     alert("Ocurrió un error al generar el archivo comprimido.");
@@ -573,513 +551,230 @@
                 console.error("Error de red:", error);
                 alert("Error de conexión al intentar descargar.");
             } finally {
-                // Restaurar botón
-                btnZip.innerHTML = textoOriginal;
+                btnZip.innerHTML = sTextoDescargarZip;
                 btnZip.classList.remove('disabled');
             }
         });
     }
+    // ----------------------
 
+    // ================================
+    // USUARIO ADICIONAL EN R. HUMANOS
+    // ================================
     const btnAgregar = document.getElementById('btnAgregarPestanaUsuario');
-    const containerTabs = document.getElementById('pills-tab-humanos'); // El UL
-    const containerContent = document.getElementById('pills-tabContent-humanos'); // El DIV de contenidos
-    const msgMax = document.getElementById('msgMaxUsuarios');
-
-    // Templates
-    const tmplTab = document.getElementById('tmplTabUsuario');
-    const tmplContent = document.getElementById('tmplContentUsuario');
-
-    const MAX_USUARIOS_TOTAL = 10; // 1 Principal + 5 Adicionales
-
+    const ulUsuariosRHumanos = document.getElementById('ulUsuariosRHumanos');
+    const divContenidoRHumanos = document.getElementById('divContenidoRHumanos');
+    const spUsuariosMaximo = document.getElementById('spUsuariosMaximo');
+    const tmplTabUsuario = document.getElementById('tmplTabUsuario');
+    const tmplContenidoUsuario = document.getElementById('tmplContenidoUsuario');
+    const nUsuariosMaximo = 10;
+    function fnCrear_UsuarioRHumanos() {
+        const dtId = new Date().getTime();
+        const tmplTabClonada = tmplTabUsuario.content.cloneNode(true);
+        tmplTabClonada.querySelector('button').id = `tab-user-${dtId}`;
+        tmplTabClonada.querySelector('button').setAttribute('data-bs-target', `#content-user-${dtId}`);
+        ulUsuariosRHumanos.insertBefore(tmplTabClonada, ulUsuariosRHumanos.lastElementChild);
+        const tmplContenidoClonado = tmplContenidoUsuario.content.cloneNode(true);
+        const sIdContenido = `content-user-${dtId}`;
+        tmplContenidoClonado.querySelector('.tab-pane').id = sIdContenido;
+        divContenidoRHumanos.appendChild(tmplContenidoClonado);
+        const divContenido = document.getElementById(sIdContenido);
+        fnBuscar_Usuario('.txtUsuario', '.divResultados', divContenido)
+        fnOrdenar_Usuarios();
+        const tmplRefTabClonada = document.querySelector(`#tab-user-${dtId}`);
+        const tbClonada = new bootstrap.Tab(tmplRefTabClonada);
+        tbClonada.show();
+    }
     btnAgregar.addEventListener('click', function () {
-        // Contamos cuantos hay actualmente (restando el boton agregar)
-        const currentTabs = containerTabs.querySelectorAll('.nav-item').length - 1;
-
-        if (currentTabs < MAX_USUARIOS_TOTAL) {
-            crearNuevoUsuario();
+        const lsUsuariosRHumanos = ulUsuariosRHumanos.querySelectorAll('.nav-item').length - 1;
+        if (lsUsuariosRHumanos < nUsuariosMaximo) {
+            fnCrear_UsuarioRHumanos();
         }
     });
-
-    // ... código anterior ...
-
-    function crearNuevoUsuario() {
-        const uniqueId = new Date().getTime();
-
-        // 1. Clonar Pestaña (Igual que antes)
-        const cloneTab = tmplTab.content.cloneNode(true);
-        cloneTab.querySelector('button').id = `tab-user-${uniqueId}`;
-        cloneTab.querySelector('button').setAttribute('data-bs-target', `#content-user-${uniqueId}`);
-        containerTabs.insertBefore(cloneTab, containerTabs.lastElementChild);
-
-        // 2. Clonar Contenido
-        const cloneContent = tmplContent.content.cloneNode(true);
-        // Necesitamos una referencia al elemento DOM real, cloneNode devuelve un DocumentFragment
-        // Así que lo agregamos y luego lo seleccionamos por ID
-        const contentId = `content-user-${uniqueId}`;
-        cloneContent.querySelector('.tab-pane').id = contentId;
-        containerContent.appendChild(cloneContent);
-
-        // 3. Obtener el elemento recién insertado en el DOM
-        const paneElement = document.getElementById(contentId);
-
-        // 4. INICIALIZAR LA BÚSQUEDA PARA ESTA PESTAÑA
-        // setupBusquedaUsuario(paneElement);
-        fnBuscarUsuario('.txtUsuario', '.divResultados', paneElement)
-
-        // 5. Actualizar índices y activar
-        actualizarEstadoUsuarios();
-
-        const triggerEl = document.querySelector(`#tab-user-${uniqueId}`);
-        const tab = new bootstrap.Tab(triggerEl);
-        tab.show();
-    }
-
-    // --- FUNCIÓN DE LÓGICA DE BÚSQUEDA ---
-    function setupBusquedaUsuario(container) {
-        // Selectores dentro de la pestaña actual
-        const txtBusqieda = container.querySelector('.input-search-user');
-        const resultsContainer = container.querySelector('.results-container');
-        const btnClear = container.querySelector('.btn-clear-search');
-
-        // Referencias a los campos de destino
-        const inpNoPer = container.querySelector('.field-noper');
-        const inpNombre = container.querySelector('.field-nombre');
-        const inpUsuario = container.querySelector('.field-usuario');
-        const inpDep = container.querySelector('.field-dep');
-
-        let debounceTimer;
-
-        let indiceNavegacionExtra = -1;
-
-        if (txtBusqieda && resultsContainer) {
-            txtBusqieda.addEventListener('keydown', function (e) {
-                const items = resultsContainer.querySelectorAll('a.list-group-item');
-
-                // Si la lista está oculta o vacía, no hacemos nada
-                if (resultsContainer.style.display === 'none' || items.length === 0) return;
-
-                if (e.key === 'ArrowDown') {
-                    e.preventDefault(); // Evita que el cursor se mueva en el input
-                    indiceNavegacionExtra++;
-
-                    // Si pasamos el último, volvemos al primero (carrusel)
-                    if (indiceNavegacionExtra >= items.length) indiceNavegacionExtra = 0;
-
-                    actualizarSeleccionVisual(items);
-                }
-                else if (e.key === 'ArrowUp') {
-                    e.preventDefault();
-                    indiceNavegacionExtra--;
-
-                    // Si subimos más allá del primero, vamos al último
-                    if (indiceNavegacionExtra < 0) indiceNavegacionExtra = items.length - 1;
-
-                    actualizarSeleccionVisual(items);
-                }
-                else if (e.key === 'Enter') {
-                    // Si hay algo seleccionado con las flechas, simulamos el click
-                    if (indiceNavegacionExtra > -1) {
-                        e.preventDefault(); // Evita el submit del formulario
-                        items[indiceNavegacionExtra].click();
-                    }
-                }
-                else if (e.key === 'Escape') {
-                    resultsContainer.style.display = 'none';
-                    indiceNavegacionExtra = -1;
-                }
-            });
-
-            // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
-            function actualizarSeleccionVisual(items) {
-                // Limpiar clase 'active' de todos
-                items.forEach(item => item.classList.remove('active'));
-
-                // Agregar clase 'active' al actual
-                if (indiceNavegacionExtra > -1 && items[indiceNavegacionExtra]) {
-                    const itemActivo = items[indiceNavegacionExtra];
-                    itemActivo.classList.add('active');
-
-                    // SCROLL AUTOMÁTICO:
-                    // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
-                    itemActivo.scrollIntoView({
-                        block: 'nearest',
-                        behavior: 'smooth'
-                    });
-                }
-            }
-
-            txtBusqieda.addEventListener('input', function () {
-                const query = this.value.trim();
-                const url = this.getAttribute('data-url');
-
-                clearTimeout(debounceTimer);
-                resultsContainer.style.display = 'none';
-
-                if (query.length < 3) return;
-
-                debounceTimer = setTimeout(() => {
-                    // CORRECCIÓN 1: Usamos 'sUsuario' porque así se llama tu parámetro en C#
-                    fetch(`${url}?sUsuario=${encodeURIComponent(query)}`)
-                        .then(response => response.json())
-                        .then(data => {
-                            resultsContainer.innerHTML = '';
-
-                            if (data.length > 0) {
-                                data.forEach(user => {
-                                    const item = document.createElement('a');
-                                    item.className = 'list-group-item list-group-item-action cursor-pointer';
-
-                                    // CORRECCIÓN 2: Usamos 'user.label' que ya viene formateado desde C#
-                                    // Ejs: "[61399] angel - José Ángel..."
-                                    //item.innerHTML = `
-                                    //    <div class="fw-bold small">${user.label}</div>
-                                    //    <div class="text-muted extra-small" style="font-size:0.75rem;">
-                                    //        <i class="fa-solid fa-briefcase"></i> ${user.sPueEmpl} |
-                                    //        <i class="fa-solid fa-building"></i> ${user.sUResNom}
-                                    //    </div>
-                                    //`;
-                                    // item.innerHTML = user.label;
-                                    item.innerHTML = `<span class="fw-bold">${user.nNoPer}</span> - <small>${user.sNomEmpl}</small>`;
-                                    item.innerHTML = `<span class="codigo fw-semibold">${user.nNoPer}</span> <span class="dep mx-1">-</span> <span>${user.sNomEmpl}</span>`;
-                                    item.href = "#";
-
-                                    item.addEventListener('click', function (e) {
-                                        e.preventDefault();
-
-                                        // CORRECCIÓN 3: Mapeo exacto con tu C# (camelCase por defecto en JSON)
-                                        if (inpNoPer) inpNoPer.value = user.nNoPer;       // De tu C#: nNoPer
-                                        if (inpNombre) inpNombre.value = user.sNomEmpl;   // De tu C#: sNomEmpl
-                                        if (inpUsuario) inpUsuario.value = user.sUsuario;  // De tu C#: nUsrClv
-                                        if (inpDep) inpDep.value = user.nUResClv;         // De tu C#: nUResClv (Asumo que es la dependencia)
-
-                                        // Limpieza visual
-                                        txtBusqieda.value = '';
-                                        resultsContainer.style.display = 'none';
-                                    });
-
-                                    resultsContainer.appendChild(item);
-                                });
-                                resultsContainer.style.display = 'block';
-                            } else {
-                                resultsContainer.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
-                                resultsContainer.style.display = 'block';
-                            }
-                        })
-                        .catch(err => console.error("Error buscando usuarios", err));
-                }, 300);
-
-                // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
-                indiceNavegacionExtra = -1;
-            });
-        }
-
-        // Ocultar al hacer click fuera
-        document.addEventListener('click', function (e) {
-            if (!txtBusqieda.contains(e.target) && !resultsContainer.contains(e.target)) {
-                resultsContainer.style.display = 'none';
-            }
-        });
-    }
-
-    // Delegación para cerrar pestañas
-    containerTabs.addEventListener('click', function (e) {
-        // CORRECCIÓN: Usamos .closest() para detectar el botón aunque clickees el ícono <i>
-        const btnClose = e.target.closest('.btn-cerrar-tab');
-
-        if (btnClose) {
+    ulUsuariosRHumanos.addEventListener('click', function (e) {
+        const btnEliminarTab = e.target.closest('.btn-cerrar-tab');
+        if (btnEliminarTab) {
             e.preventDefault();
-            e.stopPropagation(); // Evitar que cambie de tab al cerrar
-
-            // Busamos el botón grande (nav-link) que contiene al botón de cerrar
-            const tabButton = btnClose.closest('button.nav-link');
-
-            if (!tabButton) return; // Seguridad
-
-            const targetId = tabButton.getAttribute('data-bs-target'); // #content-user-123
-
-            // 1. Eliminar la pestaña completa (el LI padre)
+            e.stopPropagation();
+            const tabButton = btnEliminarTab.closest('button.nav-link');
+            if (!tabButton) return;
+            const targetId = tabButton.getAttribute('data-bs-target');
             const liPadre = tabButton.closest('li');
             if (liPadre) liPadre.remove();
-
-            // 2. Eliminar el contenido (DIV con los inputs)
             const contentDiv = document.querySelector(targetId);
             if (contentDiv) contentDiv.remove();
-
-            // 3. Volver al tab principal si borramos el que estaba activo
             if (tabButton.classList.contains('active')) {
-                const mainTabEl = document.querySelector('#tab-usuario-main'); // Asegúrate que este ID exista en tu HTML fijo
+                const mainTabEl = document.querySelector('#tab-usuario-main');
                 if (mainTabEl) {
                     const mainTab = new bootstrap.Tab(mainTabEl);
                     mainTab.show();
                 }
             }
-
-            // 4. Reordenar índices
-            actualizarEstadoUsuarios();
+            fnOrdenar_Usuarios();
         }
     });
+    // ----------------------
 
-    function actualizarEstadoUsuarios() {
-        // Obtenemos SOLO los items extras (tienen clase .item-usuario-extra)
-        const extraTabs = containerTabs.querySelectorAll('.item-usuario-extra');
-        const extraContents = containerContent.querySelectorAll('.content-usuario-extra');
-
-        // Controlar visibilidad botón agregar
-        // Total = 1 (Principal) + Extras
-        if (extraTabs.length + 1 >= MAX_USUARIOS_TOTAL) {
+    // ================================
+    // ORDENAR USUARIOS R. HUMANOS
+    // ================================
+    function fnOrdenar_Usuarios() {
+        const ulTabsUsuario = ulUsuariosRHumanos.querySelectorAll('.item-usuario-extra');
+        const divContenidoUsuario = divContenidoRHumanos.querySelectorAll('.content-usuario-extra');
+        if (ulTabsUsuario.length + 1 >= nUsuariosMaximo) {
             btnAgregar.parentElement.classList.add('d-none');
-            msgMax.classList.remove('d-none');
+            spUsuariosMaximo.classList.remove('d-none');
         } else {
             btnAgregar.parentElement.classList.remove('d-none');
-            msgMax.classList.add('d-none');
+            spUsuariosMaximo.classList.add('d-none');
         }
-
-        // RE-INDEXAR PARA ASP.NET (Es crucial para que el Model Binding funcione)
-        // El array en C# MoHumanos.LsHumaAdi debe ser [0], [1], [2]... sin saltos
-        extraContents.forEach((pane, index) => {
-
-            // 1. Actualizar Título Visual (#2, #3...)
-            // El usuario principal es el #1, así que el primer extra es index + 2
-            const visualNum = index + 2;
-            const lblNum = pane.querySelector('.lbl-numero');
-            if (lblNum) lblNum.textContent = visualNum;
-
-            // 2. Actualizar etiqueta en la pestaña correspondiente
-            if (extraTabs[index]) {
-                const lblNombre = extraTabs[index].querySelector('.lbl-nombre');
-                if (lblNombre) lblNombre.textContent = `#${visualNum}`; // O "Usuario Nuevo" si prefieres mantenerlo así
+        divContenidoUsuario.forEach((pane, index) => {
+            const nPosUsuario = index + 2;
+            const spNumero = pane.querySelector('.sp-numero');
+            if (spNumero) spNumero.textContent = nPosUsuario;
+            if (ulTabsUsuario[index]) {
+                const spNombre = ulTabsUsuario[index].querySelector('.sp-nombre');
+                if (spNombre) spNombre.textContent = `#${nPosUsuario}`;
             }
-
-            // 3. Actualizar 'name' e 'id' de los inputs
-            const inputs = pane.querySelectorAll('input, select');
-
-            inputs.forEach(input => {
-                // A) ACTUALIZAR NAME (CORRECCIÓN CRÍTICA)
-                if (input.name) {
-                    // Esta expresión regular busca cualquier variación del nombre de la lista:
-                    // 1. LsUsuariosAdicionales[INDEX_LISTA] (Del template original)
-                    // 2. LsUsuariosAdicionales[0] (Si ya se había guardado antes)
-                    // 3. MoHumanos.LsHumaAdi[0] (La estructura nueva)
-
-                    // Reemplazamos CUALQUIERA de esos patrones por: MoHumanos.LsHumaAdi[INDICE_ACTUAL]
-                    input.name = input.name.replace(
+            const lsTxtContenido = pane.querySelectorAll('input, select');
+            lsTxtContenido.forEach(txt => {
+                if (txt.name) {
+                    txt.name = txt.name.replace(
                         /(LsUsuariosAdicionales|MoHumanos\.LsHumaAdi)\[.*?\]|LsUsuariosAdicionales\[INDEX_LISTA\]/,
                         `MoHumanos.LsHumaAdi[${index}]`
                     );
                 }
-
-                // B) ACTUALIZAR IDs DE RADIO BUTTONS (Para que el click en label funcione)
-                if (input.type === 'radio' && input.id) {
-                    // Obtenemos la base del ID (ej: "MovA") quitando sufijos previos
-                    // Asumimos que el ID base no tiene guiones bajos, o tomamos la primera parte
-                    const baseId = input.id.split('_')[0];
-
-                    // Generamos ID único: MovA_0_EXTRA
-                    const newId = `${baseId}_${index}_EXTRA`;
-
-                    input.id = newId;
-
-                    // Buscar el label asociado (generalmente es el siguiente hermano) y actualizar su 'for'
-                    const label = input.nextElementSibling;
-                    if (label && label.tagName === 'LABEL') {
-                        label.setAttribute('for', newId);
+                if (txt.type === 'radio' && txt.id) {
+                    const sId = txt.id.split('_')[0];
+                    const sIdNueva = `${sId}_${index}_EXTRA`;
+                    txt.id = sIdNueva;
+                    const txtSiguiente = txt.nextElementSibling;
+                    if (txtSiguiente && txtSiguiente.tagName === 'LABEL') {
+                        txtSiguiente.setAttribute('for', sIdNueva);
                     }
                 }
             });
         });
     }
+    // ----------------------
 
-    // ==========================================
+    // ============================================
     // LOGICA DE NAVEGACIÓN (ANTERIOR / SIGUIENTE)
-    // ==========================================
-
-    // 1. OBTENER REFERENCIAS (Asegúrate que los IDs en HTML coincidan)
-    // Si en tu HTML se llaman 'btnStepAnterior', cámbialo aquí.
-    const btnAnterior = document.getElementById('btnAnterior') || document.getElementById('btnStepAnterior');
-    const btnSiguiente = document.getElementById('btnSiguiente') || document.getElementById('btnStepSiguiente');
-
-    // Validación de seguridad: Si no existen los botones, no hacemos nada para evitar errores
-    if (!btnAnterior || !btnSiguiente) return;
-
-    // 2. SELECTOR ESTRICTO: Solo hijos directos (#pills-tab > li > button)
-    // Esto evita contar pestañas internas de otros módulos
-    const listaTabs = Array.from(document.querySelectorAll('#ulSolicitud > li > button[data-bs-toggle="pill"]'));
-
-    // 3. FUNCIÓN DE ACTUALIZACIÓN VISUAL
-    function fnActualizarBotonesNav() {
-        // Buscamos cuál es el tab activo actualmente
-        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
-
-        if (!tabActivo) return;
-
-        const indexActual = listaTabs.indexOf(tabActivo);
-        const totalTabs = listaTabs.length; // Dinámico (debería ser 4)
-
-        // --- CONFIGURAR BOTÓN ANTERIOR ---
-        if (indexActual === 0) {
-            // Estamos en el inicio -> Ocultar Anterior
+    // ============================================
+    const btnAnterior = document.getElementById('btnAnterior')
+    const btnSiguiente = document.getElementById('btnSiguiente')
+    const lsUlNavegacion = Array.from(document.querySelectorAll('#ulSolicitud > li > button[data-bs-toggle="pill"]'));
+    function fnActualizar_BotonNavegacion() {
+        const btnNavegacionActivo = document.querySelector('#ulSolicitud > li > button.active');
+        if (!btnNavegacionActivo) return;
+        const nIndexActual = lsUlNavegacion.indexOf(btnNavegacionActivo);
+        const nTotalItemsNavegacion = lsUlNavegacion.length;
+        if (nIndexActual === 0) {
             btnAnterior.classList.add('d-none');
         } else {
-            // Mostrar Anterior
             btnAnterior.classList.remove('d-none');
         }
-
-        // --- CONFIGURAR BOTÓN SIGUIENTE ---
-        if (indexActual === totalTabs - 1) {
-            // Estamos en el final -> Ocultar Siguiente
+        if (nIndexActual === nTotalItemsNavegacion - 1) {
             btnSiguiente.classList.add('d-none');
-            btnSiguiente.classList.remove('d-flex'); // IMPORTANTE: Quitar d-flex si existe para asegurar que se oculte
+            btnSiguiente.classList.remove('d-flex');
         } else {
-            // Mostrar Siguiente
             btnSiguiente.classList.remove('d-none');
-            // btnSiguiente.classList.add('d-flex'); // Opcional: restaurar si tu diseño lo requiere
         }
     }
+    // ----------------------
 
-    // --- FUNCIÓN DE VALIDACIÓN POR PESTAÑA ---
-    function validarPasoActual(tabButtonMain) {
-        // 1. Identificar el contenedor principal (ej. #pills-permisos)
-        const targetIdMain = tabButtonMain.getAttribute('data-bs-target');
-        const contentDivMain = document.querySelector(targetIdMain);
-
-        // --- LIMPIEZA DE ICONOS PREVIOS ---
-
-        // A. Quitar icono del tab PRINCIPAL (Arriba)
-        const iconMain = tabButtonMain.querySelector('.icon-error-tab');
-        if (iconMain) iconMain.remove();
-
-        // B. Quitar iconos de los SUB-TABS (Estudiantes, Finanzas, Humanos)
-        const subTabButtons = contentDivMain.querySelectorAll('button[data-bs-toggle="pill"]');
-        subTabButtons.forEach(btn => {
-            const icon = btn.querySelector('.icon-error-tab');
-            if (icon) icon.remove();
+    // ===================
+    // VALIDAR FORMULARIO
+    // ===================
+    function fnObtener_FormularioValido(btnNavegacionActivo) {
+        const divNavegacionTarget = btnNavegacionActivo.getAttribute('data-bs-target');
+        const divContenidoFormulario = document.querySelector(divNavegacionTarget);
+        const iIconoError = btnNavegacionActivo.querySelector('.icon-error-tab');
+        if (iIconoError) iIconoError.remove();
+        const lsBtnFormulario = divContenidoFormulario.querySelectorAll('button[data-bs-toggle="pill"]');
+        lsBtnFormulario.forEach(btn => {
+            const iIconoError = btn.querySelector('.icon-error-tab');
+            if (iIconoError) iIconoError.remove();
         });
-
-        // --- VALIDACIÓN DE INPUTS ---
-
-        const inputs = contentDivMain.querySelectorAll('input, select, textarea');
-        let esValido = true;
-        let primerInvalido = null;
-
-        inputs.forEach(input => {
-            // 1. FILTRO DE SECCIÓN ACTIVA
-            if (input.closest('#divEstudiantes')) {
-                const chk = document.getElementById('txtEstuAct');
-                if (chk && !chk.checked) return;
+        const lsTxtFormulario = divContenidoFormulario.querySelectorAll('input, select, textarea');
+        let bFormularioValido = true;
+        let txtPrimerCampoInvalido = null;
+        lsTxtFormulario.forEach(txt => {
+            if (txt.closest('#divEstudiantes')) {
+                const txtCheckboxEstudiante = document.getElementById('txtEstuAct');
+                if (txtCheckboxEstudiante && !txtCheckboxEstudiante.checked) return;
             }
-            if (input.closest('#divFinanzas')) {
-                const chk = document.getElementById('txtFinaAct');
-                if (chk && !chk.checked) return;
+            if (txt.closest('#divFinanzas')) {
+                const txtCheckboxFinanzas = document.getElementById('txtFinaAct');
+                if (txtCheckboxFinanzas && !txtCheckboxFinanzas.checked) return;
             }
-            if (input.closest('#divHumanos')) {
-                const chk = document.getElementById('txtHumaAct');
-                if (chk && !chk.checked) return;
+            if (txt.closest('#divHumanos')) {
+                const txtCheckboxHumanos = document.getElementById('txtHumaAct');
+                if (txtCheckboxHumanos && !txtCheckboxHumanos.checked) return;
             }
-
-            // Si un input es hidden pero tiene 'required', dejamos que el código siga para validarlo manualmente.
-            if (input.type === 'hidden' && !input.hasAttribute('required')) return;
-
-            // Ignorar botones o submits
-            if (input.type === 'button' || input.type === 'submit') return;
-
-            let tieneError = false;
-
-            // 1. VALIDACIÓN ESTÁNDAR (Lo que dice el navegador)
-            // Nota: checkValidity() devuelve TRUE si el elemento está oculto (display:none), por eso necesitamos el paso 2.
-            if (!input.checkValidity()) {
-                tieneError = true;
+            if (txt.type === 'hidden' && !txt.hasAttribute('required')) return;
+            if (txt.type === 'button' || txt.type === 'submit') return;
+            let bErrorCampo = false;
+            if (!txt.checkValidity()) {
+                bErrorCampo = true;
             }
-
-            // 2. VALIDACIÓN MANUAL FORZADA (Para pestañas ocultas y campos readonly)
-            // Si es REQUERIDO y está VACÍO, es error (aunque esté oculto en otra pestaña)
-            if (input.hasAttribute('required')) {
-                if (input.type === 'checkbox' || input.type === 'radio') {
-                    // Para radios/checkbox es más complejo verificar grupos, pero checkValidity suele funcionar bien.
+            if (txt.hasAttribute('required')) {
+                if (txt.type === 'checkbox' || txt.type === 'radio') {
                 } else {
-                    // Para textos, selects, números, fechas...
-                    if (!input.value || input.value.trim() === '') {
-                        tieneError = true;
+                    if (!txt.value || txt.value.trim() === '') {
+                        bErrorCampo = true;
                     }
                 }
             }
-
-            // 3. Validación Selects Deshabilitados
-            if (input.tagName === 'SELECT' && input.hasAttribute('disabled')) {
-                if (!input.value || input.value === '') tieneError = true;
+            if (txt.tagName === 'SELECT' && txt.hasAttribute('disabled')) {
+                if (!txt.value || txt.value === '') bErrorCampo = true;
             }
-
-            // --- PROCESAR RESULTADO ---
-            if (tieneError) {
-                esValido = false;
-
-                // Marcar visualmente el input (Solo se verá si el tab está activo)
-                input.classList.add('is-invalid');
-                input.classList.remove('is-valid');
-
-                if (!primerInvalido) primerInvalido = input;
-
-                // --- MAGIA: MARCAR EL SUB-TAB CORRESPONDIENTE ---
-
-                // a. Buscamos el panel donde vive este input (ej: id="pills-finanzas")
-                const parentPane = input.closest('.tab-pane');
-
-                // b. Aseguramos que encontramos un panel y que NO es el panel principal (#pills-permisos)
-                if (parentPane && parentPane.id !== targetIdMain.replace('#', '')) {
-
-                    // c. Buscamos el botón que controla este panel específico
-                    // El selector busca un botón dentro del área actual que apunte a ese ID
-                    const subBtn = contentDivMain.querySelector(`button[data-bs-target="#${parentPane.id}"]`);
-
-                    if (subBtn) {
-                        // d. Agregamos el icono si no lo tiene ya
-                        if (!subBtn.querySelector('.icon-error-tab')) {
+            if (bErrorCampo) {
+                bFormularioValido = false;
+                txt.classList.add('is-invalid');
+                txt.classList.remove('is-valid');
+                if (!txtPrimerCampoInvalido) txtPrimerCampoInvalido = txt;
+                const divContenedorPadre = txt.closest('.tab-pane');
+                if (divContenedorPadre && divContenedorPadre.id !== divNavegacionTarget.replace('#', '')) {
+                    const btnSubcontenido = divContenidoFormulario.querySelector(`button[data-bs-target="#${divContenedorPadre.id}"]`);
+                    if (btnSubcontenido) {
+                        if (!btnSubcontenido.querySelector('.icon-error-tab')) {
                             const iconoHtml = '<i class="fa-solid fa-circle-exclamation text-danger ms-2 icon-error-tab"></i>';
-                            subBtn.insertAdjacentHTML('beforeend', iconoHtml);
+                            btnSubcontenido.insertAdjacentHTML('beforeend', iconoHtml);
                         }
                     }
                 }
-
             } else {
-                // Limpiar si es válido
-                input.classList.remove('is-invalid');
-                input.classList.remove('is-valid');
+                txt.classList.remove('is-invalid');
+                txt.classList.remove('is-valid');
             }
         });
-
-        // --- ACCIONES FINALES ---
-
-        if (!esValido) {
-            // 1. Marcar el Tab PRINCIPAL (Permisos) con icono rojo
-            const iconoHtml = '<i class="fa-solid fa-circle-exclamation text-danger ms-2 icon-error-tab"></i>';
-            tabButtonMain.insertAdjacentHTML('beforeend', iconoHtml);
-
-            // 2. Llevar al usuario al error
-            if (primerInvalido) {
-                // Verificar si el error está en una pestaña oculta y abrirla
-                const parentPane = primerInvalido.closest('.tab-pane');
-                // Si el padre NO es el panel principal, significa que es un sub-tab (Finanzas/Humanos/etc)
-                if (parentPane && parentPane.id !== targetIdMain.replace('#', '')) {
-                    // Verificar si este panel NO tiene la clase 'active' (está oculto)
-                    if (!parentPane.classList.contains('active')) {
-                        const subBtn = contentDivMain.querySelector(`button[data-bs-target="#${parentPane.id}"]`);
-                        if (subBtn) {
-                            // Usar API de Bootstrap para cambiar de pestaña automáticamente
-                            const tabInstance = new bootstrap.Tab(subBtn);
-                            tabInstance.show();
+        if (!bFormularioValido) {
+            const iIconoError = '<i class="fa-solid fa-circle-exclamation text-danger ms-2 icon-error-tab"></i>';
+            btnNavegacionActivo.insertAdjacentHTML('beforeend', iIconoError);
+            if (txtPrimerCampoInvalido) {
+                const divContenedorPadre = txtPrimerCampoInvalido.closest('.tab-pane');
+                if (divContenedorPadre && divContenedorPadre.id !== divNavegacionTarget.replace('#', '')) {
+                    if (!divContenedorPadre.classList.contains('active')) {
+                        const btnSubcontenido = divContenidoFormulario.querySelector(`button[data-bs-target="#${divContenedorPadre.id}"]`);
+                        if (btnSubcontenido) {
+                            const divTabContenido = new bootstrap.Tab(btnSubcontenido);
+                            divTabContenido.show();
                         }
                     }
                 }
-
-                // Pequeño delay para permitir que la pestaña se abra antes de hacer focus
                 setTimeout(() => {
-                    primerInvalido.focus();
-                    primerInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    txtPrimerCampoInvalido.focus();
+                    txtPrimerCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 150);
             }
         }
-
-        return esValido;
+        return bFormularioValido;
     }
+
+
+
+
 
     // Limpiar error cuando el usuario escriba
     document.getElementById('formSolicitud').addEventListener('input', function (e) {
@@ -1091,52 +786,46 @@
     // 4. EVENTOS CLICK (BOTONES INFERIORES)
 
     btnSiguiente.addEventListener('click', function () {
-        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
-
-        // 1. VALIDAR PASO ACTUAL ANTES DE AVANZAR
-        if (!validarPasoActual(tabActivo)) {
-            // Si no es válido, detenemos la ejecución aquí.
+        const btnNavegacionActivo = document.querySelector('#ulSolicitud > li > button.active');
+        if (!fnObtener_FormularioValido(btnNavegacionActivo)) {
             return;
         }
-
-        // 2. Si es válido, procedemos a avanzar
-        const indexActual = listaTabs.indexOf(tabActivo);
-        const siguienteIndex = indexActual + 1;
-
-        if (siguienteIndex < listaTabs.length) {
-            const tabBootstrap = new bootstrap.Tab(listaTabs[siguienteIndex]);
+        const nIndexActual = lsUlNavegacion.indexOf(btnNavegacionActivo);
+        const siguienteIndex = nIndexActual + 1;
+        if (siguienteIndex < lsUlNavegacion.length) {
+            const tabBootstrap = new bootstrap.Tab(lsUlNavegacion[siguienteIndex]);
             tabBootstrap.show();
         }
     });
 
     btnAnterior.addEventListener('click', function () {
-        const tabActivo = document.querySelector('#ulSolicitud > li > button.active');
-        const indexActual = listaTabs.indexOf(tabActivo);
-        const anteriorIndex = indexActual - 1;
+        const btnNavegacionActivo = document.querySelector('#ulSolicitud > li > button.active');
+        const nIndexActual = lsUlNavegacion.indexOf(btnNavegacionActivo);
+        const anteriorIndex = nIndexActual - 1;
 
         if (anteriorIndex >= 0) {
-            const tabBootstrap = new bootstrap.Tab(listaTabs[anteriorIndex]);
+            const tabBootstrap = new bootstrap.Tab(lsUlNavegacion[anteriorIndex]);
             tabBootstrap.show();
         }
     });
 
     // 5. EVENTO AUTOMÁTICO (SINCRONIZACIÓN)
     // Detecta cambios hechos por clic en el menú superior o por los botones de abajo
-    listaTabs.forEach(tabBtn => {
+    lsUlNavegacion.forEach(tabBtn => {
         tabBtn.addEventListener('shown.bs.tab', function () {
             // Actualizamos visibilidad de botones
-            fnActualizarBotonesNav();
+            fnActualizar_BotonNavegacion();
 
             // Llamada a funciones externas si existen
-            if (typeof fnActualizarSolicitudes === 'function') {
-                fnActualizarSolicitudes();
+            if (typeof fnActualizar_Solicitudes === 'function') {
+                fnActualizar_Solicitudes();
             }
         });
     });
 
     // 6. INICIALIZAR AL CARGAR
     // Ejecutamos una vez para asegurar que el botón "Anterior" esté oculto al principio
-    fnActualizarBotonesNav();
+    fnActualizar_BotonNavegacion();
 
     // ==========================================
     // BUSCADOR DE DEPENDENCIA / ENTIDAD
