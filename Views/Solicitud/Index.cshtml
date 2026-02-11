@@ -80,7 +80,7 @@
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Datos del Usuario</h5>
-                        <h6 class="text-muted">Aqui se ingresan los datos en general del usuario a modificar.</h6>
+                        <h6 class="text-muted fw-semibold">Ingresa los datos del usuario a modificar sus permisos.</h6>
                         <div id="divBusquedaUsuario" class="d-flex flex-column mt-3 px-2 py-2 bg-light rounded border">
                             <div class="d-flex align-items-center mb-2">
                                 <label class="form-label text-sm m-0">Busca un empleado rapidamente.</label>
@@ -212,56 +212,6 @@
                                     <span asp-validation-for="Dependencia" class="text-danger small mt-1"></span>
                                 </div>
                             </div>
-
-
-                            @* <div class="row align-items-center">
-                                <label class="col-md-4 col-form-label">Unidad Responsable</label>
-                                <div class="col-md-8">
-
-                                    <input asp-for="NUResClv" id="hdnEntClv" required />
-                                    <input asp-for="SUResNom" id="hdnEntNom" required />
-
-                                    @{
-                                        bool tieneSeleccion = Model != null && Model.NUResClv > 0;
-                                        string claseBusqueda = tieneSeleccion ? "d-none" : "";
-                                        string claseSeleccion = tieneSeleccion ? "d-flex" : "d-none";
-                                        string textoSeleccionado = tieneSeleccion ? $"{Model.NUResClv} - {Model.SUResNom}" : "";
-                                    }
-
-                                    <div id="container-buscar-entidad" class="position-relative @claseBusqueda">
-                                        <div class="input-group">
-                                            <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                                            <input type="text" id="txtBuscarEntidad" class="form-control border-start-0"
-                                                   placeholder="Escribe el nombre o clave de la dependencia..." autocomplete="off"
-                                                   data-url="@Url.Action("BuscarDependencias", "Solicitud")" required >
-                                        </div>
-                                        <div id="lista-resultados-entidad" class="list-group position-absolute w-100 shadow"
-                                             style="z-index: 1000; max-height: 200px; overflow-y: auto; display: none;">
-                                        </div>
-                                    </div>
-
-                                    <div id="container-entidad-seleccionada"
-                                         class="@claseSeleccion align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm"
-                                         style="min-height: 38px;">
-                                        <div class="d-flex align-items-center w-100">
-                                            <i class="fa-solid fa-building-columns text-primary me-2 flex-shrink-0"></i>
-
-                                            <span id="lblEntidadTexto" class="text-dark text-wrap text-break" style="line-height: 1.2;">
-                                                @textoSeleccionado
-                                            </span>
-                                        </div>
-
-                                        <button type="button" id="btnQuitarEntidad"
-                                                class="btn btn-sm btn-link text-danger p-0 ms-3 flex-shrink-0"
-                                                title="Eliminar selección">
-                                            <i class="fa-solid fa-circle-xmark fa-lg"></i>
-                                        </button>
-                                    </div>
-
-                                    <span asp-validation-for="NUResClv" class="text-danger"></span>
-                                </div>
-                            </div> *@
-
                         </div>
                     </div>
                 </div>
@@ -272,7 +222,7 @@
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Area de Permisos</h5>
-                        <h6 class="text-muted">Aqui habilita solo las areas a modificar sus permisos.</h6>
+                        <h6 class="text-muted">Habilita solo las areas a modificar sus permisos.</h6>
 
                         <ul class="nav nav-pills nav-fill gap-1 mt-3" id="ulPermisos" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -300,7 +250,7 @@
                                 <input type="checkbox" asp-for="MoEstudiantes.BActivo" id="txtEstuAct" class="d-none">
 
                                 <div class="position-relative rounded-3 overflow-hidden p-2">
-
+                                    
                                     <div id="divOverlayEstudiantes" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white bg-opacity-50" style="z-index: 10; backdrop-filter: blur(2px);">
                                         <button type="button" id="btnHabilitarEstudiantes" class="btn btn-primary shadow rounded-pill px-4 py-3 fw-bold fs-6 mb-3">
                                             <i class="fa-solid fa-user-check me-2"></i> Habilitar Estudiantes
@@ -762,7 +712,7 @@
                             @* --- 1. SECCIÓN ESTUDIANTES --- *@
                             <div id="divDocEstudiantes" class="col-12 col-sm-6 col-md-4 @(Model.MoEstudiantes.BActivo ? "" : "d-none")">
                                 <div class="text-center border shadow-sm rounded p-3 bg-white">
-                                    <h5 class="fw-bold text-secondary"><i class="fa-solid fa-user-graduate me-1"></i> Estudiantes</h5>
+                                    <h6 class="fw-bold text-secondary"><i class="fa-solid fa-user-graduate me-1"></i> Estudiantes</h6>
                                     <div class="position-relative rounded mt-3 overflow-hidden border bg-light" style="aspect-ratio: 1/1.2;">
                                         <iframe id="iframeMiniEstudiantes" src="" class="w-100 h-100 border-0" scrolling="no" style="pointer-events: none; transform: scale(1.05);"></iframe>
                                         <a id="divVerEstudiantes" href="#" class="position-absolute top-0 start-0 w-100 h-100 bg-dark bg-opacity-50 d-flex text-decoration-none transition-hover d-none"
@@ -782,7 +732,7 @@
                             @* --- 2. SECCIÓN FINANZAS --- *@
                             <div id="divDocFinanzas" class="col-12 col-sm-6 col-md-4 @(Model.MoFinanzas.BActivo ? "" : "d-none")">
                                 <div class="text-center border shadow-sm rounded p-3 bg-white">
-                                    <h5 class="fw-bold text-secondary"><i class="fa-solid fa-hand-holding-dollar me-1"></i> Finanzas</h5>
+                                    <h6 class="fw-bold text-secondary"><i class="fa-solid fa-hand-holding-dollar me-1"></i> Finanzas</h6>
                                     <div class="position-relative rounded mt-3 overflow-hidden border bg-light" style="aspect-ratio: 1/1.2;">
                                         <iframe id="iframeMiniFinanzas" src="" class="w-100 h-100 border-0" scrolling="no" style="pointer-events: none; transform: scale(1.05);"></iframe>
                                         <div id="divCargandoFinanzas" class="position-absolute top-0 start-0 w-100 h-100 bg-white d-flex flex-column justify-content-center align-items-center" style="z-index: 10;">
@@ -806,7 +756,7 @@
                             @* --- 3. SECCIÓN HUMANOS --- *@
                             <div id="divDocHumanos" class="col-12 col-sm-6 col-md-4 @(Model.MoHumanos.BActivo ? "" : "d-none")">
                                 <div class="text-center border shadow-sm rounded p-3 bg-white">
-                                    <h5 class="fw-bold text-secondary"><i class="fa-solid fa-users me-1"></i> Humanos</h5>
+                                    <h6 class="fw-bold text-secondary"><i class="fa-solid fa-users me-1"></i> Humanos</h6>
                                     <div class="position-relative rounded mt-3 overflow-hidden border bg-light" style="aspect-ratio: 1/1.2;">
                                         <iframe id="iframeMiniHumanos" src="" class="w-100 h-100 border-0" scrolling="no" style="pointer-events: none; transform: scale(1.05);"></iframe>
                                         <div id="divCargandoHumanos" class="position-absolute top-0 start-0 w-100 h-100 bg-white d-flex flex-column justify-content-center align-items-center" style="z-index: 10;">
@@ -838,7 +788,7 @@
 
                         @* Contenedor del botón *@
                         <div id="divDescargarSolicitudes" class="text-center">
-                            <a href="#" id="btnDescargarTodoZip" class="btn btn-danger mt-4 px-4 py-2 fw-semibold shadow">
+                            <a href="#" id="btnDescargarTodoZip" class="btn btn-danger mt-4 px-4 py-2 fw-semibold shadow-md">
                                 <i class="fa-solid fa-file-zipper me-2"></i> Descargar Todas Las Solicitudes
                             </a>
                         </div>
@@ -918,7 +868,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body p-0" style="height: 80vh;">
-                <iframe id="iframeViewer" class="w-100 h-100 border-0"></iframe>
+                <iframe id="iframeSolicitud" class="w-100 h-100 border-0"></iframe>
             </div>
             <div class="modal-footer py-1 bg-light">
                 <a id="btnDescargarModal" href="#" class="btn btn-success" download>
@@ -1051,17 +1001,17 @@
 
         <div class="d-flex flex-column gap-1 mt-3">
             <div class="d-flex">
-                <label class="col-md-4 col-form-label">Número de personal</label>
-                <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" type="number" class="txtNoPer form-control bg-light pe-none" placeholder="ej. 61399" tabindex="-1" required readonly />
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" class="text-danger"></span>
-                </div>
-            </div>
-            <div class="d-flex">
                 <label class="col-md-4 col-form-label">Nombre del empleado</label>
                 <div class="col-md-8">
                     <input name="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="txtNomEmpl form-control bg-light pe-none" placeholder="ej. Samuel Miral" tabindex="-1" required readonly />
                     <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="text-danger"></span>
+                </div>
+            </div>
+            <div class="d-flex">
+                <label class="col-md-4 col-form-label">Número de personal</label>
+                <div class="col-md-8">
+                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" type="number" class="txtNoPer form-control bg-light pe-none" placeholder="ej. 61399" tabindex="-1" required readonly />
+                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">

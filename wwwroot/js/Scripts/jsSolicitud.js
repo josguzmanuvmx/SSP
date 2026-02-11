@@ -1,6 +1,8 @@
 ﻿document.addEventListener("DOMContentLoaded", function () {
 
-    // Activar botones tooltip para Todos los Permisos en Finanzas
+    // ================
+    // ACTIVAR TOOLTIP
+    // ================
     var lsTooltip = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'))
     lsTooltip.map(function (tooltip) {
         return new bootstrap.Tooltip(tooltip, {
@@ -9,10 +11,12 @@
         })
     });
 
-    // Checkboxes Especiales para Alternar Detalles en Finanzas
+    // ==================
+    // ALTERNAR DETALLES
+    // ==================
     const lsDivAlternarDetalle = document.querySelectorAll('.clsAlternarDetalle');
     lsDivAlternarDetalle.forEach(txtDetalle => {
-        const fnAlternarDetalle = (bMarcado) => {
+        const fnAlternar_DetallePermiso = (bMarcado) => {
             const txtId = txtDetalle.getAttribute('data-target');
             const txtDiv = document.querySelector(txtId);
             const txtArea = txtDiv.querySelector('textarea');
@@ -29,17 +33,17 @@
             if (formSolicitud) formSolicitud.dispatchEvent(new Event('input'));
         };
         txtDetalle.addEventListener('change', function () {
-            fnAlternarDetalle(this.checked);
+            fnAlternar_DetallePermiso(this.checked);
         });
         if (txtDetalle.checked) {
-            fnAlternarDetalle(true);
+            fnAlternar_DetallePermiso(true);
         }
     });
 
-    // Lista Catalogo de Dependencias
+    // =========================
+    // TABLA GLOSARIO DE ACTIVIDADES
+    // =========================
     const lsCatalogoDependencias = window.datosDependencias || [];
-
-    // Tabla Glosario de Actividades
     var nTamPag = parseInt($('#ddlActividades').val(), 10) || 10;
     var tblActividades = $('#tblActividades').DataTable({
         responsive: true,
@@ -60,8 +64,10 @@
         autoWidth: false
     });
 
-    // Metodo para limpiar el texto
-    function fnsLimpiarTexto(sTexto) {
+    // ===============
+    // LIMPIAR TEXTO
+    // ===============
+    function fnObtener_TextoFormateado(sTexto) {
         if (!sTexto) return "";
         return sTexto
             .toLowerCase()
@@ -73,11 +79,11 @@
     }
     $.fn.dataTable.ext.search.push(
         function (settings, data, dataIndex) {
-            var filtroRaw = $('#ddlPermisos').val();
-            if (!filtroRaw) return true;
-            var filtroLimpio = fnsLimpiarTexto(filtroRaw);
-            var contenidoFila = fnsLimpiarTexto(data[0]);
-            return contenidoFila.includes(filtroLimpio);
+            var ddlPermisos = $('#ddlPermisos').val();
+            if (!ddlPermisos) return true;
+            var sFiltroPermisos = fnObtener_TextoFormateado(ddlPermisos);
+            var lsContenido = fnObtener_TextoFormateado(data[0]);
+            return lsContenido.includes(sFiltroPermisos);
         }
     );
     $('#ddlPermisos').on('change', function () {
@@ -92,24 +98,22 @@
     });
     // ----------
 
-    // ============================
-    // FORMULARIO GUARDARSOLICITUD
-    // ============================
+    // =============================
+    // FORMULARIO GUARDAR SOLICITUD
+    // =============================
     const btnGuardar = document.getElementById('btnGuardar');
-
     btnGuardar.addEventListener('click', async function () {
         const btn = this;
-
         const textoOriginal = btn.innerHTML;
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
-        const form = document.getElementById('formSolicitud');
-        const formData = new FormData(form);
+        const formSolicitud = document.getElementById('formSolicitud');
+        const formDataSolicitud = new formDataSolicitud(formSolicitud);
         const urlAction = form.getAttribute('data-url-guardar') || form.action;
         try {
             const response = await fetch(urlAction, {
                 method: 'POST',
-                body: formData
+                body: formDataSolicitud
             });
             const result = await response.json();
             if (result.success) {
@@ -135,7 +139,9 @@
     });
     // ----------
 
-    // Referencias a los inputs del formulario (Usamos los IDs generados por asp-for)
+    // =======================
+    // INPUTS USUARIO GENERAL
+    // =======================
     const lsTxtUsuario = {
         sNomEmpl: document.getElementById('SNomEmpl'),
         nNoPer: document.getElementById('NNoPer'),
@@ -145,10 +151,10 @@
         sPueEmpl: document.getElementById('SPueEmpl'),
     };
 
-    // ====================
-    // BUSQUEDA DE USUARIO
-    // ====================
-    function fnActualizarSeleccionUsuario(lsItems, idUsuario) {
+    // ===================================
+    // BUSCAR Y RELLENAR DATOS DE USUARIO
+    // ===================================
+    function fnActualizar_SeleccionUsuario(lsItems, idUsuario) {
         lsItems.forEach(item => item.classList.remove('active'));
         if (idUsuario > -1 && lsItems[idUsuario]) {
             const itemActivo = lsItems[idUsuario];
@@ -166,15 +172,23 @@
         if (lsTxtUsuario.sUsuario) lsTxtUsuario.sUsuario.value = emp.sUsuario || '';
         if (lsTxtUsuario.sCorreo) lsTxtUsuario.sCorreo.value = emp.sCorreo || '';
         if (lsTxtUsuario.sPueEmpl) lsTxtUsuario.sPueEmpl.value = emp.sPueEmpl || '';
+        if (lsTxtUsuario.Region) lsTxtUsuario.Region.value = emp.nRegClv || '';
     }
+
+    // ===============
+    // BUSCAR USUARIO
+    // ===============
     function fnBuscarUsuario(sUsuario, sResultados, divHumaContainer = null) {
         let debounceTimer;
         let idUsuario = -1;
+
         // R. HUMANOS
         let txtHumanosNoPer;
         let txtHumanosNomEmpl;
         let txtHumanosUsuario;
         let btnHumaManual;
+        // ---------------------
+
         let txtUsuario;
         let divResultados;
         if (divHumaContainer) {
@@ -188,17 +202,11 @@
             btnHumaManual = divHumaContainer.querySelector('.btnHumaManual');
             btnHumaManual.addEventListener('click', function (e) {
                 e.preventDefault();
-
                 const txtUsrs = [txtHumanosNoPer, txtHumanosNomEmpl, txtHumanosUsuario];
                 txtUsrs.forEach(txtUsr => {
-                    txtUsr.classList.remove('pe-none');
-                    txtUsr.removeAttribute('readonly');
-                    if (txtUsr.tagName === 'SELECT') txtUsr.removeAttribute('disabled');
-                    txtUsr.classList.remove('bg-light');
-                    txtUsr.classList.add('bg-white');
+                    fnAlternar_CampoUsuario(txtUsr, false);
                 });
-
-                lsTxtUsuario.sNomEmpl.focus();
+                txtHumanosNomEmpl.focus();
             });
         } else {
             txtUsuario = document.getElementById(sUsuario);
@@ -212,13 +220,13 @@
                     e.preventDefault();
                     idUsuario++;
                     if (idUsuario >= lsItems.length) idUsuario = 0;
-                    fnActualizarSeleccionUsuario(lsItems, idUsuario);
+                    fnActualizar_SeleccionUsuario(lsItems, idUsuario);
                 }
                 else if (e.key === 'ArrowUp') {
                     e.preventDefault();
                     idUsuario--;
                     if (idUsuario < 0) idUsuario = lsItems.length - 1;
-                    fnActualizarSeleccionUsuario(lsItems, idUsuario);
+                    fnActualizar_SeleccionUsuario(lsItems, idUsuario);
                 }
                 else if (e.key === 'Enter') {
                     if (idUsuario > -1) {
@@ -282,45 +290,47 @@
     fnBuscarUsuario('txtUsuario', 'divResultados')
 
 
-    // ============================================
-    // BOTON MANUAL PARA INGRESAR DATOS EN USUARIO
-    // ============================================
-    function fnBloquearCampos(bBloqueado) {
+    // ========================================================
+    // BOTON MANUAL PARA ALTERNAR EN INGRESAR DATOS EN USUARIO
+    // ========================================================
+    function fnAlternar_CampoUsuario(txtUsr, bBloquear) {
+        if (bBloquear) {
+            txtUsr.classList.add('pe-none')
+            txtUsr.setAttribute('readonly', true);
+            if (txtUsr.tagName === 'SELECT') txtUsr.setAttribute('disabled', true);
+            txtUsr.classList.add('bg-light');
+            txtUsr.classList.remove('bg-white');
+        } else {
+            txtUsr.classList.remove('pe-none')
+            txtUsr.removeAttribute('readonly');
+            if (txtUsr.tagName === 'SELECT') txtUsr.removeAttribute('disabled');
+            txtUsr.classList.remove('bg-light');
+            txtUsr.classList.add('bg-white');
+        }
+    }
+    function fnBloquear_CamposUsuario(bBloquear) {
         Object.values(lsTxtUsuario).forEach(txtUsr => {
-            if (bBloqueado) {
-                txtUsr.classList.add('pe-none')
-                txtUsr.setAttribute('readonly', true);
-                if (txtUsr.tagName === 'SELECT') txtUsr.setAttribute('disabled', true);
-                txtUsr.classList.add('bg-light');
-                txtUsr.classList.remove('bg-white');
-            } else {
-                txtUsr.classList.remove('pe-none')
-                txtUsr.removeAttribute('readonly');
-                if (txtUsr.tagName === 'SELECT') txtUsr.removeAttribute('disabled');
-                txtUsr.classList.remove('bg-light');
-                txtUsr.classList.add('bg-white');
-            }
+            fnAlternar_CampoUsuario(txtUsr, bBloquear);
         });
     }
     const btnManual = document.getElementById('btnManual');
     btnManual.addEventListener('click', function (e) {
         e.preventDefault();
-        fnBloquearCampos(false);
+        fnBloquear_CamposUsuario(false);
         lsTxtUsuario.sNomEmpl.focus();
     });
     
 
-    // ============
-    // SOLICITUDES
-    // ============
+    // =============================
+    // SOLICITUDES DOCUMENTO ACTIVO
+    // =============================
     const divSinDocumentos = document.getElementById('divSinDocumentos');
     const divDescargarSolicitudes = document.getElementById('divDescargarSolicitudes');
-    function fnActualizarDocumentoActivo() {
+    function fnActualizar_ExisteSolicitud() {
         const txtEstuAct = document.getElementById('txtEstuAct');
         const txtFinaAct = document.getElementById('txtFinaAct');
         const txtHumaAct = document.getElementById('txtHumaAct');
         const bDocActivo = (txtHumaAct?.checked) || (txtFinaAct?.checked) || (txtEstuAct?.checked);
-
         if (bDocActivo) {
             divSinDocumentos.classList.add('d-none');
             divDescargarSolicitudes.classList.remove('d-none');
@@ -331,129 +341,65 @@
     }
     // ----------
 
-    // Habilitar Estudiantes
-    const txtEstuAct = document.getElementById('txtEstuAct');
-    const btnHabilitarEstudiantes = document.getElementById('btnHabilitarEstudiantes');
-    const btnDeshabilitarEstudiantes = document.getElementById('btnDeshabilitarEstudiantes');
-    const divOverlayEstudiantes = document.getElementById('divOverlayEstudiantes');
-    const divContenidoEstudiantes = document.getElementById('divContenidoEstudiantes');
-    const lsTxtEstudiantes = divContenidoEstudiantes.querySelectorAll('input, select, textarea');
-    const divDocEstudiantes = document.getElementById('divDocEstudiantes');
-    function fnAlternarEstudiantes(bModo) {
-        txtEstuAct.checked = bModo;
-        if (bModo) {
-            divOverlayEstudiantes.classList.add('d-none');
-            divOverlayEstudiantes.classList.remove('d-flex');
-            divContenidoEstudiantes.style.opacity = '1';
-            divContenidoEstudiantes.style.pointerEvents = 'auto';
-            btnDeshabilitarEstudiantes.classList.remove('d-none');
-            lsTxtEstudiantes.forEach(input => input.removeAttribute('disabled'));
-            if (divDocEstudiantes) divDocEstudiantes.classList.remove('d-none');
-        } else {
-            divOverlayEstudiantes.classList.remove('d-none');
-            divOverlayEstudiantes.classList.add('d-flex');
-            divContenidoEstudiantes.style.opacity = '0.3';
-            divContenidoEstudiantes.style.pointerEvents = 'none';
-            btnDeshabilitarEstudiantes.classList.add('d-none');
-            lsTxtEstudiantes.forEach(input => input.setAttribute('disabled', 'disabled'));
-            if (divDocEstudiantes) divDocEstudiantes.classList.add('d-none');
-        }
-        fnActualizarDocumentoActivo();
-    }
-    btnHabilitarEstudiantes.addEventListener('click', () => fnAlternarEstudiantes(true));
-    btnDeshabilitarEstudiantes.addEventListener('click', () => fnAlternarEstudiantes(false));
-    fnAlternarEstudiantes(txtEstuAct.checked);
-    // ---
+    // ====================
+    // CONFIGURAR PERMISOS
+    // ====================
+    function fnConfigurar_Permisos(sPermiso, sActivo) {
+        const txtActivo = document.getElementById(sActivo);
+        const btnHabilitar = document.getElementById('btnHabilitar' + sPermiso);
+        const btnDeshabilitar = document.getElementById('btnDeshabilitar' + sPermiso);
+        const divOverlay = document.getElementById('divOverlay' + sPermiso);
+        const divContenido = document.getElementById('divContenido' + sPermiso);
+        const lsTxt = divContenido.querySelectorAll('input, select, textarea');
+        const divDocumento = document.getElementById('divDoc' + sPermiso);
 
-    // Habilitar Finanzas
-    const txtFinaAct = document.getElementById('txtFinaAct');
-    const btnHabilitarFinanzas = document.getElementById('btnHabilitarFinanzas');
-    const btnDeshabilitarFinanzas = document.getElementById('btnDeshabilitarFinanzas');
-    const divOverlayFinanzas = document.getElementById('divOverlayFinanzas');
-    const divContenidoFinanzas = document.getElementById('divContenidoFinanzas');
-    const lsTxtFinanzas = divContenidoFinanzas.querySelectorAll('input, select, textarea');
-    const divDocFinanzas = document.getElementById('divDocFinanzas');
-    function fnAlternarFinanzas(bModo) {
-        txtFinaAct.checked = bModo;
-        if (bModo) {
-            divOverlayFinanzas.classList.add('d-none');
-            divOverlayFinanzas.classList.remove('d-flex');
-            divContenidoFinanzas.style.opacity = '1';
-            divContenidoFinanzas.style.pointerEvents = 'auto';
-            btnDeshabilitarFinanzas.classList.remove('d-none');
-            lsTxtFinanzas.forEach(input => input.removeAttribute('disabled'));
-            if (divDocFinanzas) divDocFinanzas.classList.remove('d-none');
-        } else {
-            divOverlayFinanzas.classList.remove('d-none');
-            divOverlayFinanzas.classList.add('d-flex');
-            divContenidoFinanzas.style.opacity = '0.3';
-            divContenidoFinanzas.style.pointerEvents = 'none';
-            btnDeshabilitarFinanzas.classList.add('d-none');
-            lsTxtFinanzas.forEach(input => input.setAttribute('disabled', 'disabled'));
-            if (divDocFinanzas) divDocFinanzas.classList.add('d-none');
+        function fnAlternar_Permisos(bModo) {
+            txtActivo.checked = bModo;
+            if (bModo) {
+                divOverlay.classList.add('d-none');
+                divOverlay.classList.remove('d-flex');
+                divContenido.style.opacity = '1';
+                divContenido.style.pointerEvents = 'auto';
+                btnDeshabilitar.classList.remove('d-none');
+                lsTxt.forEach(input => input.removeAttribute('disabled'));
+                if (divDocumento) divDocumento.classList.remove('d-none');
+            } else {
+                divOverlay.classList.remove('d-none');
+                divOverlay.classList.add('d-flex');
+                divContenido.style.opacity = '0.3';
+                divContenido.style.pointerEvents = 'none';
+                btnDeshabilitar.classList.add('d-none');
+                lsTxt.forEach(input => input.setAttribute('disabled', 'disabled'));
+                if (divDocumento) divDocumento.classList.add('d-none');
+            }
+            fnActualizar_ExisteSolicitud();
         }
-        fnActualizarDocumentoActivo();
+        btnHabilitar.addEventListener('click', () => fnAlternar_Permisos(true));
+        btnDeshabilitar.addEventListener('click', () => fnAlternar_Permisos(false));
+        fnAlternar_Permisos(txtActivo.checked);
     }
-    btnHabilitarFinanzas.addEventListener('click', () => fnAlternarFinanzas(true));
-    btnDeshabilitarFinanzas.addEventListener('click', () => fnAlternarFinanzas(false));
-    fnAlternarFinanzas(txtFinaAct.checked);
-    // --------
-
-    // Habilitar Humanos
-    const txtHumaAct = document.getElementById('txtHumaAct');
-    const btnHabilitarHumanos = document.getElementById('btnHabilitarHumanos');
-    const btnDeshabilitarHumanos = document.getElementById('btnDeshabilitarHumanos');
-    const divOverlayHumanos = document.getElementById('divOverlayHumanos');
-    const divContenidoHumanos = document.getElementById('divContenidoHumanos');
-    const lsTxtHumanos = divContenidoHumanos.querySelectorAll('input, select, textarea');
-    const divDocHumanos = document.getElementById('divDocHumanos');
-    function fnAlternarHumanos(bModo) {
-        txtHumaAct.checked = bModo;
-        if (bModo) {
-            divOverlayHumanos.classList.add('d-none');
-            divOverlayHumanos.classList.remove('d-flex');
-            divContenidoHumanos.style.opacity = '1';
-            divContenidoHumanos.style.pointerEvents = 'auto';
-            btnDeshabilitarHumanos.classList.remove('d-none');
-            lsTxtHumanos.forEach(input => input.removeAttribute('disabled'));
-            if (divDocHumanos) divDocHumanos.classList.remove('d-none');
-        } else {
-            divOverlayHumanos.classList.remove('d-none');
-            divOverlayHumanos.classList.add('d-flex');
-            divContenidoHumanos.style.opacity = '0.3';
-            divContenidoHumanos.style.pointerEvents = 'none';
-            btnDeshabilitarHumanos.classList.add('d-none');
-            lsTxtHumanos.forEach(input => input.setAttribute('disabled', 'disabled'));
-            if (divDocHumanos) divDocHumanos.classList.add('d-none');
-        }
-        fnActualizarDocumentoActivo();
-    }
-    btnHabilitarHumanos.addEventListener('click', () => fnAlternarHumanos(true));
-    btnDeshabilitarHumanos.addEventListener('click', () => fnAlternarHumanos(false));
-    fnAlternarHumanos(txtHumaAct.checked);
+    fnConfigurar_Permisos('Estudiantes', 'txtEstuAct');
+    fnConfigurar_Permisos('Finanzas', 'txtFinaAct');
+    fnConfigurar_Permisos('Humanos', 'txtHumaAct');
+    
     // --------
 
 
-    // Formulario
+    // =========================
+    // PREVISUALIZAR FORMULARIO
+    // =========================
     const formSolicitud = document.getElementById('formSolicitud');
 
-    // Previsualizar Documentos
-    async function actualizarPrevisualizacion(tipoDocumento, idIframe, idBtnDescarga = null, idLoader, idVerDocumento = null) {
+    async function fnActualizar_PrevisualizarSolicitud(sDocumento, idIframe, idBtnDescarga = null, idLoader, idVerDocumento = null) {
         const iframe = document.getElementById(idIframe);
         if (!iframe) return;
-
         const btnDescarga = idBtnDescarga ? document.getElementById(idBtnDescarga) : null;
         const divVerDocumento = idVerDocumento ? document.getElementById(idVerDocumento) : null;
         const loader = document.getElementById(idLoader);
         const urlAction = formSolicitud.getAttribute('data-url-preview');
-
-        // 1. PREPARACIÓN DE UI
         iframe.style.opacity = '0.5';
         if (btnDescarga) btnDescarga.classList.add('disabled');
         if (divVerDocumento) divVerDocumento.classList.add('d-none');
-
-        // --- CORRECCIÓN AQUÍ ---
-        // Reiniciamos el contenido del loader al Spinner original antes de mostrarlo
         if (loader) {
             loader.innerHTML = `
             <div class="spinner-border text-secondary mb-2" role="status"></div>
@@ -463,15 +409,14 @@
         }
         // -----------------------
 
-        const formData = new FormData(formSolicitud);
-        formData.append('sTipo', tipoDocumento);
-
+        const formDataSolicitud = new FormData(formSolicitud);
+        formDataSolicitud.append('sTipo', sDocumento);
         // if (loader) loader.classList.add('d-none');
 
         try {
             const response = await fetch(urlAction, {
                 method: 'POST',
-                body: formData
+                body: formDataSolicitud
             });
 
             if (response.ok) {
@@ -491,7 +436,7 @@
                     btnDescarga.href = urlBlob;
                     // Generar nombre de archivo limpio
                     const fecha = new Date().toISOString().split('T')[0];
-                    btnDescarga.download = `Solicitud_${tipoDocumento}_${fecha}.pdf`;
+                    btnDescarga.download = `Solicitud_${sDocumento}_${fecha}.pdf`;
                     btnDescarga.classList.remove('disabled');
                 }
             } else {
@@ -507,25 +452,25 @@
     }
 
     // --- EVENTOS ---
-    const iframe = document.getElementById('iframeViewer');
-    const modalPrevisualizar = document.getElementById('mdlPrevisualizarDocumento');
-    if (modalPrevisualizar) {
-        modalPrevisualizar.addEventListener('show.bs.modal', function (event) {
+    const iframeSolicitud = document.getElementById('iframeSolicitud');
+    const mdlPrevisualizar = document.getElementById('mdlPrevisualizarDocumento');
+    if (mdlPrevisualizar) {
+        mdlPrevisualizar.addEventListener('show.bs.modal', function (event) {
             const button = event.relatedTarget;
             const tipo = button.getAttribute('data-tipo');
-            actualizarPrevisualizacion(tipo, 'iframeViewer', 'btnDescargarModal');
-            iframe.style.opacity = '0';
+            fnActualizar_PrevisualizarSolicitud(tipo, 'iframeSolicitud', 'btnDescargarModal');
+            iframeSolicitud.style.opacity = '0';
         });
         // Opcional: Limpiar al cerrar para que no se quede la URL vieja
-        modalPrevisualizar.addEventListener('hidden.bs.modal', function () {
+        mdlPrevisualizar.addEventListener('hidden.bs.modal', function () {
             const btn = document.getElementById('btnDescargarModal');
             if (btn) btn.href = "#";
             document.activeElement.blur();
         });
     }
-    if (iframe) {
-        iframe.addEventListener('load', () => {
-            iframe.style.opacity = '1';
+    if (iframeSolicitud) {
+        iframeSolicitud.addEventListener('load', () => {
+            iframeSolicitud.style.opacity = '1';
         });
     }
 
@@ -534,7 +479,7 @@
         //mdlGlosarioActividades.addEventListener('show.bs.modal', function (event) {
         //    const button = event.relatedTarget;
         //    const tipo = button.getAttribute('data-tipo');
-        //    actualizarPrevisualizacion(tipo, 'iframeViewer', 'btnDescargarModal');
+        //    fnActualizar_PrevisualizarSolicitud(tipo, 'iframeSolicitud', 'btnDescargarModal');
         //    iframe.style.opacity = '0';
         //});
         // Opcional: Limpiar al cerrar para que no se quede la URL vieja
@@ -556,13 +501,13 @@
     function fnActualizarSolicitudes() {
         const divDescargarTodo = document.getElementById('divDescargarSolicitudes');
         let bDocumentos = false;
-        // if (txtFinaAct.checked) actualizarPrevisualizacion('SPRFM', 'iframeMiniHumanos');
+        // if (txtFinaAct.checked) fnActualizar_PrevisualizarSolicitud('SPRFM', 'iframeMiniHumanos');
         if (txtFinaAct && txtFinaAct.checked) {
-            actualizarPrevisualizacion('Finanzas', 'iframeMiniFinanzas', 'btnDescargaFinanzas', 'divCargandoFinanzas', 'divVerFinanzas');
+            fnActualizar_PrevisualizarSolicitud('Finanzas', 'iframeMiniFinanzas', 'btnDescargaFinanzas', 'divCargandoFinanzas', 'divVerFinanzas');
             bDocumentos = true;
         }
         if (txtHumaAct && txtHumaAct.checked) {
-            actualizarPrevisualizacion('Humanos', 'iframeMiniHumanos', 'btnDescargaHumanos', 'divCargandoHumanos', 'divVerHumanos');
+            fnActualizar_PrevisualizarSolicitud('Humanos', 'iframeMiniHumanos', 'btnDescargaHumanos', 'divCargandoHumanos', 'divVerHumanos');
             bDocumentos = true;
         }
         if (divDescargarTodo) {
@@ -592,14 +537,14 @@
             btnZip.classList.add('disabled');
 
             // 1. Preparar datos
-            const formData = new FormData(formSolicitud);
+            const formDataSolicitud = new FormData(formSolicitud);
             const urlZip = formSolicitud.getAttribute('data-url-zip');
 
             try {
                 // 2. Enviar petición POST
                 const response = await fetch(urlZip, {
                     method: 'POST',
-                    body: formData
+                    body: formDataSolicitud
                 });
 
                 if (response.ok) {
@@ -692,7 +637,7 @@
     // --- FUNCIÓN DE LÓGICA DE BÚSQUEDA ---
     function setupBusquedaUsuario(container) {
         // Selectores dentro de la pestaña actual
-        const inputSearch = container.querySelector('.input-search-user');
+        const txtBusqieda = container.querySelector('.input-search-user');
         const resultsContainer = container.querySelector('.results-container');
         const btnClear = container.querySelector('.btn-clear-search');
 
@@ -706,8 +651,8 @@
 
         let indiceNavegacionExtra = -1;
 
-        if (inputSearch && resultsContainer) {
-            inputSearch.addEventListener('keydown', function (e) {
+        if (txtBusqieda && resultsContainer) {
+            txtBusqieda.addEventListener('keydown', function (e) {
                 const items = resultsContainer.querySelectorAll('a.list-group-item');
 
                 // Si la lista está oculta o vacía, no hacemos nada
@@ -763,7 +708,7 @@
                 }
             }
 
-            inputSearch.addEventListener('input', function () {
+            txtBusqieda.addEventListener('input', function () {
                 const query = this.value.trim();
                 const url = this.getAttribute('data-url');
 
@@ -808,7 +753,7 @@
                                         if (inpDep) inpDep.value = user.nUResClv;         // De tu C#: nUResClv (Asumo que es la dependencia)
 
                                         // Limpieza visual
-                                        inputSearch.value = '';
+                                        txtBusqieda.value = '';
                                         resultsContainer.style.display = 'none';
                                     });
 
@@ -830,7 +775,7 @@
 
         // Ocultar al hacer click fuera
         document.addEventListener('click', function (e) {
-            if (!inputSearch.contains(e.target) && !resultsContainer.contains(e.target)) {
+            if (!txtBusqieda.contains(e.target) && !resultsContainer.contains(e.target)) {
                 resultsContainer.style.display = 'none';
             }
         });
@@ -1371,187 +1316,6 @@
         }
     });
 
-
-    //const txtBuscarEntidad = document.getElementById('txtBuscarEntidad');
-    //const listaResultados = document.getElementById('lista-resultados-entidad');
-
-    //// Contenedores visuales
-    //const containerBuscar = document.getElementById('container-buscar-entidad');
-    //const containerSeleccionado = document.getElementById('container-entidad-seleccionada');
-
-    //// Elementos de la selección
-    //const lblEntidadTexto = document.getElementById('lblEntidadTexto');
-    //const btnQuitarEntidad = document.getElementById('btnQuitarEntidad');
-
-    //// Inputs ocultos (binding con ASP.NET Core)
-    //const hdnEntClv = document.getElementById('hdnEntClv');
-    //const hdnEntNom = document.getElementById('hdnEntNom');
-
-    //let debounceEntidad; // Para controlar el tiempo de espera al escribir
-
-    //let indiceNavegacion = -1;
-
-    //// --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
-    //if (txtBuscarEntidad && listaResultados) {
-    //    txtBuscarEntidad.addEventListener('keydown', function (e) {
-    //        const items = listaResultados.querySelectorAll('a.list-group-item');
-
-    //        // Si la lista está oculta o vacía, no hacemos nada
-    //        if (listaResultados.style.display === 'none' || items.length === 0) return;
-
-    //        if (e.key === 'ArrowDown') {
-    //            e.preventDefault(); // Evita que el cursor se mueva en el input
-    //            indiceNavegacion++;
-
-    //            // Si pasamos el último, volvemos al primero (carrusel)
-    //            if (indiceNavegacion >= items.length) indiceNavegacion = 0;
-
-    //            actualizarSeleccionVisual(items);
-    //        }
-    //        else if (e.key === 'ArrowUp') {
-    //            e.preventDefault();
-    //            indiceNavegacion--;
-
-    //            // Si subimos más allá del primero, vamos al último
-    //            if (indiceNavegacion < 0) indiceNavegacion = items.length - 1;
-
-    //            actualizarSeleccionVisual(items);
-    //        }
-    //        else if (e.key === 'Enter') {
-    //            // Si hay algo seleccionado con las flechas, simulamos el click
-    //            if (indiceNavegacion > -1) {
-    //                e.preventDefault(); // Evita el submit del formulario
-    //                items[indiceNavegacion].click();
-    //            }
-    //        }
-    //        else if (e.key === 'Escape') {
-    //            listaResultados.style.display = 'none';
-    //            indiceNavegacion = -1;
-    //        }
-    //    });
-
-    //    // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
-    //    function actualizarSeleccionVisual(items) {
-    //        // Limpiar clase 'active' de todos
-    //        items.forEach(item => item.classList.remove('active'));
-
-    //        // Agregar clase 'active' al actual
-    //        if (indiceNavegacion > -1 && items[indiceNavegacion]) {
-    //            const itemActivo = items[indiceNavegacion];
-    //            itemActivo.classList.add('active');
-
-    //            // SCROLL AUTOMÁTICO:
-    //            // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
-    //            itemActivo.scrollIntoView({
-    //                block: 'nearest',
-    //                behavior: 'smooth'
-    //            });
-    //        }
-    //    }
-
-    //    txtBuscarEntidad.addEventListener('input', function () {
-    //        const query = this.value.trim();
-    //        const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
-
-    //        // Limpiamos temporizador anterior y ocultamos lista para reiniciar
-    //        clearTimeout(debounceEntidad);
-    //        listaResultados.style.display = 'none';
-
-    //        // Si hay menos de 3 caracteres, no hacemos nada
-    //        if (query.length < 3) return;
-
-    //        // Esperar 300ms antes de llamar al servidor (Debounce)
-    //        debounceEntidad = setTimeout(() => {
-    //            fetch(`${url}?sTermino=${encodeURIComponent(query)}`)
-    //                .then(res => res.json())
-    //                .then(data => {
-    //                    listaResultados.innerHTML = '';
-
-    //                    if (data.length > 0) {
-    //                        data.forEach(item => {
-    //                            // NOTA: ASP.NET convierte las propiedades a minúscula inicial (camelCase)
-    //                            // SCodigo -> sCodigo | SDependencia -> sDependencia
-    //                            const codigo = item.sCodigo || item.SCodigo;
-    //                            const nombre = item.sDependencia || item.SDependencia;
-
-    //                            // Crear elemento visual de la lista
-    //                            const a = document.createElement('a');
-    //                            a.className = 'list-group-item list-group-item-action cursor-pointer';
-    //                            a.innerHTML = `<span class="fw-bold">${codigo}</span> - <small>${nombre}</small>`;
-    //                            a.href = "#";
-
-    //                            // Evento al seleccionar una opción
-    //                            a.addEventListener('click', (e) => {
-    //                                e.preventDefault();
-    //                                fnSeleccionarEntidad(codigo, nombre);
-    //                            });
-
-    //                            listaResultados.appendChild(a);
-    //                        });
-    //                        listaResultados.style.display = 'block';
-    //                    } else {
-    //                        listaResultados.innerHTML = '<div class="list-group-item text-muted small">No se encontraron resultados</div>';
-    //                        listaResultados.style.display = 'block';
-    //                    }
-    //                })
-    //                .catch(err => console.error("Error buscando dependencia:", err));
-    //        }, 300);
-
-    //        // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
-    //        indiceNavegacion = -1;
-    //    });
-    //}
-
-    //// --- 2. FUNCIÓN: SELECCIONAR UNA ENTIDAD ---
-    //function fnSeleccionarEntidad(clave, nombre) {
-    //    // 1. Llenar inputs ocultos (Lo que se guarda en BD)
-    //    if (hdnEntClv) hdnEntClv.value = clave;
-    //    if (hdnEntNom) hdnEntNom.value = nombre;
-
-    //    // 2. Actualizar texto visual
-    //    if (lblEntidadTexto) lblEntidadTexto.textContent = `${clave} - ${nombre}`;
-
-    //    // 3. Cambiar estado visual: Ocultar buscador, Mostrar seleccionado
-    //    if (listaResultados) listaResultados.style.display = 'none';
-    //    if (containerBuscar) containerBuscar.classList.add('d-none');
-
-    //    if (containerSeleccionado) {
-    //        containerSeleccionado.classList.remove('d-none');
-    //        containerSeleccionado.classList.add('d-flex');
-    //    }
-    //}
-
-    //// --- 3. FUNCIÓN: QUITAR / ELIMINAR SELECCIÓN ---
-    //if (btnQuitarEntidad) {
-    //    btnQuitarEntidad.addEventListener('click', function () {
-    //        // 1. Limpiar inputs ocultos
-    //        if (hdnEntClv) hdnEntClv.value = '';
-    //        if (hdnEntNom) hdnEntNom.value = '';
-
-    //        // 2. Limpiar input visual
-    //        if (txtBuscarEntidad) txtBuscarEntidad.value = '';
-
-    //        // 3. Cambiar estado visual: Ocultar seleccionado, Mostrar buscador
-    //        if (containerSeleccionado) {
-    //            containerSeleccionado.classList.add('d-none');
-    //            containerSeleccionado.classList.remove('d-flex');
-    //        }
-
-    //        if (containerBuscar) containerBuscar.classList.remove('d-none');
-
-    //        // 4. Poner foco para escribir de nuevo
-    //        setTimeout(() => txtBuscarEntidad.focus(), 100);
-    //    });
-    //}
-
-    //// --- 4. CERRAR LISTA AL DAR CLIC FUERA ---
-    //document.addEventListener('click', function (e) {
-    //    // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
-    //    if (containerBuscar && !containerBuscar.contains(e.target)) {
-    //        listaResultados.style.display = 'none';
-    //    }
-    //});
-
     // ==========================================
     // BUSCADOR DE DEPENDENCIA / ENTIDAD
     // ==========================================
@@ -1729,188 +1493,4 @@
             listaHuma.style.display = 'none';
         }
     });
-    
-    // ============================================
-    // BUSCADOR DE DEPENDENCIA / ENTIDAD DE HUMANOS
-    // ============================================
-
-    //const txtBuscarEntidadHumanos = document.getElementById('txtBuscarEntidadHumanos');
-    //const listaResultadosHumanos = document.getElementById('lista-resultados-entidad-humanos');
-
-    //// Contenedores visuales
-    //const containerBuscarHumanos = document.getElementById('container-buscar-entidad-humanos');
-    //const containerSeleccionadoHumanos = document.getElementById('container-entidad-seleccionada-humanos');
-
-    //// Elementos de la selección
-    //const lblEntidadTextoHumanos = document.getElementById('lblEntidadTextoHumanos');
-    //const btnQuitarEntidadHumanos = document.getElementById('btnQuitarEntidadHumanos');
-
-    //// Inputs ocultos (binding con ASP.NET Core)
-    //const hdnEntClvHumanos = document.getElementById('hdnEntClvHumanos');
-    //const hdnEntNomHumanos = document.getElementById('hdnEntNomHumanos');
-
-    //let debounceEntidadHumanos; // Para controlar el tiempo de espera al escribir
-
-    //let indiceNavegacionHumanos = -1;
-
-    //// --- 1. EVENTO DE BÚSQUEDA (Mientras el usuario escribe) ---
-    //if (txtBuscarEntidadHumanos && listaResultadosHumanos) {
-    //    txtBuscarEntidadHumanos.addEventListener('keydown', function (e) {
-    //        const items = listaResultadosHumanos.querySelectorAll('a.list-group-item');
-
-    //        // Si la lista está oculta o vacía, no hacemos nada
-    //        if (listaResultadosHumanos.style.display === 'none' || items.length === 0) return;
-
-    //        if (e.key === 'ArrowDown') {
-    //            e.preventDefault(); // Evita que el cursor se mueva en el input
-    //            indiceNavegacionHumanos++;
-
-    //            // Si pasamos el último, volvemos al primero (carrusel)
-    //            if (indiceNavegacionHumanos >= items.length) indiceNavegacionHumanos = 0;
-
-    //            actualizarSeleccionVisual(items);
-    //        }
-    //        else if (e.key === 'ArrowUp') {
-    //            e.preventDefault();
-    //            indiceNavegacionHumanos--;
-
-    //            // Si subimos más allá del primero, vamos al último
-    //            if (indiceNavegacionHumanos < 0) indiceNavegacionHumanos = items.length - 1;
-
-    //            actualizarSeleccionVisual(items);
-    //        }
-    //        else if (e.key === 'Enter') {
-    //            // Si hay algo seleccionado con las flechas, simulamos el click
-    //            if (indiceNavegacionHumanos > -1) {
-    //                e.preventDefault(); // Evita el submit del formulario
-    //                items[indiceNavegacionHumanos].click();
-    //            }
-    //        }
-    //        else if (e.key === 'Escape') {
-    //            listaResultadosHumanos.style.display = 'none';
-    //            indiceNavegacionHumanos = -1;
-    //        }
-    //    });
-
-    //    // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
-    //    function actualizarSeleccionVisual(items) {
-    //        // Limpiar clase 'active' de todos
-    //        items.forEach(item => item.classList.remove('active'));
-
-    //        // Agregar clase 'active' al actual
-    //        if (indiceNavegacionHumanos > -1 && items[indiceNavegacionHumanos]) {
-    //            const itemActivo = items[indiceNavegacionHumanos];
-    //            itemActivo.classList.add('active');
-
-    //            // SCROLL AUTOMÁTICO:
-    //            // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
-    //            itemActivo.scrollIntoView({
-    //                block: 'nearest',
-    //                behavior: 'smooth'
-    //            });
-    //        }
-    //    }
-
-    //    txtBuscarEntidadHumanos.addEventListener('input', function () {
-    //        const query = this.value.trim();
-    //        const url = this.getAttribute('data-url'); // Lee la URL del atributo HTML
-
-    //        // Limpiamos temporizador anterior y ocultamos lista para reiniciar
-    //        clearTimeout(debounceEntidadHumanos);
-    //        listaResultadosHumanos.style.display = 'none';
-
-    //        // Si hay menos de 3 caracteres, no hacemos nada
-    //        if (query.length < 3) return;
-
-    //        // Esperar 300ms antes de llamar al servidor (Debounce)
-    //        debounceEntidadHumanos = setTimeout(() => {
-    //            fetch(`${url}?sTermino=${encodeURIComponent(query)}`)
-    //                .then(res => res.json())
-    //                .then(data => {
-    //                    listaResultadosHumanos.innerHTML = '';
-
-    //                    if (data.length > 0) {
-    //                        data.forEach(item => {
-    //                            // NOTA: ASP.NET convierte las propiedades a minúscula inicial (camelCase)
-    //                            // SCodigo -> sCodigo | SDependencia -> sDependencia
-    //                            const codigo = item.sCodigo || item.SCodigo;
-    //                            const nombre = item.sDependencia || item.SDependencia;
-
-    //                            // Crear elemento visual de la lista
-    //                            const a = document.createElement('a');
-    //                            a.className = 'list-group-item list-group-item-action cursor-pointer';
-    //                            a.innerHTML = `<span class="fw-bold">${codigo}</span> - <small>${nombre}</small>`;
-    //                            a.href = "#";
-
-    //                            // Evento al seleccionar una opción
-    //                            a.addEventListener('click', (e) => {
-    //                                e.preventDefault();
-    //                                fnSeleccionarEntidadHumanos(codigo, nombre);
-    //                            });
-
-    //                            listaResultadosHumanos.appendChild(a);
-    //                        });
-    //                        listaResultadosHumanos.style.display = 'block';
-    //                    } else {
-    //                        listaResultadosHumanos.innerHTML = '<div class="list-group-item text-muted small">No se encontraron resultados</div>';
-    //                        listaResultadosHumanos.style.display = 'block';
-    //                    }
-    //                })
-    //                .catch(err => console.error("Error buscando dependencia:", err));
-    //        }, 300);
-
-    //        // IMPORTANTE: Cuando el usuario escribe algo nuevo, reseteamos el índice
-    //        indiceNavegacionHumanos = -1;
-    //    });
-    //}
-
-    //// --- 2. FUNCIÓN: SELECCIONAR UNA ENTIDAD ---
-    //function fnSeleccionarEntidadHumanos(clave, nombre) {
-    //    // 1. Llenar inputs ocultos (Lo que se guarda en BD)
-    //    if (hdnEntClvHumanos) hdnEntClvHumanos.value = clave;
-    //    if (hdnEntNomHumanos) hdnEntNomHumanos.value = nombre;
-
-    //    // 2. Actualizar texto visual
-    //    if (lblEntidadTextoHumanos) lblEntidadTextoHumanos.textContent = `${clave} - ${nombre}`;
-
-    //    // 3. Cambiar estado visual: Ocultar buscador, Mostrar seleccionado
-    //    if (listaResultadosHumanos) listaResultadosHumanos.style.display = 'none';
-    //    if (containerBuscarHumanos) containerBuscarHumanos.classList.add('d-none');
-
-    //    if (containerSeleccionadoHumanos) {
-    //        containerSeleccionadoHumanos.classList.remove('d-none');
-    //        containerSeleccionadoHumanos.classList.add('d-flex');
-    //    }
-    //}
-
-    //// --- 3. FUNCIÓN: QUITAR / ELIMINAR SELECCIÓN ---
-    //if (btnQuitarEntidadHumanos) {
-    //    btnQuitarEntidadHumanos.addEventListener('click', function () {
-    //        // 1. Limpiar inputs ocultos
-    //        if (hdnEntClvHumanos) hdnEntClvHumanos.value = '';
-    //        if (hdnEntNomHumanos) hdnEntNomHumanos.value = '';
-
-    //        // 2. Limpiar input visual
-    //        if (txtBuscarEntidadHumanos) txtBuscarEntidadHumanos.value = '';
-
-    //        // 3. Cambiar estado visual: Ocultar seleccionado, Mostrar buscador
-    //        if (containerSeleccionadoHumanos) {
-    //            containerSeleccionadoHumanos.classList.add('d-none');
-    //            containerSeleccionadoHumanos.classList.remove('d-flex');
-    //        }
-
-    //        if (containerBuscarHumanos) containerBuscarHumanos.classList.remove('d-none');
-
-    //        // 4. Poner foco para escribir de nuevo
-    //        setTimeout(() => txtBuscarEntidadHumanos.focus(), 100);
-    //    });
-    //}
-
-    //// --- 4. CERRAR LISTA AL DAR CLIC FUERA ---
-    //document.addEventListener('click', function (e) {
-    //    // Si el clic NO fue dentro del contenedor del buscador, cerramos la lista
-    //    if (containerBuscarHumanos && !containerBuscarHumanos.contains(e.target)) {
-    //        listaResultadosHumanos.style.display = 'none';
-    //    }
-    //});
 });
