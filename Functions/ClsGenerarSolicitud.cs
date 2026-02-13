@@ -156,9 +156,9 @@ public class ClsGenerarSolicitud
                     }
                 }
 
-                ReemplazarCheck("{alta}", vmSolicitud.MoFinanzas.SFinaMov == Movimiento.SAlta);
-                ReemplazarCheck("{modificacion}", vmSolicitud.MoFinanzas.SFinaMov == Movimiento.SModifi);
-                ReemplazarCheck("{baja}", vmSolicitud.MoFinanzas.SFinaMov == Movimiento.SBaja);
+                ReemplazarCheck("{alta}", vmSolicitud.MoFinanzas.Movimiento == Movimiento.SAlta);
+                ReemplazarCheck("{modificacion}", vmSolicitud.MoFinanzas.Movimiento == Movimiento.SModifi);
+                ReemplazarCheck("{baja}", vmSolicitud.MoFinanzas.Movimiento == Movimiento.SBaja);
 
                 doc.Replace("{director}", vmSolicitud.MoFinanzas.BDirec ? "x" : "", true, true);
                 doc.Replace("{dirGen}", vmSolicitud.MoFinanzas.BDirGen ? "x" : "", true, true);
@@ -225,8 +225,8 @@ public class ClsGenerarSolicitud
                     Perfil = solicitud.MoHumanos.Perfil,
                     NDepClv = solicitud.MoHumanos.NDepClv,
                     NProgClv = solicitud.MoHumanos.NProgClv,
-                    TipPerm = solicitud.MoHumanos.TipPerm,
-                    HumaMov = solicitud.MoHumanos.HumaMov
+                    Permiso = solicitud.MoHumanos.Permiso,
+                    Movimiento = solicitud.MoHumanos.Movimiento
                 });
 
                 // 1.2 Agregar Adicionales (Si existen)
@@ -288,8 +288,8 @@ public class ClsGenerarSolicitud
                         int filaActual = filaInicio + i;
 
                         string sPermiso;
-                        Console.WriteLine(usuario.TipPerm);
-                        switch (usuario.TipPerm)
+                        Console.WriteLine(usuario.Permiso);
+                        switch (usuario.Permiso)
                         {
                             case Permiso.SConsult:
                                 sPermiso = "C";
@@ -303,7 +303,7 @@ public class ClsGenerarSolicitud
                         }
 
                         string sMovimiento;
-                        switch (usuario.HumaMov)
+                        switch (usuario.Movimiento)
                         {
                             case Movimiento.SAlta:
                                 sMovimiento = "A";

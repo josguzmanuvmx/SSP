@@ -108,8 +108,10 @@
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
         const formSolicitud = document.getElementById('formSolicitud');
-        const formDataSolicitud = new formDataSolicitud(formSolicitud);
-        const urlAction = form.getAttribute('data-url-guardar') || form.action;
+        const formDataSolicitud = new FormData(formSolicitud);
+        const urlAction = formSolicitud.getAttribute('data-url-guardar') || formSolicitud.action;
+
+        console.log(formSolicitud)
         try {
             const response = await fetch(urlAction, {
                 method: 'POST',
@@ -559,7 +561,7 @@
     // ----------------------
 
     // ================================
-    // USUARIO ADICIONAL EN R. HUMANOS
+    // ORDENAR USUARIOS R. HUMANOS
     // ================================
     const btnAgregar = document.getElementById('btnAgregarPestanaUsuario');
     const ulUsuariosRHumanos = document.getElementById('ulUsuariosRHumanos');
@@ -568,6 +570,49 @@
     const tmplTabUsuario = document.getElementById('tmplTabUsuario');
     const tmplContenidoUsuario = document.getElementById('tmplContenidoUsuario');
     const nUsuariosMaximo = 10;
+    function fnOrdenar_Usuarios() {
+        const ulTabsUsuario = ulUsuariosRHumanos.querySelectorAll('.item-usuario-extra');
+        const divContenidoUsuario = divContenidoRHumanos.querySelectorAll('.content-usuario-extra');
+        if (ulTabsUsuario.length + 1 >= nUsuariosMaximo) {
+            btnAgregar.parentElement.classList.add('d-none');
+            spUsuariosMaximo.classList.remove('d-none');
+        } else {
+            btnAgregar.parentElement.classList.remove('d-none');
+            spUsuariosMaximo.classList.add('d-none');
+        }
+        divContenidoUsuario.forEach((pane, index) => {
+            const nPosUsuario = index + 2;
+            const spNumero = pane.querySelector('.sp-numero');
+            if (spNumero) spNumero.textContent = nPosUsuario;
+            if (ulTabsUsuario[index]) {
+                const spNombre = ulTabsUsuario[index].querySelector('.sp-nombre');
+                if (spNombre) spNombre.textContent = `#${nPosUsuario}`;
+            }
+            const lsTxtContenido = pane.querySelectorAll('input, select');
+            lsTxtContenido.forEach(txt => {
+                if (txt.name) {
+                    txt.name = txt.name.replace(
+                        /(LsHumaAdi|MoHumanos\.LsHumaAdi)\[.*?\]|LsHumaAdi\[INDEX_LISTA\]/,
+                        `MoHumanos.LsHumaAdi[${index}]`
+                    );
+                }
+                if (txt.type === 'radio' && txt.id) {
+                    const sId = txt.id.split('_')[0];
+                    const sIdNueva = `${sId}_${index}_EXTRA`;
+                    txt.id = sIdNueva;
+                    const txtSiguiente = txt.nextElementSibling;
+                    if (txtSiguiente && txtSiguiente.tagName === 'LABEL') {
+                        txtSiguiente.setAttribute('for', sIdNueva);
+                    }
+                }
+            });
+        });
+    }
+    // ----------------------
+
+    // ================================
+    // USUARIO ADICIONAL EN R. HUMANOS
+    // ================================
     function fnCrear_UsuarioRHumanos() {
         const dtId = new Date().getTime();
         const tmplTabClonada = tmplTabUsuario.content.cloneNode(true);
@@ -613,49 +658,6 @@
             fnOrdenar_Usuarios();
         }
     });
-    // ----------------------
-
-    // ================================
-    // ORDENAR USUARIOS R. HUMANOS
-    // ================================
-    function fnOrdenar_Usuarios() {
-        const ulTabsUsuario = ulUsuariosRHumanos.querySelectorAll('.item-usuario-extra');
-        const divContenidoUsuario = divContenidoRHumanos.querySelectorAll('.content-usuario-extra');
-        if (ulTabsUsuario.length + 1 >= nUsuariosMaximo) {
-            btnAgregar.parentElement.classList.add('d-none');
-            spUsuariosMaximo.classList.remove('d-none');
-        } else {
-            btnAgregar.parentElement.classList.remove('d-none');
-            spUsuariosMaximo.classList.add('d-none');
-        }
-        divContenidoUsuario.forEach((pane, index) => {
-            const nPosUsuario = index + 2;
-            const spNumero = pane.querySelector('.sp-numero');
-            if (spNumero) spNumero.textContent = nPosUsuario;
-            if (ulTabsUsuario[index]) {
-                const spNombre = ulTabsUsuario[index].querySelector('.sp-nombre');
-                if (spNombre) spNombre.textContent = `#${nPosUsuario}`;
-            }
-            const lsTxtContenido = pane.querySelectorAll('input, select');
-            lsTxtContenido.forEach(txt => {
-                if (txt.name) {
-                    txt.name = txt.name.replace(
-                        /(LsUsuariosAdicionales|MoHumanos\.LsHumaAdi)\[.*?\]|LsUsuariosAdicionales\[INDEX_LISTA\]/,
-                        `MoHumanos.LsHumaAdi[${index}]`
-                    );
-                }
-                if (txt.type === 'radio' && txt.id) {
-                    const sId = txt.id.split('_')[0];
-                    const sIdNueva = `${sId}_${index}_EXTRA`;
-                    txt.id = sIdNueva;
-                    const txtSiguiente = txt.nextElementSibling;
-                    if (txtSiguiente && txtSiguiente.tagName === 'LABEL') {
-                        txtSiguiente.setAttribute('for', sIdNueva);
-                    }
-                }
-            });
-        });
-    }
     // ----------------------
 
     // ============================================
@@ -771,20 +773,21 @@
         }
         return bFormularioValido;
     }
+    // ----------------------
 
-
-
-
-
-    // Limpiar error cuando el usuario escriba
+    // ============================
+    // ERROR EN FORMATO FORMULARIO
+    // ============================
     document.getElementById('formSolicitud').addEventListener('input', function (e) {
         if (e.target.classList.contains('is-invalid')) {
             e.target.classList.remove('is-invalid');
         }
     });
+    // ----------------------
 
-    // 4. EVENTOS CLICK (BOTONES INFERIORES)
-
+    // ======================================
+    // BOTONES NAVEGACION ANTERIOR/SIGUIENTE
+    // ======================================
     btnSiguiente.addEventListener('click', function () {
         const btnNavegacionActivo = document.querySelector('#ulSolicitud > li > button.active');
         if (!fnObtener_FormularioValido(btnNavegacionActivo)) {
@@ -797,20 +800,16 @@
             tabBootstrap.show();
         }
     });
-
     btnAnterior.addEventListener('click', function () {
         const btnNavegacionActivo = document.querySelector('#ulSolicitud > li > button.active');
         const nIndexActual = lsUlNavegacion.indexOf(btnNavegacionActivo);
         const anteriorIndex = nIndexActual - 1;
-
         if (anteriorIndex >= 0) {
             const tabBootstrap = new bootstrap.Tab(lsUlNavegacion[anteriorIndex]);
             tabBootstrap.show();
         }
     });
 
-    // 5. EVENTO AUTOMÁTICO (SINCRONIZACIÓN)
-    // Detecta cambios hechos por clic en el menú superior o por los botones de abajo
     lsUlNavegacion.forEach(tabBtn => {
         tabBtn.addEventListener('shown.bs.tab', function () {
             // Actualizamos visibilidad de botones

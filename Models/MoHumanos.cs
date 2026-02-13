@@ -30,8 +30,7 @@ public class MoHumanos
         }
     }
 
-    [Column("sPerfil")]
-    public string? SPerfil { get; set; }
+    [Column("nPerfil")]
     public Perfil Perfil { get; set; } = Perfil.SAdmin;
 
     [Column("nDepClv")]
@@ -40,13 +39,11 @@ public class MoHumanos
     [Column("nProgClv")]
     public int? NProgClv { get; set; }
 
-    [Column("sTipPerm")]
-    public string? STipPerm { get; set; }
-    public Permiso TipPerm { get; set; } = Permiso.SConsult;
+    [Column("nTipPerm")]
+    public Permiso Permiso { get; set; } = Permiso.SConsult;
 
-    [Column("sHumaMov")]
-    public string? SHumaMov { get; set; }
-    public Movimiento HumaMov { get; set; } = Movimiento.SAlta;
+    [Column("nHumaMov")]
+    public Movimiento Movimiento { get; set; } = Movimiento.SAlta;
     [Column("lsHumaAdi")]
     public List<MoHumanosAdicional> LsHumaAdi { get; set; } = new();
     [Column("bActivo")]

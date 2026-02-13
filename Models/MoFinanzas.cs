@@ -8,8 +8,8 @@ public class MoFinanzas
     [Key]
     [Column("nId")]
     public int NId { get; set; }
-    [Column("sFinaMov")]
-    public Movimiento SFinaMov { get; set; } = Movimiento.SAlta;
+    [Column("nFinaMov")]
+    public Movimiento Movimiento { get; set; } = Movimiento.SAlta;
 
     [Column("bDirec")]
     public bool BDirec { get; set; } = false;

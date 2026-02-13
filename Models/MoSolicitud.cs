@@ -6,23 +6,23 @@ using SSP.ViewModels;
 public enum Movimiento
 {
     [Display(Name = "Alta")]
-    SAlta,
+    SAlta = 1,
     [Display(Name = "Modificación")]
-    SModifi,
+    SModifi = 2,
     [Display(Name = "Baja")]
-    SBaja
+    SBaja = 3
 }
 
 public enum Perfil
 {
     [Display(Name = "Titular")]
-    STitular,
+    STitular = 1,
     [Display(Name = "Administrador")]
-    SAdmin,
+    SAdmin = 2,
     [Display(Name = "Auxiliar de Administrador")]
-    SAuxAdmin,
+    SAuxAdmin = 3,
     [Display(Name = "Operador de proceso")]
-    SOpeProc,
+    SOpeProc = 4,
 }
 
 public enum Region
@@ -47,9 +47,9 @@ public enum Region
 public enum Permiso
 {
     [Display(Name = "Consulta")]
-    SConsult,
+    SConsult = 1,
     [Display(Name = "Mantenimiento")]
-    SManteni,
+    SManteni = 2,
 }
 
 public enum Estado

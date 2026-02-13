@@ -14,19 +14,16 @@ public class MoHumanosAdicional
     public string? SNomEmpl { get; set; }
     [Column("sUsuario")]
     public string? SUsuario { get; set; }
-    [Column("sPerfil")]
-    public string? SPerfil { get; set; }
+    [Column("nPerfil")]
     public Perfil Perfil { get; set; } = Perfil.SAdmin;
     [Column("nDepClv")]
     public int? NDepClv { get; set; }
     [Column("SProgClv")]
     public int? NProgClv { get; set; }
-    [Column("sTipPerm")]
-    public string? STipPerm { get; set; }
-    public Permiso TipPerm { get; set; } = Permiso.SConsult;
-    [Column("sHumaMov")]
-    public string? SHumaMov { get; set; }
-    public Movimiento HumaMov { get; set; } = Movimiento.SAlta;
+    [Column("nPermiso")]
+    public Permiso Permiso { get; set; } = Permiso.SConsult;
+    [Column("nMovimiento")]
+    public Movimiento Movimiento { get; set; } = Movimiento.SAlta;
     [Column("nOrden")]
     public int? NOrden { get; set; }
 }

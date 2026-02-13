@@ -298,15 +298,15 @@
 
                                         <div class="d-flex gap-2 gap-md-5 mt-3 justify-content-around justify-content-md-center">
                                             <div class="form-check">
-                                                <input asp-for="MoFinanzas.SFinaMov" id="SAlta" class="form-check-input" type="radio" value="SAlta" checked>
+                                                <input asp-for="MoFinanzas.Movimiento" id="SAlta" class="form-check-input" type="radio" value="SAlta">
                                                 <label for="SAlta" class="form-check-label">Alta</label>
                                             </div>
                                             <div class="form-check">
-                                                <input asp-for="MoFinanzas.SFinaMov" id="SModifi" class="form-check-input" type="radio" value="SModifi">
+                                                <input asp-for="MoFinanzas.Movimiento" id="SModifi" class="form-check-input" type="radio" value="SModifi">
                                                 <label for="SModifi" class="form-check-label">Modificación</label>
                                             </div>
                                             <div class="form-check">
-                                                <input asp-for="MoFinanzas.SFinaMov" id="SBaja" class="form-check-input" type="radio" value="SBaja">
+                                                <input asp-for="MoFinanzas.Movimiento" id="SBaja" class="form-check-input" type="radio" value="SBaja">
                                                 <label for="SBaja" class="form-check-label">Baja</label>
                                             </div>
                                         </div>
@@ -637,16 +637,16 @@
                                                 <h6 class="fw-semibold">Tipo de Movimiento</h6>
                                                 <div class="d-flex flex-fill gap-2 gap-md-5 mt-3 justify-content-around justify-content-md-center">
                                                     <div class="form-check">
-                                                        <input asp-for="MoHumanos.SHumaMov" id="A" class="form-check-input" type="radio" value="A" checked>
-                                                        <label for="A" class="form-check-label">Alta</label>
+                                                        <input asp-for="MoHumanos.Movimiento" id="SAltaHuma" class="form-check-input" type="radio" value="SAlta">
+                                                        <label for="SAltaHuma" class="form-check-label">Alta</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input asp-for="MoHumanos.SHumaMov" id="M" class="form-check-input" type="radio" value="M">
-                                                        <label for="M" class="form-check-label">Modificación</label>
+                                                        <input asp-for="MoHumanos.Movimiento" id="SModifiHuma" class="form-check-input" type="radio" value="SModifi">
+                                                        <label for="SModifiHuma" class="form-check-label">Modificación</label>
                                                     </div>
                                                     <div class="form-check">
-                                                        <input asp-for="MoHumanos.SHumaMov" id="B" class="form-check-input" type="radio" value="B">
-                                                        <label for="B" class="form-check-label">Baja</label>
+                                                        <input asp-for="MoHumanos.Movimiento" id="SBajaHuma" class="form-check-input" type="radio" value="SBaja">
+                                                        <label for="SBajaHuma" class="form-check-label">Baja</label>
                                                     </div>
                                                 </div>
 
@@ -678,13 +678,13 @@
                                                         </div>
                                                     </div>
                                                     <div class="d-flex">
-                                                        <label asp-for="MoHumanos.TipPerm" class="col-4 col-form-label">Tipo de permiso</label>
+                                                        <label asp-for="MoHumanos.Permiso" class="col-4 col-form-label">Tipo de permiso</label>
                                                         <div class="col-8">
-                                                            <select asp-for="MoHumanos.TipPerm"
+                                                            <select asp-for="MoHumanos.Permiso"
                                                                     class="form-select bg-transparent"
                                                                     asp-items="Html.GetEnumSelectList<Permiso>()">
                                                             </select>
-                                                            <span asp-validation-for="MoHumanos.TipPerm" class="text-danger"></span>
+                                                            <span asp-validation-for="MoHumanos.Permiso" class="text-danger"></span>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -1005,22 +1005,22 @@
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Nombre del empleado</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="txtNomEmpl form-control bg-light pe-none" placeholder="ej. Samuel Miral" tabindex="-1" required readonly />
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SNomEmpl" class="text-danger"></span>
+                    <input name="LsHumaAdi[INDEX_LISTA].SNomEmpl" class="txtNomEmpl form-control bg-light pe-none" placeholder="ej. Samuel Miral" tabindex="-1" required readonly />
+                    <span data-valmsg-for="LsHumaAdi[INDEX_LISTA].SNomEmpl" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Número de personal</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" type="number" class="txtNoPer form-control bg-light pe-none" placeholder="ej. 61399" tabindex="-1" required readonly />
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NNoPer" class="text-danger"></span>
+                    <input name="LsHumaAdi[INDEX_LISTA].NNoPer" type="number" class="txtNoPer form-control bg-light pe-none" placeholder="ej. 61399" tabindex="-1" required readonly />
+                    <span data-valmsg-for="LsHumaAdi[INDEX_LISTA].NNoPer" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-md-4 col-form-label">Usuario</label>
                 <div class="col-md-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="txtHumaUsuario form-control bg-light pe-none" placeholder="ej. josguzman" tabindex="-1" required readonly />
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].SUsuario" class="text-danger"></span>
+                    <input name="LsHumaAdi[INDEX_LISTA].SUsuario" class="txtHumaUsuario form-control bg-light pe-none" placeholder="ej. josguzman" tabindex="-1" required readonly />
+                    <span data-valmsg-for="LsHumaAdi[INDEX_LISTA].SUsuario" class="text-danger"></span>
                 </div>
             </div>
         </div>
@@ -1030,15 +1030,15 @@
         <h6 class="fw-semibold">Tipo de Movimiento</h6>
         <div class="d-flex flex-fill gap-2 gap-md-5 mt-3 justify-content-around justify-content-md-center">
             <div class="form-check">
-                <input name="LsUsuariosAdicionales[INDEX_LISTA].SHumaMov" id="MovA_RADIO_ID" class="form-check-input" type="radio" value="A" checked>
+                <input name="LsHumaAdi[INDEX_LISTA].Movimiento" id="MovA_RADIO_ID" class="form-check-input" type="radio" value="SAlta" checked>
                 <label for="MovA_RADIO_ID" class="form-check-label">Alta</label>
             </div>
             <div class="form-check">
-                <input name="LsUsuariosAdicionales[INDEX_LISTA].SHumaMov" id="MovM_RADIO_ID" class="form-check-input" type="radio" value="M">
+                <input name="LsHumaAdi[INDEX_LISTA].Movimiento" id="MovM_RADIO_ID" class="form-check-input" type="radio" value="SModifi">
                 <label for="MovM_RADIO_ID" class="form-check-label">Modificación</label>
             </div>
             <div class="form-check">
-                <input name="LsUsuariosAdicionales[INDEX_LISTA].SHumaMov" id="MovB_RADIO_ID" class="form-check-input" type="radio" value="B">
+                <input name="LsHumaAdi[INDEX_LISTA].Movimiento" id="MovB_RADIO_ID" class="form-check-input" type="radio" value="SBaja">
                 <label for="MovB_RADIO_ID" class="form-check-label">Baja</label>
             </div>
         </div>
@@ -1049,21 +1049,21 @@
             <div class="d-flex">
                 <label class="col-4 col-form-label">Clave Dependencia</label>
                 <div class="col-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NDepClv" type="number" class="form-control bg-transparent" placeholder="Dependencia" required >
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NDepClv" class="text-danger"></span>
+                    <input name="LsHumaAdi[INDEX_LISTA].NDepClv" type="number" class="form-control bg-transparent" placeholder="Dependencia" required >
+                    <span data-valmsg-for="LsHumaAdi[INDEX_LISTA].NDepClv" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-4 col-form-label">Clave de Programa</label>
                 <div class="col-8">
-                    <input name="LsUsuariosAdicionales[INDEX_LISTA].NProgClv" type="text" class="form-control bg-transparent" placeholder="Programa" required >
-                    <span data-valmsg-for="LsUsuariosAdicionales[INDEX_LISTA].NProgClv" class="text-danger"></span>
+                    <input name="LsHumaAdi[INDEX_LISTA].NProgClv" type="text" class="form-control bg-transparent" placeholder="Programa" required >
+                    <span data-valmsg-for="LsHumaAdi[INDEX_LISTA].NProgClv" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-4 col-form-label">Perfil</label>
                 <div class="col-8">
-                    <select name="LsUsuariosAdicionales[INDEX_LISTA].Perfil"
+                    <select name="LsHumaAdi[INDEX_LISTA].Perfil"
                             class="form-select bg-transparent"
                             asp-items="Html.GetEnumSelectList<Perfil>()">
                     </select>
@@ -1072,7 +1072,7 @@
             <div class="d-flex">
                 <label class="col-4 col-form-label">Tipo de permiso</label>
                 <div class="col-8">
-                    <select name="LsUsuariosAdicionales[INDEX_LISTA].TipPerm"
+                    <select name="LsHumaAdi[INDEX_LISTA].Permiso"
                             class="form-select bg-transparent"
                             asp-items="Html.GetEnumSelectList<Permiso>()">
                     </select>
