@@ -144,16 +144,6 @@
                                     <span asp-validation-for="SPueEmpl" class="text-danger"></span>
                                 </div>
                             </div>
-                            @* <div class="row align-items-center">
-                                <label asp-for="NUResClv" class="col-md-4 col-form-label">Unidad Responsable</label>
-                                <div class="col-md-8">
-                                    <div class="input-group">
-                                        <input asp-for="NUResClv" class="form-control bg-light" style="max-width: 100px;" placeholder="Clave" readonly />
-                                        <input asp-for="SUResNom" class="form-control bg-light" placeholder="Nombre" readonly />
-                                    </div>
-                                    <span asp-validation-for="NUResClv" class="text-danger"></span>
-                                </div>
-                            </div> *@
 
                             <hr class="my-3">
 
@@ -165,15 +155,15 @@
 
                                 <div class="col-md-8 position-relative">
 
-                                    <input type="hidden" asp-for="Dependencia" id="hdnDependenciaEnum" required />
+                                    <input type="hidden" asp-for="Dependencia" id="txtDependenciaEnum" required />
 
                                     @{
-                                        bool tieneSeleccion = Convert.ToInt32(Model.Dependencia) > 0;
-                                        string claseBusqueda = tieneSeleccion ? "d-none" : "";
-                                        string claseSeleccion = tieneSeleccion ? "d-flex" : "d-none";
+                                        bool bDependenciaSeleccionada = Convert.ToInt32(Model.Dependencia) > 0;
+                                        string claseBusqueda = bDependenciaSeleccionada ? "d-none" : "";
+                                        string claseSeleccion = bDependenciaSeleccionada ? "d-flex" : "d-none";
                                         string htmlSeleccionado = "";
 
-                                        if (tieneSeleccion)
+                                        if (bDependenciaSeleccionada)
                                         {
                                             string codigoActual = ((int)Model.Dependencia).ToString();
 
@@ -187,20 +177,20 @@
                                         }
                                     }
 
-                                    <div id="container-buscar" class="@claseBusqueda">
+                                    <div id="divContenedorBuscar" class="@claseBusqueda">
                                         <div class="input-group">
                                             <span class="input-group-text bg-transparent text-muted border-end-0"><i class="fa-solid fa-magnifying-glass"></i></span>
                                             <input type="text" id="txtBuscarDep" class="form-control border-start-0 ps-0"
                                                    placeholder="Buscar clave o nombre..." autocomplete="off" />
                                         </div>
-                                        <div id="listaResultadosDep" class="list-group position-absolute w-100 shadow mt-1"
+                                        <div id="divResultadosDep" class="list-group position-absolute w-100 shadow mt-1"
                                              style="z-index: 1050; max-height: 250px; overflow-y: auto; display: none;"></div>
                                     </div>
 
-                                    <div id="container-seleccionado" class="@claseSeleccion align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm" style="min-height: 38px;">
+                                    <div id="divContenidoSeleccionado" class="@claseSeleccion align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm" style="min-height: 38px;">
                                         <div class="d-flex align-items-center w-100 overflow-hidden">
                                             <i class="fa-solid fa-building-columns text-primary me-2 flex-shrink-0"></i>
-                                            <span id="lblTextoSeleccionado" class="text-wrap text-break" style="line-height: 1.2;">
+                                            <span id="spTextoSeleccionado" class="text-wrap text-break" style="line-height: 1.2;">
                                                 @Html.Raw(htmlSeleccionado)
                                             </span>
                                         </div>
@@ -320,7 +310,7 @@
                                                     Puede seleccionar más de uno:
                                                 </div>
                                             </div>
-                                            <a id="btnGlosarioActividades" class="btn btn-secondary btn-sm py-1 px-2" href="#" data-bs-toggle="modal" data-bs-target="#mdlGlosarioActividades"><i class="fa-solid fa-circle-info"></i> Todos los permisos</a>
+                                            <a id="btnGlosarioActividades" class="btn btn-secondary btn-sm py-1 px-2" tabindex="-1" href="#" data-bs-toggle="modal" data-bs-target="#mdlGlosarioActividades"><i class="fa-solid fa-circle-info"></i> Todos los permisos</a>
                                         </div>
 
                                         <div class="row g-1 mt-2">
@@ -509,12 +499,12 @@
                                                 <input type="hidden" asp-for="MoHumanos.Dependencia" id="txtHumanosDependencia" required />
 
                                                 @{
-                                                    bool tieneSeleccionHuma = Convert.ToInt32(Model.MoHumanos.Dependencia) > 0;
-                                                    string claseBusquedaHuma = tieneSeleccionHuma ? "d-none" : "";
-                                                    string claseSeleccionHuma = tieneSeleccionHuma ? "d-flex" : "d-none";
+                                                    bool bDependenciaSeleccionadaHuma = Convert.ToInt32(Model.MoHumanos.Dependencia) > 0;
+                                                    string claseBusquedaHuma = bDependenciaSeleccionadaHuma ? "d-none" : "";
+                                                    string claseSeleccionHuma = bDependenciaSeleccionadaHuma ? "d-flex" : "d-none";
                                                     string htmlSeleccionadoHuma = "";
 
-                                                    if (tieneSeleccionHuma)
+                                                    if (bDependenciaSeleccionadaHuma)
                                                     {
                                                         string codigoActualHuma = ((int)Model.MoHumanos.Dependencia).ToString();
 
@@ -528,20 +518,20 @@
                                                     }
                                                 }
 
-                                                <div id="container-buscar-huma" class="@claseBusquedaHuma">
+                                                <div id="divContenedorBuscarHuma" class="@claseBusquedaHuma">
                                                     <div class="input-group">
                                                         <span class="input-group-text bg-transparent text-muted border-end-0"><i class="fa-solid fa-magnifying-glass"></i></span>
                                                         <input type="text" id="txtBuscarDepHuma" class="form-control border-start-0 ps-0"
                                                                placeholder="Buscar clave o nombre..." autocomplete="off" />
                                                     </div>
-                                                    <div id="listaResultadosDepHuma" class="list-group position-absolute w-100 shadow mt-1"
+                                                    <div id="divResultadosDepHuma" class="list-group position-absolute w-100 shadow mt-1"
                                                          style="z-index: 1050; max-height: 250px; overflow-y: auto; display: none;"></div>
                                                 </div>
 
-                                                <div id="container-seleccionado-huma" class="@claseSeleccionHuma align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm" style="min-height: 38px;">
+                                                <div id="divContenidoSeleccionadoHuma" class="@claseSeleccionHuma align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm" style="min-height: 38px;">
                                                     <div class="d-flex align-items-center w-100 overflow-hidden">
                                                         <i class="fa-solid fa-building-columns text-primary me-2 flex-shrink-0"></i>
-                                                        <span id="lblTextoSeleccionadoHuma" class="text-wrap text-break" style="line-height: 1.2;">
+                                                        <span id="spTextoSeleccionadoHuma" class="text-wrap text-break" style="line-height: 1.2;">
                                                             @Html.Raw(htmlSeleccionadoHuma)
                                                         </span>
                                                     </div>
@@ -553,64 +543,6 @@
                                                 <span asp-validation-for="MoHumanos.Dependencia" class="text-danger small mt-1"></span>
                                             </div>
                                         </div>
-
-                                        @* <div class="row align-items-center mt-2">
-                                            <label asp-for="MoHumanos.NEntClv" class="col-md-4 col-form-label">Entidad Académica o Dependencia</label>
-                                            <div class="col-md-8">
-                                                <div class="input-group">
-                                                    <input asp-for="MoHumanos.NEntClv" class="form-control bg-white" style="max-width: 100px;" placeholder="Clave" required />
-                                                    <input asp-for="MoHumanos.SEntNomb" class="form-control bg-white" placeholder="Nombre" />
-                                                </div>
-                                                <span asp-validation-for="MoHumanos.NEntClv" class="text-danger"></span>
-                                            </div>
-                                        </div> *@
-
-                                        @* <div class="row align-items-center mt-2">
-                                            <label class="col-md-4 col-form-label">Entidad Académica o Dependencia</label>
-                                            <div class="col-md-8">
-        
-                                                <input type="hidden" asp-for="MoHumanos.NEntClv" id="hdnEntClvHumanos" />
-                                                <input type="hidden" asp-for="MoHumanos.SEntNomb" id="hdnEntNomHumanos" />
-
-                                                @{
-                                                    bool tieneSeleccionHumanos = Model.MoHumanos != null && Model.MoHumanos.NEntClv > 0;
-                                                    string claseBusquedaHumanos = tieneSeleccion ? "d-none" : "";
-                                                    string claseSeleccionHumanos = tieneSeleccion ? "d-flex" : "d-none";
-                                                    string textoSeleccionadoHumanos = tieneSeleccion ? $"{Model.MoHumanos.NEntClv} - {Model.MoHumanos.SEntNomb}" : "";
-                                                }
-
-                                                <div id="container-buscar-entidad-humanos" class="position-relative @claseBusquedaHumanos">
-                                                    <div class="input-group">
-                                                        <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-magnifying-glass text-muted"></i></span>
-                                                        <input type="text" id="txtBuscarEntidadHumanos" class="form-control border-start-0" 
-                                                               placeholder="Escribe el nombre o clave de la dependencia..." autocomplete="off"
-                                                               data-url="@Url.Action("BuscarDependencias", "Solicitud")" required > </div>
-                                                    <div id="lista-resultados-entidad-humanos" class="list-group position-absolute w-100 shadow" 
-                                                         style="z-index: 1000; max-height: 200px; overflow-y: auto; display: none;">
-                                                    </div>
-                                                </div>
-
-                                                <div id="container-entidad-seleccionada-humanos" 
-                                                         class="@claseSeleccionHumanos align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm"
-                                                         style="min-height: 38px;">
-                                                    <div class="d-flex align-items-center w-100">
-                                                        <i class="fa-solid fa-building-columns text-primary me-2 flex-shrink-0"></i>
-        
-                                                        <span id="lblEntidadTextoHumanos" class="text-dark text-wrap text-break" style="line-height: 1.2;">
-                                                            @textoSeleccionadoHumanos
-                                                        </span>
-                                                    </div>
-
-                                                    <button type="button" id="btnQuitarEntidadHumanos" 
-                                                            class="btn btn-sm btn-link text-danger p-0 ms-3 flex-shrink-0" 
-                                                            title="Eliminar selección">
-                                                        <i class="fa-solid fa-circle-xmark fa-lg"></i>
-                                                    </button>
-                                                </div>
-
-                                                <span asp-validation-for="MoHumanos.NEntClv" class="text-danger"></span>
-                                            </div>
-                                        </div> *@
 
                                         <hr class="my-3">
 
@@ -854,6 +786,28 @@
                 <button type="button" class="btn btn-link text-decoration-none text-secondary w-100" data-bs-dismiss="modal">
                     Cancelar y seguir editando
                 </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal previsualizar documento -->
+<div class="modal fade" id="mdlConfirmar" tabindex="-1" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-light border-bottom-0">
+                <h5 class="modal-title fw-bold" id="lblTituloConfirmacion">Confirmación</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body p-4 text-center">
+                <div class="mb-3">
+                    <i class="fa-solid fa-circle-question text-warning fa-3x"></i>
+                </div>
+                <p id="lblMensajeConfirmacion" class="fs-5 text-secondary mb-0">¿Estás seguro?</p>
+            </div>
+            <div class="modal-footer border-top-0 justify-content-center pb-4">
+                <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnConfirmarAccion" class="btn btn-danger px-4">Sí, Eliminar</button>
             </div>
         </div>
     </div>

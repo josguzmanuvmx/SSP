@@ -302,12 +302,14 @@
             if (txtUsr.tagName === 'SELECT') txtUsr.setAttribute('disabled', true);
             txtUsr.classList.add('bg-light');
             txtUsr.classList.remove('bg-white');
+            txtUsr.setAttribute('tabindex', '-1');
         } else {
             txtUsr.classList.remove('pe-none')
             txtUsr.removeAttribute('readonly');
             if (txtUsr.tagName === 'SELECT') txtUsr.removeAttribute('disabled');
             txtUsr.classList.remove('bg-light');
             txtUsr.classList.add('bg-white');
+            txtUsr.removeAttribute('tabindex');
         }
     }
     function fnBloquear_CamposUsuario(bBloquear) {
@@ -354,6 +356,7 @@
         const divContenido = document.getElementById('divContenido' + sPermiso);
         const lsTxt = divContenido.querySelectorAll('input, select, textarea');
         const divDocumento = document.getElementById('divDoc' + sPermiso);
+        const btnGlosarioActividades = document.getElementById('btnGlosarioActividades');
 
         function fnAlternar_Permisos(bModo) {
             txtActivo.checked = bModo;
@@ -362,6 +365,7 @@
                 divOverlay.classList.remove('d-flex');
                 divContenido.style.opacity = '1';
                 divContenido.style.pointerEvents = 'auto';
+                if (sPermiso === 'Finanzas') btnGlosarioActividades.removeAttribute('tabindex');
                 btnDeshabilitar.classList.remove('d-none');
                 lsTxt.forEach(input => input.removeAttribute('disabled'));
                 if (divDocumento) divDocumento.classList.remove('d-none');
@@ -370,6 +374,7 @@
                 divOverlay.classList.add('d-flex');
                 divContenido.style.opacity = '0.3';
                 divContenido.style.pointerEvents = 'none';
+                if (sPermiso === 'Finanzas') btnGlosarioActividades.setAttribute('tabindex', '-1');
                 btnDeshabilitar.classList.add('d-none');
                 lsTxt.forEach(input => input.setAttribute('disabled', 'disabled'));
                 if (divDocumento) divDocumento.classList.add('d-none');
@@ -610,9 +615,9 @@
     }
     // ----------------------
 
-    // ================================
-    // USUARIO ADICIONAL EN R. HUMANOS
-    // ================================
+    // ========================================
+    // AGREGAR USUARIO ADICIONAL EN R. HUMANOS
+    // ========================================
     function fnCrear_UsuarioRHumanos() {
         const dtId = new Date().getTime();
         const tmplTabClonada = tmplTabUsuario.content.cloneNode(true);
@@ -658,6 +663,83 @@
             fnOrdenar_Usuarios();
         }
     });
+
+    //ulUsuariosRHumanos.addEventListener('click', function (e) {
+    //    const btnEliminarTab = e.target.closest('.btn-cerrar-tab');
+    //    if (btnEliminarTab) {
+    //        e.preventDefault();
+    //        e.stopPropagation();
+    //        const tabButton = btnEliminarTab.closest('button.nav-link');
+    //        if (!tabButton) return;
+    //        const targetId = tabButton.getAttribute('data-bs-target');
+    //        const liPadre = tabButton.closest('li');
+    //        const contentDiv = document.querySelector(targetId);
+    //        const spNombre = tabButton.querySelector('.sp-nombre');
+    //        const sUsuario = spNombre ? spNombre.textContent : "este usuario";
+    //        fnMostrar_ModalConfirmacion(
+    //            'Eliminar Usuario Adicional',
+    //            `¿Estás seguro que deseas eliminar a ${sUsuario}? Esta acción no se puede deshacer.`,
+    //            'Sí, Eliminar',
+    //            'btn-danger',
+    //            () => {
+    //                if (liPadre) liPadre.remove();
+    //                if (contentDiv) contentDiv.remove();
+    //                if (tabButton.classList.contains('active')) {
+    //                    const mainTabEl = document.querySelector('#tab-usuario-main');
+    //                    if (mainTabEl) {
+    //                        const mainTab = new bootstrap.Tab(mainTabEl);
+    //                        mainTab.show();
+    //                    }
+    //                }
+    //                fnOrdenar_Usuarios();
+    //            }
+    //        );
+    //    }
+    //});
+    // ----------------------
+
+    // ============================
+    // MODAL CONFIRMACION ELIMINAR
+    // ============================
+    let mdlConfirmacion = null;
+    function fnMostrar_ModalConfirmacion(sTitulo, sMensaje, sTextoBoton, sClaseBoton, fnCallbackConfirmar) {
+        // 1. Referencias al DOM
+        const modalEl = document.getElementById('modalConfirmacionGen');
+        const lblTitulo = document.getElementById('lblTituloConfirmacion');
+        const lblMensaje = document.getElementById('lblMensajeConfirmacion');
+        const btnConfirmar = document.getElementById('btnConfirmarAccion');
+
+        // 2. Personalizar textos y estilos
+        lblTitulo.textContent = sTitulo || "Confirmación";
+        lblMensaje.textContent = sMensaje || "¿Deseas continuar?";
+        btnConfirmar.textContent = sTextoBoton || "Aceptar";
+
+        // Resetear clases del botón y poner la nueva (ej: btn-danger o btn-primary)
+        btnConfirmar.className = `btn px-4 ${sClaseBoton || 'btn-primary'}`;
+
+        // 3. LIMPIEZA DE EVENTOS (Crucial para no duplicar acciones)
+        // Clonamos el botón para eliminar listeners anteriores
+        const btnNuevo = btnConfirmar.cloneNode(true);
+        btnConfirmar.parentNode.replaceChild(btnNuevo, btnConfirmar);
+
+        // 4. Asignar el nuevo evento click
+        btnNuevo.addEventListener('click', function () {
+            // Ejecutamos la función que nos pasaron como parámetro
+            if (typeof fnCallbackConfirmar === 'function') {
+                fnCallbackConfirmar();
+            }
+            // Cerramos el modal
+            mdlConfirmacion.hide();
+        });
+
+        // 5. Mostrar el modal
+        if (!mdlConfirmacion) {
+            mdlConfirmacion = new bootstrap.Tab(modalEl); // O new bootstrap.Modal(modalEl)
+            // NOTA: Si usas Bootstrap 5 puro usa:
+            mdlConfirmacion = new bootstrap.Modal(modalEl);
+        }
+        mdlConfirmacion.show();
+    }
     // ----------------------
 
     // ============================================
@@ -685,9 +767,9 @@
     }
     // ----------------------
 
-    // ===================
-    // VALIDAR FORMULARIO
-    // ===================
+    // =============================
+    // VALIDAR FORMULARIO SOLICITUD
+    // =============================
     function fnObtener_FormularioValido(btnNavegacionActivo) {
         const divNavegacionTarget = btnNavegacionActivo.getAttribute('data-bs-target');
         const divContenidoFormulario = document.querySelector(divNavegacionTarget);
@@ -735,6 +817,18 @@
                 bFormularioValido = false;
                 txt.classList.add('is-invalid');
                 txt.classList.remove('is-valid');
+                if (txt.type === 'hidden') {
+                    const divSiguiente = txt.nextElementSibling;
+                    if (divSiguiente) {
+                        const txtVisual = divSiguiente.querySelector('input[type="text"]');
+                        const divVisual = divSiguiente.querySelector('.input-group');
+                        if (txtVisual) txtVisual.classList.add('is-invalid');
+                        if (divVisual) {
+                            divVisual.style.border = "1px solid #dc3545";
+                            divVisual.style.borderRadius = "0.375rem";
+                        }
+                    }
+                }
                 if (!txtPrimerCampoInvalido) txtPrimerCampoInvalido = txt;
                 const divContenedorPadre = txt.closest('.tab-pane');
                 if (divContenedorPadre && divContenedorPadre.id !== divNavegacionTarget.replace('#', '')) {
@@ -766,8 +860,16 @@
                     }
                 }
                 setTimeout(() => {
-                    txtPrimerCampoInvalido.focus();
-                    txtPrimerCampoInvalido.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                    let txtAEnfocar = txtPrimerCampoInvalido;
+                    if (txtPrimerCampoInvalido.type === 'hidden') {
+                        const divSiguiente = txtPrimerCampoInvalido.nextElementSibling;
+                        if (divSiguiente) {
+                            const visual = divSiguiente.querySelector('input[type="text"]');
+                            if (visual) txtAEnfocar = visual;
+                        }
+                    }
+                    txtAEnfocar.focus();
+                    txtAEnfocar.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 150);
             }
         }
@@ -794,391 +896,159 @@
             return;
         }
         const nIndexActual = lsUlNavegacion.indexOf(btnNavegacionActivo);
-        const siguienteIndex = nIndexActual + 1;
-        if (siguienteIndex < lsUlNavegacion.length) {
-            const tabBootstrap = new bootstrap.Tab(lsUlNavegacion[siguienteIndex]);
+        const nIndexSiguiente = nIndexActual + 1;
+        if (nIndexSiguiente < lsUlNavegacion.length) {
+            const tabBootstrap = new bootstrap.Tab(lsUlNavegacion[nIndexSiguiente]);
             tabBootstrap.show();
         }
     });
     btnAnterior.addEventListener('click', function () {
         const btnNavegacionActivo = document.querySelector('#ulSolicitud > li > button.active');
         const nIndexActual = lsUlNavegacion.indexOf(btnNavegacionActivo);
-        const anteriorIndex = nIndexActual - 1;
-        if (anteriorIndex >= 0) {
-            const tabBootstrap = new bootstrap.Tab(lsUlNavegacion[anteriorIndex]);
+        const nIndexAnterior = nIndexActual - 1;
+        if (nIndexAnterior >= 0) {
+            const tabBootstrap = new bootstrap.Tab(lsUlNavegacion[nIndexAnterior]);
             tabBootstrap.show();
         }
     });
-
-    lsUlNavegacion.forEach(tabBtn => {
-        tabBtn.addEventListener('shown.bs.tab', function () {
-            // Actualizamos visibilidad de botones
+    lsUlNavegacion.forEach(btnTab => {
+        btnTab.addEventListener('shown.bs.tab', function () {
             fnActualizar_BotonNavegacion();
-
-            // Llamada a funciones externas si existen
             if (typeof fnActualizar_Solicitudes === 'function') {
                 fnActualizar_Solicitudes();
             }
         });
     });
-
-    // 6. INICIALIZAR AL CARGAR
-    // Ejecutamos una vez para asegurar que el botón "Anterior" esté oculto al principio
     fnActualizar_BotonNavegacion();
+    // ----------------------
 
-    // ==========================================
+    // ==================================
     // BUSCADOR DE DEPENDENCIA / ENTIDAD
-    // ==========================================
-
-    const txtBuscar = document.getElementById('txtBuscarDep');
-    const lista = document.getElementById('listaResultadosDep');
-    const hdnEnum = document.getElementById('hdnDependenciaEnum');
-
-    const containerBuscar = document.getElementById('container-buscar');
-    const containerSeleccionado = document.getElementById('container-seleccionado');
-    const lblTexto = document.getElementById('lblTextoSeleccionado');
-    const btnEliminar = document.getElementById('btnEliminarSeleccion');
-
-    // VARIABLE PARA EL TEMPORIZADOR
-    let debounceTimer;
-
-    let indiceNavegacion = -1;
-
-    if (txtBuscar && lista) {
-        txtBuscar.addEventListener('keydown', function (e) {
-            const items = lista.querySelectorAll('.list-group-item');
-
-            // Si la lista está oculta o vacía, no hacemos nada
-            if (lista.style.display === 'none' || items.length === 0) return;
-
-            if (e.key === 'ArrowDown') {
-                e.preventDefault(); // Evita que el cursor se mueva en el input
-                indiceNavegacion++;
-
-                // Si pasamos el último, volvemos al primero (carrusel)
-                if (indiceNavegacion >= items.length) indiceNavegacion = 0;
-
-                actualizarSeleccionVisual(items);
-            }
-            else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                indiceNavegacion--;
-
-                // Si subimos más allá del primero, vamos al último
-                if (indiceNavegacion < 0) indiceNavegacion = items.length - 1;
-
-                actualizarSeleccionVisual(items);
-            }
-            else if (e.key === 'Enter') {
-                // Si hay algo seleccionado con las flechas, simulamos el click
-                if (indiceNavegacion > -1) {
-                    e.preventDefault(); // Evita el submit del formulario
-                    items[indiceNavegacion].click();
-                }
-            }
-            else if (e.key === 'Escape') {
-                lista.style.display = 'none';
-                indiceNavegacion = -1;
-            }
-        });
-
-        // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
-        function actualizarSeleccionVisual(items) {
-            // Limpiar clase 'active' de todos
-            items.forEach(item => item.classList.remove('active'));
-
-            // Agregar clase 'active' al actual
-            if (indiceNavegacion > -1 && items[indiceNavegacion]) {
-                const itemActivo = items[indiceNavegacion];
-                itemActivo.classList.add('active');
-
-                // SCROLL AUTOMÁTICO:
-                // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
-                itemActivo.scrollIntoView({
+    // ==================================
+    function fnConfigurar_BuscadorDependencia(
+        sBuscar, sResultadosDep, sDependenciaEnum, sContenedorBuscar,
+        sContenidoSeleccionado, sTextoSeleccionado, sEliminar
+    ) {
+        const txtBuscar = document.getElementById(sBuscar);
+        const divResultadosDep = document.getElementById(sResultadosDep);
+        const txtDependenciaEnum = document.getElementById(sDependenciaEnum);
+        const divContenedorBuscar = document.getElementById(sContenedorBuscar);
+        const divContenidoSeleccionado = document.getElementById(sContenidoSeleccionado);
+        const spTextoSeleccionado = document.getElementById(sTextoSeleccionado);
+        const btnEliminar = document.getElementById(sEliminar);
+        let debounceTimer;
+        let nIndiceNavegacion = -1;
+        function fnActualizar_DependenciaSeleccionada(lsDivItems) {
+            lsDivItems.forEach(divItem => divItem.classList.remove('active'));
+            if (nIndiceNavegacion > -1 && lsDivItems[nIndiceNavegacion]) {
+                const divItemActivo = lsDivItems[nIndiceNavegacion];
+                divItemActivo.classList.add('active');
+                divItemActivo.scrollIntoView({
                     block: 'nearest',
                     behavior: 'smooth'
                 });
             }
         }
-
-        // EVENTO: Escribir
-        txtBuscar.addEventListener('input', function () {
-            const termino = this.value.toLowerCase().trim();
-
-            // A. Si limpia el input, ocultamos la lista INMEDIATAMENTE (sin esperar)
-            if (termino === '') {
-                clearTimeout(debounceTimer); // Cancelamos cualquier búsqueda pendiente
-                lista.style.display = 'none';
-                return;
-            }
-
-            // B. Cancelamos el temporizador anterior si el usuario sigue escribiendo rápido
-            clearTimeout(debounceTimer);
-
-            if (termino.length < 3) return;
-
-            // C. Creamos un nuevo temporizador para esperar 300ms antes de buscar
-            debounceTimer = setTimeout(() => {
-
-                // --- INICIO DE LA BÚSQUEDA (Dentro del Timeout) ---
-
-                // Filtramos
-                const resultados = lsCatalogoDependencias.filter(item => {
-                    const codigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
-                    const nombre = (item.sDependencia || item.SDependencia || "").toLowerCase();
-                    return codigo.includes(termino) || nombre.includes(termino);
-                });
-
-                // Renderizamos
-                lista.innerHTML = '';
-
-                if (resultados.length > 0) {
-                    resultados.forEach(item => {
-                        const sCodigo = item.sCodigo || item.SCodigo;
-                        const sDependencia = item.sDependencia || item.SDependencia;
-
-                        const htmlVisual = `<span class="codigo fw-semibold">${sCodigo}</span> <span class="dep mx-1">-</span> <span>${sDependencia}</span>`;
-
-                        const btn = document.createElement('button');
-                        btn.type = 'button';
-                        btn.className = 'list-group-item list-group-item-action text-start px-3 py-2';
-                        btn.innerHTML = htmlVisual;
-
-                        btn.addEventListener('click', () => {
-                            fnSeleccionar(sCodigo, htmlVisual);
-                        });
-
-                        lista.appendChild(btn);
+        if (txtBuscar && divResultadosDep) {
+            txtBuscar.addEventListener('keydown', function (e) {
+                const lsDivItems = divResultadosDep.querySelectorAll('.list-group-item');
+                if (divResultadosDep.style.display === 'none' || lsDivItems.length === 0) return;
+                if (e.key === 'ArrowDown') {
+                    e.preventDefault();
+                    nIndiceNavegacion++;
+                    if (nIndiceNavegacion >= lsDivItems.length) nIndiceNavegacion = 0;
+                    fnActualizar_DependenciaSeleccionada(lsDivItems);
+                }
+                else if (e.key === 'ArrowUp') {
+                    e.preventDefault();
+                    nIndiceNavegacion--;
+                    if (nIndiceNavegacion < 0) nIndiceNavegacion = lsDivItems.length - 1;
+                    fnActualizar_DependenciaSeleccionada(lsDivItems);
+                }
+                else if (e.key === 'Enter') {
+                    if (nIndiceNavegacion > -1) {
+                        e.preventDefault();
+                        lsDivItems[nIndiceNavegacion].click();
+                    }
+                }
+                else if (e.key === 'Escape') {
+                    divResultadosDep.style.display = 'none';
+                    nIndiceNavegacion = -1;
+                }
+            });
+            txtBuscar.addEventListener('input', function () {
+                const sBusqueda = this.value.toLowerCase().trim();
+                if (sBusqueda === '') {
+                    clearTimeout(debounceTimer);
+                    divResultadosDep.style.display = 'none';
+                    return;
+                }
+                clearTimeout(debounceTimer);
+                if (sBusqueda.length < 3) return;
+                debounceTimer = setTimeout(() => {
+                    const resultados = lsCatalogoDependencias.filter(item => {
+                        const sCodigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
+                        const sDependencia = (item.sDependencia || item.SDependencia || "").toLowerCase();
+                        return sCodigo.includes(sBusqueda) || sDependencia.includes(sBusqueda);
                     });
-                    lista.style.display = 'block';
-                } else {
-                    lista.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
-                    lista.style.display = 'block';
-                }
-
-                // --- FIN DE LA BÚSQUEDA ---
-
-            }, 300); // <--- TIEMPO DE DELAY (300 milisegundos)
-
-            indiceNavegacion = -1;
-        });
-    }
-
-    // FUNCIÓN SELECCIONAR
-    function fnSeleccionar(codigo, htmlVisual) {
-        // Guardamos el código ("11101") en el input hidden
-        hdnEnum.value = codigo;
-
-        // Ponemos el HTML bonito en la caja de selección
-        lblTexto.innerHTML = htmlVisual;
-
-        // Limpiamos y hacemos el Switch de vistas
-        lista.style.display = 'none';
-        txtBuscar.value = '';
-
-        containerBuscar.classList.add('d-none');
-        containerSeleccionado.classList.remove('d-none');
-        containerSeleccionado.classList.add('d-flex');
-    }
-
-    // FUNCIÓN ELIMINAR
-    if (btnEliminar) {
-        btnEliminar.addEventListener('click', function () {
-            hdnEnum.value = ''; // Borramos valor
-            lblTexto.innerHTML = '';
-
-            // Switch inverso
-            containerSeleccionado.classList.remove('d-flex');
-            containerSeleccionado.classList.add('d-none');
-
-            containerBuscar.classList.remove('d-none');
-
-            txtBuscar.focus();
-        });
-    }
-
-    // CERRAR SI CLIC AFUERA
-    document.addEventListener('click', function (e) {
-        if (containerBuscar && !containerBuscar.contains(e.target)) {
-            lista.style.display = 'none';
-        }
-    });
-
-    // ==========================================
-    // BUSCADOR DE DEPENDENCIA / ENTIDAD
-    // ==========================================
-
-    const txtBuscarHuma = document.getElementById('txtBuscarDepHuma');
-    const listaHuma = document.getElementById('listaResultadosDepHuma');
-    const hdnEnumHuma = document.getElementById('txtHumanosDependencia');
-
-    const containerBuscarHuma = document.getElementById('container-buscar-huma');
-    const containerSeleccionadoHuma = document.getElementById('container-seleccionado-huma');
-    const lblTextoHuma = document.getElementById('lblTextoSeleccionadoHuma');
-    const btnEliminarHuma = document.getElementById('btnEliminarSeleccionHuma');
-
-    // VARIABLE PARA EL TEMPORIZADOR
-    let debounceTimerHuma;
-
-    let indiceNavegacionHuma = -1;
-
-    if (txtBuscarHuma && listaHuma) {
-        txtBuscarHuma.addEventListener('keydown', function (e) {
-            const itemsHuma = listaHuma.querySelectorAll('.list-group-item');
-
-            // Si la lista está oculta o vacía, no hacemos nada
-            if (listaHuma.style.display === 'none' || itemsHuma.length === 0) return;
-
-            if (e.key === 'ArrowDown') {
-                e.preventDefault(); // Evita que el cursor se mueva en el input
-                indiceNavegacionHuma++;
-
-                // Si pasamos el último, volvemos al primero (carrusel)
-                if (indiceNavegacionHuma >= itemsHuma.length) indiceNavegacionHuma = 0;
-
-                actualizarSeleccionVisualHuma(itemsHuma);
-            }
-            else if (e.key === 'ArrowUp') {
-                e.preventDefault();
-                indiceNavegacionHuma--;
-
-                // Si subimos más allá del primero, vamos al último
-                if (indiceNavegacionHuma < 0) indiceNavegacionHuma = itemsHuma.length - 1;
-
-                actualizarSeleccionVisualHuma(itemsHuma);
-            }
-            else if (e.key === 'Enter') {
-                // Si hay algo seleccionado con las flechas, simulamos el click
-                if (indiceNavegacionHuma > -1) {
-                    e.preventDefault(); // Evita el submit del formulario
-                    itemsHuma[indiceNavegacionHuma].click();
-                }
-            }
-            else if (e.key === 'Escape') {
-                listaHuma.style.display = 'none';
-                indiceNavegacionHuma = -1;
-            }
-        });
-
-        // --- 2. FUNCIÓN PARA PINTAR EL ELEMENTO SELECCIONADO ---
-        function actualizarSeleccionVisualHuma(itemsHuma) {
-            // Limpiar clase 'active' de todos
-            itemsHuma.forEach(item => item.classList.remove('active'));
-
-            // Agregar clase 'active' al actual
-            if (indiceNavegacionHuma > -1 && itemsHuma[indiceNavegacionHuma]) {
-                const itemActivoHuma = itemsHuma[indiceNavegacionHuma];
-                itemActivoHuma.classList.add('active');
-
-                // SCROLL AUTOMÁTICO:
-                // Esto asegura que si bajas mucho, la lista haga scroll para mostrarte el item
-                itemActivoHuma.scrollIntoView({
-                    block: 'nearest',
-                    behavior: 'smooth'
-                });
-            }
-        }
-
-        // EVENTO: Escribir
-        txtBuscarHuma.addEventListener('input', function () {
-            const terminoHuma = this.value.toLowerCase().trim();
-
-            // A. Si limpia el input, ocultamos la lista INMEDIATAMENTE (sin esperar)
-            if (terminoHuma === '') {
-                clearTimeout(debounceTimerHuma); // Cancelamos cualquier búsqueda pendiente
-                listaHuma.style.display = 'none';
-                return;
-            }
-
-            // B. Cancelamos el temporizador anterior si el usuario sigue escribiendo rápido
-            clearTimeout(debounceTimerHuma);
-
-            if (terminoHuma.length < 3) return;
-
-            // C. Creamos un nuevo temporizador para esperar 300ms antes de buscar
-            debounceTimerHuma = setTimeout(() => {
-
-                // --- INICIO DE LA BÚSQUEDA (Dentro del Timeout) ---
-
-                // Filtramos
-                const resultados = lsCatalogoDependencias.filter(item => {
-                    const codigo = (item.sCodigo || item.SCodigo || "").toLowerCase();
-                    const nombre = (item.sDependencia || item.SDependencia || "").toLowerCase();
-                    return codigo.includes(terminoHuma) || nombre.includes(terminoHuma);
-                });
-
-                // Renderizamos
-                listaHuma.innerHTML = '';
-
-                if (resultados.length > 0) {
-                    resultados.forEach(item => {
-                        const sCodigo = item.sCodigo || item.SCodigo;
-                        const sDependencia = item.sDependencia || item.SDependencia;
-
-                        const htmlVisual = `<span class="codigo fw-semibold">${sCodigo}</span> <span class="dep mx-1">-</span> <span>${sDependencia}</span>`;
-
-                        const btn = document.createElement('button');
-                        btn.type = 'button';
-                        btn.className = 'list-group-item list-group-item-action text-start px-3 py-2';
-                        btn.innerHTML = htmlVisual;
-
-                        btn.addEventListener('click', () => {
-                            fnSeleccionarHuma(sCodigo, htmlVisual);
+                    divResultadosDep.innerHTML = '';
+                    if (resultados.length > 0) {
+                        resultados.forEach(item => {
+                            const sCodigo = item.sCodigo || item.SCodigo;
+                            const sDependencia = item.sDependencia || item.SDependencia;
+                            const htmlVisual = `<span class="codigo fw-semibold">${sCodigo}</span> <span class="dep mx-1">-</span> <span>${sDependencia}</span>`;
+                            const btn = document.createElement('button');
+                            btn.type = 'button';
+                            btn.className = 'list-group-item list-group-item-action text-start px-3 py-2';
+                            btn.innerHTML = htmlVisual;
+                            btn.addEventListener('click', () => {
+                                fnSeleccionar(sCodigo, htmlVisual);
+                            });
+                            divResultadosDep.appendChild(btn);
                         });
-
-                        listaHuma.appendChild(btn);
-                    });
-                    listaHuma.style.display = 'block';
-                } else {
-                    listaHuma.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
-                    listaHuma.style.display = 'block';
-                }
-
-                // --- FIN DE LA BÚSQUEDA ---
-
-            }, 300); // <--- TIEMPO DE DELAY (300 milisegundos)
-
-            indiceNavegacionHuma = -1;
-        });
-    }
-
-    // FUNCIÓN SELECCIONAR
-    function fnSeleccionarHuma(codigo, htmlVisual) {
-        // Guardamos el código ("11101") en el input hidden
-        hdnEnumHuma.value = codigo;
-
-        // Ponemos el HTML bonito en la caja de selección
-        lblTextoHuma.innerHTML = htmlVisual;
-
-        // Limpiamos y hacemos el Switch de vistas
-        listaHuma.style.display = 'none';
-        txtBuscarHuma.value = '';
-
-        containerBuscarHuma.classList.add('d-none');
-        containerSeleccionadoHuma.classList.remove('d-none');
-        containerSeleccionadoHuma.classList.add('d-flex');
-    }
-
-    // FUNCIÓN ELIMINAR
-    if (btnEliminarHuma) {
-        btnEliminarHuma.addEventListener('click', function () {
-            hdnEnumHuma.value = ''; // Borramos valor
-            lblTextoHuma.innerHTML = '';
-
-            // Switch inverso
-            containerSeleccionadoHuma.classList.remove('d-flex');
-            containerSeleccionadoHuma.classList.add('d-none');
-
-            containerBuscarHuma.classList.remove('d-none');
-
-            txtBuscarHuma.focus();
-        });
-    }
-
-    // CERRAR SI CLIC AFUERA
-    document.addEventListener('click', function (e) {
-        if (containerBuscarHuma && !containerBuscarHuma.contains(e.target)) {
-            listaHuma.style.display = 'none';
+                        divResultadosDep.style.display = 'block';
+                    } else {
+                        divResultadosDep.innerHTML = '<div class="list-group-item text-muted small fst-italic p-2">No hay coincidencias</div>';
+                        divResultadosDep.style.display = 'block';
+                    }
+                }, 300);
+                nIndiceNavegacion = -1;
+            });
         }
-    });
+        function fnSeleccionar(codigo, htmlVisual) {
+            txtDependenciaEnum.value = codigo;
+            spTextoSeleccionado.innerHTML = htmlVisual;
+            divResultadosDep.style.display = 'none';
+            txtBuscar.value = '';
+            divContenedorBuscar.classList.add('d-none');
+            divContenidoSeleccionado.classList.remove('d-none');
+            divContenidoSeleccionado.classList.add('d-flex');
+        }
+        if (btnEliminar) {
+            btnEliminar.addEventListener('click', function () {
+                txtDependenciaEnum.value = '';
+                spTextoSeleccionado.innerHTML = '';
+                divContenidoSeleccionado.classList.remove('d-flex');
+                divContenidoSeleccionado.classList.add('d-none');
+                divContenedorBuscar.classList.remove('d-none');
+                txtBuscar.focus();
+            });
+        }
+        document.addEventListener('click', function (e) {
+            if (divContenedorBuscar && !divContenedorBuscar.contains(e.target)) {
+                divResultadosDep.style.display = 'none';
+            }
+        });
+    }
+    // General
+    fnConfigurar_BuscadorDependencia(
+        'txtBuscarDep', 'divResultadosDep', 'txtDependenciaEnum', 'divContenedorBuscar',
+        'divContenidoSeleccionado', 'spTextoSeleccionado', 'btnEliminarSeleccion'
+    )
+    // R. Humanos
+    fnConfigurar_BuscadorDependencia(
+        'txtBuscarDepHuma', 'divResultadosDepHuma', 'txtHumanosDependencia', 'divContenedorBuscarHuma',
+        'divContenidoSeleccionadoHuma', 'spTextoSeleccionadoHuma', 'btnEliminarSeleccionHuma'
+    )
+
 });

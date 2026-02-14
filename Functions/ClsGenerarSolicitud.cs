@@ -288,7 +288,6 @@ public class ClsGenerarSolicitud
                         int filaActual = filaInicio + i;
 
                         string sPermiso;
-                        Console.WriteLine(usuario.Permiso);
                         switch (usuario.Permiso)
                         {
                             case Permiso.SConsult:
