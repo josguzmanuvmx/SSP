@@ -118,8 +118,6 @@
         } else {
             urlAction = formSolicitud.getAttribute('data-url-actualizar') || formSolicitud.action;
         }
-
-        console.log(formSolicitud)
         try {
             const response = await fetch(urlAction, {
                 method: 'POST',
@@ -581,12 +579,10 @@
         if (!txtLsHumaAdi) return;
 
         const usuariosJson = txtLsHumaAdi.value;
-        console.log('Usuarios desde hidden:', usuariosJson); // Para debug
 
         if (usuariosJson && usuariosJson !== '[]' && usuariosJson !== '') {
             try {
                 const usuarios = JSON.parse(usuariosJson);
-                console.log('Usuarios parseados:', usuarios); // Para debug
 
                 // Limpiar cualquier pestaña extra que exista (excepto la principal)
                 fnLimpiarPestanasExtras();
@@ -679,8 +675,6 @@
             nPermiso: usuario.Permiso || 0,
             nMovimiento: usuario.Movimiento || 1 // 1: Alta, 2: Modificación, 3: Baja
         };
-
-        console.log('Llenando usuario:', usuarioData); // Para debug
 
         // Campos de texto
         const txtNomEmpl = contenedor.querySelector('.txtNomEmpl');
@@ -775,7 +769,6 @@
         const txtLsHumaAdi = document.getElementById('txtLsHumaAdi');
         if (txtLsHumaAdi) {
             txtLsHumaAdi.value = JSON.stringify(usuarios);
-            console.log('Hidden actualizado:', txtLsHumaAdi.value); // Para debug
         }
     }
 

@@ -31,7 +31,11 @@ public class SolicitudController : Controller
     public IActionResult Index()
     {
         var vmSolicitud = new VmSolicitud();
-        return View(new VmSolicitud());
+
+        // Folio Generar y Verificar Duplicidad
+        vmSolicitud.SFolio = _daSolicitud.GenerarFolio();
+
+        return View(vmSolicitud);
     }
 
     [HttpGet]
@@ -237,7 +241,6 @@ public class SolicitudController : Controller
     {
         try
         {
-            Console.WriteLine("Aqui llega");
             // 2. Obtener y Validar ID (DESENCRIPTAR)
             if (string.IsNullOrEmpty(vm.SId))
             {

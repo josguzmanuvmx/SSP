@@ -5,18 +5,18 @@
 @{
     ViewData["Title"] = "Generar Solicitud";
     bool bDocActivo = Model.MoEstudiantes!.BActivo || Model.MoFinanzas!.BActivo || Model.MoHumanos!.BActivo;
-    bool esEdicion = !string.IsNullOrEmpty(Model.SId);
+    bool bModoEdicion = !string.IsNullOrEmpty(Model.SId);
 
-    string controllerDestino;
-    if (ViewBag.OrigenController != null || esEdicion)
+    string sControladorDestino;
+    if (ViewBag.OrigenController != null || bModoEdicion)
     {
-        controllerDestino = "Solicitudes";
+        sControladorDestino = "Solicitudes";
     }
     else
     {
-        controllerDestino = "Inicio";
+        sControladorDestino = "Inicio";
     }
-    string titulo = esEdicion ? $"Editar Solicitud" : "Nueva Solicitud";
+    string sTitulo = bModoEdicion ? $"Editar Solicitud" : "Nueva Solicitud";
 
 }
 @section Styles {
@@ -29,12 +29,12 @@
 
 <div class="container-fluid">
     <br />
-    <div class="col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 m-auto d-flex gap-3 align-items-center" style="min-height: 3rem;">
-        <a id="btnRegresar" class="btn btn-outline-secondary d-flex p-2" asp-controller="@controllerDestino" asp-action="Index">
+    <div class="col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 m-auto d-flex gap-4 align-items-center" style="min-height: 3rem;">
+        <a id="btnRegresar" class="btn btn-outline-secondary d-flex p-2" asp-controller="@sControladorDestino" asp-action="Index">
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <h4 class="text-start m-0">
-            @Html.Raw(titulo) <small class="text-muted fs-6">(@Model.SFolio)</small>
+            @Html.Raw(sTitulo) <small class="text-muted fs-6">Folio: @Model.SFolio</small>
         </h4>
     </div>
     <form id="formSolicitud"
@@ -85,7 +85,7 @@
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Datos del Usuario</h5>
-                        <h6 class="text-muted fw-semibold">Ingresa los datos del usuario a modificar sus permisos.</h6>
+                        <h6 class="text-muted fw-semibold">Ingrese los datos del usuario a asignar, modificar o eliminar sus permisos.</h6>
                         <div id="divBusquedaUsuario" class="d-flex flex-column mt-3 px-2 py-2 bg-light rounded border">
                             <div class="d-flex align-items-center mb-2">
                                 <label class="form-label text-sm m-0">Busca un empleado rapidamente.</label>
@@ -96,7 +96,6 @@
                                     <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
                                     <input type="text" id="txtUsuario" class="form-control border-start-0 ps-1" placeholder="Buscar por Nombre, Usuario o No. Personal..." autocomplete="off" data-url="@Url.Action("BuscarUsuarios", "Solicitud")" />
                                 </div>
-                                @* <div id="divResultadosBusqueda" class="dropdown-menu w-100 shadow-sm border" style="max-height: 200px; overflow-y: auto; width: max-content;"></div> *@
                                 <div id="divResultados" class="list-group position-absolute w-100 shadow"
                                      style="z-index: 1000; max-height: 200px; overflow-y: auto;">
                                 </div>
@@ -137,9 +136,6 @@
                                     <select asp-for="Region" class="form-select bg-light" asp-items="Html.GetEnumSelectList<Region>()" tabindex="-1" disabled></select>
                                     <span asp-validation-for="Region" class="text-danger"></span>
                                     <input type="hidden" asp-for="Region" required />
-                                    @* <input asp-for="NRegClv" required /> *@
-                                    @* <input asp-for="SRegNom" required /> *@
-
                                 </div>
                             </div>
                             <div class="row align-items-center">
@@ -164,39 +160,39 @@
 
                                     @{
                                         bool bDependenciaSeleccionada = Convert.ToInt32(Model.Dependencia) > 0;
-                                        string claseBusqueda = bDependenciaSeleccionada ? "d-none" : "";
-                                        string claseSeleccion = bDependenciaSeleccionada ? "d-flex" : "d-none";
-                                        string htmlSeleccionado = "";
+                                        string sClaseBusqueda = bDependenciaSeleccionada ? "d-none" : "";
+                                        string sClaseSeleccion = bDependenciaSeleccionada ? "d-flex" : "d-none";
+                                        string divHtmlSeleccionado = "";
 
                                         if (bDependenciaSeleccionada)
                                         {
-                                            string codigoActual = ((int)Model.Dependencia).ToString();
+                                            string sDependenciaActual = ((int)Model.Dependencia).ToString();
 
-                                            var item = Model.LsDependencias.FirstOrDefault(x => x.SCodigo == codigoActual);
+                                            var moDependencia = Model.LsDependencias.FirstOrDefault(x => x.SCodigo == sDependenciaActual);
 
-                                            if (item != null)
+                                            if (moDependencia != null)
                                             {
                                                 // Generamos el HTML: Azul para Código, Negro para Dependencia
-                                                htmlSeleccionado = $"<span class='codigo fw-semibold'>{item.SCodigo}</span> <span class='dep mx-1'>-</span> <span>{item.SDependencia}</span>";
+                                                divHtmlSeleccionado = $"<span class='codigo fw-semibold'>{moDependencia.SCodigo}</span> <span class='dep mx-1'>-</span> <span>{moDependencia.SDependencia}</span>";
                                             }
                                         }
                                     }
 
-                                    <div id="divContenedorBuscar" class="@claseBusqueda">
+                                    <div id="divContenedorBuscar" class="@sClaseBusqueda">
                                         <div class="input-group">
                                             <span class="input-group-text bg-transparent text-muted border-end-0"><i class="fa-solid fa-magnifying-glass"></i></span>
                                             <input type="text" id="txtBuscarDep" class="form-control border-start-0 ps-1"
                                                    placeholder="Buscar clave o nombre..." autocomplete="off" />
                                         </div>
-                                        <div id="divResultadosDep" class="list-group position-absolute w-100 shadow mt-1"
+                                        <div id="divResultadosDep" class="list-group position-absolute w-100 mb-1 shadow-sm bottom-100"
                                              style="z-index: 1050; max-height: 250px; overflow-y: auto; display: none;"></div>
                                     </div>
 
-                                    <div id="divContenidoSeleccionado" class="@claseSeleccion align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm" style="min-height: 38px;">
+                                    <div id="divContenidoSeleccionado" class="@sClaseSeleccion align-items-center justify-content-between bg-white border rounded px-3 py-2 shadow-sm" style="min-height: 38px;">
                                         <div class="d-flex align-items-center w-100 overflow-hidden">
                                             <i class="fa-solid fa-building-columns text-primary me-2 flex-shrink-0"></i>
                                             <span id="spTextoSeleccionado" class="text-wrap text-break" style="line-height: 1.2;">
-                                                @Html.Raw(htmlSeleccionado)
+                                                @Html.Raw(divHtmlSeleccionado)
                                             </span>
                                         </div>
                                         <button type="button" id="btnEliminarSeleccion" class="btn btn-sm btn-link text-danger p-0 ms-3 flex-shrink-0">
@@ -217,7 +213,8 @@
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Area de Permisos</h5>
-                        <h6 class="text-muted">Habilita solo las areas a modificar sus permisos.</h6>
+                        <h6 class="text-muted mb-1">Habilite las areas a modificar sus permisos, Estudiantes, Finanzas ó Recursos Humanos.</h6>
+                        <h6 class="text-muted">Puede generar múltiples permisos para un mismo usuario.</h6>
 
                         <ul class="nav nav-pills nav-fill gap-1 mt-3" id="ulPermisos" role="tablist">
                             <li class="nav-item" role="presentation">
@@ -232,7 +229,7 @@
                             </li>
                             <li class="nav-item" role="presentation">
                                 <button id="btnHumanos" data-bs-target="#divHumanos" aria-controls="divHumanos" class="custom-tab nav-link shadow-sm" data-bs-toggle="pill" type="button" role="tab" aria-selected="false">
-                                    <i class="fa-solid fa-users me-2"></i> Humanos
+                                    <i class="fa-solid fa-users me-2"></i> R. Humanos
                                 </button>
                             </li>
                         </ul>
@@ -262,7 +259,7 @@
                                         </div>
 
                                         <br />
-                                        <h6 class="text-muted">En mantenimiento O.o</h6>
+                                        <h6 class="text-muted">En mantenimiento...</h6>
                                         <br />
 
                                     </div>
@@ -483,7 +480,7 @@
 
                                     <div id="divOverlayHumanos" class="position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center bg-white bg-opacity-50" style="z-index: 10; backdrop-filter: blur(2px);">
                                         <button type="button" id="btnHabilitarHumanos" class="btn btn-primary shadow rounded-pill px-4 py-3 fw-bold fs-6 mb-3">
-                                            <i class="fa-solid fa-user-check me-2"></i> Habilitar Humanos
+                                            <i class="fa-solid fa-user-check me-2"></i> Habilitar R. Humanos
                                         </button>
                                     </div>
 
@@ -492,7 +489,7 @@
                                         <div class="d-flex justify-content-between align-items-center mt-3">
                                             <h6 class="fw-semibold m-0">Datos adicionales</h6>
                                             <button type="button" id="btnDeshabilitarHumanos" class="btn btn-sm btn-outline-danger border-0 d-none" title="Deshabilitar Humanos">
-                                                <i class="fa-solid fa-ban"></i> Deshabilitar Humanos
+                                                <i class="fa-solid fa-ban"></i> Deshabilitar R. Humanos
                                             </button>
                                         </div>
 
@@ -551,7 +548,12 @@
 
                                         <hr class="my-3">
 
-                                        <ul class="nav nav-pills mb-3 gap-2" id="ulUsuariosRHumanos" role="tablist">
+                                        <div class="d-flex flex-column gap-2 mt-3">
+                                            <h6 class="fw-semibold m-0">Usuarios adicionales</h6>
+                                            <h6 class="text-muted">Agregue múltiples usuarios en un mismo documento, a todos los usuario adicionales tendrán que ingresar su información personal, exceptuando nuestro usuario principal.</h6>
+                                        </div>
+
+                                        <ul class="nav nav-pills mt-2 mb-3 gap-2" id="ulUsuariosRHumanos" role="tablist">
 
                                             <li class="nav-item" role="presentation">
                                                 <button class="nav-link active shadow-sm border px-4" id="tab-usuario-main" data-bs-toggle="pill" data-bs-target="#content-usuario-main" type="button" role="tab">
@@ -738,11 +740,11 @@
                 <div class="card bg-white border shadow rounded-4">
                     <div class="card-body p-4">
                         <h5 class="fw-semibold">Finalizar</h5>
-                        <h6 class="text-muted">Aqui se podra guardar la solicitud con estado "Completado" ó "Borrador" con un nombre personalizado o descartarla completamente.</h6>
+                        <h6 class="text-muted">Guarda la solicitud con estado "Pendiente" si faltan datos por agregar ó "Finalizado" si esta completo.</h6>
                         <h6 class="text-muted">Por ahora solo se puede guardar con un folio generado automáticamente.</h6>
 
                         @{
-                            if (esEdicion)
+                            if (bModoEdicion)
                             {
                                 <button id="btnGuardar" type="button" class="btn btn-primary shadow-sm">Actualizar</button>
                             }
@@ -751,6 +753,8 @@
                                 <button id="btnGuardar" type="button" class="btn btn-primary shadow-sm">Guardar</button>
                             }
                         }
+
+                        <button id="btnGuardarBorrador" type="button" class="btn btn-primary shadow-sm">Guardar Borrador</button>
                         
                     </div>
                 </div>
