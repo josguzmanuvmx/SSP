@@ -16,7 +16,7 @@
     {
         controllerDestino = "Inicio";
     }
-    string titulo = esEdicion ? $"Editar Solicitud <small class='text-muted fs-6'>({Model.SFolio})</small>" : "Nueva Solicitud";
+    string titulo = esEdicion ? $"Editar Solicitud" : "Nueva Solicitud";
 
 }
 @section Styles {
@@ -34,7 +34,7 @@
             <i class="fa-solid fa-arrow-left"></i>
         </a>
         <h4 class="text-start m-0">
-            @Html.Raw(titulo)
+            @Html.Raw(titulo) <small class="text-muted fs-6">(@Model.SFolio)</small>
         </h4>
     </div>
     <form id="formSolicitud"
@@ -43,8 +43,13 @@
           data-url-preview="@Url.Action("PrevisualizarBorrador", "Solicitud")"
           data-url-zip="@Url.Action("DescargarZipBorrador", "Solicitud")"
           data-url-guardar="@Url.Action("Guardar", "Solicitud")"
+          data-url-actualizar="@Url.Action("Actualizar", "Solicitud")"
           novalidate>
         @Html.AntiForgeryToken()
+
+        <input type="hidden" asp-for="SId" />
+        <input type="hidden" id="txtLsHumaAdi" name="LsHumaAdiJson" 
+               value='@JsonSerializer.Serialize(Model.MoHumanos?.LsHumaAdi ?? new List<MoHumanosAdicional>())' />
 
         <ul class="nav nav-pills nav-fill mt-3 overflow-visible stepper-container" id="ulSolicitud" role="tablist">
 
@@ -89,7 +94,7 @@
                             <div class="position-relative">
                                 <div class="input-group">
                                     <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
-                                    <input type="text" id="txtUsuario" class="form-control border-start-0" placeholder="Buscar por Nombre, Usuario o No. Personal..." autocomplete="off" data-url="@Url.Action("BuscarUsuarios", "Solicitud")" />
+                                    <input type="text" id="txtUsuario" class="form-control border-start-0 ps-1" placeholder="Buscar por Nombre, Usuario o No. Personal..." autocomplete="off" data-url="@Url.Action("BuscarUsuarios", "Solicitud")" />
                                 </div>
                                 @* <div id="divResultadosBusqueda" class="dropdown-menu w-100 shadow-sm border" style="max-height: 200px; overflow-y: auto; width: max-content;"></div> *@
                                 <div id="divResultados" class="list-group position-absolute w-100 shadow"
@@ -140,7 +145,7 @@
                             <div class="row align-items-center">
                                 <label asp-for="SPueEmpl" class="col-md-4 col-form-label">Puesto</label>
                                 <div class="col-md-8">
-                                    <input asp-for="SPueEmpl" class="form-control bg-light pe-none" placeholder="Puesto del empleado ej. Becario" tabindex="-1" readonly required />
+                                    <input asp-for="SPueEmpl" class="form-control bg-light pe-none" placeholder="ej. Becario" tabindex="-1" readonly required />
                                     <span asp-validation-for="SPueEmpl" class="text-danger"></span>
                                 </div>
                             </div>
@@ -180,7 +185,7 @@
                                     <div id="divContenedorBuscar" class="@claseBusqueda">
                                         <div class="input-group">
                                             <span class="input-group-text bg-transparent text-muted border-end-0"><i class="fa-solid fa-magnifying-glass"></i></span>
-                                            <input type="text" id="txtBuscarDep" class="form-control border-start-0 ps-0"
+                                            <input type="text" id="txtBuscarDep" class="form-control border-start-0 ps-1"
                                                    placeholder="Buscar clave o nombre..." autocomplete="off" />
                                         </div>
                                         <div id="divResultadosDep" class="list-group position-absolute w-100 shadow mt-1"
@@ -521,7 +526,7 @@
                                                 <div id="divContenedorBuscarHuma" class="@claseBusquedaHuma">
                                                     <div class="input-group">
                                                         <span class="input-group-text bg-transparent text-muted border-end-0"><i class="fa-solid fa-magnifying-glass"></i></span>
-                                                        <input type="text" id="txtBuscarDepHuma" class="form-control border-start-0 ps-0"
+                                                        <input type="text" id="txtBuscarDepHuma" class="form-control border-start-0 ps-1"
                                                                placeholder="Buscar clave o nombre..." autocomplete="off" />
                                                     </div>
                                                     <div id="divResultadosDepHuma" class="list-group position-absolute w-100 shadow mt-1"
@@ -736,7 +741,17 @@
                         <h6 class="text-muted">Aqui se podra guardar la solicitud con estado "Completado" ó "Borrador" con un nombre personalizado o descartarla completamente.</h6>
                         <h6 class="text-muted">Por ahora solo se puede guardar con un folio generado automáticamente.</h6>
 
-                        <button id="btnGuardar" type="button" class="btn btn-primary shadow-sm">Guardar</button>
+                        @{
+                            if (esEdicion)
+                            {
+                                <button id="btnGuardar" type="button" class="btn btn-primary shadow-sm">Actualizar</button>
+                            }
+                            else
+                            {
+                                <button id="btnGuardar" type="button" class="btn btn-primary shadow-sm">Guardar</button>
+                            }
+                        }
+                        
                     </div>
                 </div>
             </div>
@@ -945,7 +960,7 @@
             <div class="position-relative">
                 <div class="input-group ">
                     <span class="input-group-text bg-white border-end-0"><i class="fa-solid fa-search text-muted"></i></span>
-                    <input type="text" class="form-control border-start-0 txtUsuario"
+                    <input type="text" class="form-control border-start-0 ps-1 txtUsuario"
                            placeholder="Buscar por Nombre, Usuario o No. Personal..."
                            autocomplete="off"
                            data-url="@Url.Action("BuscarUsuarios", "Solicitud")">
@@ -1003,14 +1018,14 @@
             <div class="d-flex">
                 <label class="col-4 col-form-label">Clave Dependencia</label>
                 <div class="col-8">
-                    <input name="LsHumaAdi[INDEX_LISTA].NDepClv" type="number" class="form-control bg-transparent" placeholder="Dependencia" required >
+                    <input name="LsHumaAdi[INDEX_LISTA].NDepClv" type="number" class="txtDepClv form-control bg-transparent" placeholder="Dependencia" required >
                     <span data-valmsg-for="LsHumaAdi[INDEX_LISTA].NDepClv" class="text-danger"></span>
                 </div>
             </div>
             <div class="d-flex">
                 <label class="col-4 col-form-label">Clave de Programa</label>
                 <div class="col-8">
-                    <input name="LsHumaAdi[INDEX_LISTA].NProgClv" type="text" class="form-control bg-transparent" placeholder="Programa" required >
+                    <input name="LsHumaAdi[INDEX_LISTA].NProgClv" type="text" class="txtProgClv form-control bg-transparent" placeholder="Programa" required>
                     <span data-valmsg-for="LsHumaAdi[INDEX_LISTA].NProgClv" class="text-danger"></span>
                 </div>
             </div>
@@ -1018,7 +1033,7 @@
                 <label class="col-4 col-form-label">Perfil</label>
                 <div class="col-8">
                     <select name="LsHumaAdi[INDEX_LISTA].Perfil"
-                            class="form-select bg-transparent"
+                            class="selPerfil form-select bg-transparent"
                             asp-items="Html.GetEnumSelectList<Perfil>()">
                     </select>
                 </div>
@@ -1027,7 +1042,7 @@
                 <label class="col-4 col-form-label">Tipo de permiso</label>
                 <div class="col-8">
                     <select name="LsHumaAdi[INDEX_LISTA].Permiso"
-                            class="form-select bg-transparent"
+                            class="selPermiso form-select bg-transparent"
                             asp-items="Html.GetEnumSelectList<Permiso>()">
                     </select>
                 </div>

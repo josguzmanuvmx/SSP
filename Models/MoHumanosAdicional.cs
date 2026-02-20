@@ -18,7 +18,7 @@ public class MoHumanosAdicional
     public Perfil Perfil { get; set; } = Perfil.SAdmin;
     [Column("nDepClv")]
     public int? NDepClv { get; set; }
-    [Column("SProgClv")]
+    [Column("nProgClv")]
     public int? NProgClv { get; set; }
     [Column("nPermiso")]
     public Permiso Permiso { get; set; } = Permiso.SConsult;

@@ -1,6 +1,7 @@
 ﻿namespace SSP.Data;
 using Microsoft.EntityFrameworkCore;
 using SSP.Models;
+using SSP.ViewModels;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -43,6 +44,40 @@ public class DaSolicitud
         return _context.Solicitudes.Find(nId);
     }
 
+    public string GenerarFolio()
+    {
+        try
+        {
+            string folioGenerado = "";
+            bool esUnico = false;
+            int intentos = 0;
+
+            do
+            {
+                string codigo = GenerarCodigoAleatorio(8);
+                folioGenerado = $"{codigo}";
+
+                bool existe = _context.Solicitudes.Any(x => x.SFolio == folioGenerado);
+
+                if (!existe) esUnico = true;
+
+                intentos++;
+                if (intentos > 10) throw new Exception("No se pudo asignar un folio único. Intente de nuevo.");
+
+            } while (!esUnico);
+
+            return folioGenerado;
+        }
+        catch (DbUpdateException ex)
+        {
+            throw new Exception("Error de concurrencia al generar folio. Intente guardar de nuevo.", ex);
+        }
+        catch (Exception)
+        {
+            throw;
+        }
+    }
+
     /// <summary>
     /// Agrega una nueva solicitud a la base de datos.
     /// </summary>
@@ -53,30 +88,34 @@ public class DaSolicitud
         try
         {
             // --- GENERACIÓN DE FOLIO ÚNICO ---
-            string folioGenerado = "";
-            bool esUnico = false;
-            int intentos = 0;
+            //string folioGenerado = "";
+            //bool esUnico = false;
+            //int intentos = 0;
 
-            do
-            {
-                // 1. Generamos el código (6 caracteres)
-                string codigo = GenerarCodigoAleatorio(6);
-                folioGenerado = $"{codigo}";
+            //do
+            //{
+            //    // 1. Generamos el código (6 caracteres)
+            //    string codigo = GenerarCodigoAleatorio(6);
+            //    folioGenerado = $"{codigo}";
 
-                // 2. Verificamos "en caliente" si existe en la BD
-                // Nota: Aunque esto diga false, existe una micro-posibilidad de choque
-                // en concurrencia, pero el índice UNIQUE de la BD lo detendrá al guardar.
-                bool existe = _context.Solicitudes.Any(x => x.SFolio == folioGenerado);
+            //    // 2. Verificamos "en caliente" si existe en la BD
+            //    // Nota: Aunque esto diga false, existe una micro-posibilidad de choque
+            //    // en concurrencia, pero el índice UNIQUE de la BD lo detendrá al guardar.
+            //    bool existe = _context.Solicitudes.Any(x => x.SFolio == folioGenerado);
 
-                if (!existe) esUnico = true;
+            //    if (!existe) esUnico = true;
 
-                intentos++;
-                // Evitamos bucles infinitos por seguridad
-                if (intentos > 10) throw new Exception("No se pudo asignar un folio único. Intente de nuevo.");
+            //    intentos++;
+            //    // Evitamos bucles infinitos por seguridad
+            //    if (intentos > 10) throw new Exception("No se pudo asignar un folio único. Intente de nuevo.");
 
-            } while (!esUnico);
+            //} while (!esUnico);
 
-            moSolicitud.SFolio = folioGenerado;
+            //if (moSolicitud!.SFolio == "" || moSolicitud!.SFolio == null)
+            //{
+            //    moSolicitud.SFolio = folioGenerado;
+            //}
+
             // ---------------------------------
 
             // 3. Guardar

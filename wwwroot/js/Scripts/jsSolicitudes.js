@@ -35,7 +35,6 @@
         tblSolicitudes.search(sBusqueda).draw();
     }
 
-
     const btnConfirmar = document.getElementById('btnConfirmarEliminar');
 
     if (btnConfirmar) {

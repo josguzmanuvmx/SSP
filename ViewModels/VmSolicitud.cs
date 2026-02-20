@@ -110,6 +110,9 @@ public class VmSolicitud
     public string? SAutor { get; set; }
     public bool BActivo { get; set; }
 
+    public string LsHumaAdiJson { get; set; }
+
+
     // --- Finanzas ---
     [Display(
         Name = "DIRECTOR (Director de UR)",

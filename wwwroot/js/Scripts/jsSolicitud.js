@@ -103,13 +103,21 @@
     // =============================
     const btnGuardar = document.getElementById('btnGuardar');
     btnGuardar.addEventListener('click', async function () {
+        fnActualizarHiddenUsuarios();
+
         const btn = this;
         const textoOriginal = btn.innerHTML;
         btn.disabled = true;
         btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Guardando...';
         const formSolicitud = document.getElementById('formSolicitud');
         const formDataSolicitud = new FormData(formSolicitud);
-        const urlAction = formSolicitud.getAttribute('data-url-guardar') || formSolicitud.action;
+        let urlAction;
+        const sId = formDataSolicitud.SId;
+        if (sId && sId !== '') {
+            urlAction = formSolicitud.getAttribute('data-url-guardar') || formSolicitud.action;
+        } else {
+            urlAction = formSolicitud.getAttribute('data-url-actualizar') || formSolicitud.action;
+        }
 
         console.log(formSolicitud)
         try {
@@ -565,6 +573,212 @@
     }
     // ----------------------
 
+    // ========================================
+    // CARGAR USUARIOS EXISTENTES DE LsHumaAdi
+    // ========================================
+    function fnCargarUsuariosExistentes() {
+        const txtLsHumaAdi = document.getElementById('txtLsHumaAdi');
+        if (!txtLsHumaAdi) return;
+
+        const usuariosJson = txtLsHumaAdi.value;
+        console.log('Usuarios desde hidden:', usuariosJson); // Para debug
+
+        if (usuariosJson && usuariosJson !== '[]' && usuariosJson !== '') {
+            try {
+                const usuarios = JSON.parse(usuariosJson);
+                console.log('Usuarios parseados:', usuarios); // Para debug
+
+                // Limpiar cualquier pestaña extra que exista (excepto la principal)
+                fnLimpiarPestanasExtras();
+
+                // Crear una pestaña por cada usuario en LsHumaAdi
+                usuarios.forEach((usuario, index) => {
+                    fnCrearUsuarioDesdeExistente(usuario, index);
+                });
+
+                // Actualizar contador y visibilidad
+                fnOrdenar_Usuarios();
+
+            } catch (e) {
+                console.error('Error al parsear usuarios:', e);
+            }
+        }
+    }
+
+    // ========================================
+    // LIMPIAR PESTAÑAS EXTRAS (excepto principal)
+    // ========================================
+    function fnLimpiarPestanasExtras() {
+        // Eliminar todas las pestañas extras
+        const tabsExtras = ulUsuariosRHumanos.querySelectorAll('.item-usuario-extra');
+        tabsExtras.forEach(tab => tab.remove());
+
+        // Eliminar todos los contenidos extras
+        const contenidosExtras = divContenidoRHumanos.querySelectorAll('.content-usuario-extra');
+        contenidosExtras.forEach(contenido => contenido.remove());
+    }
+
+    // ========================================
+    // CREAR USUARIO DESDE DATOS EXISTENTES
+    // ========================================
+    function fnCrearUsuarioDesdeExistente(usuario, index) {
+        const dtId = new Date().getTime() + index; // ID único
+        const tmplTabClonada = tmplTabUsuario.content.cloneNode(true);
+        const tabId = `tab-user-${dtId}`;
+        const contentId = `content-user-${dtId}`;
+
+        // Configurar la pestaña
+        const tabButton = tmplTabClonada.querySelector('button');
+        tabButton.id = tabId;
+        tabButton.setAttribute('data-bs-target', `#${contentId}`);
+
+        // Actualizar el nombre en la pestaña
+        const spNombre = tmplTabClonada.querySelector('.sp-nombre');
+        if (spNombre) spNombre.textContent = usuario.SNomEmpl?.split(' ')[0] || `Usuario ${index + 2}`;
+
+        ulUsuariosRHumanos.insertBefore(tmplTabClonada, ulUsuariosRHumanos.lastElementChild);
+
+        // Configurar el contenido
+        const tmplContenidoClonado = tmplContenidoUsuario.content.cloneNode(true);
+        const contentPane = tmplContenidoClonado.querySelector('.tab-pane');
+        contentPane.id = contentId;
+        contentPane.classList.add('content-usuario-extra');
+
+        divContenidoRHumanos.appendChild(tmplContenidoClonado);
+
+        const divContenido = document.getElementById(contentId);
+
+        // Llenar los campos con los datos del usuario
+        fnLlenarCamposUsuario(divContenido, usuario, index);
+
+        // Inicializar búsqueda para este contenedor
+        fnBuscar_Usuario('.txtUsuario', '.divResultados', divContenido);
+
+        // Mostrar la primera pestaña si es la primera
+        if (index === 0) {
+            const newTab = new bootstrap.Tab(tabButton);
+            newTab.show();
+        }
+    }
+
+    // ========================================
+    // LLENAR CAMPOS CON DATOS DEL USUARIO
+    // ========================================
+    function fnLlenarCamposUsuario(contenedor, usuario, index) {
+        // Mapeo de propiedades (ajusta según tu modelo)
+        const usuarioData = {
+            sNomEmpl: usuario.SNomEmpl || '',
+            nNoPer: usuario.NNoPer || 0,
+            sUsuario: usuario.SUsuario || '',
+            sCorreo: usuario.SCorreo || '',
+            nRegClv: usuario.NRegClv || 0,
+            sPueEmpl: usuario.SPueEmpl || '',
+            nDepClv: usuario.NDepClv || 0,
+            nProgClv: usuario.NProgClv || 0,
+            nPerfil: usuario.Perfil || 0,
+            nPermiso: usuario.Permiso || 0,
+            nMovimiento: usuario.Movimiento || 1 // 1: Alta, 2: Modificación, 3: Baja
+        };
+
+        console.log('Llenando usuario:', usuarioData); // Para debug
+
+        // Campos de texto
+        const txtNomEmpl = contenedor.querySelector('.txtNomEmpl');
+        if (txtNomEmpl) txtNomEmpl.value = usuarioData.sNomEmpl;
+
+        const txtNoPer = contenedor.querySelector('.txtNoPer');
+        if (txtNoPer) txtNoPer.value = usuarioData.nNoPer;
+
+        const txtUsuario = contenedor.querySelector('.txtHumaUsuario');
+        if (txtUsuario) txtUsuario.value = usuarioData.sUsuario;
+
+        const txtCorreo = contenedor.querySelector('.txtCorreo');
+        if (txtCorreo) txtCorreo.value = usuarioData.sCorreo;
+
+        const txtPuesto = contenedor.querySelector('.txtPuesto');
+        if (txtPuesto) txtPuesto.value = usuarioData.sPueEmpl;
+
+        const txtDepClv = contenedor.querySelector('.txtDepClv');
+        if (txtDepClv) txtDepClv.value = usuarioData.nDepClv;
+
+        const txtProgClv = contenedor.querySelector('.txtProgClv');
+        if (txtProgClv) txtProgClv.value = usuarioData.nProgClv;
+
+        // Selects
+        const selPerfil = contenedor.querySelector('.selPerfil');
+        if (selPerfil) selPerfil.value = usuarioData.nPerfil;
+
+        const selPermiso = contenedor.querySelector('.selPermiso');
+        if (selPermiso) selPermiso.value = usuarioData.nPermiso;
+
+        // Radio buttons para movimiento
+        const radioAlta = contenedor.querySelector('input[type="radio"][value="SAlta"]');
+        const radioMod = contenedor.querySelector('input[type="radio"][value="SModifi"]');
+        const radioBaja = contenedor.querySelector('input[type="radio"][value="SBaja"]');
+
+        if (radioAlta && radioMod && radioBaja) {
+            switch (usuarioData.nMovimiento) {
+                case 1: radioAlta.checked = true; break;
+                case 2: radioMod.checked = true; break;
+                case 3: radioBaja.checked = true; break;
+                default: radioAlta.checked = true;
+            }
+        }
+
+        // Guardar referencia al ID del usuario si existe
+        if (usuario.NId) {
+            let hdfId = contenedor.querySelector('.hdfUsuarioId');
+            if (!hdfId) {
+                hdfId = document.createElement('input');
+                hdfId.type = 'hidden';
+                hdfId.className = 'hdfUsuarioId';
+                contenedor.appendChild(hdfId);
+            }
+            hdfId.value = usuario.NId;
+        }
+    }
+
+    // ========================================
+    // ACTUALIZAR EL HIDDEN CON LOS DATOS ACTUALES
+    // ========================================
+    function fnActualizarHiddenUsuarios() {
+        const usuarios = [];
+        const contenidos = divContenidoRHumanos.querySelectorAll('.content-usuario-extra');
+
+        contenidos.forEach((contenido, index) => {
+            const usuario = {
+                NId: contenido.querySelector('.hdfUsuarioId')?.value || 0,
+                SNomEmpl: contenido.querySelector('.txtNomEmpl')?.value || '',
+                NNoPer: parseInt(contenido.querySelector('.txtNoPer')?.value) || 0,
+                SUsuario: contenido.querySelector('.txtHumaUsuario')?.value || '',
+                SCorreo: contenido.querySelector('.txtCorreo')?.value || '',
+                NRegClv: 0, // Si tienes campo para región, actualízalo
+                SPueEmpl: contenido.querySelector('.txtPuesto')?.value || '',
+                NDepClv: parseInt(contenido.querySelector('.txtDepClv')?.value) || 0,
+                NProgClv: parseInt(contenido.querySelector('.txtProgClv')?.value) || 0,
+                Perfil: parseInt(contenido.querySelector('.selPerfil')?.value) || 0,
+                Permiso: parseInt(contenido.querySelector('.selPermiso')?.value) || 0,
+                Movimiento: 1 // Default Alta
+            };
+
+            // Determinar movimiento
+            const radioChecked = contenido.querySelector('input[type="radio"]:checked');
+            if (radioChecked) {
+                if (radioChecked.value === 'SAlta') usuario.Movimiento = 1;
+                else if (radioChecked.value === 'SModifi') usuario.Movimiento = 2;
+                else if (radioChecked.value === 'SBaja') usuario.Movimiento = 3;
+            }
+
+            usuarios.push(usuario);
+        });
+
+        const txtLsHumaAdi = document.getElementById('txtLsHumaAdi');
+        if (txtLsHumaAdi) {
+            txtLsHumaAdi.value = JSON.stringify(usuarios);
+            console.log('Hidden actualizado:', txtLsHumaAdi.value); // Para debug
+        }
+    }
+
     // ================================
     // ORDENAR USUARIOS R. HUMANOS
     // ================================
@@ -578,6 +792,7 @@
     function fnOrdenar_Usuarios() {
         const ulTabsUsuario = ulUsuariosRHumanos.querySelectorAll('.item-usuario-extra');
         const divContenidoUsuario = divContenidoRHumanos.querySelectorAll('.content-usuario-extra');
+
         if (ulTabsUsuario.length + 1 >= nUsuariosMaximo) {
             btnAgregar.parentElement.classList.add('d-none');
             spUsuariosMaximo.classList.remove('d-none');
@@ -585,14 +800,17 @@
             btnAgregar.parentElement.classList.remove('d-none');
             spUsuariosMaximo.classList.add('d-none');
         }
+
         divContenidoUsuario.forEach((pane, index) => {
             const nPosUsuario = index + 2;
             const spNumero = pane.querySelector('.sp-numero');
             if (spNumero) spNumero.textContent = nPosUsuario;
+
             if (ulTabsUsuario[index]) {
                 const spNombre = ulTabsUsuario[index].querySelector('.sp-nombre');
                 if (spNombre) spNombre.textContent = `#${nPosUsuario}`;
             }
+
             const lsTxtContenido = pane.querySelectorAll('input, select');
             lsTxtContenido.forEach(txt => {
                 if (txt.name) {
@@ -612,25 +830,43 @@
                 }
             });
         });
+
+        fnActualizarHiddenUsuarios(); // <-- ACTUALIZAR HIDDEN DESPUÉS DE REORDENAR
     }
     // ----------------------
 
     // ========================================
     // AGREGAR USUARIO ADICIONAL EN R. HUMANOS
     // ========================================
+    // Modifica fnCrear_UsuarioRHumanos para agregar eventos
     function fnCrear_UsuarioRHumanos() {
         const dtId = new Date().getTime();
         const tmplTabClonada = tmplTabUsuario.content.cloneNode(true);
         tmplTabClonada.querySelector('button').id = `tab-user-${dtId}`;
         tmplTabClonada.querySelector('button').setAttribute('data-bs-target', `#content-user-${dtId}`);
         ulUsuariosRHumanos.insertBefore(tmplTabClonada, ulUsuariosRHumanos.lastElementChild);
+
         const tmplContenidoClonado = tmplContenidoUsuario.content.cloneNode(true);
         const sIdContenido = `content-user-${dtId}`;
-        tmplContenidoClonado.querySelector('.tab-pane').id = sIdContenido;
+        const contentPane = tmplContenidoClonado.querySelector('.tab-pane');
+        contentPane.id = sIdContenido;
+        contentPane.classList.add('content-usuario-extra');
+
         divContenidoRHumanos.appendChild(tmplContenidoClonado);
+
         const divContenido = document.getElementById(sIdContenido);
-        fnBuscar_Usuario('.txtUsuario', '.divResultados', divContenido)
+
+        // AGREGAR EVENTOS PARA ACTUALIZAR HIDDEN
+        divContenido.querySelectorAll('input, select, textarea').forEach(input => {
+            input.addEventListener('input', fnActualizarHiddenUsuarios);
+            input.addEventListener('change', fnActualizarHiddenUsuarios);
+        });
+
+        fnBuscar_Usuario('.txtUsuario', '.divResultados', divContenido);
         fnOrdenar_Usuarios();
+
+        fnActualizarHiddenUsuarios(); // <-- Actualizar hidden al crear
+
         const tmplRefTabClonada = document.querySelector(`#tab-user-${dtId}`);
         const tbClonada = new bootstrap.Tab(tmplRefTabClonada);
         tbClonada.show();
@@ -661,8 +897,15 @@
                 }
             }
             fnOrdenar_Usuarios();
+
+            fnActualizarHiddenUsuarios();
         }
     });
+
+    // ==========================================
+    // CARGAR TODOS LOS DATOS HUMANOS ADICIONAL
+    // ==========================================
+    fnCargarUsuariosExistentes();
 
     //ulUsuariosRHumanos.addEventListener('click', function (e) {
     //    const btnEliminarTab = e.target.closest('.btn-cerrar-tab');

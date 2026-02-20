@@ -39,15 +39,35 @@ public class SolicitudController : Controller
     {
         ViewBag.OrigenController = "Solicitudes";
         var vmSolicitud = new VmSolicitud();
-        return View("Index", new VmSolicitud());
+
+        // Folio Generar y Verificar Duplicidad
+        vmSolicitud.SFolio = _daSolicitud.GenerarFolio();
+
+        return View("Index", vmSolicitud);
+    }
+
+    private string GenerarCodigoAleatorio(int longitud)
+    {
+        // Alfabeto seguro:
+        // 1. Sin vocales (Evita palabras ofensivas como FEO, CACO, PIS)
+        // 2. Sin confusos (Sin 0, O, 1, I, L)
+        const string chars = "23456789ABCDEFGHJKMNPQRSTUVWXYZ";
+
+        var random = new Random();
+        var resultado = new char[longitud];
+
+        for (int i = 0; i < longitud; i++)
+        {
+            resultado[i] = chars[random.Next(chars.Length)];
+        }
+
+        return new string(resultado);
     }
 
     [HttpPost]
-    [ValidateAntiForgeryToken] // 1. Seguridad contra ataques CSRF
+    [ValidateAntiForgeryToken] // 1. Seguridad contra ataques  para la creacion de CSRF
     public async Task<IActionResult> Guardar(VmSolicitud vm)
     {
-        // 1. Validar estado del modelo (Back-end validation)
-        // Nota: Ignoramos errores de propiedades complejas si las vamos a construir manualmente
         if (!ModelState.IsValid)
         {
             var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
@@ -195,6 +215,16 @@ public class SolicitudController : Controller
             MoHumanos = JsonSerializer.Deserialize<MoHumanos>(dbItem.DcHumaJson)
         };
 
+        if (vmSolicitud.MoHumanos?.LsHumaAdi != null)
+        {
+            vmSolicitud.LsHumaAdiJson = JsonSerializer.Serialize(vmSolicitud.MoHumanos.LsHumaAdi);
+        }
+        else
+        {
+            vmSolicitud.LsHumaAdiJson = "[]";
+        }
+
+
         // 5. RETORNAR LA VISTA
         // Asegúrate de que "Index" sea la vista donde está tu formulario.
         // Si tu formulario está en una vista llamada "Crear.cshtml" o "Formulario.cshtml", cámbialo aquí.
@@ -205,23 +235,26 @@ public class SolicitudController : Controller
     [ValidateAntiForgeryToken]
     public IActionResult Actualizar(VmSolicitud vm)
     {
-        // 1. Validar Modelo
-        if (!ModelState.IsValid)
-        {
-            var errors = ModelState.Values.SelectMany(v => v.Errors).Select(e => e.ErrorMessage);
-            return Json(new { success = false, message = "Datos inválidos", errors = errors });
-        }
-
         try
         {
-            // 2. Obtener y Validar ID
-            if (string.IsNullOrEmpty(vm.SId) || !int.TryParse(vm.SId, out int nId))
+            Console.WriteLine("Aqui llega");
+            // 2. Obtener y Validar ID (DESENCRIPTAR)
+            if (string.IsNullOrEmpty(vm.SId))
+            {
+                return Json(new { success = false, message = "ID de solicitud inválido." });
+            }
+            Console.WriteLine("ID valida");
+            // Desencriptar el ID
+            string idLimpio = Uri.UnescapeDataString(vm.SId);
+            string idDesencriptado = _encrypt.FnsDesEncripta(idLimpio);
+            if (!int.TryParse(idDesencriptado, out int nId))
             {
                 return Json(new { success = false, message = "ID de solicitud inválido." });
             }
 
+            Console.WriteLine("Desencriptado" + idDesencriptado);
+
             // 3. Recuperar la entidad ORIGINAL de la BD
-            // Esto es vital para mantener el ID, SAutor y DtFecCre originales
             var solicitudDb = _daSolicitud.ObtenerPorId(nId);
 
             if (solicitudDb == null)
@@ -229,32 +262,39 @@ public class SolicitudController : Controller
                 return Json(new { success = false, message = "La solicitud no existe o fue eliminada." });
             }
 
-            // 4. Actualizar campos planos (Sobreescribimos con lo que viene del form)
+            // 4. Actualizar campos planos
             solicitudDb.SNomEmpl = vm.SNomEmpl;
             solicitudDb.NNoPer = vm.NNoPer;
             solicitudDb.SUsuario = vm.SUsuario;
             solicitudDb.SCorreo = vm.SCorreo;
             solicitudDb.NUResClv = vm.NUResClv;
-            solicitudDb.NRegClv = vm.NRegClv; // El setter del VM ya convirtió el Enum a Int
+            solicitudDb.NRegClv = vm.NRegClv;
             solicitudDb.SPueEmpl = vm.SPueEmpl;
-
-            // Actualizamos metadatos de modificación
             solicitudDb.DtUltAct = DateTime.Now;
-            solicitudDb.BActivo = true; // O vm.BActivo si permites desactivar desde aquí
+            solicitudDb.BActivo = true;
 
-            // 5. SERIALIZACIÓN JSON (Convertir Objetos -> String)
-            // Como ya no usas booleanos sueltos, serializamos directo el objeto del VM
+            // 5. PROCESAR USUARIOS ADICIONALES DESDE EL JSON
+            if (!string.IsNullOrEmpty(vm.LsHumaAdiJson))
+            {
+                var opciones = new JsonSerializerOptions
+                {
+                    PropertyNameCaseInsensitive = true
+                };
 
-            // Estudiantes
-            solicitudDb.DcEstuJson = JsonSerializer.Serialize(vm.MoEstudiantes);
+                var usuariosAdicionales = JsonSerializer.Deserialize<List<MoHumanosAdicional>>(vm.LsHumaAdiJson, opciones);
 
-            // Finanzas
-            solicitudDb.DcFinaJson = JsonSerializer.Serialize(vm.MoFinanzas);
+                if (vm.MoHumanos == null)
+                    vm.MoHumanos = new MoHumanos();
 
-            // Humanos
-            solicitudDb.DcHumaJson = JsonSerializer.Serialize(vm.MoHumanos);
+                vm.MoHumanos.LsHumaAdi = usuariosAdicionales ?? new List<MoHumanosAdicional>();
+            }
 
-            // 6. Guardar cambios en BD
+            // 6. SERIALIZACIÓN JSON
+            solicitudDb.DcEstuJson = JsonSerializer.Serialize(vm.MoEstudiantes ?? new MoEstudiantes());
+            solicitudDb.DcFinaJson = JsonSerializer.Serialize(vm.MoFinanzas ?? new MoFinanzas());
+            solicitudDb.DcHumaJson = JsonSerializer.Serialize(vm.MoHumanos ?? new MoHumanos());
+
+            // 7. Guardar cambios en BD
             _daSolicitud.Actualizar(solicitudDb);
 
             return Json(new { success = true, message = "Solicitud actualizada correctamente." });
