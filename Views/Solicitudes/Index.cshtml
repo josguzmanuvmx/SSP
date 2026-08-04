@@ -1,4 +1,5 @@
-﻿@using SSP.ViewModels;
+﻿@using SSP.Extensions
+@using SSP.ViewModels;
 @using SSP.Models;
 @model IEnumerable<VmSolicitud>
 
@@ -12,7 +13,7 @@
     <script src="~/js/Scripts/jsSolicitudes.js" asp-append-version="true"></script>
 }
 
-<div class="container-fluid col-12 col-md-10 col-lg-6 text-start">
+<div class="container-fluid col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 mx-auto text-start">
     <br /><br />
     <div class="d-flex gap-3 align-items-center" style="min-height: 3rem;">
         <a class="btn btn-outline-secondary d-flex p-2" asp-controller="Inicio" asp-action="Index">
@@ -55,10 +56,10 @@
                 <tr>
                     <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Folio</th>
                     @* <th class="py-3 text-secondary text-uppercase small fw-bold">Solicitante</th> *@
-                    <th class="py-3 text-secondary text-uppercase small fw-bold">Dependencia (Clave)</th>
-                    <th class="py-3 text-secondary text-uppercase small fw-bold">Fecha</th>
+                    @* <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Dependencia (Clave)</th> *@
+                    <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Fecha</th>
                     <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Estado</th>
-                    <th class="py-3 text-secondary text-uppercase small fw-bold text-end pe-4"></th>
+                    <th class="py-3 text-secondary text-uppercase small fw-bold text-center pe-4">Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -84,35 +85,20 @@
                             </td> *@
 
                             @* Dependencia *@
-                            <td class="text-center">
+                            @* <td class="text-center">
                                 <span>@solicitud.NUResClv</span>
-                            </td>
+                            </td> *@
 
                             @* Fecha Última Actualización *@
-                            <td>
-                                <span class="text-secondary small">
+                            <td class="text-center">
+                                <span>
                                     @solicitud.DtUltAct.ToString("dd/MM/yyyy HH:mm")
                                 </span>
                             </td>
 
                             @* Estado *@
                             <td class="text-center">
-                                @if (solicitud.NEstado == 1)
-                                {
-                                    <span class="badge badge-pendiente rounded-pill px-3 py-2">
-                                        <i class="fa-regular fa-clock me-1"></i> Pendiente
-                                    </span>
-                                }
-                                else if (solicitud.NEstado == 2)
-                                {
-                                    <span class="badge badge-finalizado rounded-pill px-3 py-2">
-                                        <i class="fa-solid fa-check me-1"></i> Finalizado
-                                    </span>
-                                }
-                                else
-                                {
-                                    <span class="badge bg-light text-dark border rounded-pill">Desconocido</span>
-                                }
+                                <span>@solicitud.Estado.GetDisplayName()</span>
                             </td>
 
                             @* Acciones *@

@@ -1,4 +1,60 @@
-﻿.accordion .form-control, .form-check-input {
+﻿.divLineaEstilo {
+    flex-grow: 1;
+    height: 4px;
+    /* background-color: #e9ecef; */
+}
+.divLineaCompleta {
+    background-color: #0d6efd;
+}
+.divLineaIncompleta {
+    background-color: #dddfe1;
+}
+.divIconoEstilo {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-shrink: 0;
+    width: 3.2rem;
+    height: 3.2rem;
+    border-radius: 50%;
+    border: 3px solid #adb5bd;
+    position: relative;
+}
+.divIconoCompleto {
+    background-color: #0d6efd !important;
+    border-color: #0d6efd !important;
+    color: #fff;
+}
+.divIconoIncompleto {
+    background-color: #fff !important;
+    border-color: #dddfe1 !important;
+    color: #adb5bd;
+}
+.divIconoSeleccionado {
+    box-shadow: 0 0 0 5px rgba(13, 110, 253, 0.2) !important;
+}
+.spanIconoEstilo {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+.spanIconoSeleccionado {
+    color: #0d6efd;
+}
+.spanIconoIncompleto {
+    color: #adb5bd;
+}
+.spanIconoCompleto {
+    color: #0d6efd;
+}
+
+
+
+.accordion .form-control, .form-check-input {
     border: 1px solid #b3b3b3 !important;
 }
 
@@ -220,4 +276,103 @@
         border-radius: 5px !important;
         margin-bottom: 5px;
     }
+}
+
+/* =========================================================
+   ESCRITORIO Y TABLETS (Espacio a los lados disponible)
+   Los botones flotan a los lados del formulario.
+========================================================= */
+/*@media (min-width: 768px) {
+    .btn-lado-izq {
+        position: absolute;
+        top: 100%;
+        transform: translateY(-100%);
+        right: 100%;*/ /* Lo empuja completamente fuera del form hacia la izquierda */
+        /*margin-right: 20px;*/ /* Separación del formulario */
+    /*}
+
+    .btn-lado-der {
+        position: absolute;
+        top: 100%;
+        transform: translateY(-100%);
+        left: 100%;*/ /* Lo empuja completamente fuera del form hacia la derecha */
+        /*margin-left: 20px;*/ /* Separación del formulario */
+    /*}
+}*/
+
+/* =========================================================
+   CELULARES (Sin espacio a los lados)
+   Los botones se anclan a las esquinas inferiores.
+========================================================= */
+/*@media (max-width: 767px) {
+    .btn-lado-izq, .btn-lado-der {
+        position: relative;
+        transform: none !important;
+    }
+
+    .btn-lado-izq {
+        left: 15px;
+    }
+
+    .btn-lado-der {
+        right: 15px;
+    }
+}*/
+
+/* Contenedor principal */
+.wizard-container {
+    padding: 0 1rem;
+}
+
+/* Reseteo del botón de Bootstrap */
+.wizard-step {
+    border: none !important;
+    color: #6c757d;
+    transition: all 0.3s ease;
+}
+
+/* El círculo del ícono */
+.wizard-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 3px solid #e9ecef;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+    transition: all 0.3s ease;
+    color: #adb5bd;
+}
+
+/* Texto debajo del círculo */
+.wizard-label {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+}
+
+/* ESTADO ACTIVO (Cuando estás en ese paso) */
+.wizard-step.active {
+    color: #0d6efd !important;
+}
+
+.wizard-step.active .wizard-icon {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: #fff;
+    /* Efecto de halo brillante (Glow) */
+    box-shadow: 0 0 0 5px rgba(13, 110, 253, 0.2) !important; 
+}
+
+/* ESTADO COMPLETADO (Pasos anteriores) */
+.wizard-step.completed {
+    color: #0d6efd;
+}
+
+.wizard-step.completed .wizard-icon {
+    background-color: #fff;
+    border-color: #0d6efd;
+    color: #0d6efd;
 }

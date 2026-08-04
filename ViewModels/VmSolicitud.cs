@@ -100,11 +100,7 @@ public class VmSolicitud
     public MoHumanos MoHumanos { get; set; } = new();
 
     // --- Datos Utilidad ---
-    public int? NEstado { get; set; } = 1;
-    public Estado Estatus =>
-        NEstado.HasValue && Enum.IsDefined(typeof(Estado), NEstado.Value)
-            ? (Estado)NEstado.Value
-            : Estado.SFinal;
+    public Estado Estado { get; set; } = Estado.SPend;
     public DateTime DtFecCre { get; set; } = DateTime.Now;
     public DateTime DtUltAct { get; set; } = DateTime.Now;
     public string? SAutor { get; set; }

@@ -93,7 +93,7 @@ public class SolicitudController : Controller
                 SPueEmpl = vm.SPueEmpl,
 
                 // Datos de Control
-                NEstado = vm.NEstado ?? 1,
+                Estado = vm.Estado,
                 DtFecCre = DateTime.Now,
                 DtUltAct = DateTime.Now,
                 SAutor = User.Identity?.Name ?? "Sistema",
@@ -211,7 +211,7 @@ public class SolicitudController : Controller
             NRegClv = dbItem.NRegClv,
 
             SPueEmpl = dbItem.SPueEmpl,
-            NEstado = dbItem.NEstado,
+            Estado = dbItem.Estado,
             BActivo = dbItem.BActivo,
 
             MoFinanzas = JsonSerializer.Deserialize<MoFinanzas>(dbItem.DcFinaJson),
@@ -274,6 +274,7 @@ public class SolicitudController : Controller
             solicitudDb.NRegClv = vm.NRegClv;
             solicitudDb.SPueEmpl = vm.SPueEmpl;
             solicitudDb.DtUltAct = DateTime.Now;
+            solicitudDb.Estado = vm.Estado;
             solicitudDb.BActivo = true;
 
             // 5. PROCESAR USUARIOS ADICIONALES DESDE EL JSON

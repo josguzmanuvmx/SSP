@@ -73,7 +73,7 @@ public class ClsGenerarSolicitud
 
     public byte[] GenerarPDF_FINANZAS(VmSolicitud vmSolicitud)
     {
-        string plantillaPath = Path.Combine(_env.WebRootPath, "templates", "sprfm.docx");
+        string plantillaPath = Path.Combine(_env.WebRootPath, "templates", "usii-sf-f-01.docx");
 
         using (FileStream fileStream = new FileStream(plantillaPath, FileMode.Open, FileAccess.Read))
         {
@@ -196,7 +196,7 @@ public class ClsGenerarSolicitud
 
     public byte[] GenerarPDF_HUMANOS(VmSolicitud solicitud)
     {
-        string plantillaPath = Path.Combine(_env.WebRootPath, "templates", "siisu.xlsx");
+        string plantillaPath = Path.Combine(_env.WebRootPath, "templates", "usii-srh-f-02.xlsx");
 
         using (ExcelEngine excelEngine = new ExcelEngine())
         {

@@ -58,7 +58,7 @@
             [5, 10, 15, 20, 50, 100],
         ],
         language: {
-            url: '//cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
+            url: 'https://cdn.datatables.net/plug-ins/1.13.6/i18n/es-ES.json',
             infoEmpty: ""
         },
         autoWidth: false
@@ -297,10 +297,6 @@
     }
     fnBuscar_Usuario('txtUsuario', 'divResultados')
 
-
-    // ========================================================
-    // BOTON MANUAL PARA ALTERNAR EN INGRESAR DATOS EN USUARIO
-    // ========================================================
     function fnAlternar_CampoUsuario(txtUsr, bBloquear) {
         if (bBloquear) {
             txtUsr.classList.add('pe-none')
@@ -1287,4 +1283,117 @@
         'divContenidoSeleccionadoHuma', 'spTextoSeleccionadoHuma', 'btnEliminarSeleccionHuma'
     )
 
+    // Escucha el evento nativo de Bootstrap cuando se cambia de pestaña
+    $('#ulSolicitud button[data-bs-toggle="pill"]').on('shown.bs.tab', function (e) {
+        let index = $(e.target).parent().index(); // Índice del tab actual (0, 1, 2, 3)
+        let totalTabs = $('#ulSolicitud li').length;
+        
+        // Calcula el porcentaje de llenado de la barra
+        let percentage = (index / (totalTabs - 1)) * 100;
+        $('#wizardProgress').css('width', percentage + '%');
+    
+        // Limpia la clase "completed" de todos los botones
+        $('.wizard-step').removeClass('completed');
+    
+        // Agrega la clase "completed" a todos los pasos anteriores al actual
+        $('#ulSolicitud li').each(function(i) {
+            if (i < index) {
+                $(this).find('.wizard-step').addClass('completed');
+            }
+        });
+    });
+    
+    // Fuerza el cálculo inicial al cargar la página
+    $('#btnUsuario').trigger('shown.bs.tab');
+
+    // Usuario
+    let divLineaUsuario = document.getElementById('divLineaUsuario');
+    let divLineaUsuario2 = document.getElementById('divLineaUsuario2');
+    let divIconoUsuario = document.getElementById('divIconoUsuario');
+
+    // Permisos
+    let divLineaPermisos = document.getElementById('divLineaPermisos');
+    let divLineaPermisos2 = document.getElementById('divLineaPermisos2');
+    let divLineaPermisos3 = document.getElementById('divLineaPermisos3');
+    let divIconoPermisos = document.getElementById('divIconoPermisos');
+
+    // Descargar
+    let divLineaDescargar = document.getElementById('divLineaDescargar');
+    let divLineaDescargar2 = document.getElementById('divLineaDescargar2');
+    let divLineaDescargar3 = document.getElementById('divLineaDescargar3');
+    let divIconoDescargar = document.getElementById('divIconoDescargar');
+
+    // Finalizar
+    let divLineaFinalizar = document.getElementById('divLineaFinalizar');
+    let divLineaFinalizar2 = document.getElementById('divLineaFinalizar2');
+    let divLineaFinalizar3 = document.getElementById('divLineaFinalizar3');
+    let divIconoFinalizar = document.getElementById('divIconoFinalizar');
+    let divLineaFinalizar4 = document.getElementById('divLineaFinalizar4');
+    let divLineaFinalizar5 = document.getElementById('divLineaFinalizar5');
+
+    // Paso 1: Usuario (Completado)
+    divLineaUsuario.classList.add('divLineaCompleta');
+    divLineaUsuario2.classList.add('divLineaCompleta');
+    divIconoUsuario.classList.add('divIconoCompleto');
+
+    // Paso 2: Permisos (Activo - Azul)
+    divLineaPermisos.classList.add('divLineaCompleta');
+    divLineaPermisos2.classList.add('divLineaCompleta');
+    divLineaPermisos3.classList.add('divLineaCompleta');
+    divIconoPermisos.classList.add('divIconoCompleto');
+    divIconoPermisos.classList.add('divIconoSeleccionado');
+
+    // Paso 3: Descargar (Pendiente - Gris)
+    divLineaDescargar.classList.add('divLineaIncompleta');
+    divLineaDescargar2.classList.add('divLineaIncompleta');
+    divLineaDescargar3.classList.add('divLineaIncompleta');
+    divIconoDescargar.classList.add('divIconoIncompleto');
+
+    // Paso 4: Finalizar (Pendiente - Gris)
+    divLineaFinalizar.classList.add('divLineaIncompleta');
+    divLineaFinalizar2.classList.add('divLineaIncompleta');
+    divLineaFinalizar3.classList.add('divLineaIncompleta');
+    divIconoFinalizar.classList.add('divIconoIncompleto');
+    divLineaFinalizar4.classList.add('divLineaIncompleta');
+    divLineaFinalizar4.classList.add('divLineaIncompleta');
+    divLineaFinalizar5.classList.add('divLineaIncompleta');
+    divIconoFinalizar.classList.add('divIconoIncompleto');
+
+    function fnCompletarPaso(divLinea, divIcono, divLinea2, divIcono2) {
+        divLinea.classList.add('divLineaCompleta');
+        divLinea2.classList.add('divLineaCompleta');
+        divIcono.classList.add('divIconoCompleto');
+        divIcono2.classList.add('divIconoCompleto');
+    }
+    function fnIncompletarPaso(divLinea, divIcono, divLinea2, divIcono2) {
+        divLinea.classList.add('divLineaIncompleta');
+        divLinea2.classList.add('divLineaIncompleta');
+        divIcono.classList.add('divIconoIncompleto');
+        divIcono2.classList.add('divIconoIncompleto');
+    }
+    function fnCompletarPasoActivo(divLinea, divIcono, divLinea2, divIcono2) {
+        fnCompletarPaso(divLinea, divIcono, divLinea2, divIcono2);
+        divIcono.classList.add('divIconoSeleccionado');
+        divLinea.classList.add('divLineaSeleccionada');
+        divLinea2.classList.add('divLineaSeleccionada');
+    }
+    function fnIncompletarPasoActivo(divLinea, divIcono, divLinea2, divIcono2) {
+        fnIncompletarPaso(divLinea, divIcono, divLinea2, divIcono2);
+        divIcono.classList.remove('divIconoSeleccionado');
+        divLinea.classList.remove('divLineaSeleccionada');
+        divLinea2.classList.remove('divLineaSeleccionada');
+    }
+    // ----------
+
+    // Paso 1: Usuario (Completado)
+    fnCompletarPasoActivo(divLineaUsuario, divIconoUsuario, divLineaUsuario2, divIconoUsuario2);
+
+    // Paso 2: Permisos (Activo - Azul)
+    fnCompletarPasoActivo(divLineaPermisos, divIconoPermisos, divLineaPermisos2, divIconoPermisos2);
+
+    // Paso 3: Descargar (Pendiente - Gris)
+    fnIncompletarPasoActivo(divLineaDescargar, divIconoDescargar, divLineaDescargar2, divIconoDescargar2);
+
+    // Paso 4: Finalizar (Pendiente - Gris)
+    fnIncompletarPasoActivo(divLineaFinalizar, divIconoFinalizar, divLineaFinalizar2, divIconoFinalizar2);
 });

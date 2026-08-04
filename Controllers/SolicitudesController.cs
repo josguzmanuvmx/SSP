@@ -45,7 +45,7 @@ public class SolicitudesController : Controller
             SUResNom = dbItem.NUResClv.ToString(),
 
             // Estatus y Fechas
-            NEstado = dbItem.NEstado,
+            Estado = dbItem.Estado,
             DtFecCre = dbItem.DtFecCre,
 
             // No es necesario deserializar los JSON (dcFina, dcEstu) para el listado principal

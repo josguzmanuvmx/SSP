@@ -1,0 +1,56 @@
+﻿@section Styles {
+    <link rel="stylesheet" href="~/css/Estilos/cssSeleccion.css" asp-append-version="true" />
+}
+
+<div class="container-fluid col-12 col-md-10 text-center">
+    <div class="my-2 py-1 my-md-2 py-md-4"></div>
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 3rem;">
+        <h3 class="m-0">¡Bienvenid@@, selecciona una acción!</h3>
+    </div>
+    <div class="my-2 py-1 my-md-5 py-md-3"></div>
+    <div class="d-flex flex-wrap justify-content-center align-items-center g-4 mt-3 mt-md-5 pb-4 gap-3 gap-md-4 gap-lg-5">
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 16rem; height: 15rem;">
+            <i class="fa-solid fa-file-circle-plus" style="font-size: 5.6rem; padding: .4rem;"></i>
+            <h4 class="card-title mt-4">Crear Solicitud</h4>
+            <a asp-controller="Solicitud" asp-action="Index" class="stretched-link"></a>
+        </div>
+
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 16rem; height: 15rem;">
+            <i class="fa-solid fa-folder-open" style="font-size: 6rem;"></i>
+            <h4 class="card-title mt-4">Ver Solicitudes</h4>
+            <a asp-controller="Solicitudes" asp-action="Index" class="stretched-link"></a>
+        </div>
+
+        @* <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 16rem; height: 14rem;">
+            <i class="fa-solid fa-folder-open" style="font-size: 6rem;"></i>
+            <h4 class="card-title mt-4">Sprfm</h4>
+            <a asp-controller="Sprfm" asp-action="Index" class="stretched-link"></a>
+        </div> *@
+    </div>
+</div>
+
+
+@* Sprfm *@
+@* <div class="container-fluid col-12 col-md-8 col-lg-7 col-xl-6 text-center">
+    <br /><br />
+    <div class="d-flex justify-content-center align-items-center" style="min-height: 3rem;">
+        <h3 class="m-0">¡Bienvenid@@, selecciona el tipo de permiso!</h3>
+    </div>
+    <br /><br /><br />
+    <div class="d-flex flex-wrap justify-content-center align-items-center g-4 mt-5 gap-3 gap-md-4 gap-lg-5">
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column shadow" style="width: 17rem; height: 15rem;">
+            <h2 class="card-title fw-bold mt-5">SPRFM</h2>
+            <div class="card-subtitle mt-3" style="font-size: .94rem;">
+                Solicitud de permisos al Subsistema de Planeación, Recursos Financieros y Materiales
+            </div>
+            <a asp-controller="Sprfm" asp-action="Index" class="stretched-link"></a>
+        </div>
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column shadow" style="width: 17rem; height: 15rem;">
+            <h2 class="card-title fw-bold mt-5">SIISU</h2>
+            <div class="card-subtitle mt-3" style="font-size: .94rem;">
+                Solicitud de Permisos al Subsistema de Recursos Humanos
+            </div>
+            <a asp-controller="Siisu" asp-action="Index" class="stretched-link"></a>
+        </div>
+    </div>
+</div> *@

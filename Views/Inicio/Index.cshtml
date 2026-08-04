@@ -1,8 +1,181 @@
-﻿@section Styles {
-    <link rel="stylesheet" href="~/css/Estilos/cssSeleccion.css" asp-append-version="true" />
-}
+﻿@using SSP.Extensions
+@using SSP.ViewModels;
+@using SSP.Models;
+@model IEnumerable<VmSolicitud>
 
-<div class="container-fluid col-12 col-md-10 text-center">
+@section Styles {
+    <link rel="stylesheet" href="~/css/Estilos/cssInicio.css" asp-append-version="true" />
+}
+@section Scripts {
+    <script src="~/js/Scripts/jsInicio.js" asp-append-version="true"></script>
+}
+@* @section Styles {
+    <link rel="stylesheet" href="~/css/Estilos/cssSeleccion.css" asp-append-version="true" />
+} *@
+
+@* <div class="container-fluid col-12 col-md-8 col-lg-7 col-xl-6 col-xxl-5 mx-auto text-start"> *@
+<div class="container container-fluid">
+    <br />
+    <div class="d-flex gap-3 align-items-center" style="min-height: 3rem;">
+        <h3 class="m-0">Solicitudes</h3>
+    </div>
+    <div class="row g-2 mt-2 mt-md-4 align-items-center">
+    
+        <div class="col-auto order-2 order-md-1">
+            <div class="input-group">
+                <label class="input-group-text" for="ddlSolicitudes">Ver:</label>
+                <select id="ddlSolicitudes" class="form-select">
+                    <option value="5">5</option>
+                    <option value="10" selected>10</option>
+                    <option value="25">25</option>
+                    <option value="50">50</option>
+                    <option value="100">100</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-12 col-md order-1 order-md-2">
+            <div class="input-group">
+                <input id="txtBuscar" type="text" class="form-control" placeholder="Escriba el nombre de una solicitud" aria-label="Buscar Solicitud" />
+            </div>
+        </div>
+
+        <div class="col-auto order-3 order-md-3 ms-auto ms-md-0">
+            <a asp-action="Crear" asp-controller="Solicitud" id="btnAgregar" class="btn btn-primary d-flex align-items-center justify-content-center gap-2 px-3" data-bs-toggle="tooltip" title="Agregar">
+                <i class="fa-solid fa-plus" style="font-size: 14px;"></i>
+                <span class="fw-semibold">Crear solicitud</span>
+            </a>
+        </div>
+        
+    </div>
+    <div class="table-responsive mt-2">
+        <input type="hidden" id="urlEliminarSegura" value="@Url.Action("Eliminar", "Inicio")" />
+        <table id="tblSolicitudes" name="tblSolicitudes" class="table table-striped table-bordered w-100">
+            <thead>
+                <tr>
+                    <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Folio</th>
+                    @* <th class="py-3 text-secondary text-uppercase small fw-bold">Solicitante</th> *@
+                    @* <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Dependencia (Clave)</th> *@
+                    <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Fecha</th>
+                    <th class="py-3 text-secondary text-uppercase small fw-bold text-center">Estado</th>
+                    <th class="py-3 text-secondary text-uppercase small fw-bold text-center pe-4">Acciones</th>
+                </tr>
+            </thead>
+            <tbody>
+                @if (Model != null && Model.Any())
+                {
+                    @foreach (var solicitud in Model)
+                    {
+                        <tr class="align-middle">
+                            @* Folio *@
+                            <td class="text-center">
+                                <span class="">@solicitud.SFolio</span>
+                            </td>
+
+                            @* Solicitante *@
+                            @* <td>
+                                <div class="d-flex flex-column">
+                                    <span class="fw-semibold text-dark">@solicitud.SNomEmpl</span>
+                                    <div class="d-flex gap-2 text-muted mt-1" style="font-size: 0.75rem;">
+                                        <span><i class="fa-regular fa-id-badge"></i> @solicitud.NNoPer</span>
+                                        <span><i class="fa-regular fa-user"></i> @solicitud.SUsuario</span>
+                                    </div>
+                                </div>
+                            </td> *@
+
+                            @* Dependencia *@
+                            @* <td class="text-center">
+                                <span>@solicitud.NUResClv</span>
+                            </td> *@
+
+                            @* Fecha Última Actualización *@
+                            <td class="text-center">
+                                <span>
+                                    @solicitud.DtUltAct.ToString("dd/MM/yyyy HH:mm")
+                                </span>
+                            </td>
+
+                            @* Estado *@
+                            <td class="text-center">
+                                <span>@solicitud.Estado.GetDisplayName()</span>
+                            </td>
+
+                            @* Acciones *@
+                            <td class="text-center">
+                                <div class="d-flex justify-content-center gap-1">
+
+                                    @* Editar *@
+                                    <a asp-controller="Solicitud"
+                                       asp-action="Editar"
+                                       asp-route-sId="@solicitud.SId"
+                                       class="btn btn-sm btn-outline-secondary fs-6 px-2 py-1 border-0 rounded-2"
+                                       data-bs-toggle="tooltip"
+                                       title="Editar">
+                                        <i class="fa-solid fa-pen"></i>
+                                    </a>
+
+                                    @* Eliminar *@
+                                    <button type="button"
+                                            onclick="fnAbrirModalEliminar('@solicitud.SId')"
+                                            class="btn btn-sm btn-outline-danger fs-6 px-2 py-1 border-0 rounded-2"
+                                            data-bs-toggle="tooltip"
+                                            title="Eliminar">
+                                        <i class="fa-solid fa-trash-can"></i>
+                                    </button>
+                                </div>
+                            </td>
+                        </tr>
+                    }
+                }
+                else
+                {
+                    <tr class="empty-row">
+                        <td colspan="6" class="text-center py-5">
+                            <div class="d-flex flex-column align-items-center opacity-50">
+                                <i class="fa-regular fa-folder-open fa-3x mb-3 text-secondary"></i>
+                                <h5 class="text-muted fw-bold">No hay solicitudes registradas</h5>
+                                <p class="text-muted small">Haz clic en "Nueva Solicitud" para comenzar.</p>
+                            </div>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+
+@* Modal Eliminar *@
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+    <input type="hidden" id="hdnIdEliminar" value="" />
+    
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-0 shadow-lg">
+            <div class="modal-header bg-danger text-white border-0">
+                <h5 class="modal-title fw-bold" id="modalEliminarLabel">
+                    <i class="fa-solid fa-triangle-exclamation me-2"></i> Confirmar Eliminación
+                </h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body text-center py-4">
+                <div class="mb-3 text-danger opacity-75">
+                    <i class="fa-regular fa-trash-can fa-4x"></i>
+                </div>
+                <h5 class="fw-bold">¿Estás seguro?</h5>
+                <p class="text-muted mb-0">Esta acción eliminará la solicitud permanentemente y no se puede deshacer.</p>
+
+                <input type="hidden" id="hdnIdEliminar" value="" />
+            </div>
+            <div class="modal-footer border-0 justify-content-center pb-4">
+                <button type="button" class="btn btn-light px-4" data-bs-dismiss="modal">Cancelar</button>
+                <button type="button" id="btnConfirmarEliminar" class="btn btn-danger px-4">
+                    <i class="fa-solid fa-trash-can me-2"></i> Sí, eliminar
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* <div class="container-fluid col-12 col-md-10 text-center">
     <div class="my-2 py-1 my-md-2 py-md-4"></div>
     <div class="d-flex justify-content-center align-items-center" style="min-height: 3rem;">
         <h3 class="m-0">¡Bienvenid@@, selecciona una acción!</h3>
@@ -21,13 +194,13 @@
             <a asp-controller="Solicitudes" asp-action="Index" class="stretched-link"></a>
         </div>
 
-        @* <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 16rem; height: 14rem;">
+        <div class="item-solicitud bg-white border text-dark rounded-3 p-3 d-flex flex-column justify-content-center align-items-center shadow" style="width: 16rem; height: 14rem;">
             <i class="fa-solid fa-folder-open" style="font-size: 6rem;"></i>
-            <h4 class="card-title mt-4">Sprfm</h4>
-            <a asp-controller="Sprfm" asp-action="Index" class="stretched-link"></a>
-        </div> *@
+            <h4 class="card-title mt-4">sprfm</h4>
+            <a asp-controller="sprfm" asp-action="index" class="stretched-link"></a>
+        </div>
     </div>
-</div>
+</div> *@
 
 
 @* Sprfm *@

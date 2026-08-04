@@ -203,7 +203,6 @@ C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\obj\Debug\net8.0\staticwebassets.
 C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\obj\Debug\net8.0\staticwebassets.build.json.cache
 C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\obj\Debug\net8.0\staticwebassets.development.json
 C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\obj\Debug\net8.0\staticwebassets.build.endpoints.json
-C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\obj\Debug\net8.0\staticwebassets.upToDateCheck.txt
 C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\obj\Debug\net8.0\SSP.csproj.Up2Date
 C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\obj\Debug\net8.0\SSP.dll
 C:\Users\UV\Desktop\UV\Solicitud-UV\Github\SSP\obj\Debug\net8.0\refint\SSP.dll

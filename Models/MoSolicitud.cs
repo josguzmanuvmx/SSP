@@ -95,7 +95,7 @@ public class MoSolicitud
     // --- Datos Utilidad ---
 
     [Column("nEstado")]
-    public int? NEstado { get; set; }
+    public Estado Estado { get; set; }
 
     [Column("dtFecCre")]
     public DateTime DtFecCre { get; set; }
